@@ -35,8 +35,10 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
     private static final EntityDataAccessor<Boolean> roost = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Boolean> baby = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Integer> baby = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
+
     public static final RawAnimation idleRaw = RawAnimation.begin().thenLoop("idle");
     public static final RawAnimation babyRaw = RawAnimation.begin().thenLoop("baby");
     public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
@@ -49,7 +51,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(roost, false);
-        builder.define(baby, false);
+        builder.define(baby, 0);
     }
 
     @Nullable
@@ -67,9 +69,24 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
         return this.entityData.get(roost);
     }
 
-    public boolean isBaby() { return this.entityData.get(baby); }
-    public void setBaby(boolean b) {this.entityData.set(baby, b);}
+    @Override
+    public boolean isBaby() {
+        return this.entityData.get(baby) < 300;
+    }
 
+    public int getBaby() {
+        return this.entityData.get(baby);
+    }
+
+    public void setBaby(int b) {this.entityData.set(baby, b);}
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (isBaby()) {
+            setBaby(getBaby()+1);
+        }
+    }
 
     @Override
     public boolean canBeLeashed() {
@@ -80,14 +97,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
-        this.setBaby(compound.getBoolean("baby"));
+        this.setBaby(compound.getInt("baby"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
-        compound.putBoolean("baby", isBaby());
+        compound.putInt("baby", getBaby());
     }
 
     @Override
