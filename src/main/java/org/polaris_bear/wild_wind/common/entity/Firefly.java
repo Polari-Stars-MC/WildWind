@@ -158,6 +158,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     }
 
     private PlayState handle(AnimationState<Firefly> state) {
+        state.setControllerSpeed(isRoost() ? 0.3f: 1f);
         state.setAndContinue( RawAnimation.begin().thenLoop("idle"));
         return PlayState.CONTINUE;
     }
