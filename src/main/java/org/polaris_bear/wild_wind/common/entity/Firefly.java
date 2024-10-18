@@ -36,15 +36,20 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     private static final EntityDataAccessor<Boolean> roost = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> baby = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
+    public static final RawAnimation idleRaw = RawAnimation.begin().thenLoop("idle");
+    public static final RawAnimation babyRaw = RawAnimation.begin().thenLoop("baby");
     public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
+
     }
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(roost, false);
+        builder.define(baby, false);
     }
 
     @Nullable
@@ -62,6 +67,9 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
         return this.entityData.get(roost);
     }
 
+    public boolean isBaby() { return this.entityData.get(baby); }
+    public void setBaby(boolean b) {this.entityData.set(baby, b);}
+
 
     @Override
     public boolean canBeLeashed() {
@@ -72,12 +80,14 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
+        this.setBaby(compound.getBoolean("baby"));
     }
 
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
+        compound.putBoolean("baby", isBaby());
     }
 
     @Override
@@ -159,7 +169,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
 
     private PlayState handle(AnimationState<Firefly> state) {
         state.setControllerSpeed(isRoost() ? 0.3f: 1f);
-        state.setAndContinue( RawAnimation.begin().thenLoop("idle"));
+        state.setAndContinue( isBaby() ? babyRaw : idleRaw);
         return PlayState.CONTINUE;
     }
 
