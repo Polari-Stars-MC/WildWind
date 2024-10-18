@@ -30,10 +30,7 @@ import org.polaris_bear.wild_wind.common.entity.goal.FireflyFlyGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyRoostGoal;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.AnimatableManager;
-import software.bernie.geckolib.animation.AnimationController;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.animation.PlayState;
+import software.bernie.geckolib.animation.*;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
@@ -160,7 +157,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
         ));
     }
 
-    private PlayState handle(AnimationState<Firefly> fireflyAnimationState) {
+    private PlayState handle(AnimationState<Firefly> state) {
+        state.setAndContinue( RawAnimation.begin().thenLoop("idle"));
         return PlayState.CONTINUE;
     }
 
