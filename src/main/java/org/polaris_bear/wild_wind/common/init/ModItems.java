@@ -16,6 +16,7 @@ public class ModItems {
             DeferredRegister.createItems(WildWindMod.MOD_ID);
 
     public static final DeferredItem<Item> GLOW_GOOP = register("glow_goop");
+    public static final DeferredItem<Item> GLOW_POWDER = register("glow_powder");
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
             register("firefly_spawn_egg",
                     ModEntities.FIREFLY,

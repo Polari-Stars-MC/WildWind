@@ -25,3 +25,5 @@ runs
 run-data
 
 repo
+
+src/generated

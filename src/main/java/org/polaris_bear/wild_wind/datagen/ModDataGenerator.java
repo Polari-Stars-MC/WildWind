@@ -21,5 +21,6 @@ public class ModDataGenerator {
         gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
         gen.addProvider(event.includeServer(), new ModBlockTagsProvider(pack, provider, helper));
+        gen.addProvider(event.includeServer(), new ModLootTableProvider(pack, provider));
     }
 }

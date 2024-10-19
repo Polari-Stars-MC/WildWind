@@ -151,3 +151,7 @@ idea {
         downloadJavadoc = true
     }
 }
+
+build {
+    dependsOn(runData)
+}
