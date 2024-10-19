@@ -152,6 +152,4 @@ idea {
     }
 }
 
-build {
-    dependsOn(runData)
-}
+runClient.dependsOn(runData)
