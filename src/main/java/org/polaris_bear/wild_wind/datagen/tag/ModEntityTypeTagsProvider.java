@@ -1,4 +1,4 @@
-package org.polaris_bear.wild_wind.datagen;
+package org.polaris_bear.wild_wind.datagen.tag;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -21,7 +21,10 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        IntrinsicTagAppender<EntityType<?>> tag = tag(EntityTypeTags.ARTHROPOD);
-        tag.add(ModEntities.FIREFLY.get());
+        IntrinsicTagAppender<EntityType<?>> arthropod = tag(EntityTypeTags.ARTHROPOD);
+        IntrinsicTagAppender<EntityType<?>> frogFood = tag(EntityTypeTags.FROG_FOOD);
+        arthropod.add(ModEntities.FIREFLY.get());
+        frogFood.add(ModEntities.FIREFLY.get());
+
     }
 }
