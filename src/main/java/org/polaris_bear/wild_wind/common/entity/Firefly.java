@@ -44,7 +44,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
-
+        this.xpReward = getRandom().nextInt(3) + 1;
     }
 
     @Override
