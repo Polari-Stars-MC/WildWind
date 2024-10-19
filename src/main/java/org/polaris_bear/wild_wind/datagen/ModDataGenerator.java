@@ -6,6 +6,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.polaris_bear.wild_wind.WildWindMod;
 import org.polaris_bear.wild_wind.datagen.lang.ModLangProviderEn;
 import org.polaris_bear.wild_wind.datagen.lang.ModLangProviderZh;
+import org.polaris_bear.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class ModDataGenerator {
