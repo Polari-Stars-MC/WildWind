@@ -1,4 +1,4 @@
-package org.polaris_bear.wild_wind.datagen;
+package org.polaris_bear.wild_wind.datagen.tag;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -9,7 +9,7 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris_bear.wild_wind.WildWindMod;
-import org.polaris_bear.wild_wind.common.init.ModBlockTags;
+import org.polaris_bear.wild_wind.common.init.tags.ModBlockTags;
 
 import java.util.concurrent.CompletableFuture;
 

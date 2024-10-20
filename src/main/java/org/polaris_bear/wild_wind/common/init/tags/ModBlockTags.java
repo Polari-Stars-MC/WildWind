@@ -1,4 +1,4 @@
-package org.polaris_bear.wild_wind.common.init;
+package org.polaris_bear.wild_wind.common.init.tags;
 
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
