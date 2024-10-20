@@ -1,5 +1,6 @@
 package org.polaris_bear.wild_wind.common.entity;
 
+import com.google.common.base.Function;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -9,13 +10,11 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ambient.AmbientCreature;
@@ -31,7 +30,10 @@ import org.polaris_bear.wild_wind.common.entity.goal.FireflyRoostGoal;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
+import software.bernie.geckolib.animation.AnimationState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.List;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
@@ -135,13 +137,17 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
 
     }
-
+    public static final List<Function<Firefly, Goal>> FACTORY = List
+            .of(
+                    FireflyBaseGoal::new,
+                    FireflyFlyGoal::new,
+                    FireflyRoostGoal::new
+            );
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FireflyBaseGoal(this));
-        this.goalSelector.addGoal(1, new FireflyRoostGoal(this));
-        this.goalSelector.addGoal(2, new FireflyFlyGoal(this));
-
+        for (int i = 0; i < FACTORY.size(); i++) {
+            this.goalSelector.addGoal(i, FACTORY.get(i).apply(this));
+        }
     }
 
     @Override
