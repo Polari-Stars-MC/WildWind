@@ -35,9 +35,10 @@ jobs:
       - name: Build with Gradle
         run: ./gradlew build
       - name: Run Server Gradle
-        run: ./gradlew runServer
-      - name: Stop
-        run: stop
+        run: |
+          ./gradlew runServer
+          stop
+
       - name: Upload binaries to release
         uses: actions/upload-artifact@v4
         with:
