@@ -24,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
+import org.polaris_bear.wild_wind.WildWindConfig;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyBaseGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyFlyGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyRoostGoal;
@@ -73,7 +74,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
 
     @Override
     public boolean isBaby() {
-        return this.entityData.get(BABY) < 300;
+        return this.entityData.get(BABY) < WildWindConfig.firefly_age;
     }
 
     public int getBaby() {

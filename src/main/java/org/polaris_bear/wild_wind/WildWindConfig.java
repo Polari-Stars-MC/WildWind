@@ -10,7 +10,8 @@ import java.util.Locale;
 @AutoConfig(modid = WildWindMod.MOD_ID)
 public class WildWindConfig {
 
-
+    @DefineIntRange(value = "firefly.age", defaultValue = 24000, min = 2000, max = 24000)
+    public static int firefly_age;
 
 //    public enum TestEnum implements StringRepresentable {
 //        A,B,C,D,E;
