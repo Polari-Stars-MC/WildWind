@@ -5,11 +5,25 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import org.polaris_bear.wild_wind.util.Helpers;
 
-public class ModBlockTags {
+import java.util.Locale;
+import java.util.function.Supplier;
 
-    public static final TagKey<Block> FIREFLY_ROOST_BLOCK = register("firefly_roost_block");
+import static org.polaris_bear.wild_wind.util.Helpers.blockTags;
 
-    private static TagKey<Block> register(String name) {
-        return BlockTags.create(Helpers.location(name));
+public enum ModBlockTags implements Supplier<TagKey<Block>> {
+    FIREFLY_ROOST_BLOCK;
+    final TagKey<Block> tag;
+    ModBlockTags() {
+        tag = blockTags(name().toLowerCase(Locale.ROOT));
+    }
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     */
+    @Override
+    public TagKey<Block> get() {
+        return tag;
     }
 }
