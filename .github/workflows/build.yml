@@ -37,7 +37,7 @@ jobs:
       - name: Run Server Gradle
         run: |
           ./gradlew runServer
-          stop
+          echo 'stop'
 
       - name: Upload binaries to release
         uses: actions/upload-artifact@v4
