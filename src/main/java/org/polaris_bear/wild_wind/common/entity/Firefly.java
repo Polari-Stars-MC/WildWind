@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.polaris_bear.wild_wind.WildWindConfig;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyBaseGoal;
@@ -97,7 +98,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     }
 
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
+    public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
         this.setBaby(compound.getInt("baby"));
