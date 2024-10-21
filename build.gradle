@@ -1,7 +1,7 @@
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '1.0.20'
+    id 'net.neoforged.moddev' version '2.0.42-beta'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -37,6 +37,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     version = project.neo_version
+    neoFormVersion = "${minecraft_version}-${neo_form_version}"
 
     parchment {
         mappingsVersion = project.parchment_mappings_version
@@ -46,7 +47,6 @@ neoForge {
     runs {
         client {
             client()
-
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
@@ -152,11 +152,9 @@ if (!jijg.isEmpty()) {
     }
 }
 
-idea {
-    module {
-        downloadSources = true
-        downloadJavadoc = true
-    }
-}
-
-runClient.dependsOn(runData)
+//idea {
+//    module {
+//        downloadSources = true
+//        downloadJavadoc = true
+//    }
+//}

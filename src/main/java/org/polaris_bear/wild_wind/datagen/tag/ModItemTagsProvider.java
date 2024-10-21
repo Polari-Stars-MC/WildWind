@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -14,6 +15,7 @@ import org.polaris_bear.wild_wind.WildWindMod;
 import org.polaris_bear.wild_wind.common.init.tags.ModItemTags;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.function.Supplier;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
 
@@ -26,5 +28,10 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         IntrinsicTagAppender<Item> firefly_food = tag(ModItemTags.FIREFLY_FOOD);
         firefly_food.add(Items.GLOW_BERRIES, Items.GLOW_LICHEN);
+    }
+
+
+    protected IntrinsicTagAppender<Item> tag(Supplier<TagKey<Item>> tag) {
+        return super.tag(tag.get());
     }
 }
