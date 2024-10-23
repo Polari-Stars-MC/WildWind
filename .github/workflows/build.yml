@@ -9,6 +9,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Get branch names
+        id: branch-names
+        uses: tj-actions/branch-names@v8
       - name: Cache
         uses: actions/cache@v4
         with:
@@ -17,7 +20,7 @@ jobs:
             ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
-            ${{ runner.os }}-gradle-
+            ${{ runner.os }}-gradle-${{steps.branch-names.outputs.current_branch}}
       - uses: actions/checkout@v4
       - uses: BrycensRanch/read-properties-action@v1
         id: version
