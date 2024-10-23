@@ -30,7 +30,6 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     version = project.neo_version
-    neoFormVersion = "${minecraft_version}-${neo_form_version}"
 
     parchment {
         mappingsVersion = project.parchment_mappings_version
