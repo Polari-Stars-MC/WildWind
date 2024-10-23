@@ -6,8 +6,8 @@ import org.polaris_bear.wild_wind.common.entity.Firefly;
 
 public class FireflyRoostGoal extends FireflyFlyGoal{
 
-    public FireflyRoostGoal(Firefly Firefly) {
-        super(Firefly);
+    public FireflyRoostGoal(Firefly firefly) {
+        super(firefly);
     }
 
     @Override

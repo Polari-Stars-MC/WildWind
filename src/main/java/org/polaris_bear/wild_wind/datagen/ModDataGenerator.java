@@ -6,6 +6,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.polaris_bear.wild_wind.WildWindMod;
 import org.polaris_bear.wild_wind.datagen.lang.ModLangProviderEn;
 import org.polaris_bear.wild_wind.datagen.lang.ModLangProviderZh;
+import org.polaris_bear.wild_wind.datagen.lang.ModLangProviderZhTw;
 import org.polaris_bear.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris_bear.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris_bear.wild_wind.datagen.tag.ModItemTagsProvider;
@@ -21,6 +22,7 @@ public class ModDataGenerator {
         var helper = event.getExistingFileHelper();
         gen.addProvider(event.includeClient(), new ModLangProviderEn(pack));
         gen.addProvider(event.includeClient(), new ModLangProviderZh(pack));
+        gen.addProvider(event.includeClient(), new ModLangProviderZhTw(pack));
         gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(pack, provider, helper);

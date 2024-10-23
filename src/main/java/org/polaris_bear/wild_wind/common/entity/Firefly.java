@@ -6,7 +6,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.world.DifficultyInstance;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -18,17 +18,21 @@ import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ambient.AmbientCreature;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.FlyingAnimal;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.polaris_bear.wild_wind.WildWindConfig;
+import org.polaris_bear.wild_wind.WildWindMod;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyBaseGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyFlyGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyRoostGoal;
+import org.polaris_bear.wild_wind.common.entity.goal.FireflyGlowGoal;
+import org.polaris_bear.wild_wind.common.init.ModEntities;
+import org.polaris_bear.wild_wind.common.init.tags.ModItemTags;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.animation.*;
@@ -37,59 +41,72 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
+public class Firefly extends Animal implements FlyingAnimal, GeoEntity {
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
+    private static final EntityDimensions BABY_DIMENSIONS = ModEntities.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
+
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> BABY = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 
     public static final RawAnimation IDLE_RAW = RawAnimation.begin().thenLoop("idle");
     public static final RawAnimation BABY_RAW = RawAnimation.begin().thenLoop("baby");
-    public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
+    public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
         this.xpReward = getRandom().nextInt(3) + 1;
+
     }
 
     @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(ROOST, false);
-        builder.define(BABY, 0);
+    protected @NotNull EntityDimensions getDefaultDimensions(@NotNull Pose pose) {
+        return isBaby() ? BABY_DIMENSIONS : super.getDefaultDimensions(pose);
     }
 
     @Nullable
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
-
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+    public AgeableMob getBreedOffspring(@NotNull ServerLevel serverLevel, @NotNull AgeableMob ageableMob) {
+        return ModEntities.FIREFLY.get().create(serverLevel);
     }
+
+    @Override
+    protected void defineSynchedData(SynchedEntityData.@NotNull Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(ROOST, false);
+        builder.define(TICKER, 0);
+
+
+    }
+
+
 
     public void setRoost(boolean r) {
         this.entityData.set(ROOST, r);
     }
 
+    public void setTicker(int ticker) { this.entityData.set(TICKER, ticker); }
+
+    public int getTicker() { return this.entityData.get(TICKER); }
+
+    public boolean isTicker() {
+        if (getTicker() < 600) {
+            addTicker();
+            return true;
+        }
+        return false;
+    }
+
+    public void addTicker() { this.entityData.set(TICKER, this.entityData.get(TICKER)+1); }
+    public void clearTicker() { this.entityData.set(TICKER, 0); }
+
     public boolean isRoost() {
         return this.entityData.get(ROOST);
     }
 
-    @Override
-    public boolean isBaby() {
-        return this.entityData.get(BABY) < WildWindConfig.firefly_age;
-    }
-
-    public int getBaby() {
-        return this.entityData.get(BABY);
-    }
-
-    public void setBaby(int b) {this.entityData.set(BABY, b);}
 
     @Override
     public void tick() {
         super.tick();
-        if (isBaby()) {
-            setBaby(getBaby()+1);
-        }
     }
 
     @Override
@@ -101,18 +118,23 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     public void readAdditionalSaveData(@NotNull CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
-        this.setBaby(compound.getInt("baby"));
+        this.setTicker(compound.getInt("ticker"));
     }
 
     @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
+    public boolean isFood(ItemStack itemStack) {
+        return itemStack.is(ModItemTags.FIREFLY_FOOD.get());
+    }
+
+    @Override
+    public void addAdditionalSaveData(@NotNull CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
-        compound.putInt("baby", getBaby());
+        compound.putInt("ticker", getTicker());
     }
 
     @Override
-    protected PathNavigation createNavigation(Level level) {
+    protected @NotNull PathNavigation createNavigation(@NotNull Level level) {
         FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
             @Override
             public boolean isStableDestination(BlockPos pos) {
@@ -143,7 +165,8 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
             .of(
                     FireflyBaseGoal::new,
                     FireflyFlyGoal::new,
-                    FireflyRoostGoal::new
+                    FireflyRoostGoal::new,
+                    FireflyGlowGoal::new
             );
     @Override
     protected void registerGoals() {
@@ -153,7 +176,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+    public InteractionResult mobInteract(Player player, InteractionHand hand) {
         return super.mobInteract(player, hand);
     }
 
@@ -161,6 +184,7 @@ public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
         return AmbientCreature.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8f)
                 .add(Attributes.FLYING_SPEED, 0.6f)
+                .add(Attributes.GRAVITY, 0.0f)
                 .build();
     }
 
