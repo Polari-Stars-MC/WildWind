@@ -95,7 +95,6 @@ if (!jijg.isEmpty()) {
 dependencies {
     compileOnly(project(":annotation"))
     annotationProcessor(project(":processor"))
-
     compileOnly(libs.bundles.linkage)
     runtimeOnly(libs.bundles.linkage)
     implementation(jij)
@@ -123,9 +122,14 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
     from "src/main/templates"
     into "build/generated/sources/modMetadata"
 }
+def at = file("src/main/resources/META-INF/accesstransformer.cfg")
 
 sourceSets.main.resources.srcDir generateModMetadata
 neoForge.ideSyncTask generateModMetadata
+if (at.readBytes().length != 0) {
+    neoForge.setAccessTransformers(at)
+}
+
 
 publishing {
     publications {
@@ -140,9 +144,15 @@ publishing {
     }
 }
 
+jar {
+    exclude(".cache")
+    if (at.readBytes().length == 0) {
+        exclude("META-INF/accesstransformer.cfg")
+    }
+}
+
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
-    exclude(".cache/**")
 }
 
 if (!jijg.isEmpty()) {
