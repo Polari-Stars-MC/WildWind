@@ -14,6 +14,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        spawnEggItem(ModItems.FIREFLY_SPAWN_EGG.get());
+//        spawnEggItem(ModItems.FIREFLY_SPAWN_EGG.get());
+        withExistingParent(ModItems.FIREFLY_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 }

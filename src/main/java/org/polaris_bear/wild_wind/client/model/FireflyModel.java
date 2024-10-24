@@ -26,9 +26,6 @@ public class FireflyModel extends GeoModel<Firefly> {
      */
     @Override
     public ResourceLocation getTextureResource(Firefly animatable) {
-        if (animatable.getLastHurtByMob() == null) {
-            return Helpers.location("textures/entity/firefly_glow.png");
-        }
         return Helpers.location("textures/entity/firefly.png");
     }
 
