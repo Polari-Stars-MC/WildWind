@@ -20,8 +20,8 @@ public class ModItems {
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
             register("firefly_spawn_egg",
                     ModEntities.FIREFLY,
-                            0x000000,
-                            0x000000, new Item.Properties());
+                            0xAA8F74,
+                            0x0A233F, new Item.Properties());
 
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
