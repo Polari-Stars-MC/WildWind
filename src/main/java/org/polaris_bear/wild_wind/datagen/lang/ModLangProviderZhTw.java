@@ -9,7 +9,7 @@ import org.polaris_bear.wild_wind.common.init.ModItems;
 public class ModLangProviderZhTw extends LanguageProvider {
 
     public ModLangProviderZhTw(PackOutput output) {
-        super(output, WildWindMod.MOD_ID, "zh_cn");
+        super(output, WildWindMod.MOD_ID, "zh_tw");
     }
 
     @Override
