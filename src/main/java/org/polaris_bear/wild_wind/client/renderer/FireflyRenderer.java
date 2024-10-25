@@ -18,14 +18,19 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import org.polaris_bear.wild_wind.common.entity.Firefly;
+import org.polaris_bear.wild_wind.util.BRModelResourceLocation;
 import org.polaris_bear.wild_wind.util.Helpers;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class FireflyRenderer extends EntityRenderer<Firefly> {
-    private static final ResourceLocation FIREFLY_TEXTURE = Helpers.location("textures/entity/firefly.png");
-    private static final ResourceLocation FIREFLY_MODEL = Helpers.location("firefly");
+    private static final BRModelResourceLocation LOCATION = new BRModelResourceLocation(
+            Helpers.location("textures/entity/firefly.png"),
+            Helpers.location("entity/firefly.geo"),
+            Helpers.location("entity/firefly.animation"),
+            Helpers.location("entity/firefly.animation_controllers")
+    );
 
     public FireflyRenderer(EntityRendererProvider.Context context) {
         super(context);
@@ -33,7 +38,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
 
     @Override
     public ResourceLocation getTextureLocation(Firefly firefly) {
-        return FIREFLY_TEXTURE;
+        return LOCATION.texture();
     }
 
     @Override
@@ -43,10 +48,10 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
         RenderData<Object> component = RenderData.getComponent(firefly);// get entity component
         AnimationComponent animationComponent = component.getAnimationComponent();
 
-        animationComponent.setup(FIREFLY_MODEL, FIREFLY_MODEL);
+        animationComponent.setup(LOCATION.controllers(), LOCATION.animation());
         var infos = BrAnimator.tickAnimation(animationComponent,
                 component.getScope(), ClientTickHandler.getTick() + partialTick);
-        RenderType type = RenderType.entityCutout(FIREFLY_TEXTURE);
+        RenderType type = RenderType.entityCutout(getTextureLocation(firefly));
         ModelRenderer.render(new RenderParams(
                 firefly,
                 poseStack.last().copy(),
@@ -55,7 +60,7 @@ public class FireflyRenderer extends EntityRenderer<Firefly> {
                 bufferSource.getBuffer(type),
                 packedLight,
                 LivingEntityRenderer.getOverlayCoords(firefly, 0)
-        ), BrModelLoader.getModel(FIREFLY_MODEL), infos,
+        ), BrModelLoader.getModel(LOCATION.model()), infos,
                 new BrModelTextures.TwoSideInfoMap(new HashMap<>()),
                 new ModelRenderVisitorList(List.of(BuiltInBrModelRenderVisitors.BLANK.get())));
         poseStack.popPose();

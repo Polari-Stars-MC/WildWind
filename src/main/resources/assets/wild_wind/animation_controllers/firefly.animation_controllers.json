@@ -6,13 +6,13 @@
 				"default": {
 					"animations": ["glow"],
 					"transitions": [
-						{"byAttack": "query.hurt_time!=0"}
+						{"active": "query.hurt_time != 0"}
 					]
 				},
-				"byAttack": {
+				"active": {
 					"animations": ["idle"],
 					"transitions": [
-						{"default": "query.hurt_time==0"}
+						{"default": "query.hurt_time == 0"}
 					]
 				}
 			}
