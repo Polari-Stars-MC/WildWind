@@ -1,10 +1,11 @@
 [versions]
 geckolib-version="4.6.6"
-jar-in-jar-names="geckolib-neoforge,"
+eye-lib="21.1.3"
+jar-in-jar-names="eye-lib-neoforge"
 
 [libraries]
 geckolib-neoforge={group = "software.bernie.geckolib", name = "geckolib-neoforge-1.21.1", version.ref = "geckolib-version"}
-
+eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib"}
 [bundles]
-jar-in-jar=["geckolib-neoforge"]
+jar-in-jar=["eye-lib-neoforge"]
 linkage=[]

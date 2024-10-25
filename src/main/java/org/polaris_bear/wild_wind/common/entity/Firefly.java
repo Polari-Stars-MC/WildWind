@@ -26,31 +26,22 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.polaris_bear.wild_wind.WildWindMod;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyBaseGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyFlyGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyRoostGoal;
 import org.polaris_bear.wild_wind.common.entity.goal.FireflyGlowGoal;
 import org.polaris_bear.wild_wind.common.init.ModEntities;
 import org.polaris_bear.wild_wind.common.init.tags.ModItemTags;
-import software.bernie.geckolib.animatable.GeoEntity;
-import software.bernie.geckolib.animatable.instance.AnimatableInstanceCache;
-import software.bernie.geckolib.animation.*;
-import software.bernie.geckolib.animation.AnimationState;
-import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class Firefly extends Animal implements FlyingAnimal, GeoEntity {
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+public class Firefly extends Animal implements FlyingAnimal {
 
     private static final EntityDimensions BABY_DIMENSIONS = ModEntities.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 
-    public static final RawAnimation IDLE_RAW = RawAnimation.begin().thenLoop("idle");
-    public static final RawAnimation BABY_RAW = RawAnimation.begin().thenLoop("baby");
     public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
@@ -195,42 +186,5 @@ public class Firefly extends Animal implements FlyingAnimal, GeoEntity {
         return true;
     }
 
-    /**
-     * Register your {@link AnimationController AnimationControllers} and their respective animations and conditions
-     * <p>
-     * Override this method in your animatable object and add your controllers via {@link AnimatableManager.ControllerRegistrar#add ControllerRegistrar.add}
-     * <p>
-     * You may add as many controllers as wanted
-     * <p>
-     * Each controller can only play <u>one</u> animation at a time, and so animations that you intend to play concurrently should be handled in independent controllers
-     * <p>
-     * Note having multiple animations playing via multiple controllers can override parts of one animation with another if both animations use the same bones or child bones
-     *
-     * @param controllers The object to register your controller instances to
-     */
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(
-                this,
-                this::handle
-        ));
-    }
 
-    private PlayState handle(AnimationState<Firefly> state) {
-        state.setControllerSpeed(isRoost() ? 0.3f: 1f);
-        state.setAndContinue( isBaby() ? BABY_RAW : IDLE_RAW);
-        return PlayState.CONTINUE;
-    }
-
-    /**
-     * Each instance of a {@code GeoAnimatable} must return an instance of an {@link AnimatableInstanceCache}, which handles instance-specific animation info
-     * <p>
-     * Generally speaking, you should create your cache using {@code GeckoLibUtil#createCache} and store it in your animatable instance, returning that cached instance when called
-     *
-     * @return A cached instance of an {@code AnimatableInstanceCache}
-     */
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return cache;
-    }
 }

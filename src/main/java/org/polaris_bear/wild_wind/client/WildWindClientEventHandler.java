@@ -5,7 +5,6 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import org.polaris_bear.wild_wind.WildWindMod;
-import org.polaris_bear.wild_wind.client.model.FireflyModel;
 import org.polaris_bear.wild_wind.client.renderer.FireflyRenderer;
 import org.polaris_bear.wild_wind.common.init.ModEntities;
 

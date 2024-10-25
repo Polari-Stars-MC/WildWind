@@ -11,7 +11,6 @@ import java.io.Writer;
 
 public class PackageProcessor extends IProcessor<PackageElement> {
 
-
     public PackageProcessor(Element element, ProcessingEnvironment env) {
         super(element, env);
     }

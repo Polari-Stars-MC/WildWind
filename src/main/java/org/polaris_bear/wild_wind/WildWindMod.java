@@ -29,6 +29,7 @@ public class WildWindMod {
             try {
                 Class<?> aClass1 = Class.forName(aClass.getName() + "Impl");
                 Method method = aClass1.getMethod("register", ModContainer.class);
+                method.setAccessible(true);
                 method.invoke(null, modContainer);
             } catch (Exception e) {
                 throw new RuntimeException(e);
