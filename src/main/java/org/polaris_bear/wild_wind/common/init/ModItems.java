@@ -8,6 +8,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris_bear.wild_wind.WildWindMod;
 
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class ModItems {
@@ -21,18 +22,28 @@ public class ModItems {
             register("firefly_spawn_egg",
                     ModEntities.FIREFLY,
                             0xAA8F74,
-                            0x0A233F, new Item.Properties());
+                            0x0A233F);
 
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
     }
 
-    private static DeferredItem<DeferredSpawnEggItem> register(String name, Supplier<? extends EntityType<? extends Mob>> type, int backgroundColor, int highlightColor, Item.Properties props) {
-        return ITEMS.registerItem(name, properties ->
-                new DeferredSpawnEggItem(type,
-                        backgroundColor,
-                        highlightColor,
-                        props));
+    private static DeferredItem<DeferredSpawnEggItem> register(String name,
+                                                               Supplier<? extends EntityType<? extends Mob>> type,
+                                                               int backgroundColor,
+                                                               int highlightColor,
+                                                               Consumer<Item.Properties> consumer) {
+        return ITEMS.registerItem(name, properties -> {
+            consumer.accept(properties);
+            return new DeferredSpawnEggItem(type, backgroundColor, highlightColor, properties);
+        });
+    }
+
+    private static DeferredItem<DeferredSpawnEggItem> register(String name,
+                                                               Supplier<? extends EntityType<? extends Mob>> type,
+                                                               int backgroundColor,
+                                                               int highlightColor) {
+        return register(name, type, backgroundColor, highlightColor, properties -> {});
     }
 
     private static DeferredItem<Item> register(String name, Item item) {

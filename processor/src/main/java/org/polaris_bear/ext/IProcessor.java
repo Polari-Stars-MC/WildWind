@@ -14,7 +14,8 @@ public abstract class IProcessor<T extends Element> {
 
 
     final T check;
-    public final List<IProcessor<?>> PROCESSORS = new ArrayList<>();
+    public final List<Maps.EntryTransformer<Element, ProcessingEnvironment, ClassProcessor>> PROCESSORS = new ArrayList<>();
+    public final List<Maps.EntryTransformer<Element, ProcessingEnvironment, FieldProcessor>> FIELD_PROCESSORS = new ArrayList<>();
 
     @Delegate
     final ProcessingEnvironment env;
@@ -23,17 +24,29 @@ public abstract class IProcessor<T extends Element> {
        this.env = env;
     }
 
-    public void add(Maps.EntryTransformer<Element, ProcessingEnvironment, IProcessor<?>> processor, Element e) {
-        PROCESSORS.add(processor.transformEntry(e, env));
+    public void add(Maps.EntryTransformer<Element, ProcessingEnvironment, ClassProcessor> processor) {
+        PROCESSORS.add(processor);
+    }
+
+    public void addField(Maps.EntryTransformer<Element, ProcessingEnvironment, FieldProcessor> processor) {
+        FIELD_PROCESSORS.add(processor);
     }
 
     public void run() {
         if (check != null) {
             processor();
+            for (var processor : PROCESSORS) {
+                processor.transformEntry(check, env).run();
+            }
+            for (Element enclosedElement : check.getEnclosedElements()) {
+                for (Maps.EntryTransformer<Element, ProcessingEnvironment, FieldProcessor> fieldProcessor : FIELD_PROCESSORS) {
+                    fieldProcessor.transformEntry(enclosedElement, env).run();
+                }
+            }
         }
-        for (IProcessor<?> processor : PROCESSORS) {
-            processor.run();
-        }
+
+
+
     }
 
     public abstract T check(Element e);

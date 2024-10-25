@@ -1,0 +1,21 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.model.new": {
+			"states": {
+				"default": {
+					"animations": ["glow"],
+					"transitions": [
+						{"byAttack": "query.hurt_time!=0"}
+					]
+				},
+				"byAttack": {
+					"animations": ["idle"],
+					"transitions": [
+						{"default": "query.hurt_time==0"}
+					]
+				}
+			}
+		}
+	}
+}
