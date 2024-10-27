@@ -10,8 +10,9 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID, value = Dist.CLIENT)
 public class WildWindClientEventHandler {
-	@SubscribeEvent
-	public static void registerEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
-		event.registerEntityRenderer(ModEntities.FIREFLY.get(), FireflyRenderer::new);
-	}
+
+    @SubscribeEvent
+    public static void registerEntityRenderer(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.FIREFLY.get(), FireflyRenderer::new);
+    }
 }

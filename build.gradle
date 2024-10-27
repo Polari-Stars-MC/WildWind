@@ -1,5 +1,8 @@
+import java.nio.file.Files
+
 plugins {
     id 'java-library'
+    id 'idea'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.42-beta'
 }
@@ -10,6 +13,26 @@ tasks.named('wrapper', Wrapper).configure {
 
 version = mod_version
 group = mod_group_id
+
+def info = file("src/main/info")
+if (!info.exists()) {
+    info.mkdirs()
+}
+
+def javaDir = file("src/main/java")
+def pifInfo = file("gradle/pif.info").toPath().readLines()
+
+sourceSets {
+    main {
+        java {
+            srcDirs(info)
+        }
+    }
+}
+
+infoCreate(javaDir, "", info, pifInfo)
+
+
 
 repositories {
     mavenLocal()
@@ -162,9 +185,36 @@ if (!jijg.isEmpty()) {
     }
 }
 
-//idea {
-//    module {
-//        downloadSources = true
-//        downloadJavadoc = true
-//    }
-//}
+idea {
+    module {
+        downloadSources = true
+        downloadJavadoc = true
+    }
+}
+
+static def infoCreate(File file, String module, File info, List<String> pifInfo) {
+    def list = file.listFiles()
+    if (list != null) {
+        for (final def p in list ) {
+            String name = module.isEmpty() ? p.name : module + "." + p.name
+            if (p.isDirectory()) {
+                infoCreate(p, name, info, pifInfo)
+            } else {
+                // has java file to create package-info
+                def packageInfoFile = new File(info, module.replace(".", File.separator) + File.separator + "package-info.java")
+
+                def parentFile = packageInfoFile.parentFile
+                if (!parentFile.exists()) {
+                    parentFile.mkdirs()
+                }
+                if (!packageInfoFile.exists()) {
+                    def writer = packageInfoFile.newWriter()
+                    for (final def line in pifInfo ) {
+                        writer.writeLine(line.replace('${packageName}', module))
+                    }
+                    writer.close()
+                }
+            }
+        }
+    }
+}

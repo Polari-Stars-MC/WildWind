@@ -7,6 +7,8 @@ src/generated/resources/.cache
 .classpath
 .project
 
+src/main/info
+
 # idea
 out
 *.ipr

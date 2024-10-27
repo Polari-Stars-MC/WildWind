@@ -5,18 +5,19 @@ import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
 public class FireflyRoostGoal extends FireflyFlyGoal{
-	public FireflyRoostGoal(Firefly Firefly) {
-		super(Firefly);
-	}
 
-	@Override
-	public boolean canUse() {
-		Level level = firefly.level();
-		if (!level.isClientSide
-				&& level.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)
-				&& level.getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE)) {
+    public FireflyRoostGoal(Firefly firefly) {
+        super(firefly);
+    }
 
-		}
-		return super.canUse();
-	}
+    @Override
+    public boolean canUse() {
+        Level level = firefly.level();
+        if (!level.isClientSide
+                && level.getGameRules().getBoolean(GameRules.RULE_DAYLIGHT)
+                && level.getGameRules().getBoolean(GameRules.RULE_WEATHER_CYCLE)) {
+
+        }
+        return super.canUse();
+    }
 }

@@ -1,4 +1,4 @@
-package org.polaris_bear.annotation.config;
+package org.polaris2023.annotation.config;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
