@@ -10,6 +10,8 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
+import java.util.Collection;
+
 public class ModEntities {
 	private static final DeferredRegister<EntityType<?>> ENTITIES =
 			DeferredRegister.create(Registries.ENTITY_TYPE, WildWindMod.MOD_ID);
@@ -25,4 +27,8 @@ public class ModEntities {
     public static void init(IEventBus bus) {
         ENTITIES.register(bus);
     }
+
+	public static Collection<DeferredHolder<EntityType<?>,? extends EntityType<?>>> getModEntities() {
+		return ENTITIES.getEntries();
+	}
 }
