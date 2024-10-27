@@ -6,6 +6,7 @@ import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.polaris2023.wild_wind.common.WildWindEventHandler;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -22,7 +23,7 @@ public class WildWindMod {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
-        Helpers.register(modEventBus, ModEntities.ENTITIES, ModItems.ITEMS);
+        WildWindEventHandler.modConstruction(modEventBus);
         List<Class<WildWindConfig>> classes = List.of(WildWindConfig.class);
         for (Class<WildWindConfig> aClass : classes) {
             try {

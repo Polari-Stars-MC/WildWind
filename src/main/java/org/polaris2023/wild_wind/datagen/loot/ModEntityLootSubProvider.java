@@ -26,7 +26,7 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
 
     @Override
     protected @NotNull Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModEntities.ENTITIES.getEntries().stream().map(DeferredHolder::value);
+        return ModEntities.entry().stream().map(DeferredHolder::value);
     }
 
     @Override
