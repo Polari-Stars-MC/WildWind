@@ -26,7 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 //                .stream()
 //                .filter(holder -> holder.get() instanceof DeferredSpawnEggItem)
 //                .map(holder -> (DeferredHolder<Item, DeferredSpawnEggItem>) holder).forEach(holder -> withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg")));
-        isSame(ModItems.ITEMS.getEntries(), DeferredSpawnEggItem.class, holder -> {
+        isSame(ModItems.entry(), DeferredSpawnEggItem.class, holder -> {
             withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
         });
 
