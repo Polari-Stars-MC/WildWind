@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "org.polaris_bear.wild_wind.mixin",
+  "package": "org.polaris2023.wild_wind.mixin",
   "compatibilityLevel": "JAVA_17",
   "refmap": "wild_wind.refmap.json",
   "mixins": [
