@@ -1,4 +1,4 @@
-package org.polaris_bear.wild_wind;
+package org.polaris2023.wild_wind;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
 public class WildWindConfig {
-
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
 
     private static final ModConfigSpec.BooleanValue LOG_DIRT_BLOCK = BUILDER
@@ -32,7 +31,7 @@ public class WildWindConfig {
     // a list of strings that are treated as resource locations for items
     private static final ModConfigSpec.ConfigValue<List<? extends String>> ITEM_STRINGS = BUILDER
             .comment("A list of items to log on common setup.")
-            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), WildWindConfig::validateItemName);
+            .defineListAllowEmpty("items", List.of("minecraft:iron_ingot"), () -> "examplemod:location", WildWindConfig::validateItemName);
 
     static final ModConfigSpec SPEC = BUILDER.build();
 
@@ -41,14 +40,12 @@ public class WildWindConfig {
     public static String magicNumberIntroduction;
     public static Set<Item> items;
 
-    private static boolean validateItemName(final Object obj)
-    {
+    private static boolean validateItemName(final Object obj) {
         return obj instanceof String itemName && BuiltInRegistries.ITEM.containsKey(ResourceLocation.parse(itemName));
     }
 
     @SubscribeEvent
-    static void onLoad(final ModConfigEvent event)
-    {
+    static void onLoad(final ModConfigEvent event) {
         logDirtBlock = LOG_DIRT_BLOCK.get();
         magicNumber = MAGIC_NUMBER.get();
         magicNumberIntroduction = MAGIC_NUMBER_INTRODUCTION.get();
