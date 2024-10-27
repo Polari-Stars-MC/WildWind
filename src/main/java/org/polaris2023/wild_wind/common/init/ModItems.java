@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.common.init;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
+import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -11,7 +12,7 @@ import org.polaris2023.wild_wind.WildWindMod;
 import java.util.function.Supplier;
 
 public class ModItems {
-	public static final DeferredRegister.Items ITEMS =
+	private static final DeferredRegister.Items ITEMS =
 			DeferredRegister.createItems(WildWindMod.MOD_ID);
 
 	public static final DeferredItem<Item> GLOW_GOOP = register("glow_goop");
@@ -35,5 +36,9 @@ public class ModItems {
 
 	private static DeferredItem<Item> register(String name, Item item) {
 		return ITEMS.registerItem(name, properties -> item);
+	}
+
+	public static void init(IEventBus bus) {
+		ITEMS.register(bus);
 	}
 }

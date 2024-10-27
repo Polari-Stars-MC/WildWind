@@ -9,8 +9,8 @@ import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.WildWindEventHandler;
+import org.polaris2023.wild_wind.common.compat.ModCompatHandler;
 
 @Mod(WildWindMod.MOD_ID)
 public class WildWindMod {
@@ -20,15 +20,19 @@ public class WildWindMod {
 	public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
 	public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
-		ModEntities.ENTITIES.register(modEventBus);
-		ModItems.ITEMS.register(modEventBus);
+		WildWindEventHandler.modConstruction(modEventBus);
 		modContainer.registerConfig(ModConfig.Type.COMMON, WildWindCommonConfig.SPEC);
 	}
 
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
+			ModCompatHandler.solveCompat();
 
+			//Optional Dependencies
+			ModCompatHandler.solveTerraBlender();
+
+			//
 		});
 	}
 }
