@@ -17,32 +17,31 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 import java.util.stream.Stream;
 
 public class ModEntityLoot extends EntityLootSubProvider {
+	public ModEntityLoot(HolderLookup.Provider registries) {
+		super(FeatureFlags.REGISTRY.allFlags(), registries);
+	}
 
-    public ModEntityLoot(HolderLookup.Provider registries) {
-        super(FeatureFlags.REGISTRY.allFlags(), registries);
-    }
+	@Override
+	public void generate() {
+		this.add(
+				ModEntities.FIREFLY.get(),
+				LootTable.lootTable()
+						.withPool(
+								LootPool.lootPool()
+										.setRolls(ConstantValue.exactly(1.0F))
+										.add(LootItem.lootTableItem(Items.COD).apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
+						)
+						.withPool(
+								LootPool.lootPool()
+										.setRolls(ConstantValue.exactly(1.0F))
+										.add(LootItem.lootTableItem(Items.BONE_MEAL))
+										.when(LootItemRandomChanceCondition.randomChance(0.05F))
+						)
+		);
+	}
 
-    @Override
-    public void generate() {
-        this.add(
-                ModEntities.FIREFLY.get(),
-                LootTable.lootTable()
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(LootItem.lootTableItem(Items.COD).apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))
-                        )
-                        .withPool(
-                                LootPool.lootPool()
-                                        .setRolls(ConstantValue.exactly(1.0F))
-                                        .add(LootItem.lootTableItem(Items.BONE_MEAL))
-                                        .when(LootItemRandomChanceCondition.randomChance(0.05F))
-                        )
-        );
-    }
-
-    @Override
-    protected Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModEntities.ENTITIES.getEntries().stream().map(DeferredHolder::get);
-    }
+	@Override
+	protected Stream<EntityType<?>> getKnownEntityTypes() {
+		return ModEntities.ENTITIES.getEntries().stream().map(DeferredHolder::get);
+	}
 }

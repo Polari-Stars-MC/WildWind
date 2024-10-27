@@ -9,33 +9,33 @@ import software.bernie.geckolib.model.GeoModel;
 
 @SuppressWarnings({"unused", "FieldCanBeLocal"})
 public class FireflyModel extends GeoModel<Firefly> {
-    /**
-     * Returns the resource path for the {@link BakedGeoModel} (model json file) to render based on the provided animatable
-     *
-     * @param animatable entity
-     */
-    @Override
-    public ResourceLocation getModelResource(Firefly animatable) {
-        return Helpers.location("models/entity/firefly.json");
-    }
+	/**
+	 * Returns the resource path for the {@link BakedGeoModel} (model json file) to render based on the provided animatable
+	 *
+	 * @param animatable entity
+	 */
+	@Override
+	public ResourceLocation getModelResource(Firefly animatable) {
+		return Helpers.location("models/entity/firefly.json");
+	}
 
-    /**
-     * Returns the resource path for the texture file to render based on the provided animatable
-     *
-     * @param animatable entiry
-     */
-    @Override
-    public ResourceLocation getTextureResource(Firefly animatable) {
-        return Helpers.location("textures/entity/firefly.png");
-    }
+	/**
+	 * Returns the resource path for the texture file to render based on the provided animatable
+	 *
+	 * @param animatable entiry
+	 */
+	@Override
+	public ResourceLocation getTextureResource(Firefly animatable) {
+		return Helpers.location("textures/entity/firefly.png");
+	}
 
-    /**
-     * Returns the resourcepath for the {@link BakedAnimations} (animation json file) to use for animations based on the provided animatable
-     *
-     * @param animatable entity
-     */
-    @Override
-    public ResourceLocation getAnimationResource(Firefly animatable) {
-        return Helpers.location("animations/entity/firefly.animation.json");
-    }
+	/**
+	 * Returns the resourcepath for the {@link BakedAnimations} (animation json file) to use for animations based on the provided animatable
+	 *
+	 * @param animatable entity
+	 */
+	@Override
+	public ResourceLocation getAnimationResource(Firefly animatable) {
+		return Helpers.location("animations/entity/firefly.animation.json");
+	}
 }

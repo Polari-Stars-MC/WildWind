@@ -7,13 +7,12 @@ import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModItems;
 
 public class ModItemModelProvider extends ItemModelProvider {
+	public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
+		super(output, WildWindMod.MOD_ID, existingFileHelper);
+	}
 
-    public ModItemModelProvider(PackOutput output, ExistingFileHelper existingFileHelper) {
-        super(output, WildWindMod.MOD_ID, existingFileHelper);
-    }
-
-    @Override
-    protected void registerModels() {
-        spawnEggItem(ModItems.FIREFLY_SPAWN_EGG.get());
-    }
+	@Override
+	protected void registerModels() {
+		spawnEggItem(ModItems.FIREFLY_SPAWN_EGG.get());
+	}
 }

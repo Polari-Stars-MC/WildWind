@@ -9,9 +9,8 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class WildWindEventHandler {
-
-    @SubscribeEvent
-    public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes());
-    }
+	@SubscribeEvent
+	public static void registerAttributes(EntityAttributeCreationEvent event) {
+		event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes());
+	}
 }

@@ -7,14 +7,13 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModItems;
 
 public class ModLangProviderZh extends LanguageProvider {
+	public ModLangProviderZh(PackOutput output) {
+		super(output, WildWindMod.MOD_ID, "zh_cn");
+	}
 
-    public ModLangProviderZh(PackOutput output) {
-        super(output, WildWindMod.MOD_ID, "zh_cn");
-    }
-
-    @Override
-    protected void addTranslations() {
-        add(ModItems.FIREFLY_SPAWN_EGG.get(), "生成萤火虫");
-        add(ModEntities.FIREFLY.get(), "萤火虫");
-    }
+	@Override
+	protected void addTranslations() {
+		add(ModItems.FIREFLY_SPAWN_EGG.get(), "生成萤火虫");
+		add(ModEntities.FIREFLY.get(), "萤火虫");
+	}
 }

@@ -6,8 +6,7 @@ import org.polaris2023.wild_wind.common.entity.Firefly;
 import software.bernie.geckolib.renderer.GeoEntityRenderer;
 
 public class FireflyRenderer extends GeoEntityRenderer<Firefly> {
-
-    public FireflyRenderer(EntityRendererProvider.Context renderManager) {
-        super(renderManager, new FireflyModel());
-    }
+	public FireflyRenderer(EntityRendererProvider.Context renderManager) {
+		super(renderManager, new FireflyModel());
+	}
 }

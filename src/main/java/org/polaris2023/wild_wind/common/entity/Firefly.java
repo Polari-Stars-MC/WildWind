@@ -37,142 +37,142 @@ import software.bernie.geckolib.animation.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 public class Firefly extends PathfinderMob implements FlyingAnimal, GeoEntity {
-    private final AnimatableInstanceCache CACHE = GeckoLibUtil.createInstanceCache(this);
-    private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-    public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
-        super(type, level);
-        this.moveControl = new FlyingMoveControl(this, 20, true);
-    }
+	private final AnimatableInstanceCache CACHE = GeckoLibUtil.createInstanceCache(this);
+	private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
+	public Firefly(EntityType<? extends PathfinderMob> type, Level level) {
+		super(type, level);
+		this.moveControl = new FlyingMoveControl(this, 20, true);
+	}
 
-    @Override
-    protected void defineSynchedData(SynchedEntityData.Builder builder) {
-        super.defineSynchedData(builder);
-        builder.define(ROOST, false);
-    }
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(ROOST, false);
+	}
 
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
+	@Nullable
+	@Override
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType spawnType, @Nullable SpawnGroupData spawnGroupData) {
 
-        return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
-    }
+		return super.finalizeSpawn(level, difficulty, spawnType, spawnGroupData);
+	}
 
-    public void setRoost(boolean r) {
-        this.entityData.set(ROOST, r);
-    }
+	public void setRoost(boolean r) {
+		this.entityData.set(ROOST, r);
+	}
 
-    public boolean isRoost() {
-        return this.entityData.get(ROOST);
-    }
-
-
-    @Override
-    public boolean canBeLeashed() {
-        return false;
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setRoost(compound.getBoolean("roost"));
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putBoolean("roost", isRoost());
-    }
-
-    @Override
-    protected PathNavigation createNavigation(Level level) {
-        FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
-            @Override
-            public boolean isStableDestination(BlockPos pos) {
-                return !this.level.getBlockState(pos.below()).isAir();
-            }
-        };
-        flyingPathNavigation.setCanOpenDoors(false);
-        flyingPathNavigation.setCanFloat(true);
-        flyingPathNavigation.setCanPassDoors(false);
-        return flyingPathNavigation;
-    }
-
-    @Override
-    protected void playStepSound(BlockPos pos, BlockState state) {
-
-    }
-
-    @Override
-    public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
-        return false;
-    }
-
-    @Override
-    protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
-
-    }
-
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(0, new FireflyBaseGoal(this));
-        this.goalSelector.addGoal(1, new FireflyRoostGoal(this));
-        this.goalSelector.addGoal(2, new FireflyFlyGoal(this));
-
-    }
-
-    @Override
-    protected InteractionResult mobInteract(Player player, InteractionHand hand) {
-        return super.mobInteract(player, hand);
-    }
-
-    public static AttributeSupplier createAttributes() {
-        return AmbientCreature.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 8f)
-                .add(Attributes.FLYING_SPEED, 0.6f)
-                .build();
-    }
+	public boolean isRoost() {
+		return this.entityData.get(ROOST);
+	}
 
 
+	@Override
+	public boolean canBeLeashed() {
+		return false;
+	}
 
-    @Override
-    public boolean isFlying() {
-        return true;
-    }
+	@Override
+	public void readAdditionalSaveData(CompoundTag compound) {
+		super.readAdditionalSaveData(compound);
+		this.setRoost(compound.getBoolean("roost"));
+	}
 
-    /**
-     * Register your {@link AnimationController AnimationControllers} and their respective animations and conditions
-     * <p>
-     * Override this method in your animatable object and add your controllers via {@link AnimatableManager.ControllerRegistrar#add ControllerRegistrar.add}
-     * <p>
-     * You may add as many controllers as wanted
-     * <p>
-     * Each controller can only play <u>one</u> animation at a time, and so animations that you intend to play concurrently should be handled in independent controllers
-     * <p>
-     * Note having multiple animations playing via multiple controllers can override parts of one animation with another if both animations use the same bones or child bones
-     *
-     * @param controllers The object to register your controller instances to
-     */
-    @Override
-    public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
-        controllers.add(new AnimationController<>(
-                this,
-                this::handle
-        ));
-    }
+	@Override
+	public void addAdditionalSaveData(CompoundTag compound) {
+		super.addAdditionalSaveData(compound);
+		compound.putBoolean("roost", isRoost());
+	}
 
-    private PlayState handle(AnimationState<Firefly> fireflyAnimationState) {
-        return PlayState.CONTINUE;
-    }
+	@Override
+	protected PathNavigation createNavigation(Level level) {
+		FlyingPathNavigation flyingPathNavigation = new FlyingPathNavigation(this, level) {
+			@Override
+			public boolean isStableDestination(BlockPos pos) {
+				return !this.level.getBlockState(pos.below()).isAir();
+			}
+		};
+		flyingPathNavigation.setCanOpenDoors(false);
+		flyingPathNavigation.setCanFloat(true);
+		flyingPathNavigation.setCanPassDoors(false);
+		return flyingPathNavigation;
+	}
 
-    /**
-     * Each instance of a {@code GeoAnimatable} must return an instance of an {@link AnimatableInstanceCache}, which handles instance-specific animation info
-     * <p>
-     * Generally speaking, you should create your cache using {@code GeckoLibUtil#createCache} and store it in your animatable instance, returning that cached instance when called
-     *
-     * @return A cached instance of an {@code AnimatableInstanceCache}
-     */
-    @Override
-    public AnimatableInstanceCache getAnimatableInstanceCache() {
-        return CACHE;
-    }
+	@Override
+	protected void playStepSound(BlockPos pos, BlockState state) {
+
+	}
+
+	@Override
+	public boolean causeFallDamage(float fallDistance, float multiplier, DamageSource source) {
+		return false;
+	}
+
+	@Override
+	protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
+
+	}
+
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(0, new FireflyBaseGoal(this));
+		this.goalSelector.addGoal(1, new FireflyRoostGoal(this));
+		this.goalSelector.addGoal(2, new FireflyFlyGoal(this));
+
+	}
+
+	@Override
+	protected InteractionResult mobInteract(Player player, InteractionHand hand) {
+		return super.mobInteract(player, hand);
+	}
+
+	public static AttributeSupplier createAttributes() {
+		return AmbientCreature.createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 8f)
+				.add(Attributes.FLYING_SPEED, 0.6f)
+				.build();
+	}
+
+
+
+	@Override
+	public boolean isFlying() {
+		return true;
+	}
+
+	/**
+	 * Register your {@link AnimationController AnimationControllers} and their respective animations and conditions
+	 * <p>
+	 * Override this method in your animatable object and add your controllers via {@link AnimatableManager.ControllerRegistrar#add ControllerRegistrar.add}
+	 * <p>
+	 * You may add as many controllers as wanted
+	 * <p>
+	 * Each controller can only play <u>one</u> animation at a time, and so animations that you intend to play concurrently should be handled in independent controllers
+	 * <p>
+	 * Note having multiple animations playing via multiple controllers can override parts of one animation with another if both animations use the same bones or child bones
+	 *
+	 * @param controllers The object to register your controller instances to
+	 */
+	@Override
+	public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
+		controllers.add(new AnimationController<>(
+				this,
+				this::handle
+		));
+	}
+
+	private PlayState handle(AnimationState<Firefly> fireflyAnimationState) {
+		return PlayState.CONTINUE;
+	}
+
+	/**
+	 * Each instance of a {@code GeoAnimatable} must return an instance of an {@link AnimatableInstanceCache}, which handles instance-specific animation info
+	 * <p>
+	 * Generally speaking, you should create your cache using {@code GeckoLibUtil#createCache} and store it in your animatable instance, returning that cached instance when called
+	 *
+	 * @return A cached instance of an {@code AnimatableInstanceCache}
+	 */
+	@Override
+	public AnimatableInstanceCache getAnimatableInstanceCache() {
+		return CACHE;
+	}
 }

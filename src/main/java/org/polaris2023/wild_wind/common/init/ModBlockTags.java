@@ -6,10 +6,10 @@ import net.minecraft.world.level.block.Block;
 import org.polaris2023.wild_wind.util.Helpers;
 
 public class ModBlockTags {
+	public static final TagKey<Block> FIREFLY_ROOST_BLOCK = register("firefly_roost_block");
 
-    public static final TagKey<Block> FIREFLY_ROOST_BLOCK = register("firefly_roost_block");
-
-    private static TagKey<Block> register(String name) {
-        return BlockTags.create(Helpers.location(name));
-    }
+	@SuppressWarnings("SameParameterValue")
+	private static TagKey<Block> register(String name) {
+		return BlockTags.create(Helpers.location(name));
+	}
 }

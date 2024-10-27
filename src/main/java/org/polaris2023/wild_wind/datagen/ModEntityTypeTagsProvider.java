@@ -14,14 +14,13 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 import java.util.concurrent.CompletableFuture;
 
 public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
+	public ModEntityTypeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
+		super(output, provider, WildWindMod.MOD_ID, existingFileHelper);
+	}
 
-    public ModEntityTypeTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> provider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, provider, WildWindMod.MOD_ID, existingFileHelper);
-    }
-
-    @Override
-    protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        IntrinsicTagAppender<EntityType<?>> tag = tag(EntityTypeTags.ARTHROPOD);
-        tag.add(ModEntities.FIREFLY.get());
-    }
+	@Override
+	protected void addTags(HolderLookup.@NotNull Provider pProvider) {
+		IntrinsicTagAppender<EntityType<?>> tag = tag(EntityTypeTags.ARTHROPOD);
+		tag.add(ModEntities.FIREFLY.get());
+	}
 }

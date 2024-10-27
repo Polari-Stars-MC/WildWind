@@ -8,17 +8,16 @@ import org.polaris2023.wild_wind.WildWindMod;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class ModCreativeTabs {
-
-    @SubscribeEvent
-    public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.GLOW_GOOP);
-        }
-        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.FIREFLY_SPAWN_EGG);
-        }
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(ModItems.FIREFLY_SPAWN_EGG);
-        }
-    }
+	@SubscribeEvent
+	public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
+		if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
+			event.accept(ModItems.GLOW_GOOP);
+		}
+		if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
+			event.accept(ModItems.FIREFLY_SPAWN_EGG);
+		}
+		if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
+			event.accept(ModItems.FIREFLY_SPAWN_EGG);
+		}
+	}
 }

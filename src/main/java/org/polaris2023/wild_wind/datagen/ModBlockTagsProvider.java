@@ -14,23 +14,22 @@ import org.polaris2023.wild_wind.common.init.ModBlockTags;
 import java.util.concurrent.CompletableFuture;
 
 public class ModBlockTagsProvider extends BlockTagsProvider {
+	public ModBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+		super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
+	}
 
-    public ModBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
-    }
-
-    @Override
-    protected void addTags(HolderLookup.Provider provider) {
-        IntrinsicTagAppender<Block> tag = tag(ModBlockTags.FIREFLY_ROOST_BLOCK);
-        tag.add(
-                Blocks.TALL_GRASS,
-                Blocks.SHORT_GRASS,
-                Blocks.FERN,
-                Blocks.LARGE_FERN,
-                Blocks.POTTED_FERN,
-                Blocks.MANGROVE_PROPAGULE,
-                Blocks.POTTED_MANGROVE_PROPAGULE
-        );
-        tag.addTag(BlockTags.FLOWERS);
-    }
+	@Override
+	protected void addTags(HolderLookup.Provider provider) {
+		IntrinsicTagAppender<Block> tag = tag(ModBlockTags.FIREFLY_ROOST_BLOCK);
+		tag.add(
+				Blocks.TALL_GRASS,
+				Blocks.SHORT_GRASS,
+				Blocks.FERN,
+				Blocks.LARGE_FERN,
+				Blocks.POTTED_FERN,
+				Blocks.MANGROVE_PROPAGULE,
+				Blocks.POTTED_MANGROVE_PROPAGULE
+		);
+		tag.addTag(BlockTags.FLOWERS);
+	}
 }
