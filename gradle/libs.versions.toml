@@ -1,11 +1,10 @@
 [versions]
-geckolib-version="4.6.6"
-eye-lib="21.1.3"
-jar-in-jar-names="eye-lib-neoforge"
+terrablender-version="1.21.1-4.1.0.4"
+eye-lib-version="21.1.3"
 
 [libraries]
-geckolib-neoforge={group = "software.bernie.geckolib", name = "geckolib-neoforge-1.21.1", version.ref = "geckolib-version"}
-eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib"}
+terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-neoforge", version.ref="terrablender-version"}
+eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib-version"}
 [bundles]
 jar-in-jar=["eye-lib-neoforge"]
-linkage=[]
+linkage=["terrablender-neoforge"]
