@@ -3,7 +3,6 @@ package org.polaris2023.wild_wind.common.init;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.Item;
-import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -16,16 +15,26 @@ import java.util.function.Supplier;
 
 public class ModItems {
 
-    private static final DeferredRegister.Items ITEMS =
+    static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WildWindMod.MOD_ID);
 
-    public static final DeferredItem<Item> GLOW_GOOP = register("glow_goop");
+    public static final DeferredItem<Item> GLOW_MUCUS = register("glow_mucus");
     public static final DeferredItem<Item> GLOW_POWDER = register("glow_powder");
+
+    public static final DeferredItem<Item> LIVING_TUBER = register("living_tuber");
+
+
+
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
             register("firefly_spawn_egg",
                     ModEntities.FIREFLY,
                             0xAA8F74,
                             0x0A233F);
+    public static final DeferredItem<DeferredSpawnEggItem> GLARE_SPAWN_EGG =
+            register("glare_spawn_egg",
+                    ModEntities.GLARE,
+                    0x10160A,
+                    0x49601B);
 
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
@@ -55,9 +64,5 @@ public class ModItems {
 
     public static Collection<DeferredHolder<Item, ? extends Item>> entry() {
         return ITEMS.getEntries();
-    }
-
-    public static void register(IEventBus bus) {
-        ITEMS.register(bus);
     }
 }

@@ -41,5 +41,6 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
                                 .lootingMultiplier(registries, ConstantValue.exactly(1.0f))
                                 .setLimit(3))
                 ));
+        add(ModEntities.GLARE.get(), LootTable.lootTable());
     }
 }
