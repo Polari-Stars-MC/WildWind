@@ -4,7 +4,7 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.moddev' version '2.0.42-beta'
+    id 'net.neoforged.moddev' version '1.0.21'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -39,14 +39,35 @@ repositories {
     mavenCentral()
     maven {
         name = 'GeckoLib'
-        url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+        url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
         content {
             includeGroup("software.bernie.geckolib")
         }
     }
     maven {
-        name = 'MinecraftForge'
-        url = 'https://maven.minecraftforge.net/'
+        name = 'Minecraft Forge'
+        url 'https://maven.minecraftforge.net/'
+        content {
+            includeGroup("net.minecraftforge")
+        }
+    }
+    maven {
+        name = 'Minecraft Forge'
+        url 'https://maven.minecraftforge.net/'
+        content {
+            includeGroup("net.minecraftforge")
+        }
+    }
+    maven {
+        name = 'Minecraft Forge'
+        url 'https://maven.minecraftforge.net/'
+        content {
+            includeGroup("net.minecraftforge")
+        }
+    }
+    maven {
+        name = 'Minecraft Forge'
+        url 'https://maven.minecraftforge.net/'
         content {
             includeGroup("com.github.glitchfiend")
         }
