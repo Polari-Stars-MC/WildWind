@@ -7,6 +7,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModInit;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -19,7 +20,6 @@ public class WildWindEventHandler {
     }
 
     public static void modConstruction(IEventBus bus) {
-        ModEntities.register(bus);
-        ModItems.register(bus);
+        ModInit.init(bus);
     }
 }

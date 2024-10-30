@@ -12,7 +12,9 @@ public class ModCreativeTabs {
     @SubscribeEvent
     public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.GLOW_GOOP);
+            event.accept(ModItems.GLOW_MUCUS);
+            event.accept(ModItems.GLOW_POWDER);
+            event.accept(ModItems.LIVING_TUBER);
         }
         if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
             event.accept(ModItems.FIREFLY_SPAWN_EGG);

@@ -18,19 +18,13 @@ public class ModItemModelProvider extends ItemModelProvider {
         super(output, WildWindMod.MOD_ID, existingFileHelper);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     protected void registerModels() {
-//        ModItems.ITEMS
-//                .getEntries()
-//                .stream()
-//                .filter(holder -> holder.get() instanceof DeferredSpawnEggItem)
-//                .map(holder -> (DeferredHolder<Item, DeferredSpawnEggItem>) holder).forEach(holder -> withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg")));
         isSame(ModItems.entry(), DeferredSpawnEggItem.class, holder -> {
-            withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
+            spawnEggItem(holder.get());
+//            withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
         });
 
-//        withExistingParent(ModItems.FIREFLY_SPAWN_EGG.getId().getPath(), mcLoc("item/template_spawn_egg"));
     }
 
     @SuppressWarnings("unchecked")
