@@ -10,6 +10,16 @@ Minecraft Forge -> https://maven.minecraftforge.net/
     --> com.github.glitchfiend
     --> io.github.tt432.chin
 """
+package-info="""
+@ParametersAreNonnullByDefault
+@FieldsAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+package ${packageName};
+
+import net.minecraft.FieldsAreNonnullByDefault;
+import net.minecraft.MethodsReturnNonnullByDefault;
+import javax.annotation.ParametersAreNonnullByDefault;
+"""
 [libraries]
 terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-neoforge", version.ref="terrablender-version"}
 eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib-version"}
