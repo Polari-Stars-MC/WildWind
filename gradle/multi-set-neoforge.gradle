@@ -210,8 +210,8 @@ static def infoCreate(File file, String module, File info, Stream<String> pifInf
                 }
                 if (!packageInfoFile.exists()) {
                     def writer = packageInfoFile.newWriter()
-                    for (final def line in pifInfo ) {
-                        writer.writeLine(line.replace('${packageName}', module))
+                    pifInfo.forEach {
+                        writer.writeLine(it.replace('${packageName}', module))
                     }
                     writer.close()
                 }
