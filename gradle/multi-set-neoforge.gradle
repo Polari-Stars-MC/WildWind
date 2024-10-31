@@ -20,7 +20,6 @@ if (!info.exists()) {
 }
 
 def javaDir = file("src/main/java")
-def pifInfo = libs.versions.package.info.get().lines()
 
 sourceSets {
     main {
@@ -30,7 +29,7 @@ sourceSets {
     }
 }
 
-infoCreate(javaDir, "", info, pifInfo)
+infoCreate(javaDir, "", info, libs.versions.package.info.get().lines().toList())
 
 
 def mvns = new ArrayList<Mvn>()
@@ -193,7 +192,7 @@ idea {
     }
 }
 
-static def infoCreate(File file, String module, File info, Stream<String> pifInfo) {
+static def infoCreate(File file, String module, File info, List<String> pifInfo) {
     def list = file.listFiles()
     if (list != null) {
         for (final def p in list ) {
@@ -210,8 +209,8 @@ static def infoCreate(File file, String module, File info, Stream<String> pifInf
                 }
                 if (!packageInfoFile.exists()) {
                     def writer = packageInfoFile.newWriter()
-                    pifInfo.forEach {
-                        writer.writeLine(it.replace('${packageName}', module))
+                    for (final def line in pifInfo) {
+                        writer.writeLine(line.replace('${packageName}', module))
                     }
                     writer.close()
                 }
