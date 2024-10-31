@@ -4,7 +4,8 @@ plugins {
     id 'idea'
     id 'maven-publish'
     alias(libs.plugins.mod.dev.gradle).apply(false)
-    id("multi-set-neoforge")
+
 }
+apply plugin: "multi-set-neoforge"
 
 
