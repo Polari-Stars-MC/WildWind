@@ -4,6 +4,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.datagen.custom.CheckGenTextures;
 import org.polaris2023.wild_wind.datagen.lang.ModLangProviderEn;
 import org.polaris2023.wild_wind.datagen.lang.ModLangProviderZh;
 import org.polaris2023.wild_wind.datagen.lang.ModLangProviderZhTw;
@@ -11,7 +12,9 @@ import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModItemTagsProvider;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
+import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
+
+@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = MOD_ID)
 public class ModDataGenerator {
 
     @SubscribeEvent
@@ -23,6 +26,8 @@ public class ModDataGenerator {
         gen.addProvider(event.includeClient(), new ModLangProviderEn(pack));
         gen.addProvider(event.includeClient(), new ModLangProviderZh(pack));
         gen.addProvider(event.includeClient(), new ModLangProviderZhTw(pack));
+
+//        gen.addProvider(event.includeClient(), new CheckGenTextures(pack, MOD_ID, provider, helper));
         gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(pack, provider, helper);

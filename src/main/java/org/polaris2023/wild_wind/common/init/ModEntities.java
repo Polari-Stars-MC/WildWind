@@ -18,19 +18,17 @@ public class ModEntities {
             DeferredRegister.create(Registries.ENTITY_TYPE, WildWindMod.MOD_ID);
 
     public static final DeferredHolder<EntityType<?>, EntityType<Firefly>> FIREFLY =
-            register("firefly", EntityType.Builder.of(Firefly::new, MobCategory.AMBIENT));
+            register("firefly", Firefly::new, MobCategory.AMBIENT);
 
     public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE =
-            register("glare", EntityType.Builder.of(Glare::new, MobCategory.MONSTER));
+            register("glare", Glare::new, MobCategory.MONSTER);
 
-    private static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> register(String name, EntityType.Builder<E> builder) {
-        return ENTITIES.register(name, resourceLocation -> builder.build(name));
+    private static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> register(String name, EntityType.EntityFactory<E> factory, MobCategory category) {
+        return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
     }
 
     public static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entry() {
         return ENTITIES.getEntries();
     }
-
-
 
 }
