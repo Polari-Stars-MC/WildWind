@@ -21,7 +21,7 @@ if (!info.exists()) {
 }
 
 def javaDir = file("src/main/java")
-def pifInfo = file("gradle/pif.info").toPath().readLines()
+def pifInfo = libs.versions.package.info.get().lines()
 
 sourceSets {
     main {
@@ -157,7 +157,6 @@ if (at.readBytes().length != 0) {
     neoForge.setAccessTransformers(at)
 }
 
-
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
@@ -195,7 +194,7 @@ idea {
     }
 }
 
-static def infoCreate(File file, String module, File info, List<String> pifInfo) {
+static def infoCreate(File file, String module, File info, Stream<String> pifInfo) {
     def list = file.listFiles()
     if (list != null) {
         for (final def p in list ) {
