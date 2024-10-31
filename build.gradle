@@ -6,6 +6,6 @@ plugins {
     alias(libs.plugins.mod.dev.gradle).apply(false)
 
 }
-apply plugin: "multi-set-neoforge"
+apply from: file("gradle/multi-set-neoforge.gradle")
 
 
