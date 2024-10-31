@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import net.neoforged.bus.api.IEventBus;
+import org.polaris2023.wild_wind.util.Helpers;
 
 import static org.polaris2023.wild_wind.common.init.ModBlocks.BLOCKS;
 import static org.polaris2023.wild_wind.common.init.ModEntities.ENTITIES;
@@ -15,9 +16,7 @@ public class ModInit {
                     ModItems.class
             );
         } catch (ClassNotFoundException ignored) {}
-        ENTITIES.register(bus);
-        BLOCKS.register(bus);
-        ITEMS.register(bus);
+        Helpers.register(bus, ENTITIES, BLOCKS, ITEMS);
     }
 
     public static void init(Class<?>... clazz) throws ClassNotFoundException {

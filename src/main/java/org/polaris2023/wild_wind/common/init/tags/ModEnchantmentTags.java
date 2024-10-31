@@ -1,18 +1,19 @@
 package org.polaris2023.wild_wind.common.init.tags;
 
+import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static org.polaris2023.wild_wind.util.Helpers.enchantmentTags;
+import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModEnchantmentTags implements Supplier<TagKey<Enchantment>> {
     ;
     final TagKey<Enchantment> tag;
     ModEnchantmentTags() {
-        tag = enchantmentTags(name().toLowerCase(Locale.ROOT));
+        tag = tags(Registries.ENCHANTMENT, name().toLowerCase(Locale.ROOT));
     }
 
     /**
