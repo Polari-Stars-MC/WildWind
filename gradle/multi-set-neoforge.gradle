@@ -1,11 +1,10 @@
 import java.util.stream.Stream
 
-plugins {
-    id("java-library")
-    id("idea")
-    id("maven-publish")
-    id("net.neoforged.moddev")
-}
+apply plugin: "java-library"
+apply plugin: "idea"
+apply plugin: "maven-publish"
+apply plugin: "net.neoforged.moddev"
+
 
 
 tasks.named('wrapper', Wrapper).configure {
