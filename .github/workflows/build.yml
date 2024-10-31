@@ -18,6 +18,8 @@ jobs:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
+            src/generated
+            src/main/info
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-${{steps.branch-names.outputs.current_branch}}
