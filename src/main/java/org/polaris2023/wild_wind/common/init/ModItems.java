@@ -28,13 +28,13 @@ public class ModItems {
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
             register("firefly_spawn_egg",
                     ModEntities.FIREFLY,
-                            0xAA8F74,
-                            0x0A233F);
+                    0x0A233F,
+                            0xAA8F74);
     public static final DeferredItem<DeferredSpawnEggItem> GLARE_SPAWN_EGG =
             register("glare_spawn_egg",
                     ModEntities.GLARE,
-                    0x10160A,
-                    0x49601B);
+                    0x49601B,
+                    0x10160A);
 
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
