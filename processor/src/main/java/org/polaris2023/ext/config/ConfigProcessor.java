@@ -1,19 +1,14 @@
 package org.polaris2023.ext.config;
 
 import com.squareup.javapoet.*;
-import org.polaris2023.ConfigGeneratedRecord;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.ext.ClassProcessor;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
-import javax.lang.model.type.TypeMirror;
-import javax.tools.JavaFileObject;
 import java.io.IOException;
-import java.io.Writer;
 import java.text.MessageFormat;
-import java.util.*;
 
 public class ConfigProcessor extends ClassProcessor {
     public ConfigProcessor(Element element, ProcessingEnvironment env) {
@@ -24,10 +19,22 @@ public class ConfigProcessor extends ClassProcessor {
     public void processor() {
         AutoConfig autoConfig = getCheck().getAnnotation(AutoConfig.class);
         if (autoConfig != null) {
-            List<ConfigGeneratedRecord> list = new ArrayList<>();
 
             TypeSpec.Builder builder =TypeSpec
                     .classBuilder( getCheck().getSimpleName()+"Impl");
+            MethodSpec.Builder event = MethodSpec
+                    .methodBuilder("onLoad")
+                    .addModifiers(Modifier.STATIC)
+                    .returns(TypeName.VOID)
+                    .addParameter(ParameterSpec.builder(
+                                    ClassName.bestGuess("net.neoforged.fml.event.config.ModConfigEvent"),
+                                    "event",
+                                    Modifier.FINAL)
+                            .build())
+                    .addAnnotation(AnnotationSpec.builder(
+                                    ClassName.bestGuess("net.neoforged.bus.api.SubscribeEvent")
+                            )
+                            .build());
             builder.addAnnotation(AnnotationSpec
                     .builder(ClassName.bestGuess("net.neoforged.fml.common.EventBusSubscriber"))
                             .addMember("modid", "\"" + autoConfig.modid() +"\"")
@@ -46,40 +53,38 @@ public class ConfigProcessor extends ClassProcessor {
 
 
             for (Element enclosedElement : getCheck().getEnclosedElements()) {
-                String name = enclosedElement.getSimpleName().toString();
-                switch (enclosedElement.asType().getKind()) {
-                    case INT -> intRange(enclosedElement, builder, modConfigSpec, name, code);
-                    case LONG -> longRange(enclosedElement, builder, modConfigSpec, name, code);
-                    case DOUBLE -> doubleRange(enclosedElement, builder, modConfigSpec, name, code);
-                    case BOOLEAN -> booleanDefine(enclosedElement, builder, modConfigSpec, name, code);
-                    case DECLARED -> {
-                        DefineEnum defineEnum = enclosedElement.getAnnotation(DefineEnum.class);
+                generatedCodeBy(enclosedElement,
+                        builder,
+                        modConfigSpec,
+                        enclosedElement.getSimpleName().toString(),
+                        code,
+                        event);
 
 
-                        if (defineEnum != null) {
-                            enumDefine(enclosedElement, builder, modConfigSpec, name, code, defineEnum);
-                        }
-                    }
-
-                }
-
-                if (enclosedElement.getKind().isClass()) {
-                    if (enclosedElement.getAnnotation(SubConfig.class) != null) {
-                        subConfig((TypeElement) enclosedElement, getCheck(), 1);
-
-                    }
-
-                }
             }
             if (!code.isEmpty()) {
                 code.addStatement("BUILDER.pop()");
             }
-            builder.addStaticBlock(code.build());
             builder.addField(FieldSpec
                     .builder(modConfigSpec, "SPEC", Modifier.FINAL, Modifier.STATIC)
-                            .initializer("BUILDER.build()")
                     .build());
+            code.addStatement("SPEC = BUILDER.build()");
+            builder.addStaticBlock(code.build());
 
+            builder.addMethod(event.build());
+            builder
+                    .addMethod(MethodSpec
+                            .methodBuilder("register")
+                            .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
+                            .returns(TypeName.VOID)
+                            .addParameter(ParameterSpec
+                                    .builder(
+                                            ClassName.bestGuess("net.neoforged.fml.ModContainer"),
+                                            "modContainer")
+                                    .build())
+                            .addStatement("modContainer.registerConfig(net.neoforged.fml.config.ModConfig.Type.%s, SPEC)"
+                                    .formatted(autoConfig.value().name()))
+                            .build());
 
 
 
@@ -156,19 +161,49 @@ public class ConfigProcessor extends ClassProcessor {
         }
     }
 
-    private static void enumDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, DefineEnum defineEnum) {
-        builder.addField(FieldSpec.builder(modConfigSpec.nestedClass("EnumValue<" + enclosedElement.asType().toString() + ">"),
-                name, Modifier.STATIC, Modifier.FINAL
-        ).build());
-        code.add(noteAndPushCode(enclosedElement, true).build());
-        code.addStatement(MessageFormat.format(" {0} = BUILDER.defineEnum(\"{1}\", {2}.{3})",
-                name,
-                defineEnum.value().isEmpty() ? enclosedElement.getSimpleName(): defineEnum.value(),
-                enclosedElement.asType().toString(),
-                defineEnum.defaultValue()));
+    private void generatedCodeBy(Element element, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event) {
+        switch (element.asType().getKind()) {
+            case INT -> intRange(element, builder, modConfigSpec, name, code, event, getCheck());
+            case LONG -> longRange(element, builder, modConfigSpec, name, code, event, getCheck());
+            case DOUBLE -> doubleRange(element, builder, modConfigSpec, name, code, event, getCheck());
+            case BOOLEAN -> booleanDefine(element, builder, modConfigSpec, name, code, event, getCheck());
+            case DECLARED -> enumDefine(element, builder, modConfigSpec, name, code, event, getCheck());
+
+        }
+        if (element.getKind().isClass()) {
+            if (element.getAnnotation(SubConfig.class) != null) {
+                TypeSpec.Builder builder1 = TypeSpec
+                        .classBuilder(name);
+                for (Element enclosedElement : element.getEnclosedElements()) {
+                    generatedByInnerCode(enclosedElement);
+                }
+                //generatedCodeBy();
+            }
+
+        }
     }
 
-    private static void booleanDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+    private static void generatedByInnerCode(Element element) {
+
+    }
+
+    private static void enumDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
+        DefineEnum defineEnum = enclosedElement.getAnnotation(DefineEnum.class);
+        if (defineEnum != null) {
+            builder.addField(FieldSpec.builder(modConfigSpec.nestedClass("EnumValue<" + enclosedElement.asType().toString() + ">"),
+                    name, Modifier.STATIC, Modifier.FINAL
+            ).build());
+            code.add(noteAndPushCode(enclosedElement, true).build());
+            code.addStatement(MessageFormat.format(" {0} = BUILDER.defineEnum(\"{1}\", {2}.{3})",
+                    name,
+                    defineEnum.value().isEmpty() ? enclosedElement.getSimpleName(): defineEnum.value(),
+                    enclosedElement.asType().toString(),
+                    defineEnum.defaultValue()));
+            event.addCode("%s.%s = %s.%s.get();".formatted(check.getQualifiedName(), name, builder.build().name,name));
+        }
+    }
+
+    private static void booleanDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
         Define define = enclosedElement.getAnnotation(Define.class);
         if (define != null) {
             builder.addField(modConfigSpec.nestedClass("BooleanValue"),
@@ -179,11 +214,11 @@ public class ConfigProcessor extends ClassProcessor {
                     define.value().isEmpty() ? enclosedElement.getSimpleName(): define.value(),
                     define.defaultValue()
             ));
-
+            event.addCode("%s.%s = %s.%s.get();".formatted(check.getQualifiedName(), name, builder.build().name,name));
         }
     }
 
-    private static void intRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+    private static void intRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
         DefineIntRange defineIntRange = enclosedElement.getAnnotation(DefineIntRange.class);
         if (defineIntRange != null) {
 
@@ -204,10 +239,11 @@ public class ConfigProcessor extends ClassProcessor {
                             defineIntRange.min(),
                             defineIntRange.max()
                     ));
+            event.addCode("%s.%s = %s.%s.get();".formatted(check.getQualifiedName(), name, builder.build().name,name));
         }
     }
 
-    private static void doubleRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+    private static void doubleRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
         DefineDoubleRange defineDoubleRange = enclosedElement.getAnnotation(DefineDoubleRange.class);
         if (defineDoubleRange != null) {
             builder.addField(FieldSpec
@@ -222,11 +258,11 @@ public class ConfigProcessor extends ClassProcessor {
                             defineDoubleRange.defaultValue(),
                             defineDoubleRange.min(),
                             defineDoubleRange.max()));
-
+            event.addCode("%s.%s = %s.%s.get();".formatted(check.getQualifiedName(), name, builder.build().name,name));
         }
     }
 
-    private static void longRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+    private static void longRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
         DefineLongRange defineLongRange = enclosedElement.getAnnotation(DefineLongRange.class);
         if (defineLongRange != null) {
             builder.addField(FieldSpec
@@ -243,6 +279,7 @@ public class ConfigProcessor extends ClassProcessor {
                     defineLongRange.min(),
                     defineLongRange.max()
             ));
+            event.addCode("%s.%s = %s.%s.get();".formatted(check.getQualifiedName(), name, builder.build().name,name));
         }
     }
 
@@ -265,22 +302,4 @@ public class ConfigProcessor extends ClassProcessor {
         return builderStaticCode;
     }
 
-    public void subConfig(TypeElement targetElement, TypeElement check, int i) {
-        String impl = check.getSimpleName() + "Impl";
-        for (Element enclosedElement : targetElement.getEnclosedElements()) {
-            System.out.println(enclosedElement.getSimpleName());
-        }
-//        MessageFormat.format("""
-//                {0}static class {1}'
-//                '{0}'{
-//                '{0}'
-//                '{0}'}
-//                '
-//                """.stripIndent(),
-//                "\t".repeat(i + 1),
-//                targetElement.getSimpleName())
-
-
-
-    }
 }
