@@ -7,10 +7,7 @@ import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
-import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModInit;
-import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.config.WildWindCommonConfig;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -25,8 +22,8 @@ public class WildWindMod {
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
-        List<Class<WildWindConfig>> classes = List.of(WildWindConfig.class);
-        for (Class<WildWindConfig> aClass : classes) {
+        List<Class<WildWindCommonConfig>> classes = List.of(WildWindCommonConfig.class);
+        for (Class<WildWindCommonConfig> aClass : classes) {
             try {
                 Class<?> aClass1 = Class.forName(aClass.getName() + "Impl");
                 Method method = aClass1.getMethod("register", ModContainer.class);

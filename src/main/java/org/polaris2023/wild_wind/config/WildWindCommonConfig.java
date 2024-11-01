@@ -1,13 +1,24 @@
-package org.polaris2023.wild_wind;
+package org.polaris2023.wild_wind.config;
 
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
+import org.polaris2023.wild_wind.WildWindMod;
 
 @AutoConfig(modid = WildWindMod.MOD_ID)
-public class WildWindConfig {
+@Push("wild-wind-common")
+@Note({
+        "Wild wind common ->",
+        "\tfirefly age?"
+})
+public class WildWindCommonConfig {
 
     @DefineIntRange(value = "firefly.age", defaultValue = 24000, min = 2000, max = 24000)
     public static int firefly_age;
+
+    public static class BiomeConfig {
+
+    }
+
 
 //    public enum TestEnum implements StringRepresentable {
 //        A,B,C,D,E;
