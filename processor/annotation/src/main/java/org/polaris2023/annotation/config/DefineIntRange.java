@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.FIELD)
 public @interface DefineIntRange {
-    String value();
+    String value() default "";
     int defaultValue();
     int min();
     int max();

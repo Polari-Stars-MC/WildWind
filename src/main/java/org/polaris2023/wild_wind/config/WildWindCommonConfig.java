@@ -1,8 +1,11 @@
 package org.polaris2023.wild_wind.config;
 
+import net.minecraft.util.StringRepresentable;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.wild_wind.WildWindMod;
+
+import java.util.Locale;
 
 @AutoConfig(modid = WildWindMod.MOD_ID)
 @Push("wild-wind-common")
@@ -12,6 +15,7 @@ import org.polaris2023.wild_wind.WildWindMod;
 })
 public class WildWindCommonConfig {
 
+    @Note("firefly age")
     @DefineIntRange(value = "firefly.age", defaultValue = 24000, min = 2000, max = 24000)
     public static int firefly_age;
 
@@ -25,7 +29,7 @@ public class WildWindCommonConfig {
 //        A,B,C,D,E;
 //
 //        @Override
-//        public @NotNull String getSerializedName() {
+//        public String getSerializedName() {
 //            return name().toLowerCase(Locale.ROOT);
 //        }
 //    }

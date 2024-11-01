@@ -1,23 +1,19 @@
 package org.polaris2023.ext.config;
 
+import com.squareup.javapoet.*;
 import org.polaris2023.ConfigGeneratedRecord;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.ext.ClassProcessor;
 
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.*;
 import javax.lang.model.type.TypeMirror;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ConfigProcessor extends ClassProcessor {
     public ConfigProcessor(Element element, ProcessingEnvironment env) {
@@ -30,111 +26,43 @@ public class ConfigProcessor extends ClassProcessor {
         if (autoConfig != null) {
             List<ConfigGeneratedRecord> list = new ArrayList<>();
 
-            StringBuilder note = new StringBuilder();
+            TypeSpec.Builder builder =TypeSpec
+                    .classBuilder( getCheck().getSimpleName()+"Impl");
+            builder.addAnnotation(AnnotationSpec
+                    .builder(ClassName.bestGuess("net.neoforged.fml.common.EventBusSubscriber"))
+                            .addMember("modid", "\"" + autoConfig.modid() +"\"")
+                            .addMember("bus", "EventBusSubscriber.Bus.MOD")
+                    .build());
+            ClassName modConfigSpec = ClassName.get("net.neoforged.neoforge.common", "ModConfigSpec");
 
-            Note noteAnno = getCheck().getAnnotation(Note.class);
-            if (noteAnno != null) {
-                note.append("\t\tBUILDER");
+            builder.addField(FieldSpec
+                    .builder(
+                            modConfigSpec.nestedClass("Builder"),
+                            "BUILDER", Modifier.STATIC, Modifier.FINAL
+                    )
+                    .initializer("new ModConfigSpec.Builder()")
+                    .build());
+            CodeBlock.Builder code = noteAndPushCode(getCheck(), false);
 
-                for (String s : noteAnno.value()) {
-                    note
-                            .append(".comment(\"")
-                            .append(s)
-                            .append("\")");
-                }
-            }
-            Push push = getCheck().getAnnotation(Push.class);
-            if (push != null) {
-                note
-                        .append(".push(\"")
-                        .append(push.value())
-                        .append("\")");
-            }
-            if (!note.isEmpty())
-                note.append(";");
-            StringBuilder isb = new StringBuilder();
+
             for (Element enclosedElement : getCheck().getEnclosedElements()) {
-//                System.out.format("%s ->%s", enclosedElement.getSimpleName(), enclosedElement.asType().getKind());
+                String name = enclosedElement.getSimpleName().toString();
                 switch (enclosedElement.asType().getKind()) {
-                    case INT -> {
-
-                        DefineIntRange defineIntRange = enclosedElement.getAnnotation(DefineIntRange.class);
-                        if (defineIntRange != null) {
-                            list.add(new ConfigGeneratedRecord(
-                                    "ModConfigSpec.IntValue",
-                                    enclosedElement,
-                                    "defineInRange(\"%s\", %s, %s, %s)".formatted(
-                                            defineIntRange.value().isEmpty() ? enclosedElement.getSimpleName(): defineIntRange.value(),
-                                            defineIntRange.defaultValue(),
-                                            defineIntRange.min(),
-                                            defineIntRange.max()
-                                    ), getCheck()));
-
-                        }
-                    }
-                    case LONG -> {
-                        DefineLongRange defineLongRange = enclosedElement.getAnnotation(DefineLongRange.class);
-                        if (defineLongRange != null) {
-                            list.add(new ConfigGeneratedRecord(
-                                    "ModConfigSpec.LongValue",
-                                    enclosedElement,
-                                    "defineInRange(\"%s\", %s, %s, %s)".formatted(
-                                            defineLongRange.value().isEmpty() ? enclosedElement.getSimpleName(): defineLongRange.value(),
-                                            defineLongRange.defaultValue(),
-                                            defineLongRange.min(),
-                                            defineLongRange.max()
-                                    ),
-                                    getCheck()));
-                        }
-                    }
-                    case DOUBLE -> {
-                        DefineDoubleRange defineDoubleRange = enclosedElement.getAnnotation(DefineDoubleRange.class);
-                        if (defineDoubleRange != null) {
-                            list.add(new ConfigGeneratedRecord(
-                                    "ModConfigSpec.DoubleValue",
-                                    enclosedElement,
-                                    "defineInRange(\"%s\", %s, %s, %s)"
-                                            .formatted(
-                                                    defineDoubleRange.value().isEmpty() ? enclosedElement.getSimpleName(): defineDoubleRange.value(),
-                                                    defineDoubleRange.defaultValue(),
-                                                    defineDoubleRange.min(),
-                                                    defineDoubleRange.max())
-                                    ,getCheck()));
-
-                        }
-                    }
-                    case BOOLEAN -> {
-
-                        Define define = enclosedElement.getAnnotation(Define.class);
-                        if (define != null) {
-                            list.add(new ConfigGeneratedRecord(
-                                    "ModConfigSpec.BooleanValue",
-                                    enclosedElement,
-                                    "define(\"%s\", %s)".formatted(
-                                            define.value().isEmpty() ? enclosedElement.getSimpleName(): define.value(),
-                                            define.defaultValue()
-                                    ),getCheck()));
-
-                        }
-                    }
+                    case INT -> intRange(enclosedElement, builder, modConfigSpec, name, code);
+                    case LONG -> longRange(enclosedElement, builder, modConfigSpec, name, code);
+                    case DOUBLE -> doubleRange(enclosedElement, builder, modConfigSpec, name, code);
+                    case BOOLEAN -> booleanDefine(enclosedElement, builder, modConfigSpec, name, code);
                     case DECLARED -> {
                         DefineEnum defineEnum = enclosedElement.getAnnotation(DefineEnum.class);
 
 
                         if (defineEnum != null) {
-                            list.add(new ConfigGeneratedRecord(
-                                    "ModConfigSpec.EnumValue<%s>".formatted(enclosedElement.asType().toString()),
-                                    enclosedElement,
-                                    MessageFormat.format("BUILDER.defineEnum(\"{1}\", {0}.{2})",
-                                            enclosedElement.getSimpleName(),
-                                            defineEnum.value().isEmpty() ? enclosedElement.getSimpleName(): defineEnum.value(),
-                                            defineEnum.defaultValue()),
-                                    getCheck()
-                            ));
+                            enumDefine(enclosedElement, builder, modConfigSpec, name, code, defineEnum);
                         }
                     }
 
                 }
+
                 if (enclosedElement.getKind().isClass()) {
                     if (enclosedElement.getAnnotation(SubConfig.class) != null) {
                         subConfig((TypeElement) enclosedElement, getCheck(), 1);
@@ -143,84 +71,198 @@ public class ConfigProcessor extends ClassProcessor {
 
                 }
             }
-
-            StringBuilder psf = new StringBuilder();
-            StringBuilder stc = new StringBuilder();
-            StringBuilder evt = new StringBuilder();
-            for (ConfigGeneratedRecord cgr : list) {
-                psf.append("\tstatic final %s %s;".formatted(cgr.className(), cgr.fieldName().getSimpleName()));
-                StringBuilder _note = new StringBuilder();
-                Note _n = cgr.fieldName().getAnnotation(Note.class);
-                if (_n != null) {
-                    for (String s : _n.value()) {
-                        _note.append(".comment(\"%s\")".formatted(s));
-                    }
-                    _note.append(";");
-                }
-                stc.append("\t\t%s = BUILDER%s.%s;\n".formatted( cgr.fieldName().getSimpleName(), _note, cgr.code()));
-                evt.append(MessageFormat.format("\t\t{0}.{1} = {1}.get();\n", cgr.check().getSimpleName(), cgr.fieldName().getSimpleName()));
+            if (!code.isEmpty()) {
+                code.addStatement("BUILDER.pop()");
             }
+            builder.addStaticBlock(code.build());
+            builder.addField(FieldSpec
+                    .builder(modConfigSpec, "SPEC", Modifier.FINAL, Modifier.STATIC)
+                            .initializer("BUILDER.build()")
+                    .build());
+
+
+
+
+            JavaFile jf = JavaFile.builder(getCheck()
+                    .getQualifiedName()
+                    .toString()
+                    .replace("."+getCheck().getSimpleName(), ""), builder.build()).build();
             try {
-                JavaFileObject sourceFile = getFiler().createSourceFile(getCheck().getQualifiedName() + "Impl");
-                try (Writer writer = sourceFile.openWriter()) {
-
-                    writer.write(MessageFormat
-                            .format("""
-                                    package {0};
-                                    
-                                    import net.neoforged.neoforge.common.ModConfigSpec;
-                                    import net.neoforged.fml.common.EventBusSubscriber;
-                                    import net.neoforged.fml.common.EventBusSubscriber.Bus;
-                                    import net.neoforged.fml.event.config.ModConfigEvent;
-                                    import net.neoforged.bus.api.SubscribeEvent;
-                                    import net.neoforged.fml.ModContainer;
-                                    import net.neoforged.fml.config.ModConfig;
-                                    
-                                    @EventBusSubscriber(
-                                    \tmodid = "{1}",
-                                    \tbus = Bus.MOD
-                                    )
-                                    class {2} '{
-                                    \tstatic final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-                                    '{6}'
-                                    '{9}'
-                                    \tstatic final ModConfigSpec SPEC;
-                                    \tstatic {
-                                    '{4}
-                                    {7}{5}'
-                                    \t\tSPEC = BUILDER.build();
-                                    \t}
-                                    \t@SubscribeEvent
-                                    \tstatic void onLoad(final ModConfigEvent event)
-                                    \t{
-                                    '{8}'
-                                    \t}
-                                
-                                    \tpublic static void register(ModContainer modContainer) {
-                                    \t\tmodContainer.registerConfig(ModConfig.Type.'{3}', SPEC);
-                                    \t}
-                                    }
-                                    '
-                                    """.stripIndent(),
-                                    getCheck().getQualifiedName().toString().replace("."+getCheck().getSimpleName(), ""),
-                                    autoConfig.modid(),
-                                    getCheck().getSimpleName()+"Impl",
-                                    autoConfig.value().name(),
-                                    note,
-                                    note.isEmpty() ? "": "\t\tBUILDER.pop();",
-                                    psf,
-                                    stc,
-                                    evt,
-                                    isb)
-                    );
-                }
-
-            } catch (IOException ignored) {
-
+                jf.writeTo(getFiler());
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
+
+//            try {
+//                JavaFileObject sourceFile = getFiler().createSourceFile(getCheck().getQualifiedName() + "Impl");
+//                try (Writer writer = sourceFile.openWriter()) {
+//
+//                    writer.write(MessageFormat
+//                            .format("""
+//                                    package {0};
+//
+//                                    import net.neoforged.neoforge.common.ModConfigSpec;
+//                                    import net.neoforged.fml.common.EventBusSubscriber;
+//                                    import net.neoforged.fml.common.EventBusSubscriber.Bus;
+//                                    import net.neoforged.fml.event.config.ModConfigEvent;
+//                                    import net.neoforged.bus.api.SubscribeEvent;
+//                                    import net.neoforged.fml.ModContainer;
+//                                    import net.neoforged.fml.config.ModConfig;
+//
+//                                    @EventBusSubscriber(
+//                                    \tmodid = "{1}",
+//                                    \tbus = Bus.MOD
+//                                    )
+//                                    class {2} '{
+//                                    \tstatic final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+//                                    '{6}'
+//                                    '{9}'
+//                                    \tstatic final ModConfigSpec SPEC;
+//                                    \tstatic {
+//                                    '{4}
+//                                    {7}{5}'
+//                                    \t\tSPEC = BUILDER.build();
+//                                    \t}
+//                                    \t@SubscribeEvent
+//                                    \tstatic void onLoad(final ModConfigEvent event)
+//                                    \t{
+//                                    '{8}'
+//                                    \t}
+//
+//                                    \tpublic static void register(ModContainer modContainer) {
+//                                    \t\tmodContainer.registerConfig(ModConfig.Type.'{3}', SPEC);
+//                                    \t}
+//                                    }
+//                                    '
+//                                    """.stripIndent(),
+//                                    getCheck().getQualifiedName().toString().replace("."+getCheck().getSimpleName(), ""),
+//                                    autoConfig.modid(),
+//                                    getCheck().getSimpleName()+"Impl",
+//                                    autoConfig.value().name(),
+//                                    note,
+//                                    note.isEmpty() ? "": "\t\tBUILDER.pop();",
+//                                    psf,
+//                                    stc,
+//                                    evt,
+//                                    isb)
+//                    );
+//                }
+//
+//            } catch (IOException ignored) {
+//
+//            }
 
 
         }
+    }
+
+    private static void enumDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, DefineEnum defineEnum) {
+        builder.addField(FieldSpec.builder(modConfigSpec.nestedClass("EnumValue<" + enclosedElement.asType().toString() + ">"),
+                name, Modifier.STATIC, Modifier.FINAL
+        ).build());
+        code.add(noteAndPushCode(enclosedElement, true).build());
+        code.addStatement(MessageFormat.format(" {0} = BUILDER.defineEnum(\"{1}\", {2}.{3})",
+                name,
+                defineEnum.value().isEmpty() ? enclosedElement.getSimpleName(): defineEnum.value(),
+                enclosedElement.asType().toString(),
+                defineEnum.defaultValue()));
+    }
+
+    private static void booleanDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+        Define define = enclosedElement.getAnnotation(Define.class);
+        if (define != null) {
+            builder.addField(modConfigSpec.nestedClass("BooleanValue"),
+                    name, Modifier.STATIC, Modifier.FINAL);
+            code.add(noteAndPushCode(enclosedElement, true).build());
+            code.addStatement("%s = BUILDER.define(\"%s\", %b)".formatted(
+                    name,
+                    define.value().isEmpty() ? enclosedElement.getSimpleName(): define.value(),
+                    define.defaultValue()
+            ));
+
+        }
+    }
+
+    private static void intRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+        DefineIntRange defineIntRange = enclosedElement.getAnnotation(DefineIntRange.class);
+        if (defineIntRange != null) {
+
+            builder.addField(FieldSpec
+                    .builder(
+                            modConfigSpec.nestedClass("IntValue"),
+                            name, Modifier.FINAL, Modifier.STATIC)
+                    .build());
+
+            code.add(noteAndPushCode(enclosedElement, true).build());
+            code.addStatement("%s = BUILDER.defineInRange(\"%s\", %d, %d, %d)"
+                    .formatted(
+                            name,
+                            defineIntRange.value().isEmpty() ?
+                                    name :
+                                    defineIntRange.value(),
+                            defineIntRange.defaultValue(),
+                            defineIntRange.min(),
+                            defineIntRange.max()
+                    ));
+        }
+    }
+
+    private static void doubleRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+        DefineDoubleRange defineDoubleRange = enclosedElement.getAnnotation(DefineDoubleRange.class);
+        if (defineDoubleRange != null) {
+            builder.addField(FieldSpec
+                    .builder(modConfigSpec.nestedClass("DoubleValue"),
+                            name, Modifier.FINAL, Modifier.STATIC)
+                    .build());
+            code.add(noteAndPushCode(enclosedElement, true).build());
+            code.addStatement("%s = BUILDER.defineInRange(\"%s\", %s, %s, %s)"
+                    .formatted(
+                            name,
+                            defineDoubleRange.value().isEmpty() ? enclosedElement.getSimpleName(): defineDoubleRange.value(),
+                            defineDoubleRange.defaultValue(),
+                            defineDoubleRange.min(),
+                            defineDoubleRange.max()));
+
+        }
+    }
+
+    private static void longRange(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code) {
+        DefineLongRange defineLongRange = enclosedElement.getAnnotation(DefineLongRange.class);
+        if (defineLongRange != null) {
+            builder.addField(FieldSpec
+                    .builder(modConfigSpec.nestedClass("LongValue"),
+                            name, Modifier.FINAL, Modifier.STATIC)
+                    .build());
+            code.add(noteAndPushCode(enclosedElement, true).build());
+            code.addStatement("%s= BUILDER.defineInRange(\"%s\", %dL, %dL, %dL)".formatted(
+                    name,
+                    defineLongRange.value().isEmpty() ?
+                            name :
+                            defineLongRange.value(),
+                    defineLongRange.defaultValue(),
+                    defineLongRange.min(),
+                    defineLongRange.max()
+            ));
+        }
+    }
+
+    private static CodeBlock.Builder noteAndPushCode(Element check, boolean isEntry) {
+        CodeBlock.Builder builderStaticCode = CodeBlock.builder();
+        Note note = check.getAnnotation(Note.class);
+        if (note != null) {
+            for (String value : note.value()) {
+                builderStaticCode
+                        .addStatement("BUILDER.comment(\"" + value + "\")");
+            }
+        }
+        if (!isEntry) {
+            Push push = check.getAnnotation(Push.class);
+            if (push != null) {
+                builderStaticCode
+                        .addStatement("BUILDER.push(\"" + push.value() + "\")");
+            }
+        }
+        return builderStaticCode;
     }
 
     public void subConfig(TypeElement targetElement, TypeElement check, int i) {
