@@ -15,6 +15,7 @@ public class WildWindCommonConfig {
     @DefineIntRange(value = "firefly.age", defaultValue = 24000, min = 2000, max = 24000)
     public static int firefly_age;
 
+    @SubConfig
     public static class BiomeConfig {
 
     }

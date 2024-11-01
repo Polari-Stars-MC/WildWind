@@ -8,12 +8,16 @@ import org.polaris2023.ext.ClassProcessor;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ConfigProcessor extends ClassProcessor {
     public ConfigProcessor(Element element, ProcessingEnvironment env) {
@@ -48,8 +52,9 @@ public class ConfigProcessor extends ClassProcessor {
             }
             if (!note.isEmpty())
                 note.append(";");
+            StringBuilder isb = new StringBuilder();
             for (Element enclosedElement : getCheck().getEnclosedElements()) {
-
+//                System.out.format("%s ->%s", enclosedElement.getSimpleName(), enclosedElement.asType().getKind());
                 switch (enclosedElement.asType().getKind()) {
                     case INT -> {
 
@@ -128,15 +133,15 @@ public class ConfigProcessor extends ClassProcessor {
                             ));
                         }
                     }
-                    case EXECUTABLE -> {
-                        ExecutableElement executableElement = (ExecutableElement) enclosedElement;
-                        SubConfig subConfig = executableElement.getAnnotation(SubConfig.class);
-                        if (subConfig != null) {
-                            subConfig(executableElement, subConfig, getCheck());
-                        }
-                    }
-                }
 
+                }
+                if (enclosedElement.getKind().isClass()) {
+                    if (enclosedElement.getAnnotation(SubConfig.class) != null) {
+                        subConfig((TypeElement) enclosedElement, getCheck(), 1);
+
+                    }
+
+                }
             }
 
             StringBuilder psf = new StringBuilder();
@@ -172,27 +177,28 @@ public class ConfigProcessor extends ClassProcessor {
                                     import net.neoforged.fml.config.ModConfig;
                                     
                                     @EventBusSubscriber(
-                                        modid = "{1}",
-                                        bus = Bus.MOD
+                                    \tmodid = "{1}",
+                                    \tbus = Bus.MOD
                                     )
                                     class {2} '{
-                                        static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
+                                    \tstatic final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
                                     '{6}'
-                                        static final ModConfigSpec SPEC;
-                                        static {
+                                    '{9}'
+                                    \tstatic final ModConfigSpec SPEC;
+                                    \tstatic {
                                     '{4}
                                     {7}{5}'
-                                            SPEC = BUILDER.build();
-                                        }
-                                        @SubscribeEvent
-                                        static void onLoad(final ModConfigEvent event)
-                                        {
+                                    \t\tSPEC = BUILDER.build();
+                                    \t}
+                                    \t@SubscribeEvent
+                                    \tstatic void onLoad(final ModConfigEvent event)
+                                    \t{
                                     '{8}'
-                                        }
+                                    \t}
                                 
-                                        public static void register(ModContainer modContainer) {
-                                            modContainer.registerConfig(ModConfig.Type.'{3}', SPEC);
-                                        }
+                                    \tpublic static void register(ModContainer modContainer) {
+                                    \t\tmodContainer.registerConfig(ModConfig.Type.'{3}', SPEC);
+                                    \t}
                                     }
                                     '
                                     """.stripIndent(),
@@ -204,7 +210,8 @@ public class ConfigProcessor extends ClassProcessor {
                                     note.isEmpty() ? "": "\t\tBUILDER.pop();",
                                     psf,
                                     stc,
-                                    evt)
+                                    evt,
+                                    isb)
                     );
                 }
 
@@ -216,8 +223,22 @@ public class ConfigProcessor extends ClassProcessor {
         }
     }
 
-    public void subConfig(ExecutableElement targetElement, SubConfig config, Element check) {
+    public void subConfig(TypeElement targetElement, TypeElement check, int i) {
         String impl = check.getSimpleName() + "Impl";
+        for (Element enclosedElement : targetElement.getEnclosedElements()) {
+            System.out.println(enclosedElement.getSimpleName());
+        }
+//        MessageFormat.format("""
+//                {0}static class {1}'
+//                '{0}'{
+//                '{0}'
+//                '{0}'}
+//                '
+//                """.stripIndent(),
+//                "\t".repeat(i + 1),
+//                targetElement.getSimpleName())
+
+
 
     }
 }
