@@ -58,7 +58,8 @@ public class ConfigProcessor extends ClassProcessor {
                         modConfigSpec,
                         enclosedElement.getSimpleName().toString(),
                         code,
-                        event);
+                        event,
+                        getCheck());
 
 
             }
@@ -161,30 +162,37 @@ public class ConfigProcessor extends ClassProcessor {
         }
     }
 
-    private void generatedCodeBy(Element element, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event) {
+    private static void generatedCodeBy(Element element, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {
         switch (element.asType().getKind()) {
-            case INT -> intRange(element, builder, modConfigSpec, name, code, event, getCheck());
-            case LONG -> longRange(element, builder, modConfigSpec, name, code, event, getCheck());
-            case DOUBLE -> doubleRange(element, builder, modConfigSpec, name, code, event, getCheck());
-            case BOOLEAN -> booleanDefine(element, builder, modConfigSpec, name, code, event, getCheck());
-            case DECLARED -> enumDefine(element, builder, modConfigSpec, name, code, event, getCheck());
+            case INT -> intRange(element, builder, modConfigSpec, name, code, event, check);
+            case LONG -> longRange(element, builder, modConfigSpec, name, code, event, check);
+            case DOUBLE -> doubleRange(element, builder, modConfigSpec, name, code, event, check);
+            case BOOLEAN -> booleanDefine(element, builder, modConfigSpec, name, code, event, check);
+            case DECLARED -> enumDefine(element, builder, modConfigSpec, name, code, event, check);
 
         }
         if (element.getKind().isClass()) {
             if (element.getAnnotation(SubConfig.class) != null) {
                 TypeSpec.Builder builder1 = TypeSpec
                         .classBuilder(name);
+                CodeBlock.Builder codeInner = noteAndPushCode(element, false);
                 for (Element enclosedElement : element.getEnclosedElements()) {
-                    generatedByInnerCode(enclosedElement);
+                    generatedCodeBy(enclosedElement, builder1, modConfigSpec, enclosedElement.getSimpleName().toString(), codeInner, event, (TypeElement) element);
                 }
-                //generatedCodeBy();
+                if (!codeInner.isEmpty()) {
+                    codeInner.addStatement("BUILDER.pop()");
+                }
+                builder1
+                        .addMethod(MethodSpec
+                                .methodBuilder("bootstrap")
+                                .addModifiers(Modifier.STATIC)
+                                .build());
+                code.addStatement("%s.bootstrap()".formatted(builder1.build().name));
+                builder1.addStaticBlock(codeInner.build());
+                builder.addType(builder1.build());
             }
 
         }
-    }
-
-    private static void generatedByInnerCode(Element element) {
-
     }
 
     private static void enumDefine(Element enclosedElement, TypeSpec.Builder builder, ClassName modConfigSpec, String name, CodeBlock.Builder code, MethodSpec.Builder event, TypeElement check) {

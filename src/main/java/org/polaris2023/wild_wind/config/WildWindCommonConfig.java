@@ -16,12 +16,16 @@ import java.util.Locale;
 public class WildWindCommonConfig {
 
     @Note("firefly age")
-    @DefineIntRange(value = "firefly.age", defaultValue = 24000, min = 2000, max = 24000)
-    public static int firefly_age;
+    @DefineIntRange(defaultValue = 24000, min = 2000, max = 24000)
+    public static int FIREFLY_AGE;
 
     @SubConfig
+    @Push("biome-generated")
     public static class BiomeConfig {
-
+        @DefineIntRange(defaultValue = 80, min = 0, max = 65536)
+        public static int OVERWORLD_BIOMES_WEIGHT;
+        @DefineIntRange(defaultValue = 80, min = 0, max = 65536)
+        public static int NETHER_BIOMES_WEIGHT;
     }
 
 
