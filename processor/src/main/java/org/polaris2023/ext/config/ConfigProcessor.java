@@ -13,13 +13,13 @@ import java.text.MessageFormat;
 public class ConfigProcessor extends ClassProcessor {
     public ConfigProcessor(Element element, ProcessingEnvironment env) {
         super(element, env);
+
     }
 
     @Override
     public void processor() {
         AutoConfig autoConfig = getCheck().getAnnotation(AutoConfig.class);
         if (autoConfig != null) {
-
             TypeSpec.Builder builder =TypeSpec
                     .classBuilder( getCheck().getSimpleName()+"Impl");
             MethodSpec.Builder event = MethodSpec

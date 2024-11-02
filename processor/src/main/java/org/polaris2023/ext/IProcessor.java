@@ -17,6 +17,8 @@ public abstract class IProcessor<T extends Element> {
     public final List<Maps.EntryTransformer<Element, ProcessingEnvironment, ClassProcessor>> PROCESSORS = new ArrayList<>();
     public final List<Maps.EntryTransformer<Element, ProcessingEnvironment, FieldProcessor>> FIELD_PROCESSORS = new ArrayList<>();
 
+
+
     @Delegate
     final ProcessingEnvironment env;
     public IProcessor(Element element, ProcessingEnvironment env) {
