@@ -15,12 +15,20 @@ public class ModBlocks {
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar");
 
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
-
     public static final DeferredItem<BlockItem> GLAREFLOWER_ITEM = register("glareflower", GLAREFLOWER);
 
     public static final DeferredBlock<Block> GLAREFLOWER_SEEDS = register("glareflower_seeds");
-
     public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM = register("glareflower_seeds", GLAREFLOWER_SEEDS);
+
+    public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg");
+    public static final DeferredBlock<Block> SPIDER_ATTACHMENTS = register("spider_attachments");
+    public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa");
+
+    public static final DeferredBlock<Block> REEDS = register("reeds");
+    public static final DeferredItem<BlockItem> REEDS_ITEM =  register("reeds", REEDS);
+
+    public static final DeferredBlock<Block> CATTAILS = register("cattails");
+    public static final DeferredItem<BlockItem> CATTAILS_ITEM = register("cattails", CATTAILS);
 
     private static DeferredItem<BlockItem> register(String name, DeferredBlock<Block> block) {
         return ITEMS.registerSimpleBlockItem(name, block);

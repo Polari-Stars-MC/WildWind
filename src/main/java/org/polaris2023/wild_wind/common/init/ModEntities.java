@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.entity.Glare;
+import org.polaris2023.wild_wind.common.entity.Trout;
 
 import java.util.Collection;
 
@@ -22,6 +23,9 @@ public class ModEntities {
 
     public static final DeferredHolder<EntityType<?>, EntityType<Glare>> GLARE =
             register("glare", Glare::new, MobCategory.MONSTER);
+
+    public static final DeferredHolder<EntityType<?>, EntityType<Trout>> TROUT =
+            register("trout", Trout::new, MobCategory.WATER_AMBIENT);
 
     private static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> register(String name, EntityType.EntityFactory<E> factory, MobCategory category) {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
