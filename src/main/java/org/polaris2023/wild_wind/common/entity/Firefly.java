@@ -40,6 +40,8 @@ public class Firefly extends Animal implements FlyingAnimal {
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 
+    private static final int max = 60;
+
     public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
         this.moveControl = new FlyingMoveControl(this, 20, true);
@@ -74,18 +76,17 @@ public class Firefly extends Animal implements FlyingAnimal {
 
     public void setTicker(int ticker) { this.entityData.set(TICKER, ticker); }
 
-    public int getTicker() { return this.entityData.get(TICKER); }
-
-    public boolean isTicker() {
-        if (getTicker() < 600) {
-            addTicker();
-            return true;
-        }
-        return false;
+    public int getTicker() {
+        return Math.min(this.entityData.get(TICKER), 60);
     }
 
-    public void addTicker() { this.entityData.set(TICKER, this.entityData.get(TICKER)+1); }
-    public void clearTicker() { this.entityData.set(TICKER, 0); }
+
+    public void addTicker() {
+        int ticker = getTicker();
+        if (ticker == max) return;
+        setTicker(ticker + 1);
+    }
+    public void clearTicker() { setTicker(0); }
 
     public boolean isRoost() {
         return this.entityData.get(ROOST);
