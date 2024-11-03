@@ -33,7 +33,7 @@ public class ModItems {
     public static final DeferredItem<Item> RAW_TROUT = register("raw_trout");
     public static final DeferredItem<Item> COOKED_TROUT = register("cooked_trout");
 
-    public static final DeferredItem<MobBucketItem> TROUT_BUCKET = register("trout_bucket", new MobBucketItem(ModEntities.TROUT.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+    public static final DeferredItem<MobBucketItem> TROUT_BUCKET = register("trout_bucket", () -> new MobBucketItem(ModEntities.TROUT.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
 
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
@@ -75,8 +75,8 @@ public class ModItems {
         return register(name, type, backgroundColor, highlightColor, properties -> {});
     }
 
-    private static <T extends Item> DeferredItem<T> register(String name, T item) {
-        return ITEMS.registerItem(name, properties -> item);
+    private static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
+        return ITEMS.register(name, item);
     }
 
     public static Collection<DeferredHolder<Item, ? extends Item>> entry() {

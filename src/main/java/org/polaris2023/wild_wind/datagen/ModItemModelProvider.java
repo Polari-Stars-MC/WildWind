@@ -38,7 +38,7 @@ public class ModItemModelProvider extends ItemModelProvider {
         });
         basicItem(ModItems.GLOW_MUCUS.get());
         basicItem(ModItems.GLOW_POWDER.get());
-//        basicItem(ModItems.LIVING_TUBER.get());
+        basicItem(ModItems.LIVING_TUBER.get());
 //        basicItem(ModBlocks.GLAREFLOWER_ITEM.get());
 //        basicItem(ModBlocks.GLAREFLOWER_SEEDS_ITEM.get());
 
