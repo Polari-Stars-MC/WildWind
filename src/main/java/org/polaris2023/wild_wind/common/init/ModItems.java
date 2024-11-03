@@ -49,8 +49,8 @@ public class ModItems {
     public static final DeferredItem<DeferredSpawnEggItem> TROUT_SPAWN_EGG =
             register("trout_spawn_egg",
                     ModEntities.TROUT,
-                    0x6b0f93,
-                    0x8290a5
+                    0x8290a5,
+                    0x6b0f93
                     );
 
     private static DeferredItem<Item> register(String name) {
