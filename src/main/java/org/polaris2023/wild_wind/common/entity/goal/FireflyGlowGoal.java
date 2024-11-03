@@ -10,10 +10,7 @@ public class FireflyGlowGoal extends FireflyBaseGoal {
 
     @Override
     public void tick() {
-        if (firefly.isTicker()) {
-            firefly.clearTicker();
-            firefly.setLastHurtByMob(null);
-        }
+        firefly.addTicker();
     }
 
     @Override

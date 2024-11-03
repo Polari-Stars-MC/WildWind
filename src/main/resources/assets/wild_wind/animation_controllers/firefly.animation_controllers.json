@@ -6,13 +6,13 @@
 				"default": {
 					"animations": ["glow"],
 					"transitions": [
-						{"active": "query.hurt_time != 0"}
+						{"active": "firefly.ticker() >= 60"}
 					]
 				},
 				"active": {
 					"animations": ["idle"],
 					"transitions": [
-						{"default": "query.hurt_time == 0"}
+						{"default": "query.hurt_time < 60"}
 					]
 				}
 			}
