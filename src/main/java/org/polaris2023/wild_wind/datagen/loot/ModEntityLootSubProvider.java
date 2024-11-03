@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.datagen.loot;
 
+import com.ibm.icu.text.Normalizer2;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
@@ -42,5 +43,6 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
                                 .setLimit(3))
                 ));
         add(ModEntities.GLARE.get(), LootTable.lootTable());
+        add(ModEntities.TROUT.get(), LootTable.lootTable());
     }
 }
