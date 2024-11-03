@@ -22,7 +22,7 @@ import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
 @SuppressWarnings("unused")
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = MOD_ID)
-public class BiomeUtil {
+public final class BiomeUtil {
 	private static final List<Level> worldList = Lists.newArrayList();
 
 	@SafeVarargs
@@ -94,5 +94,8 @@ public class BiomeUtil {
 	@SubscribeEvent
 	public static void onWorldUnload(LevelEvent.Unload event) {
 		worldList.remove((Level)event.getLevel());
+	}
+
+	private BiomeUtil() {
 	}
 }
