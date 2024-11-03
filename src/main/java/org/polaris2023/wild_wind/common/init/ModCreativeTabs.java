@@ -1,9 +1,11 @@
 package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -11,20 +13,34 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.WildWindMod;
 
+import java.util.Locale;
+import java.util.function.Supplier;
+
+import static org.polaris2023.wild_wind.common.init.ModInit.TABS;
 import static org.polaris2023.wild_wind.common.init.ModItems.ITEMS;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
-public class ModCreativeTabs {
-    static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, WildWindMod.MOD_ID);
-    public static final
-        DeferredHolder<CreativeModeTab, CreativeModeTab> WILD_WIND = TABS.register("wild_wind", () -> CreativeModeTab
+public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
+    WILD_WIND(ModItems.GLOW_POWDER::toStack,
+            () -> (__, output) -> {
+                for (DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
+                    output.accept(entry.get());
+                }
+            });
+    private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
+    ModCreativeTabs(Supplier<ItemStack> icon,
+                    Supplier<CreativeModeTab.DisplayItemsGenerator> parameters) {
+        tabs = TABS.register(name().toLowerCase(Locale.ROOT), () -> CreativeModeTab
                 .builder()
-                .icon(ModItems.GLOW_POWDER::toStack)
-                .displayItems((parameters, output) -> {
-                    for (DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
-                        output.accept(entry.get());
-                    }
-                }).build());
+                .icon(icon)
+                .title(Component.translatable("tabs.%s.%s.title"
+                        .formatted(
+                                WildWindMod.MOD_ID,
+                                name().toLowerCase(Locale.ROOT))))
+                .displayItems(parameters.get())
+                .build());
+    }
+
 
     @SubscribeEvent
     public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
@@ -39,5 +55,15 @@ public class ModCreativeTabs {
         if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.FIREFLY_SPAWN_EGG);
         }
+    }
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     */
+    @Override
+    public CreativeModeTab get() {
+        return tabs.get();
     }
 }
