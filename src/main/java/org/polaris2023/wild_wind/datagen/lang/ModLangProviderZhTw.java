@@ -18,13 +18,18 @@ public class ModLangProviderZhTw extends LanguageProvider {
     protected void addTranslations() {
         add(ModItems.FIREFLY_SPAWN_EGG.get(), "螢火蟲刷怪蛋");
         add(ModItems.GLARE_SPAWN_EGG.get(), "怒目怪刷怪蛋");
+        add(ModItems.TROUT_SPAWN_EGG.get(), "鱒魚刷怪蛋");
         add(ModItems.GLOW_POWDER.get(), "螢光粉末");
         add(ModItems.GLOW_MUCUS.get(), "螢光黏液");
         add(ModItems.LIVING_TUBER.get(), "活根");
+        add(ModItems.TROUT_BUCKET.get(), "鱒魚桶");
+        add(ModItems.RAW_TROUT.get(), "生鱒魚");
+        add(ModItems.COOKED_TROUT.get(), "熟鱒魚");
         add(ModBlocks.GLAREFLOWER.get(), "怒目花");
         add(ModBlocks.GLAREFLOWER_SEEDS.get(), "怒目花種子");
         add(ModBlocks.FIREFLY_JAR.get(), "螢火蟲瓶");
         add(ModEntities.FIREFLY.get(), "螢火蟲");
         add(ModEntities.GLARE.get(), "怒目怪");
+        add(ModEntities.TROUT.get(), "鱒魚");
     }
 }

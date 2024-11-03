@@ -1,13 +1,21 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.BucketItem;
+import net.minecraft.world.item.FoodOnAStickItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.MobBucketItem;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.entity.Trout;
 
 import java.util.Collection;
 import java.util.function.Consumer;
@@ -20,9 +28,12 @@ public class ModItems {
 
     public static final DeferredItem<Item> GLOW_MUCUS = register("glow_mucus");
     public static final DeferredItem<Item> GLOW_POWDER = register("glow_powder");
-
     public static final DeferredItem<Item> LIVING_TUBER = register("living_tuber");
 
+    public static final DeferredItem<Item> RAW_TROUT = register("raw_trout");
+    public static final DeferredItem<Item> COOKED_TROUT = register("cooked_trout");
+
+    public static final DeferredItem<MobBucketItem> TROUT_BUCKET = register("trout_bucket", new MobBucketItem(ModEntities.TROUT.get(), Fluids.WATER, SoundEvents.BUCKET_EMPTY_FISH, new Item.Properties().stacksTo(1).component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
 
 
     public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
@@ -35,6 +46,12 @@ public class ModItems {
                     ModEntities.GLARE,
                     0x49601B,
                     0x10160A);
+    public static final DeferredItem<DeferredSpawnEggItem> TROUT_SPAWN_EGG =
+            register("trout_spawn_egg",
+                    ModEntities.TROUT,
+                    0x6b0f93,
+                    0x8290a5
+                    );
 
     private static DeferredItem<Item> register(String name) {
         return ITEMS.registerSimpleItem(name);
@@ -58,7 +75,7 @@ public class ModItems {
         return register(name, type, backgroundColor, highlightColor, properties -> {});
     }
 
-    private static DeferredItem<Item> register(String name, Item item) {
+    private static <T extends Item> DeferredItem<T> register(String name, T item) {
         return ITEMS.registerItem(name, properties -> item);
     }
 
