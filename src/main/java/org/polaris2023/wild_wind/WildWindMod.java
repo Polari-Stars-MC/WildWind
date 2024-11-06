@@ -8,9 +8,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
 import org.polaris2023.wild_wind.config.WildWindCommonConfig;
+import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.ServiceLoader;
 
 @Mod(WildWindMod.MOD_ID)
 public class WildWindMod {
@@ -22,16 +24,7 @@ public class WildWindMod {
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
-        List<Class<WildWindCommonConfig>> classes = List.of(WildWindCommonConfig.class);
-        for (Class<WildWindCommonConfig> aClass : classes) {
-            try {
-                Class<?> aClass1 = Class.forName(aClass.getName() + "Impl");
-                Method method = aClass1.getMethod("register", ModContainer.class);
-                method.setAccessible(true);
-                method.invoke(null, modContainer);
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-        }
+        for (var iConfig : ServiceLoader.load(IConfig.class))
+            iConfig.register(modContainer);
     }
 }

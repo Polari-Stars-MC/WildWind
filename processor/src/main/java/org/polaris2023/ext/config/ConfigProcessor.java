@@ -1,27 +1,35 @@
 package org.polaris2023.ext.config;
 
+import com.google.auto.service.AutoService;
 import com.squareup.javapoet.*;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.ext.ClassProcessor;
+import org.polaris2023.ext.interfaces.IClassProcessor;
+import org.polaris2023.processor.InitProcessor;
 
-import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.*;
 import java.io.IOException;
 import java.text.MessageFormat;
 
+@AutoService(IClassProcessor.class)
 public class ConfigProcessor extends ClassProcessor {
-    public ConfigProcessor(Element element, ProcessingEnvironment env) {
-        super(element, env);
 
+    public ConfigProcessor() {
+        super();
     }
 
     @Override
     public void processor() {
+        super.processor();
         AutoConfig autoConfig = getCheck().getAnnotation(AutoConfig.class);
         if (autoConfig != null) {
+
             TypeSpec.Builder builder =TypeSpec
-                    .classBuilder( getCheck().getSimpleName()+"Impl");
+                    .classBuilder( getCheck().getSimpleName()+"Impl")
+                    .addModifiers(Modifier.PUBLIC);
+
+            builder.addSuperinterface(ClassName.bestGuess("org.polaris2023.wild_wind.util.interfaces.IConfig"));
             MethodSpec.Builder event = MethodSpec
                     .methodBuilder("onLoad")
                     .addModifiers(Modifier.STATIC)
@@ -76,7 +84,7 @@ public class ConfigProcessor extends ClassProcessor {
             builder
                     .addMethod(MethodSpec
                             .methodBuilder("register")
-                            .addModifiers(Modifier.STATIC, Modifier.PUBLIC)
+                            .addModifiers(Modifier.PUBLIC)
                             .returns(TypeName.VOID)
                             .addParameter(ParameterSpec
                                     .builder(
@@ -93,6 +101,7 @@ public class ConfigProcessor extends ClassProcessor {
                     .getQualifiedName()
                     .toString()
                     .replace("."+getCheck().getSimpleName(), ""), builder.build()).build();
+            InitProcessor.add("org.polaris2023.wild_wind.util.interfaces.IConfig", jf.packageName + "." + builder.build().name);
             try {
                 jf.writeTo(getFiler());
             } catch (IOException e) {
