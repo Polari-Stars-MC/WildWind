@@ -61,6 +61,10 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 neoForge {
     version = project.neo_version
+    interfaceInjectionData {
+        from "interfaces.json"
+        publish file("interfaces.json")
+    }
 
     parchment {
         mappingsVersion = project.parchment_mappings_version

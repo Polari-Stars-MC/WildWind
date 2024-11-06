@@ -3,8 +3,16 @@ plugins {
     id 'java-library'
     id 'idea'
     id 'maven-publish'
+    id("io.freefair.lombok").version("8.10.2")
     alias(libs.plugins.mod.dev.gradle).apply(false)
     id("multi-set-neoforge")
+}
+
+
+
+dependencies {
+    compileOnly 'com.google.auto.service:auto-service:1.1.1'
+    annotationProcessor 'com.google.auto.service:auto-service:1.1.1'
 }
 
 

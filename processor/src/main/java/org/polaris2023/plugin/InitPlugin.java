@@ -1,12 +1,11 @@
 package org.polaris2023.plugin;
 
+import com.google.auto.service.AutoService;
 import com.sun.source.util.*;
-
-import com.sun.tools.javac.util.Context;
-import com.sun.tools.javac.api.BasicJavacTask;
-
 import java.util.Arrays;
 
+
+@AutoService(Plugin.class)
 public class InitPlugin implements Plugin {
     @Override
     public String getName() {

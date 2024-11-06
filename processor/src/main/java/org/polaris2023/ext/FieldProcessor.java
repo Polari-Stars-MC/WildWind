@@ -6,9 +6,6 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.VariableElement;
 
 public class FieldProcessor extends IProcessor<VariableElement> {
-    public FieldProcessor(Element element, ProcessingEnvironment env) {
-        super(element, env);
-    }
 
     @Override
     public VariableElement check(Element e) {

@@ -10,10 +10,6 @@ import java.io.Writer;
 
 public class PackageProcessor extends IProcessor<PackageElement> {
 
-    public PackageProcessor(Element element, ProcessingEnvironment env) {
-        super(element, env);
-    }
-
     @Override
     public PackageElement check(Element e) {
         if (e.getKind() == ElementKind.PACKAGE)

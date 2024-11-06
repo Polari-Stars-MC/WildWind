@@ -11,6 +11,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
 
 import java.util.Locale;
@@ -21,6 +22,7 @@ import static org.polaris2023.wild_wind.common.init.ModItems.ITEMS;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
+    @I18n(en_us = "Wild Wind Tags", zh_cn = "原野之风", zh_tw = "原野之風")
     WILD_WIND(ModItems.GLOW_POWDER::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
