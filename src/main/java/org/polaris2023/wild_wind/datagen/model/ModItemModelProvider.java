@@ -7,6 +7,7 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 
 import java.util.ArrayList;
@@ -25,7 +26,7 @@ public class ModItemModelProvider extends ItemModelProvider {
             spawnEggItem(holder.get());
 //            withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
         });
-        basicItem(ModItems.GLOW_MUCUS.get());
+        basicItem(ModBlocks.GLOW_MUCUS_ITEM.get());
         basicItem(ModItems.GLOW_POWDER.get());
         basicItem(ModItems.LIVING_TUBER.get());
         basicItem(ModItems.RAW_TROUT.get());

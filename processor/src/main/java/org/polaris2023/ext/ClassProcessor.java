@@ -7,7 +7,6 @@ import org.polaris2023.ext.interfaces.IClassProcessor;
 
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 
 
