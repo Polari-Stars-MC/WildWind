@@ -58,7 +58,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
             }
             for (Integer possibleValue : GlowMucusBlock.LAYERS.getPossibleValues()) {
-                glow_mucus_model(glowMucusStates, value, possibleValue + 1, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
+                glow_mucus_model(glowMucusStates, value, possibleValue, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
             }
 
         }
