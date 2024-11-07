@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.datagen;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.neoforged.neoforge.client.model.generators.*;
@@ -56,8 +57,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 }
 
             }
-            for (int i = 0; i < 5; i++) {
-                glow_mucus_model(glowMucusStates, value, i + 1, integer -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[integer]), x.get(), y.get(), false));
+            for (Integer possibleValue : GlowMucusBlock.LAYERS.getPossibleValues()) {
+                glow_mucus_model(glowMucusStates, value, possibleValue + 1, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
             }
 
         }
