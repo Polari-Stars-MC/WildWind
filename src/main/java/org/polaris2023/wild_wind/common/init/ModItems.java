@@ -27,8 +27,6 @@ public class ModItems {
     static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WildWindMod.MOD_ID);
 
-    @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
-    public static final DeferredItem<Item> GLOW_MUCUS = register("glow_mucus");
     @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
     public static final DeferredItem<Item> GLOW_POWDER = register("glow_powder");
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")

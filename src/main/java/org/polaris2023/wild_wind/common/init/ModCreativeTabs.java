@@ -47,7 +47,6 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @SubscribeEvent
     public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
         if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.GLOW_MUCUS);
             event.accept(ModItems.GLOW_POWDER);
             event.accept(ModItems.LIVING_TUBER);
         }
