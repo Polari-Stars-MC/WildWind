@@ -2,6 +2,8 @@ package org.polaris2023.ext.config;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.*;
+import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.tree.TreeMaker;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.ext.ClassProcessor;

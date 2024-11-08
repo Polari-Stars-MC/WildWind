@@ -4,13 +4,20 @@ import com.google.auto.service.AutoService;
 import com.google.common.base.Supplier;
 import com.google.common.reflect.TypeToken;
 import com.squareup.javapoet.*;
+import com.sun.source.util.Trees;
+import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import com.sun.tools.javac.tree.TreeMaker;
+import com.sun.tools.javac.util.Context;
+import com.sun.tools.javac.util.Log;
 import org.polaris2023.ext.config.ConfigProcessor;
 import org.polaris2023.ext.interfaces.IClassProcessor;
 import org.polaris2023.ext.language.I18nProcessor;
+import org.polaris2023.utils.Unsafe;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
+import javax.tools.Diagnostic;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
@@ -23,6 +30,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 @SupportedAnnotationTypes("*")
 @SupportedSourceVersion(SourceVersion.RELEASE_21)
 public class InitProcessor extends AbstractProcessor {
+
+    static {
+        Unsafe.exportJdkModule();
+    }
+
     public static final ClassName STRING = ClassName.bestGuess("java.lang.String");
     public static final ClassName NIO_PATH = ClassName.bestGuess("java.nio.file.Path");
     public static final ClassName MC_PACK_OUT_PUT = ClassName.bestGuess("net.minecraft.data.PackOutput");
@@ -30,15 +42,26 @@ public class InitProcessor extends AbstractProcessor {
     public static final TypeName COMPLETABLE_FUTURE = ClassName.get(new TypeToken<java.util.concurrent.CompletableFuture<?>>() {}.getType());
     public static final Map<String, StringBuilder> SERVICES = new HashMap<>();
     public static final AtomicBoolean ONLY_ONCE = new AtomicBoolean(true);
+    public JavacProcessingEnvironment environment;
+    public Context context;
+    public TreeMaker maker;
+    public Trees trees;
     public static void add(String serviceName, String name) {
         if (!SERVICES.containsKey(serviceName)) SERVICES.put(serviceName, new StringBuilder());
         SERVICES.get(serviceName).append(name).append("\n");
     }
+
+
     public Filer filer;
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
         filer = processingEnv.getFiler();
+        environment = (JavacProcessingEnvironment) processingEnv;
+        context = environment.getContext();
+        maker = TreeMaker.instance(context);
+        trees = Trees.instance(processingEnv);
+
     }
 
     public static final MethodSpec.Builder INIT = MethodSpec
@@ -54,7 +77,9 @@ public class InitProcessor extends AbstractProcessor {
      */
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+
         if (ONLY_ONCE.get()) {
+            processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Init Processor by wild wind");
             TypeSpec.Builder builder = generatedLanguageProvider();
             List<Supplier<IClassProcessor>> list = List.of(
                     I18nProcessor::new,
@@ -67,6 +92,7 @@ public class InitProcessor extends AbstractProcessor {
                 for (Supplier<IClassProcessor> iClassProcessorSupplier : list) {
                     iClassProcessorSupplier.get().setCheck(rootElement).setEnv(processingEnv).run();
                 }
+
             }
             StringBuilder sb = new StringBuilder("this");
             I18nProcessor.LANGUAGES.forEach((lang, code) -> {
