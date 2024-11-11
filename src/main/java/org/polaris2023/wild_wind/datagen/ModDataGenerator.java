@@ -32,14 +32,11 @@ public class ModDataGenerator {
                 gen.addProvider(event.includeClient(), (DataProvider) language);
             }
         }
-        //gen.addProvider(event.includeClient(), new ModLangProviderEn(pack));
-        //gen.addProvider(event.includeClient(), new ModLangProviderZh(pack));
-        //gen.addProvider(event.includeClient(), new ModLangProviderZhTw(pack));
 
-//        gen.addProvider(event.includeClient(), new CheckGenTextures(pack, MOD_ID, provider, helper));
         gen.addProvider(event.includeClient(), new ModBlockModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
+        gen.addProvider(event.includeServer(), new ModRecipeProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(pack, provider, helper);
         gen.addProvider(event.includeServer(), blockTagsProvider);

@@ -17,16 +17,16 @@ import org.polaris2023.wild_wind.WildWindMod;
 import java.util.Locale;
 import java.util.function.Supplier;
 
-import static org.polaris2023.wild_wind.common.init.ModInit.TABS;
-import static org.polaris2023.wild_wind.common.init.ModItems.ITEMS;
+import static org.polaris2023.wild_wind.common.init.ModInitializer.TABS;
+
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild Wind Tags", zh_cn = "原野之风", zh_tw = "原野之風")
     WILD_WIND(ModItems.GLOW_POWDER::toStack,
             () -> (__, output) -> {
-                for (DeferredHolder<Item, ? extends Item> entry : ITEMS.getEntries()) {
-                    output.accept(entry.get());
+                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+                    output.accept(item.get());
                 }
             });
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
