@@ -1,22 +1,18 @@
 package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.language.I18n;
-import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 
-import java.util.function.Function;
+import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
-import static org.polaris2023.wild_wind.common.init.ModItems.ITEMS;
 
 public class ModBlocks {
-    static final DeferredRegister.Blocks BLOCKS = DeferredRegister.createBlocks(WildWindMod.MOD_ID);
+
 
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
@@ -48,19 +44,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CATTAILS = register("cattails");
     public static final DeferredItem<BlockItem> CATTAILS_ITEM = register("cattails", CATTAILS);
 
-    private static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
-        return ITEMS.registerSimpleBlockItem(name, block);
-    }
 
-    private static DeferredBlock<Block> register(String name) {
-        return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
-    }
 
-    private static <T extends Block> DeferredBlock<T> register(String name, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerBlock(name, function, properties);
-    }
 
-    private static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerSimpleBlock(name, properties);
-    }
 }

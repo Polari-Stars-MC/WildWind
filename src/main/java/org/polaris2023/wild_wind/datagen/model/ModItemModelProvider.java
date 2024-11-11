@@ -8,7 +8,9 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.item.BasicItem;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -21,16 +23,18 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        var entry = new ArrayList<>(ModItems.entry());
+        var entry = new ArrayList<>(ModInitializer.items());
         isSame(entry, DeferredSpawnEggItem.class, holder -> {
             spawnEggItem(holder.get());
 //            withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
         });
         basicItem(ModBlocks.GLOW_MUCUS_ITEM.get());
+        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+            if (item.get() instanceof BasicItem basicItem) {
+                basicItem(basicItem);
+            }
+        }
         basicItem(ModItems.GLOW_POWDER.get());
-        basicItem(ModItems.LIVING_TUBER.get());
-        basicItem(ModItems.RAW_TROUT.get());
-        basicItem(ModItems.COOKED_TROUT.get());
         basicItem(ModItems.TROUT_BUCKET.get());
 //        basicItem(ModBlocks.GLAREFLOWER_ITEM.get());
 //        basicItem(ModBlocks.GLAREFLOWER_SEEDS_ITEM.get());

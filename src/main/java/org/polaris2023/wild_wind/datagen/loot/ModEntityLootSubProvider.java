@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.datagen.loot;
 
-import com.ibm.icu.text.Normalizer2;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
@@ -10,10 +9,12 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.providers.number.*;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
 
 import java.util.stream.Stream;
@@ -27,7 +28,7 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
 
     @Override
     protected @NotNull Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModEntities.entry().stream().map(DeferredHolder::value);
+        return ModInitializer.entities().stream().map(DeferredHolder::value);
     }
 
     @Override
@@ -43,6 +44,10 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
                                 .setLimit(3))
                 ));
         add(ModEntities.GLARE.get(), LootTable.lootTable());
-        add(ModEntities.TROUT.get(), LootTable.lootTable());
+        add(ModEntities.TROUT.get(), LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.RAW_TROUT)
+                                .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))));
     }
 }

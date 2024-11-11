@@ -4,14 +4,10 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
-import net.neoforged.neoforge.event.entity.living.LivingEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModInit;
-import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class WildWindEventHandler {
@@ -22,6 +18,6 @@ public class WildWindEventHandler {
     }
 
     public static void modConstruction(IEventBus bus) {
-        ModInit.init(bus);
+        ModInitializer.init(bus);
     }
 }
