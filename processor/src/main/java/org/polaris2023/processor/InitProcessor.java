@@ -1,17 +1,21 @@
 package org.polaris2023.processor;
 
 import com.google.auto.service.AutoService;
-import com.google.common.base.Supplier;
 import com.google.common.reflect.TypeToken;
 import com.squareup.javapoet.*;
+import com.sun.source.tree.MethodTree;
 import com.sun.source.util.Trees;
+import com.sun.tools.javac.parser.JavacParser;
+import com.sun.tools.javac.parser.ParserFactory;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.Context;
-import com.sun.tools.javac.util.Log;
-import org.polaris2023.ext.config.ConfigProcessor;
-import org.polaris2023.ext.interfaces.IClassProcessor;
-import org.polaris2023.ext.language.I18nProcessor;
+import org.polaris2023.processor.clazz.ClassProcessor;
+import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
+import org.polaris2023.processor.clazz.datagen.I18nProcessor;
+import org.polaris2023.processor.pack.PackageProcessor;
+import org.polaris2023.utils.Costs;
 import org.polaris2023.utils.Unsafe;
 
 import javax.annotation.processing.*;
@@ -21,10 +25,11 @@ import javax.tools.Diagnostic;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
-import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import static org.polaris2023.utils.Costs.ClassNames.*;
 
 @AutoService(Processor.class)
 @SupportedAnnotationTypes("*")
@@ -35,11 +40,6 @@ public class InitProcessor extends AbstractProcessor {
         Unsafe.exportJdkModule();
     }
 
-    public static final ClassName STRING = ClassName.bestGuess("java.lang.String");
-    public static final ClassName NIO_PATH = ClassName.bestGuess("java.nio.file.Path");
-    public static final ClassName MC_PACK_OUT_PUT = ClassName.bestGuess("net.minecraft.data.PackOutput");
-    public static final ClassName COMPLETABLE_FUTURE_O = ClassName.bestGuess("java.util.concurrent.CompletableFuture");
-    public static final TypeName COMPLETABLE_FUTURE = ClassName.get(new TypeToken<java.util.concurrent.CompletableFuture<?>>() {}.getType());
     public static final Map<String, StringBuilder> SERVICES = new HashMap<>();
     public static final AtomicBoolean ONLY_ONCE = new AtomicBoolean(true);
     public JavacProcessingEnvironment environment;
@@ -51,6 +51,8 @@ public class InitProcessor extends AbstractProcessor {
         SERVICES.get(serviceName).append(name).append("\n");
     }
 
+    public static final List<ClassProcessor> classProcessors = new ArrayList<>();
+
 
     public Filer filer;
     @Override
@@ -58,10 +60,11 @@ public class InitProcessor extends AbstractProcessor {
         super.init(processingEnv);
         filer = processingEnv.getFiler();
         environment = (JavacProcessingEnvironment) processingEnv;
-        context = environment.getContext();
-        maker = TreeMaker.instance(context);
-        trees = Trees.instance(processingEnv);
 
+        classProcessors.add(new ClassProcessor(environment));
+        classProcessors.add(new PackageProcessor(environment));
+        classProcessors.add(new AutoConfigProcessor(environment));
+        classProcessors.add(new I18nProcessor(environment));
     }
 
     public static final MethodSpec.Builder INIT = MethodSpec
@@ -79,34 +82,37 @@ public class InitProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
         if (ONLY_ONCE.get()) {
+            for (ClassProcessor classProcessor : classProcessors) {
+                classProcessor.process(annotations, roundEnv);
+            }
             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Init Processor by wild wind");
             TypeSpec.Builder builder = generatedLanguageProvider();
-            List<Supplier<IClassProcessor>> list = List.of(
-                    I18nProcessor::new,
-                    ConfigProcessor::new
-            );
-            for (Element rootElement : roundEnv.getRootElements()) {
-                if (rootElement.getSimpleName().toString().contains("org.polaris2023.wild_wind.common.init.ModCreativeTabs")) {
-                    System.out.println(rootElement.getKind().name());
-                }
-                for (Supplier<IClassProcessor> iClassProcessorSupplier : list) {
-                    iClassProcessorSupplier.get().setCheck(rootElement).setEnv(processingEnv).run();
-                }
-
-            }
             StringBuilder sb = new StringBuilder("this");
-            I18nProcessor.LANGUAGES.forEach((lang, code) -> {
-                sb
-                        .append(".setTargetLanguage(\"%s\")".formatted(lang))
-                        .append("\n")
-                        .append(code);
-            });
+            I18nProcessor.LANGUAGES.forEach((lang, code) -> sb
+                    .append(".setTargetLanguage(\"%s\")".formatted(lang))
+                    .append("\n")
+                    .append(code));
             INIT.addCode(sb + ";");
             saveAndAddServiceByLanguageGenerated(builder);
             servicesSave();
             ONLY_ONCE.set(false);
         }
         return true;
+    }
+
+    public void processMethod(MethodTree node) {
+        var tree = (JCTree.JCMethodDecl) node;
+        String codeSnippet = """
+				for (int i = 0; i < 3; i++) {
+							System.out.println("Inject i: " + i);
+						}
+				""";
+        ParserFactory parserFactory = ParserFactory.instance(context);
+        JavacParser javacParser = parserFactory.newParser(codeSnippet, false, false, false);
+
+        JCTree.JCStatement jcStatement = javacParser.parseStatement();
+        if (tree.body != null)
+            tree.body.stats = tree.body.stats.prepend(jcStatement);
     }
 
     private void saveAndAddServiceByLanguageGenerated(TypeSpec.Builder builder) {
@@ -148,16 +154,16 @@ public class InitProcessor extends AbstractProcessor {
                                                 Modifier.PRIVATE, Modifier.STATIC)
                                         .initializer("new com.google.gson.GsonBuilder().setLenient().setPrettyPrinting().create()")
                                         .build(),
-                                FieldSpec.builder(STRING,
+                                FieldSpec.builder(STRING.get(),
                                                 "modid",
                                                 Modifier.PRIVATE)
                                         .build(),
-                                FieldSpec.builder(STRING,
+                                FieldSpec.builder(STRING.get(),
                                                 "targetLanguage",
                                                 Modifier.PRIVATE)
                                         .initializer("targetLanguage = \"en_us\"")
                                         .build(),
-                                FieldSpec.builder(MC_PACK_OUT_PUT,
+                                FieldSpec.builder(PACK_OUTPUT.get(),
                                                 "output",
                                                 Modifier.PRIVATE)
                                         .build(),
@@ -166,7 +172,7 @@ public class InitProcessor extends AbstractProcessor {
                                                 Modifier.PRIVATE, Modifier.FINAL)
                                         .initializer("new ConcurrentHashMap<>()")
                                         .build(),
-                                FieldSpec.builder(NIO_PATH,
+                                FieldSpec.builder(NIO_PATH.get(),
                                                 "languageDir",
                                                 Modifier.PRIVATE)
                                         .build()
@@ -176,21 +182,21 @@ public class InitProcessor extends AbstractProcessor {
                                 MethodSpec
                                         .methodBuilder("setModid")
                                         .returns(TypeName.VOID)
-                                        .addParameter(STRING, "modid")
+                                        .addParameter(STRING.get(), "modid")
                                         .addModifiers(Modifier.PUBLIC)
                                         .addCode("this.modid = modid;")
                                         .build(),
                                 MethodSpec
                                         .methodBuilder("setLanguageDir")
                                         .returns(TypeName.VOID)
-                                        .addParameter(NIO_PATH, "languageDir")
+                                        .addParameter(NIO_PATH.get(), "languageDir")
                                         .addModifiers(Modifier.PUBLIC)
                                         .addCode("this.languageDir = languageDir;")
                                         .build(),
                                 MethodSpec
                                         .methodBuilder("setOutput")
                                         .returns(TypeName.VOID)
-                                        .addParameter(MC_PACK_OUT_PUT, "output")
+                                        .addParameter(PACK_OUTPUT.get(), "output")
                                         .addModifiers(Modifier.PUBLIC)
                                         .addCode("""
                                                     this.output = output;
@@ -202,7 +208,7 @@ public class InitProcessor extends AbstractProcessor {
                                         .build(),
                                 MethodSpec
                                         .methodBuilder("run")
-                                        .returns(COMPLETABLE_FUTURE)
+                                        .returns(Costs.TypeNames.COMPLETABLE_FUTURE.get())
                                         .addModifiers(Modifier.PUBLIC)
                                         .addParameter(ParameterSpec
                                                 .builder(ClassName.bestGuess("net.minecraft.data.CachedOutput"), "cachedOutput")
@@ -223,7 +229,7 @@ public class InitProcessor extends AbstractProcessor {
                                                     """)
                                         .build(),
                                 MethodSpec.methodBuilder("getName")
-                                        .returns(STRING)
+                                        .returns(STRING.get())
                                         .addModifiers(Modifier.PUBLIC)
                                         .addCode("return \"Language Setting by \" + modid;")
                                         .build()
@@ -234,7 +240,7 @@ public class InitProcessor extends AbstractProcessor {
         builder.addMethod(MethodSpec
                 .methodBuilder("setTargetLanguage")
                 .returns(ClassName.bestGuess(builder.build().name))
-                .addParameter(STRING, "targetLanguage")
+                .addParameter(STRING.get(), "targetLanguage")
                 .addModifiers(Modifier.PUBLIC)
                 .addCode("""
                         this.targetLanguage = targetLanguage;
@@ -251,7 +257,7 @@ public class InitProcessor extends AbstractProcessor {
                 .addMethod(MethodSpec.methodBuilder("add")
                         .returns(ClassName.bestGuess(builder.build().name))
                         .addParameter(TypeName.OBJECT, "r")
-                        .addParameter(STRING, "value")
+                        .addParameter(STRING.get(), "value")
                         .addModifiers(Modifier.PUBLIC)
                         .addCode("""
                                     if (r instanceof String string) {
