@@ -47,11 +47,11 @@ public class ModItems {
     @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "乳酪南瓜湯")
     public static final DeferredItem<BasicItem> CHEESE_PUMPKIN_SOUP = register("cheese_pumpkin_soup", BasicItem::new);
 
-    @I18n(en_us = "Cooked Beetroot", zh_cn = "熟甜菜", zh_tw = "熟甜菜")
-    public static final DeferredItem<BasicItem> COOKED_BEETROOT = register("cooked_beetroot", BasicItem::new);
+    @I18n(en_us = "Baked Beetroot", zh_cn = "烤甜菜", zh_tw = "烤甜菜")
+    public static final DeferredItem<BasicItem> COOKED_BEETROOT = register("baked_beetroot", BasicItem::new);
 
-    @I18n(en_us = "Cooked carrot", zh_tw = "熟胡蘿蔔", zh_cn = "熟胡萝卜")
-    public static final DeferredItem<BasicItem> COOKED_CARROT = register("cooked_carrot", BasicItem::new);
+    @I18n(en_us = "Baked carrot", zh_tw = "烤胡蘿蔔", zh_cn = "烤胡萝卜")
+    public static final DeferredItem<BasicItem> COOKED_CARROT = register("baked_carrot", BasicItem::new);
 
     @I18n(en_us = "Cooked Egg", zh_cn = "煎蛋", zh_tw = "煎蛋")
     public static final DeferredItem<BasicItem> COOKED_EGG = register("cooked_egg", BasicItem::new);

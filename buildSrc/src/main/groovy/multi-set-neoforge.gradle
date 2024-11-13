@@ -14,24 +14,6 @@ tasks.named('wrapper', Wrapper).configure {
 version = mod_version
 group = mod_group_id
 
-def info = file("src/main/info")
-if (!info.exists()) {
-    info.mkdirs()
-}
-
-def javaDir = file("src/main/java")
-
-sourceSets {
-    main {
-        java {
-            srcDirs(info)
-        }
-    }
-}
-
-infoCreate(javaDir, "", info, libs.versions.package.info.get().lines().toList())
-
-
 def mvns = new ArrayList<Mvn>()
 checkRepositories(libs.versions.repositories.setting.get().lines(), mvns)
 
@@ -196,34 +178,6 @@ idea {
         downloadJavadoc = true
     }
 }
-
-static def infoCreate(File file, String module, File info, List<String> pifInfo) {
-    def list = file.listFiles()
-    if (list != null) {
-        for (final def p in list ) {
-            String name = module.isEmpty() ? p.name : module + "." + p.name
-            if (p.isDirectory()) {
-                infoCreate(p, name, info, pifInfo)
-            } else {
-                // has java file to create package-info
-                def packageInfoFile = new File(info, module.replace(".", File.separator) + File.separator + "package-info.java")
-
-                def parentFile = packageInfoFile.parentFile
-                if (!parentFile.exists()) {
-                    parentFile.mkdirs()
-                }
-                if (!packageInfoFile.exists()) {
-                    def writer = packageInfoFile.newWriter()
-                    for (final def line in pifInfo) {
-                        writer.writeLine(line.replace('${packageName}', module))
-                    }
-                    writer.close()
-                }
-            }
-        }
-    }
-}
-
 
 class Mvn {
     final String name

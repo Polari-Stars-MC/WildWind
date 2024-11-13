@@ -1,34 +1,45 @@
-package org.polaris2023.ext.config;
+package org.polaris2023.processor.clazz.config;
 
-import com.google.auto.service.AutoService;
 import com.squareup.javapoet.*;
-import com.sun.tools.javac.code.Symbol;
-import com.sun.tools.javac.tree.TreeMaker;
+import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.MethodTree;
+import com.sun.source.tree.Tree;
+import com.sun.source.tree.VariableTree;
+import com.sun.source.util.TreeScanner;
+import com.sun.tools.javac.code.Flags;
+import com.sun.tools.javac.code.Type;
+import com.sun.tools.javac.code.TypeTag;
+import com.sun.tools.javac.parser.JavacParser;
+import com.sun.tools.javac.parser.ParserFactory;
+import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import com.sun.tools.javac.tree.JCTree;
+import com.sun.tools.javac.util.List;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
-import org.polaris2023.ext.ClassProcessor;
-import org.polaris2023.ext.interfaces.IClassProcessor;
 import org.polaris2023.processor.InitProcessor;
+import org.polaris2023.processor.clazz.ClassProcessor;
+import org.polaris2023.utils.JCUtils;
 
-import javax.lang.model.element.*;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.text.MessageFormat;
 
-@AutoService(IClassProcessor.class)
-public class ConfigProcessor extends ClassProcessor {
+public class AutoConfigProcessor extends ClassProcessor {
 
-    public ConfigProcessor() {
-        super();
+    public AutoConfigProcessor(JavacProcessingEnvironment environment) {
+        super(environment);
     }
 
     @Override
-    public void processor() {
-        super.processor();
-        AutoConfig autoConfig = getCheck().getAnnotation(AutoConfig.class);
+    public void classDef(TypeElement typeElement) {
+        AutoConfig autoConfig = typeElement.getAnnotation(AutoConfig.class);
         if (autoConfig != null) {
 
             TypeSpec.Builder builder =TypeSpec
-                    .classBuilder( getCheck().getSimpleName()+"Impl")
+                    .classBuilder( typeElement.getSimpleName()+"Impl")
                     .addModifiers(Modifier.PUBLIC);
 
             builder.addSuperinterface(ClassName.bestGuess("org.polaris2023.wild_wind.util.interfaces.IConfig"));
@@ -47,8 +58,8 @@ public class ConfigProcessor extends ClassProcessor {
                             .build());
             builder.addAnnotation(AnnotationSpec
                     .builder(ClassName.bestGuess("net.neoforged.fml.common.EventBusSubscriber"))
-                            .addMember("modid", "\"" + autoConfig.modid() +"\"")
-                            .addMember("bus", "EventBusSubscriber.Bus.MOD")
+                    .addMember("modid", "\"" + autoConfig.modid() +"\"")
+                    .addMember("bus", "EventBusSubscriber.Bus.MOD")
                     .build());
             ClassName modConfigSpec = ClassName.get("net.neoforged.neoforge.common", "ModConfigSpec");
 
@@ -59,17 +70,17 @@ public class ConfigProcessor extends ClassProcessor {
                     )
                     .initializer("new ModConfigSpec.Builder()")
                     .build());
-            CodeBlock.Builder code = noteAndPushCode(getCheck(), false);
+            CodeBlock.Builder code = noteAndPushCode(typeElement, false);
 
 
-            for (Element enclosedElement : getCheck().getEnclosedElements()) {
+            for (Element enclosedElement : typeElement.getEnclosedElements()) {
                 generatedCodeBy(enclosedElement,
                         builder,
                         modConfigSpec,
                         enclosedElement.getSimpleName().toString(),
                         code,
                         event,
-                        getCheck());
+                        typeElement);
 
 
             }
@@ -99,10 +110,10 @@ public class ConfigProcessor extends ClassProcessor {
 
 
 
-            JavaFile jf = JavaFile.builder(getCheck()
+            JavaFile jf = JavaFile.builder(typeElement
                     .getQualifiedName()
                     .toString()
-                    .replace("."+getCheck().getSimpleName(), ""), builder.build()).build();
+                    .replace("."+typeElement.getSimpleName(), ""), builder.build()).build();
             InitProcessor.add("org.polaris2023.wild_wind.util.interfaces.IConfig", jf.packageName + "." + builder.build().name);
             try {
                 jf.writeTo(getFiler());
@@ -320,5 +331,4 @@ public class ConfigProcessor extends ClassProcessor {
         }
         return builderStaticCode;
     }
-
 }

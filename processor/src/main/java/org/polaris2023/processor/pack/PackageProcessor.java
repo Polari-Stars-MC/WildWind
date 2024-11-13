@@ -1,28 +1,22 @@
-package org.polaris2023.ext;
+package org.polaris2023.processor.pack;
 
-import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.PackageElement;
+import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import org.polaris2023.processor.clazz.ClassProcessor;
+
+import javax.lang.model.element.*;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
 
-public class PackageProcessor extends IProcessor<PackageElement> {
+public class PackageProcessor extends ClassProcessor {
 
-    @Override
-    public PackageElement check(Element e) {
-        if (e.getKind() == ElementKind.PACKAGE)
-            return (PackageElement) e;
-        return null;
+
+    public PackageProcessor(JavacProcessingEnvironment environment) {
+        super(environment);
     }
 
     @Override
-    public void processor() {
-        writePackageInfo(getCheck());
-    }
-
-    public void writePackageInfo(PackageElement packageElement) {
+    public void packageDef(PackageElement packageElement) {
         try {
             JavaFileObject fileObject = getFiler().createSourceFile(packageElement.getQualifiedName().toString() + ".package-info");
 
