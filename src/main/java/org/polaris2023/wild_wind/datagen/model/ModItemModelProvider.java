@@ -10,6 +10,7 @@ import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 import org.polaris2023.wild_wind.common.item.BasicItem;
 
 import java.util.ArrayList;
@@ -30,14 +31,19 @@ public class ModItemModelProvider extends ItemModelProvider {
         });
         basicItem(ModBlocks.GLOW_MUCUS_ITEM.get());
         for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
-            if (item.get() instanceof BasicItem basicItem) {
-                basicItem(basicItem);
+            switch (item.get()) {
+                case BasicItem basicItem -> {
+                    basicItem(basicItem);
+                }
+                case BasicBlockItem blockItem -> {
+                    basicItem(blockItem);
+                }
+                default -> {
+
+                }
             }
         }
-        basicItem(ModItems.GLOW_POWDER.get());
         basicItem(ModItems.TROUT_BUCKET.get());
-//        basicItem(ModBlocks.GLAREFLOWER_ITEM.get());
-//        basicItem(ModBlocks.GLAREFLOWER_SEEDS_ITEM.get());
 
 
     }
