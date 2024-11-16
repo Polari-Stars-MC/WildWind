@@ -12,6 +12,7 @@ import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 import org.polaris2023.wild_wind.common.item.BasicItem;
+import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
 
 import java.util.ArrayList;
 import java.util.function.Consumer;
@@ -24,38 +25,26 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        var entry = new ArrayList<>(ModInitializer.items());
-        isSame(entry, DeferredSpawnEggItem.class, holder -> {
-            spawnEggItem(holder.get());
-//            withExistingParent(holder.getId().getPath(), mcLoc("item/template_spawn_egg"));
-        });
-        basicItem(ModBlocks.GLOW_MUCUS_ITEM.get());
-        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.entry(Item.class)) {
             switch (item.get()) {
+                case DeferredSpawnEggItem eggItem -> {
+                    spawnEggItem(eggItem);
+                }
                 case BasicItem basicItem -> {
                     basicItem(basicItem);
                 }
                 case BasicBlockItem blockItem -> {
                     basicItem(blockItem);
                 }
+                case BasicMobBucketItem bucketItem -> {
+                    basicItem(bucketItem);
+                }
                 default -> {
 
                 }
             }
         }
-        basicItem(ModItems.TROUT_BUCKET.get());
 
 
-    }
-
-
-
-    @SuppressWarnings("unchecked")
-    public <T extends Item> void isSame(ArrayList<DeferredHolder<Item, ? extends Item>> items, Class<T> tClass, Consumer<DeferredHolder<Item, T>> consumer) {
-        items
-                .stream()
-                .filter(holder -> holder.get().getClass().equals(tClass))
-                .map(holder -> (DeferredHolder<Item, T>) holder)
-                .forEach(consumer);
     }
 }

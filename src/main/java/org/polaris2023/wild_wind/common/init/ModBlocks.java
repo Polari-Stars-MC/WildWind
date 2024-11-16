@@ -19,7 +19,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
-    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM =
+    public static final DeferredItem<BasicBlockItem> GLOW_MUCUS_ITEM =
             register("glow_mucus", () -> new BasicBlockItem(GLOW_MUCUS.get(), new Item.Properties()));
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")

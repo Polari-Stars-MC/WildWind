@@ -1,5 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
+import com.google.common.reflect.TypeToken;
+import com.google.gson.Gson;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -27,6 +29,7 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -98,6 +101,21 @@ public class ModInitializer {
         return ENTITIES.getEntries();
     }
 
+    public static <T> Collection<DeferredHolder<T, ? extends T>> entry(Class<T> tClass) {
+        return entry(new TypeToken<>(tClass) {});
+    }
+
+    @SuppressWarnings("unchecked")
+    public static <T> Collection<DeferredHolder<T, ? extends T>> entry(TypeToken<T> token) {
+        return token.isSubtypeOf(Item.class)
+                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) ITEMS.getEntries()
+                : token.isSubtypeOf(Block.class)
+                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) BLOCKS.getEntries()
+                : token.isSubtypeOf(EntityType.class)
+                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) ENTITIES.getEntries()
+                : List.of();
+    }
+
     static  DeferredBlock<Block> register(String name) {
         return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
 
@@ -129,10 +147,6 @@ public class ModInitializer {
 
     static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         return ITEMS.register(name, item);
-    }
-
-    public static Collection<DeferredHolder<Item, ? extends Item>> items() {
-        return ITEMS.getEntries();
     }
 
     static DeferredItem<DeferredSpawnEggItem> register(String name,

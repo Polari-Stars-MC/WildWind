@@ -2,6 +2,7 @@ package org.polaris2023.wild_wind.datagen.custom;
 
 import com.google.common.hash.Hashing;
 import com.google.common.hash.HashingOutputStream;
+import com.google.common.reflect.TypeToken;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -47,7 +48,7 @@ public class CheckGenTextures implements DataProvider {
                 .resolve(modid)
                 .resolve("textures");
         Path item = textures.resolve("item");
-        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ModInitializer.items();
+        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ModInitializer.entry(Item.class);
         CompletableFuture<Void>[] futures = new CompletableFuture[itemEntry.size()];
         Font arial = new Font("Arial", Font.PLAIN, 12);
         int i = 0;

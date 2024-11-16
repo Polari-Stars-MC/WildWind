@@ -25,7 +25,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild Wind Tags", zh_cn = "原野之风", zh_tw = "原野之風")
     WILD_WIND(ModItems.GLOW_POWDER::toStack,
             () -> (__, output) -> {
-                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.entry(Item.class)) {
                     output.accept(item.get());
                 }
             });
