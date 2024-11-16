@@ -13,6 +13,18 @@ public class BasicItem extends Item {
         super(properties);
     }
 
+    BasicItem(Properties properties, int maxCount) {
+        super(properties.stacksTo(maxCount));
+    }
+
+    public static BasicItem stackTo1(Properties properties) {
+        return new BasicItem(properties, 1);
+    }
+
+    public static BasicItem stackTo16(Properties properties) {
+        return new BasicItem(properties, 16);
+    }
+
     public BasicItem(Properties properties, Consumer<FoodProperties.Builder> consumer) {
         super(properties.food(food(consumer)));
     }
