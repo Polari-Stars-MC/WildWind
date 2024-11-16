@@ -1,12 +1,23 @@
 [versions]
-geckolib-version="4.6.6"
-terrablender-version="1.21.1-4.1.0.4"
-jar-in-jar-names="geckolib-neoforge,"
-
+terrablender-version="1.21.1-4.1.0.5"
+eye-lib-version="21.1.3"
+mod-dev-gradle-version="1.0.21"
+repositories-setting="""
+GeckoLib -> https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/
+    --> software.bernie.geckolib
+Minecraft Forge -> https://maven.minecraftforge.net/
+    --> net.minecraftforge
+    --> com.github.glitchfiend
+    --> io.github.tt432.chin
+"""
 [libraries]
-geckolib-neoforge={group = "software.bernie.geckolib", name = "geckolib-neoforge-1.21.1", version.ref = "geckolib-version"}
-terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-neoforge", version.ref = "terrablender-version"}
+terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-neoforge", version.ref="terrablender-version"}
+eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib-version"}
+
+[plugins]
+mod-dev-gradle={id = "net.neoforged.moddev", version.ref= "mod-dev-gradle-version"}
 
 [bundles]
-jar-in-jar=["geckolib-neoforge"]
+jar-in-jar=["eye-lib-neoforge"]
 linkage=["terrablender-neoforge"]
+implementation=[]

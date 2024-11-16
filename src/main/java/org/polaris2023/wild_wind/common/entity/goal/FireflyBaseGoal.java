@@ -3,20 +3,22 @@ package org.polaris2023.wild_wind.common.entity.goal;
 import net.minecraft.world.entity.ai.goal.Goal;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
+
 public class FireflyBaseGoal extends Goal {
-	public final Firefly firefly;
 
-	public FireflyBaseGoal(Firefly Firefly) {
-		this.firefly = Firefly;
-	}
+    public final Firefly firefly;
 
-	@Override
-	public void tick() {
-		super.tick();
-	}
+    public FireflyBaseGoal(Firefly firefly) {
+        this.firefly = firefly;
+    }
 
-	@Override
-	public boolean canUse() {
-		return false;
-	}
+    @Override
+    public void tick() {
+        super.tick();
+    }
+
+    @Override
+    public boolean canUse() {
+        return false;
+    }
 }

@@ -7,19 +7,17 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.world.village.ModVillage;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class WildWindEventHandler {
-	@SubscribeEvent
-	public static void registerAttributes(EntityAttributeCreationEvent event) {
-		event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes());
-	}
 
-	public static void modConstruction(IEventBus modEventBus) {
-		ModEntities.init(modEventBus);
-		ModItems.init(modEventBus);
-		ModVillage.Registers.init(modEventBus);
-	}
+    @SubscribeEvent
+    public static void registerAttributes(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes());
+    }
+
+    public static void modConstruction(IEventBus bus) {
+        ModInitializer.init(bus);
+    }
 }

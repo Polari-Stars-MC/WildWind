@@ -2,6 +2,7 @@ pluginManagement {
     repositories {
         mavenLocal()
         gradlePluginPortal()
+        mavenCentral()
         maven { url = 'https://maven.neoforged.net/releases' }
     }
 }
@@ -13,3 +14,5 @@ plugins {
 include("annotation", "processor")
 
 project(":annotation").projectDir = file("processor/annotation")
+
+rootProject.name = mod_id
