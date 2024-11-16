@@ -28,6 +28,7 @@ public class PackageProcessor extends ClassProcessor {
                 writer.write("import net.minecraft.FieldsAreNonnullByDefault;\n");
                 writer.write("import net.minecraft.MethodsReturnNonnullByDefault;\n");
                 writer.write("import javax.annotation.ParametersAreNonnullByDefault;\n");
+
             }
         } catch (IOException ignored) {}
     }
