@@ -20,9 +20,9 @@ import java.util.List;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "resource"})
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.GAME, modid = MOD_ID)
-public class BiomeUtil {
+public final class BiomeUtil {
     private static final List<Level> worldList = Lists.newArrayList();
 
 

@@ -7,11 +7,8 @@ import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
-import org.polaris2023.wild_wind.config.WildWindCommonConfig;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
-import java.lang.reflect.Method;
-import java.util.List;
 import java.util.ServiceLoader;
 
 @Mod(WildWindMod.MOD_ID)

@@ -6,6 +6,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.ai.village.poi.PoiType;
+import net.minecraft.world.entity.npc.VillagerProfession;
+import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -18,13 +21,14 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.Collection;
-import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
+
+import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
 public class ModInitializer {
     static final DeferredRegister<EntityType<?>> ENTITIES =
@@ -35,6 +39,12 @@ public class ModInitializer {
             DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, WildWindMod.MOD_ID);
     static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WildWindMod.MOD_ID);
+    static final DeferredRegister<PoiType> POI_TYPES =
+            DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
+    static final DeferredRegister<VillagerType> VILLAGER_TYPES =
+            DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, MOD_ID);
+    static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS =
+            DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
 
     public static Collection<DeferredHolder<CreativeModeTab, ? extends CreativeModeTab>> creativeTabs() {
         return TABS.getEntries();
@@ -46,12 +56,14 @@ public class ModInitializer {
                     ModEntities.class,
                     ModBlocks.class,
                     ModItems.class,
-                    ModCreativeTabs.class
+                    ModCreativeTabs.class,
+                    ModVillagers.class
             );
         } catch (ClassNotFoundException ignored) {}
-        Helpers.register(bus,
+        RegistryUtil.register(bus,
                 ENTITIES, BLOCKS,
-                ITEMS, TABS);
+                ITEMS, TABS,
+                POI_TYPES, VILLAGER_TYPES, VILLAGER_PROFESSIONS);
     }
 
     public static void init(Class<?>... clazz) throws ClassNotFoundException {
