@@ -13,6 +13,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceCon
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.stream.Stream;
 
@@ -42,6 +43,6 @@ public class ModEntityLoot extends EntityLootSubProvider {
 
 	@Override
 	protected Stream<EntityType<?>> getKnownEntityTypes() {
-		return ModEntities.getModEntities().stream().map(DeferredHolder::get);
+		return ModInitializer.entities().stream().map(DeferredHolder::get);
 	}
 }
