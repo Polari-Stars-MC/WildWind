@@ -2,6 +2,8 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -12,15 +14,16 @@ import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.Collection;
@@ -31,19 +34,27 @@ import java.util.function.Supplier;
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
 public class ModInitializer {
+    static final DeferredRegister<SoundEvent> SOUNDS =
+            DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
     static final DeferredRegister<EntityType<?>> ENTITIES =
-            DeferredRegister.create(Registries.ENTITY_TYPE, WildWindMod.MOD_ID);
+            DeferredRegister.create(Registries.ENTITY_TYPE, MOD_ID);
+    static final DeferredRegister<Fluid> FLUIDS =
+            DeferredRegister.create(BuiltInRegistries.FLUID, MOD_ID);
     static final DeferredRegister.Blocks BLOCKS =
-            DeferredRegister.createBlocks(WildWindMod.MOD_ID);
+            DeferredRegister.createBlocks(MOD_ID);
     static final DeferredRegister<CreativeModeTab> TABS =
-            DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, WildWindMod.MOD_ID);
+            DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, MOD_ID);
+    static final DeferredRegister<MobEffect> EFFECTS =
+            DeferredRegister.create(Registries.MOB_EFFECT, MOD_ID);
+    static final DeferredRegister<Potion> POTIONS =
+            DeferredRegister.create(Registries.POTION, MOD_ID);
     static final DeferredRegister.Items ITEMS =
-            DeferredRegister.createItems(WildWindMod.MOD_ID);
+            DeferredRegister.createItems(MOD_ID);
     static final DeferredRegister<PoiType> POI_TYPES =
             DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
-    static final DeferredRegister<VillagerType> VILLAGER_TYPES =
+    static final DeferredRegister<VillagerType> VILLAGERS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, MOD_ID);
-    static final DeferredRegister<VillagerProfession> VILLAGER_PROFESSIONS =
+    static final DeferredRegister<VillagerProfession> PROFESSIONS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
 
     public static Collection<DeferredHolder<CreativeModeTab, ? extends CreativeModeTab>> creativeTabs() {
@@ -53,17 +64,23 @@ public class ModInitializer {
     public static void init(IEventBus bus) {
         try {
             init(
+                    ModSounds.class,
                     ModEntities.class,
+                    ModFluids.class,
                     ModBlocks.class,
+                    ModEffects.class,
+                    ModPotions.class,
                     ModItems.class,
                     ModCreativeTabs.class,
                     ModVillagers.class
             );
         } catch (ClassNotFoundException ignored) {}
         RegistryUtil.register(bus,
-                ENTITIES, BLOCKS,
+                SOUNDS,
+                ENTITIES, FLUIDS, BLOCKS,
+                EFFECTS,POTIONS,
                 ITEMS, TABS,
-                POI_TYPES, VILLAGER_TYPES, VILLAGER_PROFESSIONS);
+                POI_TYPES, VILLAGERS, PROFESSIONS);
     }
 
     public static void init(Class<?>... clazz) throws ClassNotFoundException {
@@ -100,6 +117,10 @@ public class ModInitializer {
 
     static DeferredItem<Item> simpleItem(String name) {
         return ITEMS.registerSimpleItem(name);
+    }
+
+    static DeferredItem<Item> simpleItem(String name, Item.Properties properties) {
+        return ITEMS.registerSimpleItem(name, properties);
     }
 
     static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, T> item) {

@@ -33,6 +33,7 @@ public class ModDataGenerator {
             }
         }
 
+        gen.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
@@ -42,5 +43,6 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(pack, provider, blockTagsProvider.contentsGetter(), helper));
         gen.addProvider(event.includeServer(), new ModLootTableProvider(pack, provider));
+        gen.addProvider(event.includeServer(), new ModEnchantmentProvider(pack, provider));
     }
 }

@@ -2,6 +2,7 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -43,6 +44,14 @@ public class ModBlocks {
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
     public static final DeferredBlock<Block> CATTAILS = register("cattails");
     public static final DeferredItem<BlockItem> CATTAILS_ITEM = register("cattails", CATTAILS);
+
+    @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
+    public static final DeferredBlock<Block> PRESENT = register("present");
+
+    @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
+    public static final DeferredBlock<Block> TRAPPED_PRESENT =
+            register("trapped_present");
+
 
 
 
