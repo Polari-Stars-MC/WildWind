@@ -1,7 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
+import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -36,7 +36,10 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
-public class ModInitializer {
+public final class ModInitializer {
+
+    static final DeferredRegister.DataComponents COMPONENTS =
+            DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MOD_ID);
     static final DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
     static final DeferredRegister<EntityType<?>> ENTITIES =
@@ -53,20 +56,17 @@ public class ModInitializer {
             DeferredRegister.create(Registries.POTION, MOD_ID);
     static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(MOD_ID);
-    static final DeferredRegister<PoiType> POI_TYPES =
+    static final DeferredRegister<PoiType> POIS =
             DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
     static final DeferredRegister<VillagerType> VILLAGERS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, MOD_ID);
     static final DeferredRegister<VillagerProfession> PROFESSIONS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
 
-    public static Collection<DeferredHolder<CreativeModeTab, ? extends CreativeModeTab>> creativeTabs() {
-        return TABS.getEntries();
-    }
-
     public static void init(IEventBus bus) {
         try {
             init(
+                    ModComponents.class,
                     ModSounds.class,
                     ModEntities.class,
                     ModFluids.class,
@@ -79,11 +79,12 @@ public class ModInitializer {
             );
         } catch (ClassNotFoundException ignored) {}
         RegistryUtil.register(bus,
+                COMPONENTS,
                 SOUNDS,
                 ENTITIES, FLUIDS, BLOCKS,
                 EFFECTS,POTIONS,
                 ITEMS, TABS,
-                POI_TYPES, VILLAGERS, PROFESSIONS);
+                POIS, VILLAGERS, PROFESSIONS);
     }
 
     public static void init(Class<?>... clazz) throws ClassNotFoundException {
@@ -97,23 +98,36 @@ public class ModInitializer {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
     }
 
-    public static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
-        return ENTITIES.getEntries();
-    }
-
     public static <T> Collection<DeferredHolder<T, ? extends T>> entry(Class<T> tClass) {
         return entry(new TypeToken<>(tClass) {});
     }
 
     @SuppressWarnings("unchecked")
     public static <T> Collection<DeferredHolder<T, ? extends T>> entry(TypeToken<T> token) {
-        return token.isSubtypeOf(Item.class)
-                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) ITEMS.getEntries()
-                : token.isSubtypeOf(Block.class)
-                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) BLOCKS.getEntries()
-                : token.isSubtypeOf(EntityType.class)
-                ? (Collection<DeferredHolder<T, ? extends T>>) (Object) ENTITIES.getEntries()
-                : List.of();
+        return (Collection<DeferredHolder<T, ? extends T>>)
+                (token.isSubtypeOf(SoundEvent.class) ?
+                        SOUNDS.getEntries()
+                        : token.isSubtypeOf(EntityType.class)
+                        ? ENTITIES.getEntries()
+                        : token.isSubtypeOf(Fluid.class)
+                        ? FLUIDS.getEntries()
+                        : token.isSubtypeOf(Block.class)
+                        ? BLOCKS.getEntries()
+                        : token.isSubtypeOf(MobEffect.class)
+                        ? EFFECTS.getEntries()
+                        : token.isSubtypeOf(Potion.class)
+                        ? POTIONS.getEntries()
+                        : token.isSubtypeOf(Item.class)
+                        ? ITEMS.getEntries()
+                        : token.isSubtypeOf(CreativeModeTab.class)
+                        ? TABS.getEntries()
+                        : token.isSubtypeOf(PoiType.class)
+                        ? POIS.getEntries()
+                        : token.isSubtypeOf(VillagerType.class)
+                        ? VILLAGERS.getEntries()
+                        : token.isSubtypeOf(VillagerProfession.class)
+                        ? PROFESSIONS.getEntries()
+                        : List.of());
     }
 
     static  DeferredBlock<Block> register(String name) {

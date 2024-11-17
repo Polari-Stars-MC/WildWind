@@ -3,7 +3,6 @@ package org.polaris2023.wild_wind.common.init;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
@@ -13,10 +12,9 @@ import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
-import static org.polaris2023.wild_wind.common.init.ModInitializer.simpleItem;
 
 
-public class ModItems {
+public final class ModItems {
     @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
     public static final DeferredItem<BasicItem> GLOW_POWDER = register("glow_powder", BasicItem::new);
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
