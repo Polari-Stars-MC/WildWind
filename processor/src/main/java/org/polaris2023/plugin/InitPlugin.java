@@ -3,24 +3,13 @@ package org.polaris2023.plugin;
 import com.google.auto.service.AutoService;
 import com.sun.source.tree.*;
 import com.sun.source.util.*;
-import com.sun.source.util.TreeScanner;
 import com.sun.tools.javac.api.*;
 import com.sun.tools.javac.util.*;
 import com.sun.tools.javac.tree.*;
 import com.sun.tools.javac.parser.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.polaris2023.plugin.visitor.ConfigVisitor;
 import org.polaris2023.utils.Unsafe;
 
-import javax.lang.model.element.Modifier;
-import javax.tools.JavaFileObject;
-import java.io.IOException;
-import java.lang.invoke.MethodType;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
 
 
 @AutoService(Plugin.class)

@@ -14,7 +14,7 @@ import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
 
-public final class ModItems {
+public class ModItems {
     @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
     public static final DeferredItem<BasicItem> GLOW_POWDER = register("glow_powder", BasicItem::new);
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")

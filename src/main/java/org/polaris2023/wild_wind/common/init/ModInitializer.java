@@ -26,6 +26,7 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.annotation.jc.Final;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.Collection;
@@ -36,31 +37,30 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
-public final class ModInitializer {
-
-    static final DeferredRegister.DataComponents COMPONENTS =
+public class ModInitializer {
+    static DeferredRegister.DataComponents COMPONENTS =
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MOD_ID);
-    static final DeferredRegister<SoundEvent> SOUNDS =
+    static DeferredRegister<SoundEvent> SOUNDS =
             DeferredRegister.create(Registries.SOUND_EVENT, MOD_ID);
-    static final DeferredRegister<EntityType<?>> ENTITIES =
+    static DeferredRegister<EntityType<?>> ENTITIES =
             DeferredRegister.create(Registries.ENTITY_TYPE, MOD_ID);
-    static final DeferredRegister<Fluid> FLUIDS =
+    static DeferredRegister<Fluid> FLUIDS =
             DeferredRegister.create(BuiltInRegistries.FLUID, MOD_ID);
-    static final DeferredRegister.Blocks BLOCKS =
+    static DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(MOD_ID);
-    static final DeferredRegister<CreativeModeTab> TABS =
+    static DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, MOD_ID);
-    static final DeferredRegister<MobEffect> EFFECTS =
+    static DeferredRegister<MobEffect> EFFECTS =
             DeferredRegister.create(Registries.MOB_EFFECT, MOD_ID);
-    static final DeferredRegister<Potion> POTIONS =
+    static DeferredRegister<Potion> POTIONS =
             DeferredRegister.create(Registries.POTION, MOD_ID);
-    static final DeferredRegister.Items ITEMS =
+    static DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(MOD_ID);
-    static final DeferredRegister<PoiType> POIS =
+    static DeferredRegister<PoiType> POIS =
             DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
-    static final DeferredRegister<VillagerType> VILLAGERS =
+    static DeferredRegister<VillagerType> VILLAGERS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, MOD_ID);
-    static final DeferredRegister<VillagerProfession> PROFESSIONS =
+    static DeferredRegister<VillagerProfession> PROFESSIONS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
 
     public static void init(IEventBus bus) {
