@@ -11,6 +11,5 @@ public final class ModSounds {
 
     private static DeferredHolder<SoundEvent,SoundEvent> register(String name, Supplier<SoundEvent> supplier){
         return SOUNDS.register(name, supplier);
-
     }
 }

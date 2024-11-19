@@ -9,12 +9,16 @@ import java.util.function.Consumer;
  * basic item using by datagen or more
  */
 public class BasicItem extends Item {
-    public BasicItem(Properties properties) {
+    BasicItem(Properties properties) {
         super(properties);
     }
 
     BasicItem(Properties properties, int maxCount) {
         super(properties.stacksTo(maxCount));
+    }
+
+    public static BasicItem stackToMax(Properties properties) {
+        return new BasicItem(properties);
     }
 
     public static BasicItem stackTo1(Properties properties) {
@@ -23,6 +27,10 @@ public class BasicItem extends Item {
 
     public static BasicItem stackTo16(Properties properties) {
         return new BasicItem(properties, 16);
+    }
+
+    public static BasicItem simpleFoodByMax(Consumer<FoodProperties.Builder> consumer) {
+        return  new BasicItem(new Properties(), consumer);
     }
 
     public BasicItem(Properties properties, Consumer<FoodProperties.Builder> consumer) {

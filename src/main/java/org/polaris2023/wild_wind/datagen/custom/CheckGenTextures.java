@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.datagen.custom;
 
 import com.google.common.hash.Hashing;
 import com.google.common.hash.HashingOutputStream;
-import com.google.common.reflect.TypeToken;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;

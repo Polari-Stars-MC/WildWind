@@ -130,7 +130,7 @@ public class ModInitializer {
                         : List.of());
     }
 
-    static  DeferredBlock<Block> register(String name) {
+    static DeferredBlock<Block> register(String name) {
         return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
 
     }
