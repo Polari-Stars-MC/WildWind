@@ -8,29 +8,29 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 public final class ModBiomeKeys {
-	public record BiomeKey(ResourceKey<Biome> key, boolean generate, float suppress) {}
+    public record BiomeKey(ResourceKey<Biome> key, boolean generate, float suppress) {}
 
-	public static final Map<ResourceKey<Biome>, BiomeKey> ALL_BIOME_KEYS = Maps.newHashMap();
+    public static final Map<ResourceKey<Biome>, BiomeKey> ALL_BIOME_KEYS = Maps.newHashMap();
 
-	private static void putKey(BiomeKey biomeKey) {
-		ALL_BIOME_KEYS.put(biomeKey.key(), biomeKey);
-	}
+    private static void putKey(BiomeKey biomeKey) {
+        ALL_BIOME_KEYS.put(biomeKey.key(), biomeKey);
+    }
 
-	@Nullable
-	public static BiomeKey getBiomeKey(ResourceKey<Biome> key) {
-		return ALL_BIOME_KEYS.get(key);
-	}
+    @Nullable
+    public static BiomeKey getBiomeKey(ResourceKey<Biome> key) {
+        return ALL_BIOME_KEYS.get(key);
+    }
 
-	public static float getSuppress(ResourceKey<Biome> key) {
-		return getSuppress(key, 0.0F);
-	}
+    public static float getSuppress(ResourceKey<Biome> key) {
+        return getSuppress(key, 0.0F);
+    }
 
-	public static float getSuppress(ResourceKey<Biome> key, float defaultValue) {
-		BiomeKey biomeKey = getBiomeKey(key);
-		return biomeKey == null ? defaultValue : biomeKey.suppress();
-	}
+    public static float getSuppress(ResourceKey<Biome> key, float defaultValue) {
+        BiomeKey biomeKey = getBiomeKey(key);
+        return biomeKey == null ? defaultValue : biomeKey.suppress();
+    }
 
-	static {
+    static {
 
-	}
+    }
 }
