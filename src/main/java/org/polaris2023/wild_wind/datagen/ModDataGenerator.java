@@ -9,6 +9,7 @@ import org.polaris2023.wild_wind.datagen.model.ModBlockModelProvider;
 import org.polaris2023.wild_wind.datagen.model.ModItemModelProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
+import org.polaris2023.wild_wind.datagen.tag.ModInstrumentTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModItemTagsProvider;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
 
@@ -44,5 +45,6 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(pack, provider, blockTagsProvider.contentsGetter(), helper));
         gen.addProvider(event.includeServer(), new ModLootTableProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModEnchantmentProvider(pack, provider));
+        gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(pack, provider, helper));
     }
 }

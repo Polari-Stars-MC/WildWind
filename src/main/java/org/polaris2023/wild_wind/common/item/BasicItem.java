@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 
 /**
  * basic item using by datagen or more
+ * @see org.polaris2023.wild_wind.datagen.model.ModItemModelProvider
  */
 public class BasicItem extends Item {
     protected BasicItem(Properties properties) {
