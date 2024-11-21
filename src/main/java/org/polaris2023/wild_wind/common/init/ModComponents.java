@@ -7,7 +7,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.COMPONENTS;
 
-public final class ModComponents {
+public class ModComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SLIME_COLOR =
             COMPONENTS.registerComponentType("slime_color",
                     builder -> builder

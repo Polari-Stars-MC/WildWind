@@ -13,7 +13,7 @@ import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
 
-public final class ModBlocks {
+public class ModBlocks {
 
 
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")

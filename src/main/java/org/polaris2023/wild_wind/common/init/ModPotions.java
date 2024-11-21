@@ -7,7 +7,7 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.POTIONS;
 
-public final class ModPotions {
+public class ModPotions {
     public static <T extends Potion> DeferredHolder<Potion,T> register(String name, Supplier<T> supplier){
         return POTIONS.register(name, supplier);
     }

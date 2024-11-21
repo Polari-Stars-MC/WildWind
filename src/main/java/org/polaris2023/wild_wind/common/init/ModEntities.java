@@ -10,7 +10,7 @@ import org.polaris2023.wild_wind.common.entity.Trout;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
-public final class ModEntities {
+public class ModEntities {
 
     @I18n(en_us = "Firefly", zh_cn = "萤火虫", zh_tw = "螢火蟲")
     public static final DeferredHolder<EntityType<?>, EntityType<Firefly>> FIREFLY =

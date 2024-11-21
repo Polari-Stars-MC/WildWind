@@ -44,6 +44,6 @@ public class ModEntityLoot extends EntityLootSubProvider {
 
 	@Override
 	protected Stream<EntityType<?>> getKnownEntityTypes() {
-		return ModInitializer.entry(new TypeToken<EntityType<?>>() {}).stream().map(DeferredHolder::get);
+		return ModInitializer.entities().stream().map(DeferredHolder::get);
 	}
 }
