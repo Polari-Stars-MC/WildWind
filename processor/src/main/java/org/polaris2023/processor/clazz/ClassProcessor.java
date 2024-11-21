@@ -8,10 +8,7 @@ import com.sun.tools.javac.util.Names;
 import lombok.experimental.Delegate;
 
 import javax.annotation.processing.RoundEnvironment;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
-import javax.lang.model.element.PackageElement;
-import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.*;
 import java.util.Set;
 
 public class ClassProcessor {
@@ -37,15 +34,25 @@ public class ClassProcessor {
 
     public void classDef(TypeElement typeElement) {}
 
-    public void packageDef(PackageElement packageElement) {}
+    public void packageDef(PackageElement packageElement, TypeElement typeElement) {}
+
+    public void fieldDef(VariableElement variableElement, TypeElement typeElement) {}
+    public void methodDef(ExecutableElement executableElement, TypeElement typeElement) {}
 
     public void process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         for (Element rootElement : roundEnv.getRootElements()) {
-            Element enclosingElement = rootElement.getEnclosingElement();
-            if (enclosingElement.getKind() == ElementKind.PACKAGE) {
-                packageDef((PackageElement) enclosingElement);
-            }
             if (rootElement.getKind().isClass()) {
+                Element enclosingElement = rootElement.getEnclosingElement();
+                if (enclosingElement.getKind() == ElementKind.PACKAGE) {
+                    packageDef((PackageElement) enclosingElement, (TypeElement) rootElement);
+                }
+                for (Element enclosedElement : rootElement.getEnclosedElements()) {
+                    if (enclosedElement.getKind().isField()) {
+                        fieldDef((VariableElement) enclosedElement, (TypeElement) rootElement);
+                    } else if (enclosedElement.getKind().isExecutable()) {
+                        methodDef((ExecutableElement) enclosedElement, (TypeElement) rootElement);
+                    }
+                }
                 classDef((TypeElement) rootElement);
             }
         }

@@ -4,17 +4,22 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * basic item using by datagen or more
  */
 public class BasicItem extends Item {
-    public BasicItem(Properties properties) {
+    BasicItem(Properties properties) {
         super(properties);
     }
 
     BasicItem(Properties properties, int maxCount) {
         super(properties.stacksTo(maxCount));
+    }
+
+    public static BasicItem stackToMax(Properties properties) {
+        return new BasicItem(properties);
     }
 
     public static BasicItem stackTo1(Properties properties) {
@@ -25,13 +30,19 @@ public class BasicItem extends Item {
         return new BasicItem(properties, 16);
     }
 
-    public BasicItem(Properties properties, Consumer<FoodProperties.Builder> consumer) {
-        super(properties.food(food(consumer)));
+    public static BasicItem simpleFoodByMax(Supplier<FoodProperties> supplier) {
+        return  new BasicItem(new Properties(), supplier.get());
+    }
+    public static BasicItem simpleFoodBy1(Supplier<FoodProperties> supplier) {
+        return  new BasicItem(new Properties().stacksTo(1), supplier.get());
+    }
+    public static BasicItem simpleFoodBy16(Supplier<FoodProperties> supplier) {
+        return  new BasicItem(new Properties().stacksTo(16), supplier.get());
     }
 
-    private static FoodProperties food(Consumer<FoodProperties.Builder> consumer) {
-        FoodProperties.Builder t = new FoodProperties.Builder();
-        consumer.accept(t);
-        return t.build();
+
+
+    BasicItem(Properties properties, FoodProperties foodProperties) {
+        super(properties.food(foodProperties));
     }
 }

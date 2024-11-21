@@ -14,6 +14,7 @@ import com.sun.tools.javac.util.Context;
 import org.polaris2023.processor.clazz.ClassProcessor;
 import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
+import org.polaris2023.processor.jc.ModifierProcessor;
 import org.polaris2023.processor.pack.PackageProcessor;
 import org.polaris2023.utils.Costs;
 import org.polaris2023.utils.Unsafe;
@@ -65,6 +66,7 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new PackageProcessor(environment));
         classProcessors.add(new AutoConfigProcessor(environment));
         classProcessors.add(new I18nProcessor(environment));
+        classProcessors.add(new ModifierProcessor(environment));
     }
 
     public static final MethodSpec.Builder INIT = MethodSpec
