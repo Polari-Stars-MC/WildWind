@@ -11,6 +11,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.tags.ModInstrumentTags;
 
 public class MagicFluteItem extends InstrumentItem {
@@ -37,5 +38,10 @@ public class MagicFluteItem extends InstrumentItem {
 
 	public static MagicFluteItem stackTo1(Properties properties) {
 		return new MagicFluteItem(properties.stacksTo(1).durability(10).rarity(Rarity.UNCOMMON));
+	}
+
+	@Override
+	public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
+		return repair.is(ModItems.LIVING_TUBER) || super.isValidRepairItem(toRepair, repair);
 	}
 }

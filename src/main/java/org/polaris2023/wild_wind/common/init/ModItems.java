@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
+import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
@@ -32,8 +33,8 @@ public class ModItems {
             register("cooked_trout", () -> BasicItem.simpleFoodByMax(ModFoods.COOKED_TROUT));
 
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
-    public static final DeferredItem<BasicItem> MAGIC_FLUTE =
-            register("magic_flute", BasicItem::stackTo1);
+    public static final DeferredItem<MagicFluteItem> MAGIC_FLUTE =
+            register("magic_flute", MagicFluteItem::stackTo1);
 
 
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
@@ -68,7 +69,7 @@ public class ModItems {
     public static final DeferredItem<BasicItem> COOKED_EGG =
             register("cooked_egg", BasicItem::stackToMax);
 
-    @I18n(en_us = "dough", zh_cn = "面团", zh_tw = "麵團")
+    @I18n(en_us = "Dough", zh_cn = "面团", zh_tw = "麵團")
     public static final DeferredItem<BasicItem> DOUGH = register("dough", BasicItem::stackToMax);
 
     @I18n(en_us = "Fish Chowder", zh_cn = "海鲜杂烩", zh_tw = "海鮮雜燴")
