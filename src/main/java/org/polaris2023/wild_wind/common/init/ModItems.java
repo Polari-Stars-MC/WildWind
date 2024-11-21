@@ -35,6 +35,7 @@ public class ModItems {
     public static final DeferredItem<BasicItem> MAGIC_FLUTE =
             register("magic_flute", BasicItem::stackTo1);
 
+
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
     public static final DeferredItem<BasicItem> APPLE_CAKE =
             register("apple_cake", BasicItem::stackToMax);
