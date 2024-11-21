@@ -1,10 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -26,6 +23,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.entry(Item.class)) {
                     output.accept(item.get());
                 }
+                ItemStack stack = new ItemStack(Items.SLIME_BALL);
+                stack.set(ModComponents.SLIME_COLOR, 50000);
+                output.accept(stack);
             });
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
     ModCreativeTabs(Supplier<ItemStack> icon,
@@ -44,16 +44,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
 
     @SubscribeEvent
     public static void buildGroup(BuildCreativeModeTabContentsEvent event) {
-        if (event.getTabKey() == CreativeModeTabs.INGREDIENTS) {
-            event.accept(ModItems.GLOW_POWDER);
-            event.accept(ModItems.LIVING_TUBER);
-        }
-        if (event.getTabKey() == CreativeModeTabs.FOOD_AND_DRINKS) {
-            event.accept(ModItems.FIREFLY_SPAWN_EGG);
-        }
-        if (event.getTabKey() == CreativeModeTabs.SPAWN_EGGS) {
-            event.accept(ModItems.FIREFLY_SPAWN_EGG);
-        }
+
     }
 
     /**
