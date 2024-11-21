@@ -274,6 +274,7 @@ public class InitProcessor extends AbstractProcessor {
                                             case net.minecraft.world.level.block.Block block -> add(block.getDescriptionId(), value);
                                             case net.minecraft.world.entity.EntityType<?> type -> add(type.getDescriptionId(), value);
                                             case net.minecraft.network.chat.contents.TranslatableContents contents -> add(contents.getKey(), value);
+                                            case net.minecraft.world.effect.MobEffect effect -> add(effect.getDescriptionId(), value);
                                             case net.minecraft.world.item.CreativeModeTab tab -> tab.getDisplayName().getContents() instanceof net.minecraft.network.chat.contents.TranslatableContents contents ?
                                                     add(contents, value) :
                                                     this;

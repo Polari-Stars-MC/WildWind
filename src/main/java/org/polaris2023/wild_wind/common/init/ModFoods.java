@@ -33,7 +33,10 @@ public enum ModFoods implements Supplier<FoodProperties> {
         p.effect(() -> new MobEffectInstance(MobEffects.WITHER, 240, 0), 0.5F);
     }),
     BAKED_MUSHROOM(4, 5),
-    NETHER_MUSHROOM_STEW(6, 7.2F),
+    NETHER_MUSHROOM_STEW(6, 7.2F, p -> {
+        p
+                .effect(() -> new MobEffectInstance(ModEffects.EXILED, 260, 0), 1);
+    }),
     LIVING_TUBER(4, 0.6F, p -> {
         p
                 .effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, 7), 1)

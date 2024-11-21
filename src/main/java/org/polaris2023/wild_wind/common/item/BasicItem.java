@@ -10,11 +10,11 @@ import java.util.function.Supplier;
  * basic item using by datagen or more
  */
 public class BasicItem extends Item {
-    BasicItem(Properties properties) {
+    protected BasicItem(Properties properties) {
         super(properties);
     }
 
-    BasicItem(Properties properties, int maxCount) {
+    protected BasicItem(Properties properties, int maxCount) {
         super(properties.stacksTo(maxCount));
     }
 
@@ -42,7 +42,7 @@ public class BasicItem extends Item {
 
 
 
-    BasicItem(Properties properties, FoodProperties foodProperties) {
+    protected BasicItem(Properties properties, FoodProperties foodProperties) {
         super(properties.food(foodProperties));
     }
 }

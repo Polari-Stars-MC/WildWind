@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
+import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
@@ -99,7 +100,7 @@ public class ModItems {
 
     @I18n(en_us = "Nether Mushroom Stew", zh_cn = "下界蘑菇煲", zh_tw = "下界蘑菇煲")
     public static final DeferredItem<BasicItem> NETHER_MUSHROOM_STEW =
-            register("nether_mushroom_stew", () -> BasicItem.simpleFoodBy1(ModFoods.NETHER_MUSHROOM_STEW));
+            register("nether_mushroom_stew", properties -> new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
 
     @I18n(en_us = "Baked Mushroom", zh_cn = "烤蘑菇", zh_tw = "烤蘑菇")
     public static final DeferredItem<BasicItem> BAKED_MUSHROOM =
