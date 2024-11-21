@@ -1,5 +1,6 @@
 [versions]
 terrablender-version="1.21.1-4.1.0.5"
+jei-version="19.8.2.99"
 eye-lib-version="21.1.3"
 mod-dev-gradle-version="1.0.21"
 repositories-setting="""
@@ -9,11 +10,14 @@ Minecraft Forge -> https://maven.minecraftforge.net/
     --> net.minecraftforge
     --> com.github.glitchfiend
     --> io.github.tt432.chin
+Jared's Maven -> https://maven.blamejared.com/
+ModMaven -> https://modmaven.dev/
 """
 [libraries]
 terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-neoforge", version.ref="terrablender-version"}
 eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib-version"}
-
+jei-neoforge-api={group="mezz.jei", name= "jei-1.21-neoforge-api", version.ref="jei-version"}
+jei-neoforge={group="mezz.jei", name= "jei-1.21-neoforge", version.ref="jei-version"}
 [plugins]
 mod-dev-gradle={id = "net.neoforged.moddev", version.ref= "mod-dev-gradle-version"}
 
@@ -21,3 +25,5 @@ mod-dev-gradle={id = "net.neoforged.moddev", version.ref= "mod-dev-gradle-versio
 jar-in-jar=["eye-lib-neoforge"]
 linkage=["terrablender-neoforge"]
 implementation=[]
+compileonly=["jei-neoforge-api"]
+runtimeonly=["jei-neoforge"]

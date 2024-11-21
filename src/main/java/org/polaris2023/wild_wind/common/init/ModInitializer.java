@@ -98,8 +98,12 @@ public class ModInitializer {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
     }
 
-    public static <T> Collection<DeferredHolder<T, ? extends T>> entry(Class<T> tClass) {
-        return entry(new TypeToken<>(tClass) {});
+    public static Collection<DeferredHolder<Item, ? extends Item>> items() {
+        return ITEMS.getEntries();
+    }
+
+    public static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
+        return ENTITIES.getEntries();
     }
 
     @SuppressWarnings("unchecked")

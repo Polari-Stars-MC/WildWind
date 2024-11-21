@@ -106,7 +106,9 @@ dependencies {
     compileOnly(project(":annotation"))
     annotationProcessor(project(":processor"))
     compileOnly(libs.bundles.linkage)
+    compileOnly(libs.bundles.compileonly)
     runtimeOnly(libs.bundles.linkage)
+    runtimeOnly(libs.bundles.runtimeonly)
     implementation(jij)
     implementation(libs.bundles.implementation)
     for (final def ji in jijg) {

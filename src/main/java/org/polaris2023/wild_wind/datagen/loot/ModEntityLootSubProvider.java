@@ -29,7 +29,7 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
 
     @Override
     protected @NotNull Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModInitializer.entry(new TypeToken<EntityType<?>>() {}).stream().map(DeferredHolder::value);
+        return ModInitializer.entities().stream().map(DeferredHolder::value);
     }
 
     @Override

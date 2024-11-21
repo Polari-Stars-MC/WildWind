@@ -25,7 +25,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.entry(Item.class)) {
+        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
             switch (item.get()) {
                 case DeferredSpawnEggItem eggItem -> {
                     spawnEggItem(eggItem);
