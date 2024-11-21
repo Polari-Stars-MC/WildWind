@@ -50,7 +50,7 @@ public class WildWindMod {
     private static void food(Item item, Supplier<FoodProperties> food) {
         DataComponentMap.Builder builder = DataComponentMap.builder();
         builder.addAll(item.components);
-        builder.set(DataComponents.FOOD, ModFoods.EGG.get());
+        builder.set(DataComponents.FOOD, food.get());
         item.components = builder.build();
     }
 
