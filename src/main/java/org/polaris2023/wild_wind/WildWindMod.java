@@ -49,14 +49,14 @@ public class WildWindMod {
 
     private static void food(Item item, Supplier<FoodProperties> food) {
         DataComponentMap.Builder builder = DataComponentMap.builder();
-        builder.addAll(Items.EGG.components);
+        builder.addAll(item.components);
         builder.set(DataComponents.FOOD, ModFoods.EGG.get());
         item.components = builder.build();
     }
 
     private static <T> void component(Item item, Supplier<DataComponentType<T>> type, T t) {
         DataComponentMap.Builder builder = DataComponentMap.builder();
-        builder.addAll(Items.EGG.components);
+        builder.addAll(item.components);
         builder.set(type, t);
         item.components = builder.build();
     }
