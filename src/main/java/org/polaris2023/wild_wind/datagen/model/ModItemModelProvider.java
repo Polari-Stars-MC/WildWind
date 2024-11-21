@@ -7,15 +7,11 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
-import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
-
-import java.util.ArrayList;
-import java.util.function.Consumer;
+import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
 public class ModItemModelProvider extends ItemModelProvider {
 
@@ -39,6 +35,7 @@ public class ModItemModelProvider extends ItemModelProvider {
                 case BasicMobBucketItem bucketItem -> {
                     basicItem(bucketItem);
                 }
+                case MagicFluteItem magicFluteItem -> basicItem(magicFluteItem);
                 default -> {
 
                 }
