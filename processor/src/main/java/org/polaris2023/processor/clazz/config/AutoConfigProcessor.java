@@ -1,30 +1,16 @@
 package org.polaris2023.processor.clazz.config;
 
 import com.squareup.javapoet.*;
-import com.sun.source.tree.ClassTree;
-import com.sun.source.tree.MethodTree;
-import com.sun.source.tree.Tree;
-import com.sun.source.tree.VariableTree;
-import com.sun.source.util.TreeScanner;
-import com.sun.tools.javac.code.Flags;
-import com.sun.tools.javac.code.Type;
-import com.sun.tools.javac.code.TypeTag;
-import com.sun.tools.javac.parser.JavacParser;
-import com.sun.tools.javac.parser.ParserFactory;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
-import com.sun.tools.javac.tree.JCTree;
-import com.sun.tools.javac.util.List;
 import org.polaris2023.annotation.AutoConfig;
 import org.polaris2023.annotation.config.*;
 import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
-import org.polaris2023.utils.JCUtils;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.text.MessageFormat;
 
 public class AutoConfigProcessor extends ClassProcessor {
@@ -120,67 +106,6 @@ public class AutoConfigProcessor extends ClassProcessor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
-//            try {
-//                JavaFileObject sourceFile = getFiler().createSourceFile(getCheck().getQualifiedName() + "Impl");
-//                try (Writer writer = sourceFile.openWriter()) {
-//
-//                    writer.write(MessageFormat
-//                            .format("""
-//                                    package {0};
-//
-//                                    import net.neoforged.neoforge.common.ModConfigSpec;
-//                                    import net.neoforged.fml.common.EventBusSubscriber;
-//                                    import net.neoforged.fml.common.EventBusSubscriber.Bus;
-//                                    import net.neoforged.fml.event.config.ModConfigEvent;
-//                                    import net.neoforged.bus.api.SubscribeEvent;
-//                                    import net.neoforged.fml.ModContainer;
-//                                    import net.neoforged.fml.config.ModConfig;
-//
-//                                    @EventBusSubscriber(
-//                                    \tmodid = "{1}",
-//                                    \tbus = Bus.MOD
-//                                    )
-//                                    class {2} '{
-//                                    \tstatic final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();
-//                                    '{6}'
-//                                    '{9}'
-//                                    \tstatic final ModConfigSpec SPEC;
-//                                    \tstatic {
-//                                    '{4}
-//                                    {7}{5}'
-//                                    \t\tSPEC = BUILDER.build();
-//                                    \t}
-//                                    \t@SubscribeEvent
-//                                    \tstatic void onLoad(final ModConfigEvent event)
-//                                    \t{
-//                                    '{8}'
-//                                    \t}
-//
-//                                    \tpublic static void register(ModContainer modContainer) {
-//                                    \t\tmodContainer.registerConfig(ModConfig.Type.'{3}', SPEC);
-//                                    \t}
-//                                    }
-//                                    '
-//                                    """.stripIndent(),
-//                                    getCheck().getQualifiedName().toString().replace("."+getCheck().getSimpleName(), ""),
-//                                    autoConfig.modid(),
-//                                    getCheck().getSimpleName()+"Impl",
-//                                    autoConfig.value().name(),
-//                                    note,
-//                                    note.isEmpty() ? "": "\t\tBUILDER.pop();",
-//                                    psf,
-//                                    stc,
-//                                    evt,
-//                                    isb)
-//                    );
-//                }
-//
-//            } catch (IOException ignored) {
-//
-//            }
-
-
         }
     }
 

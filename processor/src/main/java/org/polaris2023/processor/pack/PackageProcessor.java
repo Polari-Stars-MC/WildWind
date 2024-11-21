@@ -3,10 +3,12 @@ package org.polaris2023.processor.pack;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
+import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.*;
 import javax.tools.JavaFileObject;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Set;
 
 public class PackageProcessor extends ClassProcessor {
 
@@ -16,10 +18,10 @@ public class PackageProcessor extends ClassProcessor {
     }
 
     @Override
-    public void packageDef(PackageElement packageElement) {
+    public void packageDef(PackageElement packageElement, TypeElement typeElement) {
+
         try {
             JavaFileObject fileObject = getFiler().createSourceFile(packageElement.getQualifiedName().toString() + ".package-info");
-
             try(Writer writer = fileObject.openWriter()) {
                 writer.write("@ParametersAreNonnullByDefault\n");
                 writer.write("@FieldsAreNonnullByDefault\n");
@@ -28,8 +30,9 @@ public class PackageProcessor extends ClassProcessor {
                 writer.write("import net.minecraft.FieldsAreNonnullByDefault;\n");
                 writer.write("import net.minecraft.MethodsReturnNonnullByDefault;\n");
                 writer.write("import javax.annotation.ParametersAreNonnullByDefault;\n");
-
             }
-        } catch (IOException ignored) {}
+        } catch (IOException ignored) {
+
+        }
     }
 }

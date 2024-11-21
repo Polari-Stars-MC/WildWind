@@ -1,17 +1,12 @@
 package org.polaris2023.wild_wind.common.init;
 
-import com.google.common.base.Function;
-import com.mojang.datafixers.util.Function3;
-import com.mojang.datafixers.util.Function4;
 import com.mojang.datafixers.util.Function5;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;

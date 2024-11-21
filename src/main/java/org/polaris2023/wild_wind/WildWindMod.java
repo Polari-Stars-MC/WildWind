@@ -1,5 +1,8 @@
 package org.polaris2023.wild_wind;
 
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -7,6 +10,8 @@ import net.neoforged.fml.common.Mod;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
+import org.polaris2023.wild_wind.common.init.ModFoods;
+import org.polaris2023.wild_wind.common.vanilla.food.AddFoods;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
 import java.util.ServiceLoader;
@@ -20,6 +25,7 @@ public class WildWindMod {
     public static final Logger LOGGER = LogManager.getLogger(MOD_NAME);
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
+        AddFoods.init();
         WildWindEventHandler.modConstruction(modEventBus);
         for (var iConfig : ServiceLoader.load(IConfig.class))
             iConfig.register(modContainer);
