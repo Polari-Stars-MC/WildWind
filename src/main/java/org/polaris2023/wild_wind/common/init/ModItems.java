@@ -31,9 +31,9 @@ public class ModItems {
     public static final DeferredItem<BasicItem> COOKED_TROUT =
             register("cooked_trout", () -> BasicItem.simpleFoodByMax(ModFoods.COOKED_TROUT));
 
-    @I18n(en_us = "Wunderhorn", zh_cn = "魔号", zh_tw = "魔號")
-    public static final DeferredItem<BasicItem> WUNDERHORN =
-            register("wunderhorn", BasicItem::stackTo1);
+    @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
+    public static final DeferredItem<BasicItem> MAGIC_FLUTE =
+            register("magic_flute", BasicItem::stackTo1);
 
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
     public static final DeferredItem<BasicItem> APPLE_CAKE =
