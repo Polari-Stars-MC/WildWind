@@ -18,6 +18,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
@@ -57,6 +59,10 @@ public class ModInitializer {
             DeferredRegister.create(Registries.POTION, MOD_ID);
     static DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(MOD_ID);
+    static DeferredRegister<RecipeType<?>> RECIPES =
+            DeferredRegister.create(Registries.RECIPE_TYPE, MOD_ID);
+    static DeferredRegister<RecipeSerializer<?>> RECIPES_SERIALIZERS =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, MOD_ID);
     static DeferredRegister<PoiType> POIS =
             DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
     static DeferredRegister<VillagerType> VILLAGERS =
@@ -75,6 +81,8 @@ public class ModInitializer {
                     ModEffects.class,
                     ModPotions.class,
                     ModItems.class,
+                    ModRecipes.class,
+                    ModRecipeSerializes.class,
                     ModCreativeTabs.class,
                     ModVillagers.class
             );
@@ -84,7 +92,7 @@ public class ModInitializer {
                 SOUNDS,
                 ENTITIES, FLUIDS, BLOCKS,
                 EFFECTS,POTIONS,
-                ITEMS, TABS,
+                ITEMS, RECIPES, RECIPES_SERIALIZERS, TABS,
                 POIS, VILLAGERS, PROFESSIONS);
     }
 

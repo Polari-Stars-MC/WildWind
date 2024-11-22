@@ -52,7 +52,7 @@ public class ModItems {
 
     @I18n(en_us = "Cheese", zh_tw = "乳酪", zh_cn = "奶酪")
     public static final DeferredItem<BasicItem> CHEESE =
-            register("cheese", BasicItem::stackTo16);
+            register("cheese", () -> BasicItem.simpleFoodBy16(ModFoods.CHEESE));
 
     @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "乳酪南瓜湯")
     public static final DeferredItem<BasicItem> CHEESE_PUMPKIN_SOUP =
@@ -75,7 +75,7 @@ public class ModItems {
 
     @I18n(en_us = "Fish Chowder", zh_cn = "海鲜杂烩", zh_tw = "海鮮雜燴")
     public static final DeferredItem<BasicItem> FISH_CHOWDER =
-            register("fish_chowder", BasicItem::stackTo1);
+            register("fish_chowder", () -> BasicItem.simpleFoodBy1(ModFoods.FISH_CHOWDER));
 
     @I18n(en_us = "Trout Bucket", zh_cn = "鳟鱼桶", zh_tw = "鱒魚桶")
     public static final DeferredItem<BasicMobBucketItem> TROUT_BUCKET =

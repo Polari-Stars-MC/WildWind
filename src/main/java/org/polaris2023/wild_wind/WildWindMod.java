@@ -53,6 +53,7 @@ public class WildWindMod {
             food(Items.FERMENTED_SPIDER_EYE, ModFoods.FERMENTED_SPIDER_EYE);
             food(Items.GLISTERING_MELON_SLICE, ModFoods.GLISTERING_MELON_SLICE);
             food(Items.MILK_BUCKET, ModFoods.MILK);
+            food(Items.KELP, ModFoods.KELP);
             component(Items.SLIME_BALL, ModComponents.SLIME_COLOR, 0);
 
         });
