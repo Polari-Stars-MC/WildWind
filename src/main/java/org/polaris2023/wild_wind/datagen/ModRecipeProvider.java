@@ -27,7 +27,7 @@ public class ModRecipeProvider extends RecipeProvider {
         super(output, registries);
     }
 
-    public final Map<ResourceLocation, RecipeBuilder> list = new HashMap<>();
+    public final List<RecipeBuilder> list = new ArrayList<>();
 
 
     @Override
@@ -35,8 +35,8 @@ public class ModRecipeProvider extends RecipeProvider {
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
-        list.forEach((s, b) -> {
-            b.save(recipeOutput, s);
+        list.forEach(b -> {
+            b.save(recipeOutput);
 
         });
     }
@@ -224,10 +224,6 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public void add(RecipeBuilder builder) {
-        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()), builder);
-    }
-
-    public void add(RecipeBuilder builder, String sufPath) {
-        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix("_" + sufPath), builder);
+        list.add(builder);
     }
 }
