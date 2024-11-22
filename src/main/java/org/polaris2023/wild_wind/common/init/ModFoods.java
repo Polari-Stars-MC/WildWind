@@ -1,13 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
-import net.minecraft.server.commands.EffectCommands;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.ItemLike;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -16,6 +12,8 @@ public enum ModFoods implements Supplier<FoodProperties> {
         p.effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
     }),
     COOKED_EGG(5, 6),
+    BAKED_BEETROOT(6, 6.6F),
+    BAKED_CARROT(7, 8),
     RAW_TROUT(2, 0.4F, p-> {
         p.effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
     } ),
@@ -31,6 +29,22 @@ public enum ModFoods implements Supplier<FoodProperties> {
     }),
     WARPED_FUNGUS(1, 1.5F, p-> {
         p.effect(() -> new MobEffectInstance(MobEffects.WITHER, 240, 0), 0.5F);
+    }),
+    SEEDS(1, 0.4F),
+    POISON_SEEDS(1, 0.4F, p -> {
+        p.effect(() -> new MobEffectInstance(MobEffects.POISON, 80, 0), 0.5F);
+    }),
+    BAKED_SEEDS(4, 1),
+    PUMPKIN_SLICE(2, 1.2F),
+    SUGAR_CANE(2, 1.2F),
+    SUGAR(1, 2.4F, p -> {
+        p.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0), 0.3F);
+    }),
+    FERMENTED_SPIDER_EYE(3, 7, p -> {
+        p.effect(() -> new MobEffectInstance(MobEffects.BLINDNESS, 200, 0), 0.5F);
+    }),
+    GLISTERING_MELON_SLICE(4, 4.8F, p -> {
+        p.effect(() -> new MobEffectInstance(MobEffects.HEAL, 1, 0), 0.3F);
     }),
     BAKED_MUSHROOM(4, 5),
     NETHER_MUSHROOM_STEW(6, 7.2F),
@@ -48,7 +62,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
                 .effect(() -> new MobEffectInstance(MobEffects.WEAKNESS, 600, 0), 1)
                 .effect(() -> new MobEffectInstance(MobEffects.BLINDNESS, 600, 0), 1);
     }),
-
+    MILK(2, 0.6F),
     ;
 
     private final FoodProperties properties;

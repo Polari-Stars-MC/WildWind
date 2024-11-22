@@ -35,33 +35,6 @@ public class WildWindGameEventHandler {
         }
     }
 
-    @SubscribeEvent
-    public static void clear(LivingEntityUseItemEvent.Finish event) {
-        ItemStack resultStack = event.getResultStack();
-        if (resultStack.has(DataComponents.FOOD)) {
-            if (ModFoods.NETHER_MUSHROOM_STEW.get().equals(resultStack.get(DataComponents.FOOD))) {
-                LivingEntity entity = event.getEntity();
-                entity.removeEffect(MobEffects.WITHER);
-                entity.clearFire();
-            }
-        }
-    }
-
-
-//    public static void itemTickEvent(PlayerTickEvent.Pre event) {
-//        Player pl = event.getEntity();
-//        Level level = player.level();
-//        if (level.isClientSide)
-//            return;
-//        Inventory inventory = player.getInventory();
-//        for (int i = 0; i < inventory.getContainerSize(); i++) {
-//            ItemStack item = inventory.getItem(i);
-//            if (item.is(Items.EGG)) {
-//
-//            }
-//        }
-//    }
-
     private static final ResourceLocation VANILLA_FISHERMAN = ResourceLocation.withDefaultNamespace("fisherman");
 
     @SubscribeEvent

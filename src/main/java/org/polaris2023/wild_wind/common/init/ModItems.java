@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.common.item.BasicMobBucketItem;
+import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
@@ -59,15 +60,15 @@ public class ModItems {
 
     @I18n(en_us = "Baked Beetroot", zh_cn = "烤甜菜根", zh_tw = "烤甜菜根")
     public static final DeferredItem<BasicItem> BAKED_BEETROOT =
-            register("baked_beetroot", BasicItem::stackToMax);
+            register("baked_beetroot", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_BEETROOT));
 
     @I18n(en_us = "Baked carrot", zh_tw = "烤胡蘿蔔", zh_cn = "烤胡萝卜")
     public static final DeferredItem<BasicItem> BAKED_CARROT =
-            register("baked_carrot", () -> BasicItem.simpleFoodByMax(ModFoods.COOKED_EGG));
+            register("baked_carrot", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_CARROT));
 
     @I18n(en_us = "Cooked Egg", zh_cn = "煎蛋", zh_tw = "煎蛋")
     public static final DeferredItem<BasicItem> COOKED_EGG =
-            register("cooked_egg", BasicItem::stackToMax);
+            register("cooked_egg", () -> BasicItem.simpleFoodByMax(ModFoods.COOKED_EGG));
 
     @I18n(en_us = "Dough", zh_cn = "面团", zh_tw = "麵團")
     public static final DeferredItem<BasicItem> DOUGH = register("dough", BasicItem::stackToMax);
@@ -85,7 +86,8 @@ public class ModItems {
             register("russian_soup", BasicItem::stackTo1);
 
     @I18n(en_us = "Pumpkin Slice", zh_cn = "南瓜片", zh_tw = "南瓜片")
-    public static final DeferredItem<BasicItem> PUMPKIN_SLICE = register("pumpkin_slice", BasicItem::stackToMax);
+    public static final DeferredItem<BasicItem> PUMPKIN_SLICE =
+            register("pumpkin_slice", () -> BasicItem.simpleFoodByMax(ModFoods.PUMPKIN_SLICE));
 
     @I18n(en_us = "Vegetable Soup", zh_cn = "蔬菜浓汤", zh_tw = "蔬菜濃湯")
     public static final DeferredItem<BasicItem> VEGETABLE_SOUP = register("vegetable_soup", BasicItem::stackTo1);
@@ -100,14 +102,15 @@ public class ModItems {
 
     @I18n(en_us = "Nether Mushroom Stew", zh_cn = "下界蘑菇煲", zh_tw = "下界蘑菇煲")
     public static final DeferredItem<BasicItem> NETHER_MUSHROOM_STEW =
-            register("nether_mushroom_stew", () -> BasicItem.simpleFoodBy1(ModFoods.NETHER_MUSHROOM_STEW));
+            register("nether_mushroom_stew", properties -> new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
 
     @I18n(en_us = "Baked Mushroom", zh_cn = "烤蘑菇", zh_tw = "烤蘑菇")
     public static final DeferredItem<BasicItem> BAKED_MUSHROOM =
             register("baked_mushroom", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_MUSHROOM));
 
     @I18n(en_us = "Baked Seeds", zh_cn = "烤种子", zh_tw = "烤種子")
-    public static final DeferredItem<BasicItem> BAKED_SEEDS = register("baked_seeds", BasicItem::stackToMax);
+    public static final DeferredItem<BasicItem> BAKED_SEEDS =
+            register("baked_seeds", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_SEEDS));
 
     @I18n(en_us = "Baked Berries", zh_cn = "烤浆果", zh_tw = "烤漿果")
     public static final DeferredItem<BasicItem> BAKED_BERRIES = register("baked_berries", BasicItem::stackToMax);

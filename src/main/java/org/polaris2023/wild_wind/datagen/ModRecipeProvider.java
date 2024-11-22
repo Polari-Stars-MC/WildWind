@@ -1,26 +1,23 @@
 package org.polaris2023.wild_wind.datagen;
 
-import com.google.common.reflect.TypeToken;
-import lombok.experimental.ExtensionMethod;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -30,14 +27,18 @@ public class ModRecipeProvider extends RecipeProvider {
         super(output, registries);
     }
 
-    public final List<RecipeBuilder> list = new ArrayList<>();
+    public final Map<ResourceLocation, RecipeBuilder> list = new HashMap<>();
+
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
-        list.forEach(b -> b.save(recipeOutput));
+        list.forEach((s, b) -> {
+            b.save(recipeOutput, s);
+
+        });
     }
 
     protected void addSmeltingRecipes() {
@@ -64,6 +65,17 @@ public class ModRecipeProvider extends RecipeProvider {
                     .group("magic_flute")
                     .define('B', Items.BONE)
                     .define('R', ModItems.LIVING_TUBER);
+        }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
+                builder -> {
+            builder
+                    .pattern("I I")
+                    .pattern("III")
+                    .pattern("PCP")
+                    .group("cooking_pot")
+                    .define('I', Items.IRON_INGOT)
+                    .define('P', ItemTags.LOGS)
+                    .define('C', ItemTags.COALS);
         }));
     }
 
@@ -212,6 +224,10 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public void add(RecipeBuilder builder) {
-        list.add(builder);
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()), builder);
+    }
+
+    public void add(RecipeBuilder builder, String sufPath) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix("_" + sufPath), builder);
     }
 }

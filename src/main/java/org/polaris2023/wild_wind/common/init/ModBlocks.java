@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
+import org.polaris2023.wild_wind.common.block.CrockPotBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 
@@ -31,7 +32,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Glare Flower Seeds", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
     public static final DeferredBlock<Block> GLAREFLOWER_SEEDS = register("glareflower_seeds");
-    public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM =
+    public static final DeferredItem<BasicBlockItem> GLAREFLOWER_SEEDS_ITEM =
             register("glareflower_seeds", () -> new BasicBlockItem(GLAREFLOWER_SEEDS.get(), new Item.Properties()));
     @I18n(en_us = "Spider Egg", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
     public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg");
@@ -58,7 +59,11 @@ public class ModBlocks {
     public static final DeferredBlock<Block> TRAPPED_PRESENT =
             register("trapped_present");
 
-
+    @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
+    public static final DeferredBlock<CrockPotBlock> COOKING_POT =
+            register("cooking_pot", CrockPotBlock::new, BlockBehaviour.Properties.of().strength(2.0F, 6.0F));
+    public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
+            register("cooking_pot", COOKING_POT);
 
 
 
