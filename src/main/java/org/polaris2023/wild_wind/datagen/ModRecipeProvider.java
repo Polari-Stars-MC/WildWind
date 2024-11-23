@@ -9,6 +9,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -27,7 +28,7 @@ public class ModRecipeProvider extends RecipeProvider {
         super(output, registries);
     }
 
-    public final List<RecipeBuilder> list = new ArrayList<>();
+    public final Map<ResourceLocation, RecipeBuilder> list = new HashMap<>();
 
 
     @Override
@@ -35,8 +36,8 @@ public class ModRecipeProvider extends RecipeProvider {
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
-        list.forEach(b -> {
-            b.save(recipeOutput);
+        list.forEach((s, b) -> {
+            b.save(recipeOutput, s);
 
         });
     }
@@ -68,6 +69,9 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
         add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
                 builder -> {
+            unlockedBy(builder, Items.IRON_INGOT);
+            unlockedBy(builder, ItemTags.LOGS);
+            unlockedBy(builder, ItemTags.COALS);
             builder
                     .pattern("I I")
                     .pattern("III")
@@ -79,13 +83,19 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
     }
 
-    protected static  <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
+    protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
         StringBuilder sb = new StringBuilder("has");
         for (ItemLike like : likes) {
             ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
             sb.append("_").append(key);
         }
         t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+    }
+
+    protected static <T extends RecipeBuilder> void unlockedBy(T t, TagKey<Item> tag) {
+        StringBuilder sb = new StringBuilder("has");
+        sb.append("_").append(tag.location());
+        t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(tag));
     }
 
 
@@ -224,6 +234,10 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public void add(RecipeBuilder builder) {
-        list.add(builder);
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()), builder);
+    }
+
+    public void add(RecipeBuilder builder, String sufPath) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix("_" + sufPath), builder);
     }
 }
