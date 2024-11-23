@@ -8,6 +8,9 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public enum ModFoods implements Supplier<FoodProperties> {
+    KELP(1, 0.1F),
+    CHEESE(3, 2.3F),
+    FISH_CHOWDER(8, 11),
     EGG(2, 1.3F, p -> {
         p.effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
     }),
