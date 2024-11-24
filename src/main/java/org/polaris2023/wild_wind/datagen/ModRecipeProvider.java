@@ -85,11 +85,22 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
         StringBuilder sb = new StringBuilder("has");
-        for (ItemLike like : likes) {
-            ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
-            sb.append("_").append(key);
+        switch (likes.length) {
+            case 0 -> {
+            }
+            case 1 -> {
+                ItemLike like = likes[0];
+                t.unlockedBy(sb.append("_").append(BuiltInRegistries.ITEM.getKey(like.asItem())).toString().toLowerCase(Locale.ROOT), has(like));
+            }
+            default -> {
+                for (ItemLike like : likes) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
+                    sb.append("_").append(key);
+                }
+                t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+            }
         }
-        t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, TagKey<Item> tag) {
