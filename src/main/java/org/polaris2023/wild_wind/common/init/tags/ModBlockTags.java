@@ -7,6 +7,7 @@ import net.minecraft.world.level.block.Block;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static org.polaris2023.wild_wind.util.Helpers.ctags;
 import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 
@@ -14,7 +15,7 @@ public enum ModBlockTags implements Supplier<TagKey<Block>> {
     FIREFLY_ROOST_BLOCK;
     final TagKey<Block> tag;
     ModBlockTags() {
-        tag = tags(Registries.BLOCK, name().toLowerCase(Locale.ROOT));
+        tag = ctags(Registries.BLOCK, name().toLowerCase(Locale.ROOT));
     }
 
     /**

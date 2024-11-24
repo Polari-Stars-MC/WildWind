@@ -7,13 +7,14 @@ import net.minecraft.world.entity.EntityType;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static org.polaris2023.wild_wind.util.Helpers.ctags;
 import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModEntityTypeTags implements Supplier<TagKey<EntityType<?>>> {
     ;
     final TagKey<EntityType<?>> tag;
     ModEntityTypeTags() {
-        tag = tags(Registries.ENTITY_TYPE, name().toLowerCase(Locale.ROOT));
+        tag = ctags(Registries.ENTITY_TYPE, name().toLowerCase(Locale.ROOT));
     }
 
     /**
