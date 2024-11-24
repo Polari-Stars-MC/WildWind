@@ -17,6 +17,8 @@ public enum ModFoods implements Supplier<FoodProperties> {
     COOKED_EGG(5, 6),
     BAKED_BEETROOT(6, 6.6F),
     BAKED_CARROT(7, 8),
+    BAKED_APPLE(5, 3.2F),
+    BAKED_MELON_SLICE(4, 3.2F),
     RAW_TROUT(2, 0.4F, p-> {
         p.effect(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F);
     } ),
@@ -39,6 +41,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     }),
     BAKED_SEEDS(4, 1),
     PUMPKIN_SLICE(2, 1.2F),
+    BAKED_PUMPKIN_SLICE(4, 3.2F),
     SUGAR_CANE(2, 1.2F),
     SUGAR(1, 2.4F, p -> {
         p.effect(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0), 0.3F);

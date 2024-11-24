@@ -7,6 +7,7 @@ import net.minecraft.world.level.biome.Biome;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static org.polaris2023.wild_wind.util.Helpers.ctags;
 import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModBiomeTags implements Supplier<TagKey<Biome>> {
@@ -14,7 +15,7 @@ public enum ModBiomeTags implements Supplier<TagKey<Biome>> {
 
     final TagKey<Biome> tag;
     ModBiomeTags() {
-        tag = tags(Registries.BIOME, name().toLowerCase(Locale.ROOT));
+        tag = ctags(Registries.BIOME, name().toLowerCase(Locale.ROOT));
     }
 
     /**
