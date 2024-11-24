@@ -89,6 +89,17 @@ public class ModItems {
     public static final DeferredItem<BasicItem> PUMPKIN_SLICE =
             register("pumpkin_slice", () -> BasicItem.simpleFoodByMax(ModFoods.PUMPKIN_SLICE));
 
+    @I18n(en_us = "Baked Pumpkin Slice", zh_cn = "南瓜片", zh_tw = "南瓜片")
+    public static final DeferredItem<BasicItem> BAKED_PUMPKIN_SLICE =
+            register("baked_pumpkin_slice", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_PUMPKIN_SLICE));
+
+    @I18n(en_us = "Baked Apple", zh_cn = "烤苹果", zh_tw = "烤蘋果")
+    public static final DeferredItem<BasicItem> BAKED_APPLE =
+            register("baked_apple", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_APPLE));
+    @I18n(en_us = "Baked Melon Slice", zh_cn = "烤西瓜片", zh_tw = "烤西瓜片")
+    public static final DeferredItem<BasicItem> BAKED_MELON_SLICE =
+            register("baked_melon_slice", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_MELON_SLICE));
+
     @I18n(en_us = "Vegetable Soup", zh_cn = "蔬菜浓汤", zh_tw = "蔬菜濃湯")
     public static final DeferredItem<BasicItem> VEGETABLE_SOUP = register("vegetable_soup", BasicItem::stackTo1);
     @I18n(en_us = "Flour", zh_cn = "面粉", zh_tw = "麵粉")

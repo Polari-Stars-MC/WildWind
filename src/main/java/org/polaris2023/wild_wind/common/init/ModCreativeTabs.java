@@ -23,6 +23,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
                     output.accept(item.get());
                 }
+                //肉食
                 ItemStack stack = new ItemStack(Items.SLIME_BALL);
                 stack.set(ModComponents.SLIME_COLOR, 100);
                 output.accept(stack);
