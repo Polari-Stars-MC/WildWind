@@ -15,8 +15,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.material.Fluids;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -36,10 +39,32 @@ public class ModRecipeProvider extends RecipeProvider {
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
+        addCookingPotRecipes();
         list.forEach((s, b) -> {
             b.save(recipeOutput, s);
 
         });
+    }
+
+    protected void addCookingPotRecipes() {
+        FluidStack water = new FluidStack(Fluids.WATER, 1);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_BEEF, water, Items.BEEF);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_MUTTON, water, Items.MUTTON);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_CHICKEN, water, Items.CHICKEN);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_COD, water, Items.COD);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_PORKCHOP, water, Items.PORKCHOP);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_RABBIT, water, Items.RABBIT);
+        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_SALMON, water, Items.SALMON);
+        
+    }
+
+    public void simpleCookingPot(RecipeCategory category, ItemLike result, FluidStack stack, ItemLike like) {
+        add(
+                "cooking_pot/",
+                CookingPotRecipeBuilder
+                        .cooking(category, result)
+                        .stack(stack)
+                        .add(like));
     }
 
     protected void addSmeltingRecipes() {
@@ -51,7 +76,7 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F));
     }
 
-    protected static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
+    public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
         return inventoryTrigger(ItemPredicate.Builder
                 .item()
                 .of(likes).build());
@@ -249,6 +274,10 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public void add(RecipeBuilder builder, String sufPath) {
-        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix("_" + sufPath), builder);
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix(sufPath), builder);
+    }
+
+    public void add(String prePath,RecipeBuilder builder) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withPrefix(prePath), builder);
     }
 }

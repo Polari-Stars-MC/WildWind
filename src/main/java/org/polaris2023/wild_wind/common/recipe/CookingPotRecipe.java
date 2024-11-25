@@ -12,20 +12,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.common.util.RecipeMatcher;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModRecipeSerializes;
 import org.polaris2023.wild_wind.common.init.ModRecipes;
 
 public class CookingPotRecipe implements Recipe<CraftingInput> {
     final String group;
     final ItemStack result;
+    final FluidStack stack;
     final CraftingBookCategory category;
     final NonNullList<Ingredient> ingredients;
 
 
-    public CookingPotRecipe(String group, CraftingBookCategory category, ItemStack result, NonNullList<Ingredient> ingredients) {
+    public CookingPotRecipe(String group, CraftingBookCategory category, ItemStack result,FluidStack stack, NonNullList<Ingredient> ingredients) {
         this.group = group;
         this.category = category;
         this.result = result;
+        this.stack = stack;
         this.ingredients = ingredients;
 
     }
@@ -79,6 +82,7 @@ public class CookingPotRecipe implements Recipe<CraftingInput> {
                                 Codec.STRING.optionalFieldOf("group", "").forGetter(cookingPotRecipe -> cookingPotRecipe.group),
                                 CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(cookingPotRecipe -> cookingPotRecipe.category),
                                 ItemStack.STRICT_CODEC.fieldOf("result").forGetter(cookingPotRecipe -> cookingPotRecipe.result),
+                                FluidStack.CODEC.fieldOf("fluid").forGetter(cookingPotRecipe -> cookingPotRecipe.stack),
                                 Ingredient.CODEC_NONEMPTY
                                         .listOf()
                                         .fieldOf("ingredients")
@@ -111,7 +115,8 @@ public class CookingPotRecipe implements Recipe<CraftingInput> {
             NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i, Ingredient.EMPTY);
             nonnulllist.replaceAll(__ -> Ingredient.CONTENTS_STREAM_CODEC.decode(buffer));
             ItemStack itemstack = ItemStack.STREAM_CODEC.decode(buffer);
-            return new CookingPotRecipe(s, craftingbookcategory, itemstack, nonnulllist);
+            FluidStack stack1 = FluidStack.STREAM_CODEC.decode(buffer);
+            return new CookingPotRecipe(s, craftingbookcategory, itemstack, stack1, nonnulllist);
         }
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, CookingPotRecipe recipe) {
