@@ -1,5 +1,7 @@
 package org.polaris2023.wild_wind.datagen.tag;
 
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.codecs.PairCodec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;

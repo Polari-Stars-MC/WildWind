@@ -55,7 +55,7 @@ public class ModRecipeProvider extends RecipeProvider {
         simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_PORKCHOP, water, Items.PORKCHOP);
         simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_RABBIT, water, Items.RABBIT);
         simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_SALMON, water, Items.SALMON);
-        
+
     }
 
     public void simpleCookingPot(RecipeCategory category, ItemLike result, FluidStack stack, ItemLike like) {

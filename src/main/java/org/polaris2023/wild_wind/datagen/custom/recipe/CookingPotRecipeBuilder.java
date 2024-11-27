@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.datagen.custom.recipe;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
@@ -33,6 +34,13 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
     private final NonNullList<Ingredient> ingredients = NonNullList.create();
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private FluidStack stack = FluidStack.EMPTY;
+    private Pair<Float, Float>
+            meat = new Pair<>(0F, Float.MAX_VALUE ),
+            vegetable = new Pair<>(0F, Float.MAX_VALUE),
+            fruit = new Pair<>(0F, Float.MAX_VALUE),
+            protein = new Pair<>(0F, Float.MAX_VALUE),
+            fish = new Pair<>(0F, Float.MAX_VALUE),
+            monster = new Pair<>(0F, Float.MAX_VALUE);
     @Nullable
     private String group;
 
@@ -49,6 +57,33 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
         this.stack = stack;
         return this;
     }
+
+    public CookingPotRecipeBuilder meat(float min, float max) {
+        meat = new Pair<>(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder vegetable(float min, float max) {
+        vegetable = new Pair<>(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder fruit(float min, float max) {
+        fruit = new Pair<>(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder protein(float min, float max) {
+        protein = new Pair<>(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder fish(float min, float max) {
+        fish = new Pair<>(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder monster(float min, float max) {
+        monster = new Pair<>(min, max);
+        return this;
+    }
+
+
 
     public CookingPotRecipeBuilder add(Ingredient ingredient) {
         this.ingredients.add(ingredient);
@@ -168,7 +203,13 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
                 RecipeBuilder.determineBookCategory(this.category),
                 this.resultStack,
                 stack,
-                this.ingredients
+                this.ingredients,
+                meat,
+                vegetable,
+                fruit,
+                protein,
+                fish,
+                monster
         );
         recipeOutput.accept(id, cookingPot, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
