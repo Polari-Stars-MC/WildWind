@@ -5,7 +5,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.NonNullList;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -14,21 +14,32 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.recipe.CookingPotRecipe;
+import org.polaris2023.wild_wind.util.MinMaxValue;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.function.Consumer;
+
+import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.has;
 
 public class CookingPotRecipeBuilder implements RecipeBuilder {
 
     private final RecipeCategory category;
     private final Item result;
-    private final int count;
+
     private final ItemStack resultStack; // Neo: add stack result support
-    private final NonNullList<Ingredient> ingredients = NonNullList.create();
+
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
+    private FluidStack stack = FluidStack.EMPTY;
+    private MinMaxValue<Float>
+            meat = MinMaxValue.of(0F, Float.MAX_VALUE),
+            vegetable = MinMaxValue.of(0F, Float.MAX_VALUE),
+            fruit = MinMaxValue.of(0F, Float.MAX_VALUE),
+            protein = MinMaxValue.of(0F, Float.MAX_VALUE),
+            fish = MinMaxValue.of(0F, Float.MAX_VALUE),
+            monster = MinMaxValue.of(0F, Float.MAX_VALUE);
     @Nullable
     private String group;
 
@@ -36,23 +47,114 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
         this(category, new ItemStack(result, count));
     }
 
-    public CookingPotRecipeBuilder(RecipeCategory category, ItemStack itemStack) {
+    public CookingPotRecipeBuilder(RecipeCategory category, ItemLike result, int count, Consumer<CookingPotRecipeBuilder> consumer) {
+        this(category, new ItemStack(result, count), consumer);
+
+    }
+
+    public CookingPotRecipeBuilder stack(FluidStack stack) {
+        this.stack = stack;
+        return this;
+    }
+
+    public CookingPotRecipeBuilder meat(float min, float max) {
+        meat = MinMaxValue.of(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder vegetable(float min, float max) {
+        vegetable = MinMaxValue.of(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder fruit(float min, float max) {
+        fruit = MinMaxValue.of(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder protein(float min, float max) {
+        protein = MinMaxValue.of(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder fish(float min, float max) {
+        fish = MinMaxValue.of(min, max);
+        return this;
+    }
+    public CookingPotRecipeBuilder monster(float min, float max) {
+        monster = MinMaxValue.of(min, max);
+        return this;
+    }
+
+    protected CookingPotRecipeBuilder unlockedBy(ItemLike... likes) {
+        StringBuilder sb = new StringBuilder("has");
+        switch (likes.length) {
+            case 0 -> {
+            }
+            case 1 -> {
+                ItemLike like = likes[0];
+                unlockedBy(sb.append("_").append(BuiltInRegistries.ITEM.getKey(like.asItem())).toString().toLowerCase(Locale.ROOT), has(like));
+            }
+            default -> {
+                for (ItemLike like : likes) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
+                    sb.append("_").append(key);
+                }
+                unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+            }
+        }
+        return this;
+    }
+
+    protected CookingPotRecipeBuilder unlockedBy(Item... likes) {
+        StringBuilder sb = new StringBuilder("has");
+        switch (likes.length) {
+            case 0 -> {
+            }
+            case 1 -> {
+                Item item = likes[0];
+                unlockedBy(sb.append("_").append(BuiltInRegistries.ITEM.getKey(item)).toString().toLowerCase(Locale.ROOT), has(item));
+            }
+            default -> {
+                for (Item like : likes) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(like);
+                    sb.append("_").append(key);
+                }
+                unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+            }
+        }
+        return this;
+    }
+
+    public FluidStack stack() {
+        return stack;
+    }
+
+    public CookingPotRecipeBuilder(RecipeCategory category, ItemStack result) {
         this.category = category;
-        this.result = itemStack.getItem();
-        this.count = itemStack.getCount();
-        this.resultStack = itemStack;
+        this.result = result.getItem();
+        this.resultStack = result;
+    }
+
+    public CookingPotRecipeBuilder(RecipeCategory category, ItemStack result, Consumer<CookingPotRecipeBuilder> consumer) {
+        this(category, result);
+        consumer.accept(this);
     }
 
     public static CookingPotRecipeBuilder cooking(RecipeCategory category, ItemLike result) {
         return new CookingPotRecipeBuilder(category, result, 1);
     }
 
+    public static CookingPotRecipeBuilder cooking(RecipeCategory category, ItemLike result, Consumer<CookingPotRecipeBuilder> consumer) {
+        return new CookingPotRecipeBuilder(category, result, 1, consumer);
+    }
+
     public static CookingPotRecipeBuilder cooking(RecipeCategory category, ItemLike result, int count) {
         return new CookingPotRecipeBuilder(category, result, count);
     }
 
-    public static CookingPotRecipeBuilder cooking(RecipeCategory p_252339_, ItemStack result) {
-        return new CookingPotRecipeBuilder(p_252339_, result);
+    public static CookingPotRecipeBuilder cooking(RecipeCategory category, ItemLike result, int count, Consumer<CookingPotRecipeBuilder> consumer) {
+        return new CookingPotRecipeBuilder(category, result, count);
+    }
+
+    public static CookingPotRecipeBuilder cooking(RecipeCategory category, ItemStack result) {
+        return new CookingPotRecipeBuilder(category, result);
     }
 
     @Override
@@ -82,12 +184,17 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         this.criteria.forEach(builder::addCriterion);
-        CookingPotRecipe shapelessrecipe = new CookingPotRecipe(
+        CookingPotRecipe cookingPot = new CookingPotRecipe(
                 Objects.requireNonNullElse(this.group, ""),
-                RecipeBuilder.determineBookCategory(this.category),
                 this.resultStack,
-                this.ingredients
+                stack,
+                meat,
+                vegetable,
+                fruit,
+                protein,
+                fish,
+                monster
         );
-        recipeOutput.accept(id, shapelessrecipe, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        recipeOutput.accept(id, cookingPot, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 }
