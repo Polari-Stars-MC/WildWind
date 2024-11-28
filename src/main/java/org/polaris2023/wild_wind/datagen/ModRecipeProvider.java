@@ -15,7 +15,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
@@ -42,29 +41,21 @@ public class ModRecipeProvider extends RecipeProvider {
         addCookingPotRecipes();
         list.forEach((s, b) -> {
             b.save(recipeOutput, s);
-
         });
     }
 
     protected void addCookingPotRecipes() {
-        FluidStack water = new FluidStack(Fluids.WATER, 1);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_BEEF, water, Items.BEEF);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_MUTTON, water, Items.MUTTON);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_CHICKEN, water, Items.CHICKEN);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_COD, water, Items.COD);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_PORKCHOP, water, Items.PORKCHOP);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_RABBIT, water, Items.RABBIT);
-        simpleCookingPot(RecipeCategory.FOOD, Items.COOKED_SALMON, water, Items.SALMON);
 
     }
 
-    public void simpleCookingPot(RecipeCategory category, ItemLike result, FluidStack stack, ItemLike like) {
+    public void simpleCookingPot(RecipeCategory category, ItemLike result, FluidStack stack, Consumer<CookingPotRecipeBuilder> consumer) {
+        CookingPotRecipeBuilder cooking = CookingPotRecipeBuilder
+                .cooking(category, result);
+        consumer.accept(cooking);
         add(
                 "cooking_pot/",
-                CookingPotRecipeBuilder
-                        .cooking(category, result)
-                        .stack(stack)
-                        .add(like));
+                cooking
+                        .stack(stack));
     }
 
     protected void addSmeltingRecipes() {
@@ -129,16 +120,12 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, TagKey<Item> tag) {
-        StringBuilder sb = new StringBuilder("has");
-        sb.append("_").append(tag.location());
-        t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(tag));
+        t.unlockedBy(("has" + "_" + tag.location()).toLowerCase(Locale.ROOT), has(tag));
     }
 
 
 
     protected void addShapelessRecipe() {
-
-
         add(shapeless(RecipeCategory.FOOD, ModItems.FISH_CHOWDER, 1, fish_chowder -> {
             unlockedBy(fish_chowder, ModItems.RAW_TROUT, Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);

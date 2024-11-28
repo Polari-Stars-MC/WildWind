@@ -1,12 +1,10 @@
 package org.polaris2023.wild_wind.datagen.custom.recipe;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.RecipeBuilder;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -19,6 +17,7 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.recipe.CookingPotRecipe;
+import org.polaris2023.wild_wind.util.MinMaxValue;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -29,18 +28,18 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
 
     private final RecipeCategory category;
     private final Item result;
-    private final int count;
+
     private final ItemStack resultStack; // Neo: add stack result support
-    private final NonNullList<Ingredient> ingredients = NonNullList.create();
+
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private FluidStack stack = FluidStack.EMPTY;
-    private Pair<Float, Float>
-            meat = new Pair<>(0F, Float.MAX_VALUE ),
-            vegetable = new Pair<>(0F, Float.MAX_VALUE),
-            fruit = new Pair<>(0F, Float.MAX_VALUE),
-            protein = new Pair<>(0F, Float.MAX_VALUE),
-            fish = new Pair<>(0F, Float.MAX_VALUE),
-            monster = new Pair<>(0F, Float.MAX_VALUE);
+    private MinMaxValue<Float>
+            meat = MinMaxValue.of(0F, Float.MAX_VALUE),
+            vegetable = MinMaxValue.of(0F, Float.MAX_VALUE),
+            fruit = MinMaxValue.of(0F, Float.MAX_VALUE),
+            protein = MinMaxValue.of(0F, Float.MAX_VALUE),
+            fish = MinMaxValue.of(0F, Float.MAX_VALUE),
+            monster = MinMaxValue.of(0F, Float.MAX_VALUE);
     @Nullable
     private String group;
 
@@ -59,40 +58,28 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
     }
 
     public CookingPotRecipeBuilder meat(float min, float max) {
-        meat = new Pair<>(min, max);
+        meat = MinMaxValue.of(min, max);
         return this;
     }
     public CookingPotRecipeBuilder vegetable(float min, float max) {
-        vegetable = new Pair<>(min, max);
+        vegetable = MinMaxValue.of(min, max);
         return this;
     }
     public CookingPotRecipeBuilder fruit(float min, float max) {
-        fruit = new Pair<>(min, max);
+        fruit = MinMaxValue.of(min, max);
         return this;
     }
     public CookingPotRecipeBuilder protein(float min, float max) {
-        protein = new Pair<>(min, max);
+        protein = MinMaxValue.of(min, max);
         return this;
     }
     public CookingPotRecipeBuilder fish(float min, float max) {
-        fish = new Pair<>(min, max);
+        fish = MinMaxValue.of(min, max);
         return this;
     }
     public CookingPotRecipeBuilder monster(float min, float max) {
-        monster = new Pair<>(min, max);
+        monster = MinMaxValue.of(min, max);
         return this;
-    }
-
-
-
-    public CookingPotRecipeBuilder add(Ingredient ingredient) {
-        this.ingredients.add(ingredient);
-        return unlockedBy(Arrays.stream(ingredient.getItems()).map(ItemStack::getItem).toArray(Item[]::new));
-    }
-
-    public CookingPotRecipeBuilder add(ItemLike... likes) {
-        this.ingredients.add(Ingredient.of(Arrays.stream(likes).map(ItemLike::asItem).toArray(Item[]::new)));
-        return unlockedBy(likes);
     }
 
     protected CookingPotRecipeBuilder unlockedBy(ItemLike... likes) {
@@ -142,7 +129,6 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
     public CookingPotRecipeBuilder(RecipeCategory category, ItemStack result) {
         this.category = category;
         this.result = result.getItem();
-        this.count = result.getCount();
         this.resultStack = result;
     }
 
@@ -200,10 +186,8 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
         this.criteria.forEach(builder::addCriterion);
         CookingPotRecipe cookingPot = new CookingPotRecipe(
                 Objects.requireNonNullElse(this.group, ""),
-                RecipeBuilder.determineBookCategory(this.category),
                 this.resultStack,
                 stack,
-                this.ingredients,
                 meat,
                 vegetable,
                 fruit,
