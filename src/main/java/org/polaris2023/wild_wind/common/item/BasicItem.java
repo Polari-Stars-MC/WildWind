@@ -31,6 +31,10 @@ public class BasicItem extends Item {
         return new BasicItem(properties, 16);
     }
 
+    public static BasicItem simpleFoodByMax(Properties properties,Supplier<FoodProperties> supplier) {
+        return  new BasicItem(properties, supplier.get());
+    }
+
     public static BasicItem simpleFoodByMax(Supplier<FoodProperties> supplier) {
         return  new BasicItem(new Properties(), supplier.get());
     }
@@ -39,6 +43,10 @@ public class BasicItem extends Item {
     }
     public static BasicItem simpleFoodBy16(Supplier<FoodProperties> supplier) {
         return  new BasicItem(new Properties().stacksTo(16), supplier.get());
+    }
+
+    public static BasicItem simpleFoodBy16(Properties properties, Supplier<FoodProperties> supplier) {
+        return  new BasicItem(properties.stacksTo(16), supplier.get());
     }
 
 

@@ -61,7 +61,7 @@ public class ModRecipeProvider extends RecipeProvider {
     protected void addSmeltingRecipes() {
         add(smelting(ModItems.RAW_TROUT, RecipeCategory.FOOD, ModItems.COOKED_TROUT, 0.35F));
         add(smelting(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F));
-        add(smelting(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.COOKED_LIVING_TUBER, 0.35F));
+        add(smelting(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.BAKED_LIVING_TUBER, 0.35F));
         add(smelting(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F));// input category result exp
         add(smelting(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F));
         add(smelting(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F));
@@ -126,6 +126,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
 
     protected void addShapelessRecipe() {
+
         add(shapeless(RecipeCategory.FOOD, ModItems.FISH_CHOWDER, 1, fish_chowder -> {
             unlockedBy(fish_chowder, ModItems.RAW_TROUT, Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
@@ -221,6 +222,12 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder shaped = ShapedRecipeBuilder.shaped(category, result, count);
         consumer.accept(shaped);
         return shaped;
+    }
+
+    public static ShapelessRecipeBuilder shapeless(RecipeCategory category, ItemStack result, Consumer<ShapelessRecipeBuilder> consumer) {
+        ShapelessRecipeBuilder shapeless = ShapelessRecipeBuilder.shapeless(category, result);
+        consumer.accept(shapeless);
+        return shapeless;
     }
 
     public static ShapelessRecipeBuilder shapeless(RecipeCategory category, ItemLike result, int count, Consumer<ShapelessRecipeBuilder> consumer) {
