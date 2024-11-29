@@ -93,7 +93,10 @@ public class ModItems {
 
     @I18n(en_us = "Cooked Egg", zh_cn = "煎蛋", zh_tw = "煎蛋")
     public static final DeferredItem<BasicItem> COOKED_EGG =
-            register("cooked_egg", () -> BasicItem.simpleFoodByMax(ModFoods.COOKED_EGG));
+            register("cooked_egg", () -> BasicItem.simpleFoodByMax(
+                    new Item.Properties()
+                            .component(ModComponents.PROTEIN_VALUE, 1F),
+                    ModFoods.COOKED_EGG));
 
     @I18n(en_us = "Dough", zh_cn = "面团", zh_tw = "麵團")
     public static final DeferredItem<BasicItem> DOUGH = register("dough", BasicItem::stackToMax);

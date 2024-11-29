@@ -38,6 +38,8 @@ public class WildWindMod {
         NeoForge.EVENT_BUS.addListener((InitComponentEvent event) -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);
+            food(Items.SNIFFER_EGG, ModFoods.SNIFFER_EGG);
+            food(Items.DRAGON_EGG, ModFoods.DRAGON_EGG);
             food(Items.BROWN_MUSHROOM, ModFoods.BROWN_MUSHROOM);
             food(Items.RED_MUSHROOM, ModFoods.RED_MUSHROOM);
             food(Items.CRIMSON_FUNGUS, ModFoods.CRIMSON_FUNGUS);
@@ -98,6 +100,13 @@ public class WildWindMod {
             component(ModComponents.FRUIT_VALUE, 0.5F,
                     Items.MELON_SLICE, Items.GLISTERING_MELON_SLICE,
                     Items.SWEET_BERRIES, Items.GLOW_BERRIES
+            );
+            component(ModComponents.PROTEIN_VALUE, 1F,
+                    Items.EGG, Items.TURTLE_EGG,
+                    Items.SNIFFER_EGG, Items.DRAGON_EGG
+            );
+            component(ModComponents.SWEET_VALUE, 1F,
+                    Items.SUGAR, Items.HONEY_BOTTLE
             );
 
             component(Items.SLIME_BALL, ModComponents.SLIME_COLOR, 0);
