@@ -7,7 +7,7 @@ import net.minecraft.world.level.biome.Biome;
 import javax.annotation.Nullable;
 import java.util.Map;
 
-public final class ModBiomeKeys {
+public class ModBiomeKeys {
     public record BiomeKey(ResourceKey<Biome> key, boolean generate, float suppress) {}
 
     public static final Map<ResourceKey<Biome>, BiomeKey> ALL_BIOME_KEYS = Maps.newHashMap();
@@ -28,9 +28,5 @@ public final class ModBiomeKeys {
     public static float getSuppress(ResourceKey<Biome> key, float defaultValue) {
         BiomeKey biomeKey = getBiomeKey(key);
         return biomeKey == null ? defaultValue : biomeKey.suppress();
-    }
-
-    static {
-
     }
 }

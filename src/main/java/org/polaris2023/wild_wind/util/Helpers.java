@@ -25,6 +25,10 @@ public final class Helpers {
         return TagKey.create(resourceKey, location(name));
     }
 
+    public static <T> TagKey<T> ctags(ResourceKey<Registry<T>> resourceKey, String name) {
+        return TagKey.create(resourceKey, ResourceLocation.fromNamespaceAndPath("c", name));
+    }
+
     public static Collection<BlockState> assembleStates(Block block) {
         return block.getStateDefinition().getPossibleStates();
     }

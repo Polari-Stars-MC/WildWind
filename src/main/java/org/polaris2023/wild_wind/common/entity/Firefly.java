@@ -169,12 +169,11 @@ public class Firefly extends Animal implements FlyingAnimal {
         return super.mobInteract(player, hand);
     }
 
-    public static AttributeSupplier createAttributes() {
+    public static AttributeSupplier.Builder createAttributes() {
         return AmbientCreature.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 8f)
                 .add(Attributes.FLYING_SPEED, 0.6f)
-                .add(Attributes.GRAVITY, 0.0f)
-                .build();
+                .add(Attributes.GRAVITY, 0.0f);
     }
 
 

@@ -6,6 +6,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
+import org.polaris2023.wild_wind.common.entity.Glare;
+import org.polaris2023.wild_wind.common.entity.Trout;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 
@@ -14,7 +16,9 @@ public class WildWindEventHandler {
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes());
+        event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes().build());
+        event.put(ModEntities.GLARE.get(), Glare.createAttributes().build());
+        event.put(ModEntities.TROUT.get(), Trout.createAttributes().build());
     }
 
     public static void modConstruction(IEventBus bus) {

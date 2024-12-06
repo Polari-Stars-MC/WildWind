@@ -11,11 +11,11 @@ import java.util.function.Supplier;
  * @see org.polaris2023.wild_wind.datagen.model.ModItemModelProvider
  */
 public class BasicItem extends Item {
-    BasicItem(Properties properties) {
+    protected BasicItem(Properties properties) {
         super(properties);
     }
 
-    BasicItem(Properties properties, int maxCount) {
+    protected BasicItem(Properties properties, int maxCount) {
         super(properties.stacksTo(maxCount));
     }
 
@@ -43,7 +43,7 @@ public class BasicItem extends Item {
 
 
 
-    BasicItem(Properties properties, FoodProperties foodProperties) {
+    protected BasicItem(Properties properties, FoodProperties foodProperties) {
         super(properties.food(foodProperties));
     }
 }

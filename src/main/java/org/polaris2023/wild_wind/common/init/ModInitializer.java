@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
+import lombok.experimental.Delegate;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -17,6 +18,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
@@ -56,6 +59,10 @@ public class ModInitializer {
             DeferredRegister.create(Registries.POTION, MOD_ID);
     static DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(MOD_ID);
+    static DeferredRegister<RecipeType<?>> RECIPES =
+            DeferredRegister.create(Registries.RECIPE_TYPE, MOD_ID);
+    static DeferredRegister<RecipeSerializer<?>> RECIPES_SERIALIZERS =
+            DeferredRegister.create(Registries.RECIPE_SERIALIZER, MOD_ID);
     static DeferredRegister<PoiType> POIS =
             DeferredRegister.create(BuiltInRegistries.POINT_OF_INTEREST_TYPE, MOD_ID);
     static DeferredRegister<VillagerType> VILLAGERS =
@@ -74,6 +81,8 @@ public class ModInitializer {
                     ModEffects.class,
                     ModPotions.class,
                     ModItems.class,
+                    ModRecipes.class,
+                    ModRecipeSerializes.class,
                     ModCreativeTabs.class,
                     ModVillagers.class
             );
@@ -83,7 +92,7 @@ public class ModInitializer {
                 SOUNDS,
                 ENTITIES, FLUIDS, BLOCKS,
                 EFFECTS,POTIONS,
-                ITEMS, TABS,
+                ITEMS, RECIPES, RECIPES_SERIALIZERS, TABS,
                 POIS, VILLAGERS, PROFESSIONS);
     }
 
@@ -98,8 +107,12 @@ public class ModInitializer {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
     }
 
-    public static <T> Collection<DeferredHolder<T, ? extends T>> entry(Class<T> tClass) {
-        return entry(new TypeToken<>(tClass) {});
+    public static Collection<DeferredHolder<Item, ? extends Item>> items() {
+        return ITEMS.getEntries();
+    }
+
+    public static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
+        return ENTITIES.getEntries();
     }
 
     @SuppressWarnings("unchecked")

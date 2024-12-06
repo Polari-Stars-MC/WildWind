@@ -7,13 +7,14 @@ import net.minecraft.world.level.material.Fluid;
 import java.util.Locale;
 import java.util.function.Supplier;
 
+import static org.polaris2023.wild_wind.util.Helpers.ctags;
 import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModFluidTags implements Supplier<TagKey<Fluid>> {
     ;
     final TagKey<Fluid> tag;
     ModFluidTags() {
-        tag = tags(Registries.FLUID, name().toLowerCase(Locale.ROOT));
+        tag = ctags(Registries.FLUID, name().toLowerCase(Locale.ROOT));
     }
 
 

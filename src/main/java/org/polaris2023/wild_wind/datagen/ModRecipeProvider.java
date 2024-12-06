@@ -1,26 +1,26 @@
 package org.polaris2023.wild_wind.datagen;
 
-import com.google.common.reflect.TypeToken;
-import lombok.experimental.ExtensionMethod;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.neoforged.neoforge.fluids.FluidStack;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -30,14 +30,32 @@ public class ModRecipeProvider extends RecipeProvider {
         super(output, registries);
     }
 
-    public final List<RecipeBuilder> list = new ArrayList<>();
+    public final Map<ResourceLocation, RecipeBuilder> list = new HashMap<>();
+
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
-        list.forEach(b -> b.save(recipeOutput));
+        addCookingPotRecipes();
+        list.forEach((s, b) -> {
+            b.save(recipeOutput, s);
+        });
+    }
+
+    protected void addCookingPotRecipes() {
+
+    }
+
+    public void simpleCookingPot(RecipeCategory category, ItemLike result, FluidStack stack, Consumer<CookingPotRecipeBuilder> consumer) {
+        CookingPotRecipeBuilder cooking = CookingPotRecipeBuilder
+                .cooking(category, result);
+        consumer.accept(cooking);
+        add(
+                "cooking_pot/",
+                cooking
+                        .stack(stack));
     }
 
     protected void addSmeltingRecipes() {
@@ -49,7 +67,7 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F));
     }
 
-    protected static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
+    public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
         return inventoryTrigger(ItemPredicate.Builder
                 .item()
                 .of(likes).build());
@@ -65,22 +83,49 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('B', Items.BONE)
                     .define('R', ModItems.LIVING_TUBER);
         }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
+                builder -> {
+            unlockedBy(builder, Items.IRON_INGOT);
+            unlockedBy(builder, ItemTags.LOGS);
+            unlockedBy(builder, ItemTags.COALS);
+            builder
+                    .pattern("I I")
+                    .pattern("III")
+                    .pattern("PCP")
+                    .group("cooking_pot")
+                    .define('I', Items.IRON_INGOT)
+                    .define('P', ItemTags.LOGS)
+                    .define('C', ItemTags.COALS);
+        }));
     }
 
-    protected static  <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
+    protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
         StringBuilder sb = new StringBuilder("has");
-        for (ItemLike like : likes) {
-            ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
-            sb.append("_").append(key);
+        switch (likes.length) {
+            case 0 -> {
+            }
+            case 1 -> {
+                ItemLike like = likes[0];
+                t.unlockedBy(sb.append("_").append(BuiltInRegistries.ITEM.getKey(like.asItem())).toString().toLowerCase(Locale.ROOT), has(like));
+            }
+            default -> {
+                for (ItemLike like : likes) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
+                    sb.append("_").append(key);
+                }
+                t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+            }
         }
-        t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
+
+    }
+
+    protected static <T extends RecipeBuilder> void unlockedBy(T t, TagKey<Item> tag) {
+        t.unlockedBy(("has" + "_" + tag.location()).toLowerCase(Locale.ROOT), has(tag));
     }
 
 
 
     protected void addShapelessRecipe() {
-
-
         add(shapeless(RecipeCategory.FOOD, ModItems.FISH_CHOWDER, 1, fish_chowder -> {
             unlockedBy(fish_chowder, ModItems.RAW_TROUT, Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
@@ -212,6 +257,14 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     public void add(RecipeBuilder builder) {
-        list.add(builder);
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()), builder);
+    }
+
+    public void add(RecipeBuilder builder, String sufPath) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix(sufPath), builder);
+    }
+
+    public void add(String prePath,RecipeBuilder builder) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withPrefix(prePath), builder);
     }
 }
