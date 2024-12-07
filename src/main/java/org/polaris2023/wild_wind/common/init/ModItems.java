@@ -28,7 +28,7 @@ public class ModItems {
                             .component(ModComponents.MONSTER_VALUE, 1F),
                     ModFoods.LIVING_TUBER
             ));
-    @I18n(en_us = "Baked Living Tuber", zh_cn = "熟活根", zh_tw = "熟活根")
+    @I18n(en_us = "Baked Living Tuber", zh_cn = "烤活根", zh_tw = "烤活根")
     public static final DeferredItem<BasicItem> BAKED_LIVING_TUBER =
             register("baked_living_tuber", () -> BasicItem.simpleFoodBy16(
                     new Item.Properties()
