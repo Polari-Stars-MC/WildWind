@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.common.init;
+package org.polaris2023.wild_wind.client;
 
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.chat.Component;
@@ -6,6 +6,8 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
+import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.ModComponents;
 
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -25,10 +27,25 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     MONSTER_VALUE(ModComponents.MONSTER_VALUE),
     @I18n(en_us = "Sweet: ", zh_cn = "甜值：", zh_tw = "甜值：")
     SWEET_VALUE(ModComponents.SWEET_VALUE),
+    @I18n(en_us = "cooking pot", zh_cn = "烹饪锅", zh_tw = "烹飪鍋")
+    COOKIN_POT("gui", WildWindMod.MOD_ID, "cooking_pot"),
     ;
 
     final MutableComponent translatable;
     ModTranslateKey(String key) {
+        translatable = Component.translatable(key);
+    }
+
+    ModTranslateKey(String... keys) {
+        String key = "";
+        for (int i = 0; i < keys.length; i++) {
+            String k = keys[i];
+            if (i == 1) {
+                key+=k;
+            } else {
+                key+=("." + k);
+            }
+        }
         translatable = Component.translatable(key);
     }
 

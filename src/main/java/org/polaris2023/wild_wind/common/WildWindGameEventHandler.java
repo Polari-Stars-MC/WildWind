@@ -14,7 +14,7 @@ import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModComponents;
-import org.polaris2023.wild_wind.common.init.ModTranslateKey;
+import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.List;
