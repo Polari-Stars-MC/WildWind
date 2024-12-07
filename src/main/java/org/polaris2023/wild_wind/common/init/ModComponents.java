@@ -5,10 +5,15 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.wild_wind.common.recipe.CookingPotRecipe;
+
+import java.util.List;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.COMPONENTS;
+import static org.polaris2023.wild_wind.common.recipe.CookingPotRecipe.Serializer.LOCATIONS_CODEC;
+import static org.polaris2023.wild_wind.common.recipe.CookingPotRecipe.Serializer.LOCATIONS_STREAM_CODEC;
 
 public class ModComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SLIME_COLOR =
@@ -25,12 +30,17 @@ public class ModComponents {
             register("fish", Codec.FLOAT, ByteBufCodecs.FLOAT);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> MONSTER_VALUE =
             register("monster", Codec.FLOAT, ByteBufCodecs.FLOAT);
-
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> SWEET_VALUE =
+            register("sweet", Codec.FLOAT, ByteBufCodecs.FLOAT);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> LOCATIONS =
+            register("locations", LOCATIONS_CODEC, LOCATIONS_STREAM_CODEC);
 
 
 
     private static <T> DeferredHolder<DataComponentType<?>, DataComponentType<T>> register(String name, Codec<T> codec, StreamCodec<ByteBuf, T> streamCodec) {
         return COMPONENTS.registerComponentType(name,
-                builder -> builder.persistent(codec).networkSynchronized(streamCodec));
+                builder -> builder
+                        .persistent(codec)
+                        .networkSynchronized(streamCodec));
     }
 }

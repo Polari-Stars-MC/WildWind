@@ -30,6 +30,7 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
     private final Item result;
 
     private final ItemStack resultStack; // Neo: add stack result support
+    private final List<ResourceLocation> locations = new ArrayList<>();
 
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
     private FluidStack stack = FluidStack.EMPTY;
@@ -39,7 +40,8 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
             fruit = MinMaxValue.of(0F, Float.MAX_VALUE),
             protein = MinMaxValue.of(0F, Float.MAX_VALUE),
             fish = MinMaxValue.of(0F, Float.MAX_VALUE),
-            monster = MinMaxValue.of(0F, Float.MAX_VALUE);
+            monster = MinMaxValue.of(0F, Float.MAX_VALUE),
+            sweet = MinMaxValue.of(0F, Float.MAX_VALUE);
     @Nullable
     private String group;
 
@@ -65,6 +67,12 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
         vegetable = MinMaxValue.of(min, max);
         return this;
     }
+
+    public CookingPotRecipeBuilder add(ItemLike like) {
+        locations.add(BuiltInRegistries.ITEM.getKey(like.asItem()));
+        return this;
+    }
+
     public CookingPotRecipeBuilder fruit(float min, float max) {
         fruit = MinMaxValue.of(min, max);
         return this;
@@ -81,6 +89,11 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
         monster = MinMaxValue.of(min, max);
         return this;
     }
+    public CookingPotRecipeBuilder sweet(float min, float max) {
+        sweet = MinMaxValue.of(min, max);
+        return this;
+    }
+
 
     protected CookingPotRecipeBuilder unlockedBy(ItemLike... likes) {
         StringBuilder sb = new StringBuilder("has");
@@ -193,7 +206,9 @@ public class CookingPotRecipeBuilder implements RecipeBuilder {
                 fruit,
                 protein,
                 fish,
-                monster
+                monster,
+                sweet,
+                locations
         );
         recipeOutput.accept(id, cookingPot, builder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
