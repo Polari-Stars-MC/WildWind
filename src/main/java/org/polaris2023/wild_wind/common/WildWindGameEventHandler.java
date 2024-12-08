@@ -29,11 +29,11 @@ public class WildWindGameEventHandler {
         List<Component> toolTip = event.getToolTip();
         componentAdd(stack, toolTip, ModTranslateKey.MEAT_VALUE, ModComponents.MEAT_VALUE, 0F);
         componentAdd(stack, toolTip, ModTranslateKey.VEGETABLE_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.FRUIT_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.PROTEIN_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.FISH_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.MONSTER_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.SWEET_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.FRUIT_VALUE, ModComponents.FRUIT_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.PROTEIN_VALUE, ModComponents.PROTEIN_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.FISH_VALUE, ModComponents.FISH_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.MONSTER_VALUE, ModComponents.MONSTER_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.SWEET_VALUE, ModComponents.SWEET_VALUE, 0F);
 
     }
 
