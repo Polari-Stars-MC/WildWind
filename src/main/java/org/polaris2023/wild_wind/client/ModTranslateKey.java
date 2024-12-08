@@ -17,6 +17,12 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     NUTRITION("wild","wind","nutrition"),
     @I18n(en_us = "Saturation: ", zh_cn = "饱食度：", zh_tw = "飽食度：")
     SATURATION("wild","wind","saturation"),
+    @I18n(en_us = "effect: ", zh_cn = "效果：", zh_tw = "效果：")
+    EFFECT("wild", "wind", "effects"),
+    @I18n(en_us = "Trigger probability", zh_cn = "概率触发", zh_tw = "概率觸發")
+    TRIGGER_PROBABILITY,
+    @I18n(en_us = "Duration", zh_cn = "持续时间", zh_tw = "持續時間")
+    DURATION("wild","wind","duration"),
     @I18n(en_us = "Meat: ", zh_cn = "肉值：", zh_tw = "肉值：")
     MEAT_VALUE(ModComponents.MEAT_VALUE),
     @I18n(en_us = "Vegetable: ", zh_cn = "菜值：", zh_tw = "菜值：")
