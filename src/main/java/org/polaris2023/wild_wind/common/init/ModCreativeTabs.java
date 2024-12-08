@@ -29,7 +29,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 stack.set(ModComponents.SLIME_COLOR, 100);
                 output.accept(stack);
             }),
-    @I18n(en_us = "Food & drink", zh_cn = "食物与饮品", zh_tw = "食物與飲品")
+    @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")
     FOOD_AND_DRINK(ModItems.PUMPKIN_SLICE::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {

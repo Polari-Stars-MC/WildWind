@@ -69,11 +69,11 @@ public class ModItems {
     public static final DeferredItem<BasicItem> CANDY =
             register("candy", BasicItem::stackTo16);
 
-    @I18n(en_us = "Cheese", zh_tw = "乳酪", zh_cn = "奶酪")
+    @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
     public static final DeferredItem<BasicItem> CHEESE =
             register("cheese", () -> BasicItem.simpleFoodBy16(ModFoods.CHEESE));
 
-    @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "乳酪南瓜湯")
+    @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")
     public static final DeferredItem<BasicItem> CHEESE_PUMPKIN_SOUP =
             register("cheese_pumpkin_soup", BasicItem::stackTo1);
 
