@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -27,7 +28,18 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 ItemStack stack = new ItemStack(Items.SLIME_BALL);
                 stack.set(ModComponents.SLIME_COLOR, 100);
                 output.accept(stack);
-            });
+            }),
+    @I18n(en_us = "Food & drink", zh_cn = "食物与饮品", zh_tw = "食物與飲品")
+    FOOD_AND_DRINK(ModItems.PUMPKIN_SLICE::toStack,
+            () -> (__, output) -> {
+                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+                    Item it = item.get();
+                    if (it.components().has(DataComponents.FOOD)) {
+                        output.accept(it);
+                    }
+                }
+            })
+    ;
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
     ModCreativeTabs(Supplier<ItemStack> icon,
                     Supplier<CreativeModeTab.DisplayItemsGenerator> parameters) {
