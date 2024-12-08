@@ -182,33 +182,6 @@ public class InitProcessor extends AbstractProcessor {
                         ))
                         .addMethods(List.of(
                                 MethodSpec
-                                        .methodBuilder("setModid")
-                                        .returns(TypeName.VOID)
-                                        .addParameter(STRING.get(), "modid")
-                                        .addModifiers(Modifier.PUBLIC)
-                                        .addCode("this.modid = modid;")
-                                        .build(),
-                                MethodSpec
-                                        .methodBuilder("setLanguageDir")
-                                        .returns(TypeName.VOID)
-                                        .addParameter(NIO_PATH.get(), "languageDir")
-                                        .addModifiers(Modifier.PUBLIC)
-                                        .addCode("this.languageDir = languageDir;")
-                                        .build(),
-                                MethodSpec
-                                        .methodBuilder("setOutput")
-                                        .returns(TypeName.VOID)
-                                        .addParameter(PACK_OUTPUT.get(), "output")
-                                        .addModifiers(Modifier.PUBLIC)
-                                        .addCode("""
-                                                    this.output = output;
-                                                    languageDir = output
-                                                                    .getOutputFolder(PackOutput.Target.RESOURCE_PACK)
-                                                                    .resolve(modid)
-                                                                    .resolve("lang");
-                                                    """)
-                                        .build(),
-                                MethodSpec
                                         .methodBuilder("run")
                                         .returns(Costs.TypeNames.COMPLETABLE_FUTURE.get())
                                         .addModifiers(Modifier.PUBLIC)
@@ -238,17 +211,42 @@ public class InitProcessor extends AbstractProcessor {
                         ))
                         .addModifiers(Modifier.PUBLIC)
                 ;
-
-        builder.addMethod(MethodSpec
-                .methodBuilder("setTargetLanguage")
-                .returns(ClassName.bestGuess(builder.build().name))
-                .addParameter(STRING.get(), "targetLanguage")
-                .addModifiers(Modifier.PUBLIC)
-                .addCode("""
+        builder.addMethods(List.of(
+                MethodSpec
+                        .methodBuilder("setModid")
+                        .returns(ClassName.bestGuess(builder.build().name))
+                        .addParameter(STRING.get(), "modid")
+                        .addModifiers(Modifier.PUBLIC)
+                        .addCode("""
+                                this.modid = modid;
+                                return this;
+                                """)
+                        .build(),
+                MethodSpec
+                        .methodBuilder("setOutput")
+                        .returns(ClassName.bestGuess(builder.build().name))
+                        .addParameter(PACK_OUTPUT.get(), "output")
+                        .addModifiers(Modifier.PUBLIC)
+                        .addCode("""
+                                this.output = output;
+                                languageDir = output
+                                    .getOutputFolder(PackOutput.Target.RESOURCE_PACK)
+                                    .resolve(modid)
+                                    .resolve("lang");
+                                return this;
+                                """)
+                        .build(),
+                MethodSpec
+                        .methodBuilder("setTargetLanguage")
+                        .returns(ClassName.bestGuess(builder.build().name))
+                        .addParameter(STRING.get(), "targetLanguage")
+                        .addModifiers(Modifier.PUBLIC)
+                        .addCode("""
                         this.targetLanguage = targetLanguage;
                         return this;
                         """)
-                .build());
+                        .build()
+        ));
         builder
                 .addSuperinterfaces(List.of(
                         ClassName.bestGuess("net.minecraft.data.DataProvider")

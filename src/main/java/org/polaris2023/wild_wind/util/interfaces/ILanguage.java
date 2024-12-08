@@ -8,8 +8,8 @@ import java.util.concurrent.CompletableFuture;
 
 public interface ILanguage<T extends ILanguage<T> & DataProvider> {
     T add(Object r, String value);
-    void setModid(String modid);
-    void setOutput(PackOutput output);
+    T setModid(String modid);
+    T setOutput(PackOutput output);
     CompletableFuture<?> run(CachedOutput cachedOutput);
     default void init() {}
 }
