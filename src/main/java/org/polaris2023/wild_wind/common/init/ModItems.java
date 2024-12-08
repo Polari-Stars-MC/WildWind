@@ -208,6 +208,9 @@ public class ModItems {
                             .component(ModComponents.MONSTER_VALUE, 1F),
                     ModFoods.COOKED_FROG_LEG));
 
+    @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
+    public static final DeferredItem<BasicItem> SALT =
+            register("salt", BasicItem::stackTo16);
 
 
 }
