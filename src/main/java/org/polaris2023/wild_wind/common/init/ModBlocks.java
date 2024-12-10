@@ -1,16 +1,25 @@
 package org.polaris2023.wild_wind.common.init;
 
+import com.mojang.datafixers.DSL;
+import com.mojang.datafixers.types.Type;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
-import org.polaris2023.wild_wind.common.block.CrockPotBlock;
+import org.polaris2023.wild_wind.common.block.CookingPotBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
+import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.item.BasicBlockItem;
 
+import java.util.Arrays;
+
+import static org.polaris2023.wild_wind.common.init.ModInitializer.TILES;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 
 
@@ -60,10 +69,21 @@ public class ModBlocks {
             register("trapped_present");
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
-    public static final DeferredBlock<CrockPotBlock> COOKING_POT =
-            register("cooking_pot", CrockPotBlock::new, BlockBehaviour.Properties.of().strength(2.0F, 6.0F));
+    public static final DeferredBlock<CookingPotBlock> COOKING_POT =
+            register("cooking_pot", CookingPotBlock::new, BlockBehaviour.Properties.of().strength(2.0F, 6.0F));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CookingPotBlockEntity>> COOKING_POT_TILE =
+            entity("cooking_pot", DSL.remainderType(), CookingPotBlockEntity::new, COOKING_POT);
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
+
+    private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
+    entity(String name,
+             Type<?> type,
+             BlockEntityType.BlockEntitySupplier<T> factory,
+             DeferredBlock<?>... blocks) {
+        return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
+    }
+
 
 
 

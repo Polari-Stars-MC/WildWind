@@ -14,6 +14,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -21,6 +22,7 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
@@ -51,6 +53,8 @@ public class ModInitializer {
             DeferredRegister.create(BuiltInRegistries.FLUID, MOD_ID);
     static DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(MOD_ID);
+    static DeferredRegister<BlockEntityType<?>> TILES =
+            DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MOD_ID);
     static DeferredRegister<CreativeModeTab> TABS =
             DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, MOD_ID);
     static DeferredRegister<MobEffect> EFFECTS =
@@ -69,6 +73,8 @@ public class ModInitializer {
             DeferredRegister.create(BuiltInRegistries.VILLAGER_TYPE, MOD_ID);
     static DeferredRegister<VillagerProfession> PROFESSIONS =
             DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
+    static DeferredRegister<MenuType<?>> MENU_TYPES =
+            DeferredRegister.create(BuiltInRegistries.MENU, MOD_ID);
 
     public static void init(IEventBus bus) {
         try {
@@ -90,10 +96,11 @@ public class ModInitializer {
         RegistryUtil.register(bus,
                 COMPONENTS,
                 SOUNDS,
-                ENTITIES, FLUIDS, BLOCKS,
+                ENTITIES, FLUIDS, BLOCKS, TILES,
                 EFFECTS,POTIONS,
                 ITEMS, RECIPES, RECIPES_SERIALIZERS, TABS,
-                POIS, VILLAGERS, PROFESSIONS);
+                POIS, VILLAGERS, PROFESSIONS,
+                MENU_TYPES);
     }
 
     public static void init(Class<?>... clazz) throws ClassNotFoundException {

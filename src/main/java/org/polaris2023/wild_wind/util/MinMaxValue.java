@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.util;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.DynamicOps;
@@ -52,6 +51,7 @@ public final class MinMaxValue<T extends Number> {
         return hasMax;
     }
 
+    @SuppressWarnings("unused")
     public static class Other {
         public static final Codec<BigInteger> BIG_INTEGER_CODEC = getCodec(BigInteger::new);
         public static final Codec<BigDecimal> BIG_DECIMAL_CODEC = getCodec(BigDecimal::new);
@@ -73,6 +73,7 @@ public final class MinMaxValue<T extends Number> {
 
 
 
+    @SuppressWarnings("unused")
     public static class Codecs {
 
         public static final Codec<MinMaxValue<Integer>> INT_CODEC = getCodec(Codec.INT);
@@ -94,12 +95,13 @@ public final class MinMaxValue<T extends Number> {
         }
     }
 
+    @SuppressWarnings("unused")
     public static class StreamCodecs {
 
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Integer>> INT_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeInt(value.min());
-                    buffer.writeInt(value.max() == null ? value.min() : value.max());
+                    buffer.writeInt(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     int min = buffer.readInt();
                     int max = buffer.readInt();
@@ -110,7 +112,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Short>> SHORT_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeShort(value.min());
-                    buffer.writeShort(value.max() == null ? value.min() : value.max());
+                    buffer.writeShort(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     short min = buffer.readShort();
                     short max = buffer.readShort();
@@ -121,7 +123,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Long>> LONG_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeLong(value.min());
-                    buffer.writeLong(value.max() == null ? value.min() : value.max());
+                    buffer.writeLong(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     long min = buffer.readShort();
                     long max = buffer.readShort();
@@ -132,7 +134,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Float>> FLOAT_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeFloat(value.min());
-                    buffer.writeFloat(value.max() == null ? value.min() : value.max());
+                    buffer.writeFloat(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     float min = buffer.readFloat();
                     float max = buffer.readFloat();
@@ -143,7 +145,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Double>> DOUBLE_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeDouble(value.min());
-                    buffer.writeDouble(value.max() == null ? value.min() : value.max());
+                    buffer.writeDouble(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     double min = buffer.readDouble();
                     double max = buffer.readDouble();
@@ -154,7 +156,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<Byte>> BYTE_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeByte(value.min());
-                    buffer.writeByte(value.max() == null ? value.min() : value.max());
+                    buffer.writeByte(!value.hasMax ? value.min() : value.max());
                 }, buffer -> {
                     byte min = buffer.readByte();
                     byte max = buffer.readByte();
@@ -165,7 +167,7 @@ public final class MinMaxValue<T extends Number> {
         public static final StreamCodec<RegistryFriendlyByteBuf, MinMaxValue<BigInteger>> BIG_INTEGER_STREAM_CODEC = StreamCodec.of(
                 (buffer, value) -> {
                     buffer.writeUtf(value.min().toString());
-                    buffer.writeUtf(value.max() == null ? value.min().toString() : value.max().toString());
+                    buffer.writeUtf(!value.hasMax ? value.min().toString() : value.max().toString());
                 }, buffer -> {
                     BigInteger min = new BigInteger(buffer.readUtf());
                     BigInteger max = new BigInteger(buffer.readUtf());

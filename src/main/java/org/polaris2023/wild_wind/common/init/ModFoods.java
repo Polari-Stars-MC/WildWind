@@ -57,8 +57,15 @@ public enum ModFoods implements Supplier<FoodProperties> {
             of(() -> new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 600, 3), 1F),
             of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 600, 0), 1F),
             of(() -> new MobEffectInstance(MobEffects.BLINDNESS, 600, 0), 1F)),
+
     MILK(2, 0.1F),
-    ;
+    RAW_FROG_LEG(1, 0.9F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    COOKED_FROG_LEG(2, 3),
+    BAKED_BERRIES(3, 0.8F), SNIFFER_EGG(2, 1.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    DRAGON_EGG(5, 6,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F));
 
     private final FoodProperties properties;
 

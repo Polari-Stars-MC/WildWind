@@ -1,7 +1,5 @@
 package org.polaris2023.wild_wind.datagen.tag;
 
-import com.mojang.datafixers.util.Pair;
-import com.mojang.serialization.codecs.PairCodec;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -47,7 +45,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModItems.PUMPKIN_SLICE, ModItems.BAKED_PUMPKIN_SLICE,
                 Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModItems.BAKED_MUSHROOM,
                 Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS,
-                ModItems.LIVING_TUBER,ModItems.COOKED_LIVING_TUBER
+                ModItems.LIVING_TUBER,ModItems.BAKED_LIVING_TUBER
         );
         IntrinsicTagAppender<Item> fruit_food = tag(ModItemTags.FRUIT_FOOD);
         add(fruit_food,
