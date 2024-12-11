@@ -8,8 +8,14 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SlabBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.util.interfaces.IModel;
 
 import java.nio.file.Path;
@@ -28,37 +34,59 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     private Path assetsDir;
 
-    private static final ConcurrentHashMap<ResourceLocation, Object> ITEM_MODELS =
+    private static final ConcurrentHashMap<ResourceLocation, Object> MODELS =
             new ConcurrentHashMap<>();// object is Bean or map， by gson
     private static final ConcurrentHashMap<ResourceLocation, Object> BLOCK_MODELS =
             new ConcurrentHashMap<>();
+
+    @Override
+    public void init() {
+        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+            switch (item.get()) {
+                case BasicItem basicItem -> basicItem(basicItem);
+                case BlockItem blockItem -> basicBlockItem(blockItem.getBlock());
+                case SpawnEggItem spawnEggItem -> spawnEggItem(spawnEggItem);
+                default -> {}
+            }
+        }
+        for (DeferredHolder<Block, ? extends Block> block : ModInitializer.blocks()) {
+            Block b = block.get();
+            switch (b) {
+                case SlabBlock slabBlock -> slab(slabBlock);
+                default -> cubeAll(b);
+            }
+        }
+    }
+
     private ModelProvider basicItem(Item item) {
-        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item);
-        ITEM_MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
-                "layer0", key.withPrefix("item/").toString()
+        ResourceLocation key = BuiltInRegistries.ITEM.getKey(item).withPrefix("item/");
+        MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                "layer0", key.toString()
         )));
         return this;
     }
 
     private ModelProvider basicBlockItem(Block block) {
         ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
-        ITEM_MODELS.put(key, Map.of("parent", key.withPrefix("block/").toString()));
+        ResourceLocation blockKey = key.withPrefix("block/");
+        ResourceLocation itemKey = key.withPrefix("item/");
+        MODELS.put(itemKey, Map.of("parent", blockKey.toString()));
         return this;
     }
 
 
 
     private ModelProvider spawnEggItem(Item item) {
-        ITEM_MODELS.put(BuiltInRegistries.ITEM.getKey(item), SPAWN_EGG);
+        MODELS.put(BuiltInRegistries.ITEM.getKey(item).withPrefix("item/"), SPAWN_EGG);
         return this;
     }
 
     private ModelProvider cubeAll(Block block) {
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
-        BLOCK_MODELS.put(key, Map.of(
+        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/");
+        MODELS.put(key, Map.of(
                 "parent", "minecraft:block/cube_all",
                 "textures", Map.of(
-                        "all", key.withPrefix("block/").toString()
+                        "all", key.toString()
                 )
         ));
         return this;
@@ -66,22 +94,22 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     private ModelProvider slab(Block block) {
 
-        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation blockKey = key.withPrefix("block/");
-        BLOCK_MODELS.put(key, Map.of(
+        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/");
+
+        MODELS.put(key, Map.of(
                 "parent", "minecraft:block/slab",
                 "textures", Map.of(
-                      "bottom", blockKey.toString(),
-                      "side", blockKey.toString(),
-                      "top", blockKey.toString()
+                      "bottom", key.toString(),
+                      "side", key.toString(),
+                      "top", key.toString()
                 )
         ));
-        BLOCK_MODELS.put(key.withSuffix("_top"), Map.of(
+        MODELS.put(key.withSuffix("_top"), Map.of(
                 "parent", "minecraft:block/slab_top",
                 "textures", Map.of(
-                      "bottom", blockKey.toString(),
-                      "side", blockKey.toString(),
-                      "top", blockKey.toString()
+                      "bottom", key.toString(),
+                      "side", key.toString(),
+                      "top", key.toString()
                 )
         ));
 
@@ -99,12 +127,12 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
         init();
-        CompletableFuture<?>[] futures = new CompletableFuture[ITEM_MODELS.size() + BLOCK_MODELS.size()];
+        CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size() + BLOCK_MODELS.size()];
         int i = 0;
-        for (Map.Entry<ResourceLocation, Object> entry : ITEM_MODELS.entrySet()) {
+        for (Map.Entry<ResourceLocation, Object> entry : MODELS.entrySet()) {
             ResourceLocation key = entry.getKey();
             Object object = entry.getValue();
-            Path itemModel = assetsDir.resolve(key.getNamespace()).resolve("models").resolve("item");
+            Path itemModel = assetsDir.resolve(key.getNamespace()).resolve("models").resolve(key.getPath() + ".json");
             JsonElement jsonTree = GSON.toJsonTree(object);
             futures[i] = DataProvider.saveStable(output, jsonTree, itemModel);
             i++;
