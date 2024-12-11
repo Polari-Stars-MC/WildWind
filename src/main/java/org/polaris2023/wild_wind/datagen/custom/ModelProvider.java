@@ -36,9 +36,6 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     private static final ConcurrentHashMap<ResourceLocation, Object> MODELS =
             new ConcurrentHashMap<>();// object is Bean or map， by gson
-    private static final ConcurrentHashMap<ResourceLocation, Object> BLOCK_MODELS =
-            new ConcurrentHashMap<>();
-
     @Override
     public void init() {
         for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
@@ -127,7 +124,7 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
     @Override
     public CompletableFuture<?> run(CachedOutput output) {
         init();
-        CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size() + BLOCK_MODELS.size()];
+        CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size()];
         int i = 0;
         for (Map.Entry<ResourceLocation, Object> entry : MODELS.entrySet()) {
             ResourceLocation key = entry.getKey();
@@ -135,14 +132,6 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
             Path itemModel = assetsDir.resolve(key.getNamespace()).resolve("models").resolve(key.getPath() + ".json");
             JsonElement jsonTree = GSON.toJsonTree(object);
             futures[i] = DataProvider.saveStable(output, jsonTree, itemModel);
-            i++;
-        }
-        for (Map.Entry<ResourceLocation, Object> entry : BLOCK_MODELS.entrySet()) {
-            ResourceLocation key = entry.getKey();
-            Object object = entry.getValue();
-            Path blockModel = assetsDir.resolve(key.getNamespace()).resolve("models").resolve("block");
-            JsonElement jsonTree = GSON.toJsonTree(object);
-            futures[i] = DataProvider.saveStable(output, jsonTree, blockModel);
             i++;
         }
         return CompletableFuture.allOf(futures);
