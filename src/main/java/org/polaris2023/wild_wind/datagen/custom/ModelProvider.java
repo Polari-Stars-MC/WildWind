@@ -13,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.item.BasicItem;
@@ -26,6 +27,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * 减去错误的检查的模型json生成检索器， 将会出现 BasicItem BasicBlockItem BasicSpawnEggItem三个注解
  */
+@SuppressWarnings("UnusedReturnValue")
 public class ModelProvider implements DataProvider, IModel<ModelProvider> {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
     private static final Map<String, String> SPAWN_EGG = Map.of("parent", "minecraft:item/template_spawn_egg");
@@ -50,6 +52,7 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
             Block b = block.get();
             switch (b) {
                 case SlabBlock slabBlock -> slab(slabBlock);
+                case StairBlock stairBlock -> stairsBlock(stairBlock);
                 default -> cubeAll(b);
             }
         }
@@ -84,6 +87,35 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
                 "parent", "minecraft:block/cube_all",
                 "textures", Map.of(
                         "all", key.toString()
+                )
+        ));
+        return this;
+    }
+
+    private ModelProvider stairsBlock(Block block) {
+        ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block).withPrefix("block/");
+        MODELS.put(key, Map.of(
+                "parent", "minecraft:block/stairs",
+                "textures", Map.of(
+                        "bottom", key.toString(),
+                        "side", key.toString(),
+                        "top", key.toString()
+                )
+        ));
+        MODELS.put(key.withSuffix("_inner"), Map.of(
+                "parent", "minecraft:block/inner_stairs",
+                "textures", Map.of(
+                        "bottom", key.toString(),
+                        "side", key.toString(),
+                        "top", key.toString()
+                )
+        ));
+        MODELS.put(key.withSuffix("_outer"), Map.of(
+                "parent", "minecraft:block/outer_stairs",
+                "textures", Map.of(
+                        "bottom", key.toString(),
+                        "side", key.toString(),
+                        "top", key.toString()
                 )
         ));
         return this;
@@ -139,7 +171,7 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     @Override
     public String getName() {
-        return "Model Provider by" + modid;
+        return "Model Provider by " + modid;
     }
 
     @Override
