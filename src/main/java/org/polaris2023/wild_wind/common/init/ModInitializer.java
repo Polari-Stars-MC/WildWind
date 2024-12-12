@@ -118,6 +118,10 @@ public class ModInitializer {
         return ITEMS.getEntries();
     }
 
+    public static Collection<DeferredHolder<Block, ? extends Block>> blocks() {
+        return BLOCKS.getEntries();
+    }
+
     public static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
         return ENTITIES.getEntries();
     }

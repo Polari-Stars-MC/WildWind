@@ -44,7 +44,7 @@ public class ModItems {
                             .component(ModComponents.MEAT_VALUE, 0.5F)
                             .component(ModComponents.FISH_VALUE, 1F),
                     ModFoods.RAW_TROUT));
-    @I18n(en_us = "Cooked Trout", zh_cn = "熟鳟鱼", zh_tw = "熟鱒魚")
+    @I18n(en_us = "Cooked Trout", zh_cn = "烤鳟鱼", zh_tw = "烤鱒魚")
     public static final DeferredItem<BasicItem> COOKED_TROUT =
             register("cooked_trout", () -> BasicItem.simpleFoodByMax(
                     new Item.Properties()
@@ -69,11 +69,11 @@ public class ModItems {
     public static final DeferredItem<BasicItem> CANDY =
             register("candy", BasicItem::stackTo16);
 
-    @I18n(en_us = "Cheese", zh_tw = "乳酪", zh_cn = "奶酪")
+    @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
     public static final DeferredItem<BasicItem> CHEESE =
             register("cheese", () -> BasicItem.simpleFoodBy16(ModFoods.CHEESE));
 
-    @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "乳酪南瓜湯")
+    @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")
     public static final DeferredItem<BasicItem> CHEESE_PUMPKIN_SOUP =
             register("cheese_pumpkin_soup", BasicItem::stackTo1);
 
@@ -165,7 +165,7 @@ public class ModItems {
     public static final DeferredItem<BasicItem> BAKED_SEEDS =
             register("baked_seeds", () -> BasicItem.simpleFoodByMax(ModFoods.BAKED_SEEDS));
 
-    @I18n(en_us = "Baked Berries", zh_cn = "烤浆果", zh_tw = "烤漿果")
+    @I18n(en_us = "Baked Berries", zh_cn = "烤浆果", zh_tw = "烤莓醬")
     public static final DeferredItem<BasicItem> BAKED_BERRIES = register("baked_berries", () -> BasicItem.simpleFoodByMax(
             new Item.Properties()
                     .component(ModComponents.FRUIT_VALUE, 0.5F),
@@ -200,7 +200,7 @@ public class ModItems {
                             .component(ModComponents.MEAT_VALUE, 0.5F)
                             .component(ModComponents.MONSTER_VALUE, 1F),
                     ModFoods.RAW_FROG_LEG));
-    @I18n(en_us = "Cooked Frog Leg", zh_cn = "熟蛙腿", zh_tw = "熟蛙腿")
+    @I18n(en_us = "Cooked Frog Leg", zh_cn = "烤蛙腿", zh_tw = "烤蛙腿")
     public static final DeferredItem<BasicItem> COOKED_FROG_LEG =
             register("cooked_frog_leg", () -> BasicItem.simpleFoodByMax(
                     new Item.Properties()
@@ -208,6 +208,9 @@ public class ModItems {
                             .component(ModComponents.MONSTER_VALUE, 1F),
                     ModFoods.COOKED_FROG_LEG));
 
+    @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
+    public static final DeferredItem<BasicItem> SALT =
+            register("salt", BasicItem::stackTo16);
 
 
 }
