@@ -36,7 +36,7 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     private Path assetsDir;
 
-    private static final ConcurrentHashMap<ResourceLocation, Object> MODELS =
+    private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
             new ConcurrentHashMap<>();// object is Bean or map， by gson
     @Override
     public void init() {

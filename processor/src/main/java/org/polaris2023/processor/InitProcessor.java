@@ -11,20 +11,19 @@ import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
 import org.polaris2023.processor.jc.ModifierProcessor;
 import org.polaris2023.processor.pack.PackageProcessor;
+import org.polaris2023.utils.Codes;
 import org.polaris2023.utils.Unsafe;
-import org.polaris2023.utils.types.MethodTypes;
-import org.polaris2023.utils.types.Types;
 
 import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.tools.Diagnostic;
+import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.stream.Collectors;
 
 @AutoService(Processor.class)
 @SupportedAnnotationTypes("*")
@@ -82,13 +81,15 @@ public class InitProcessor extends AbstractProcessor {
                 classProcessor.process(annotations, roundEnv);
             }
             processingEnv.getMessager().printMessage(Diagnostic.Kind.NOTE, "Init Processor by wild wind");
-            StringBuilder sb = new StringBuilder("this");
+            StringBuilder sb = new StringBuilder("this\n");
             I18nProcessor.LANGUAGES.forEach((lang, code) -> sb
-                    .append(".setTargetLanguage(\"%s\")".formatted(lang))
+                    .append("\t\t\t.setTargetLanguage(\"%s\")".formatted(lang))
                     .append("\n")
                     .append(code));
-            MethodTypes.LANGUAGE_INIT.get().addCode(sb + ";");
-            saveAndAddService(Types.LanguageProviderWildWind,List.of(MethodTypes.LANGUAGE_INIT), "org.polaris2023.wild_wind.util.interfaces.ILanguage");
+            saveAndAddServiceCode("org.polaris2023.wild_wind.datagen.custom", "LanguageProviderWildWind",Codes.LanguageProvider.code()
+                    .replace("%%init%%", sb.toString()), "org.polaris2023.wild_wind.util.interfaces.ILanguage");
+//            saveAndAddService(Types.LanguageProviderWildWind,List.of(MethodTypes.LANGUAGE_INIT), "org.polaris2023.wild_wind.util.interfaces.ILanguage");
+//            saveAndAddService(Types.ModelProviderWildWind,List.of(MethodTypes.MODEL_INIT), "org.polaris2023.wild_wind.util.interfaces.IModel");
             servicesSave();
             ONLY_ONCE.set(false);
         }
@@ -111,16 +112,18 @@ public class InitProcessor extends AbstractProcessor {
 //    }
 
 
-    private void saveAndAddService(Types types, List<MethodTypes> methods, String services_classes) {
-        types.get().addMethods(methods.stream().map(MethodTypes::build).collect(Collectors.toSet()));
-        JavaFile jf = JavaFile.builder("org.polaris2023.wild_wind.datagen.custom", types.build()).build();
+    private void saveAndAddServiceCode(String packageName,String classname, String code, String services_className) {
         try {
-            jf.writeTo(filer);
+            JavaFileObject sourceFile = filer.createSourceFile("%s.%s".formatted(packageName, classname));
+            try(Writer writer = sourceFile.openWriter()) {
+                writer.write(code.replace("%%classname%%", classname).replace("%%package%%", packageName));
+            }
+
+            InitProcessor.add(services_className, sourceFile.getName());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        InitProcessor.add(services_classes,
-                jf.packageName + "." + types.name());
+
     }
 
     private void servicesSave() {
