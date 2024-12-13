@@ -104,7 +104,7 @@ public enum Codes {
             import net.minecraft.world.item.CreativeModeTab;
             import net.minecraft.world.item.ItemStack;
             
-            public final class %%classname%% implements ILanguage<%%classname%%>, DataProvider {
+            public class %%classname%% implements ILanguage<%%classname%%>, DataProvider {
                 private static final Gson GSON = new com.google.gson.GsonBuilder().setLenient().setPrettyPrinting().create();
             
                 private PackOutput output;

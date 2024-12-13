@@ -114,12 +114,13 @@ public class InitProcessor extends AbstractProcessor {
 
     private void saveAndAddServiceCode(String packageName,String classname, String code, String services_className) {
         try {
-            JavaFileObject sourceFile = filer.createSourceFile("%s.%s".formatted(packageName, classname));
+            String qName = "%s.%s".formatted(packageName, classname);
+            JavaFileObject sourceFile = filer.createSourceFile(qName);
             try(Writer writer = sourceFile.openWriter()) {
                 writer.write(code.replace("%%classname%%", classname).replace("%%package%%", packageName));
             }
 
-            InitProcessor.add(services_className, sourceFile.getName());
+            InitProcessor.add(services_className, qName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
