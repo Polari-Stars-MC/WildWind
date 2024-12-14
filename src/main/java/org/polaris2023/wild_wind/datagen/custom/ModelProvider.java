@@ -8,15 +8,8 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SlabBlock;
-import net.minecraft.world.level.block.StairBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
-import org.polaris2023.wild_wind.common.item.BasicItem;
 import org.polaris2023.wild_wind.util.interfaces.IModel;
 
 import java.nio.file.Path;
@@ -38,25 +31,7 @@ public class ModelProvider implements DataProvider, IModel<ModelProvider> {
 
     private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
             new ConcurrentHashMap<>();// object is Bean or map， by gson
-    @Override
-    public void init() {
-        for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
-            switch (item.get()) {
-                case BasicItem basicItem -> basicItem(basicItem);
-                case BlockItem blockItem -> basicBlockItem(blockItem.getBlock());
-                case SpawnEggItem spawnEggItem -> spawnEggItem(spawnEggItem);
-                default -> {}
-            }
-        }
-        for (DeferredHolder<Block, ? extends Block> block : ModInitializer.blocks()) {
-            Block b = block.get();
-            switch (b) {
-                case SlabBlock slabBlock -> slab(slabBlock);
-                case StairBlock stairBlock -> stairsBlock(stairBlock);
-                default -> cubeAll(b);
-            }
-        }
-    }
+
 
     private ModelProvider basicItem(Item item) {
         ResourceLocation key = BuiltInRegistries.ITEM.getKey(item).withPrefix("item/");

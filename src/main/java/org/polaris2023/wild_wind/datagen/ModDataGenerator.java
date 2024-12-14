@@ -1,14 +1,10 @@
 package org.polaris2023.wild_wind.datagen;
 
-import net.minecraft.data.DataProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.datagen.custom.ModelProvider;
 import org.polaris2023.wild_wind.datagen.model.ModBlockModelProvider;
-import org.polaris2023.wild_wind.datagen.model.ModItemModelProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModInstrumentTagsProvider;
@@ -38,8 +34,6 @@ public class ModDataGenerator {
         for (IModel<?> model : ServiceLoader.load(IModel.class)) {
             gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(pack));
         }
-//        gen.addProvider(event.includeClient(), new ModelProvider().setModid(MOD_ID).setOutput(pack));
-//        gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
