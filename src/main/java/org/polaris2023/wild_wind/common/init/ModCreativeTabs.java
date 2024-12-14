@@ -18,17 +18,6 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.TABS;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
-    @I18n(en_us = "Wild Wind Tags", zh_cn = "原野之风", zh_tw = "原野之風")
-    WILD_WIND(ModItems.GLOW_POWDER::toStack,
-            () -> (__, output) -> {
-                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
-                    output.accept(item.get());
-                }
-                //肉食
-                ItemStack stack = new ItemStack(Items.SLIME_BALL);
-                stack.set(ModComponents.SLIME_COLOR, 100);
-                output.accept(stack);
-            }),
     @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")
     FOOD_AND_DRINK(ModItems.PUMPKIN_SLICE::toStack,
             () -> (__, output) -> {
@@ -38,8 +27,28 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                         output.accept(it);
                     }
                 }
-            })
+            }),
+    @I18n(en_us = "Wild Wind Tags", zh_cn = "原野之风", zh_tw = "原野之風")
+    WILD_WIND(ModItems.GLOW_POWDER::toStack,
+            () -> (__, output) -> {
+                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+                    check(output, item, FOOD_AND_DRINK);
+                }
+                //肉食
+                ItemStack stack = new ItemStack(Items.SLIME_BALL);
+                stack.set(ModComponents.SLIME_COLOR, 100);
+                output.accept(stack);
+            }),
+
     ;
+
+    private static <T extends Item> void check(CreativeModeTab.Output output, DeferredHolder<Item, T> item, Supplier<CreativeModeTab> supplier) {
+        if (supplier.get().getDisplayItems().stream().filter(stack -> stack.is(item)).findFirst().isEmpty()) {
+            return;
+        }
+        output.accept(item.get());
+    }
+
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
     ModCreativeTabs(Supplier<ItemStack> icon,
                     Supplier<CreativeModeTab.DisplayItemsGenerator> parameters) {

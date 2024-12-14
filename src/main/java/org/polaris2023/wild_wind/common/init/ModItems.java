@@ -109,7 +109,7 @@ public class ModItems {
 
     @BasicItem
     @I18n(en_us = "Dough", zh_cn = "面团", zh_tw = "麵團")
-    public static final DeferredItem<Item> DOUGH = simpleItem("dough");
+    public static final DeferredItem<Item> DOUGH = simpleItem("dough", ModFoods.DOUGH);
 
     @BasicItem
     @I18n(en_us = "Fish Chowder", zh_cn = "海鲜杂烩", zh_tw = "海鮮雜燴")
@@ -167,7 +167,7 @@ public class ModItems {
             simpleItem("vegetable_soup", p -> p.stacksTo(1));
     @BasicItem
     @I18n(en_us = "Flour", zh_cn = "面粉", zh_tw = "麵粉")
-    public static final DeferredItem<Item> FLOUR = simpleItem("flour");
+    public static final DeferredItem<Item> FLOUR = simpleItem("flour", ModFoods.FLOUR);
 
     @BasicItem
     @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
@@ -246,7 +246,7 @@ public class ModItems {
 
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
     public static final DeferredItem<Item> SALT =
-            simpleItem("salt", p -> p.stacksTo(16));
+            simpleItem("salt", p -> p.stacksTo(16), ModFoods.SALT);
 
 
 }

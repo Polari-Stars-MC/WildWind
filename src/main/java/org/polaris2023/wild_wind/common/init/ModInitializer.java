@@ -160,6 +160,10 @@ public class ModInitializer {
         return ITEMS.registerSimpleBlockItem(name, block);
     }
 
+    static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block, Supplier<FoodProperties> supplier) {
+        return ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
+    }
+
     static DeferredItem<Item> simpleItem(String name) {
         return ITEMS.registerSimpleItem(name);
     }
