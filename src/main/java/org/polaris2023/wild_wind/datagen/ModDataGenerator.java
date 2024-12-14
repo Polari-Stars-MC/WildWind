@@ -14,6 +14,7 @@ import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModInstrumentTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModItemTagsProvider;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
+import org.polaris2023.wild_wind.util.interfaces.IModel;
 
 import java.util.ServiceLoader;
 
@@ -29,14 +30,15 @@ public class ModDataGenerator {
         var provider = event.getLookupProvider();
         var helper = event.getExistingFileHelper();
         for (ILanguage<?> language : ServiceLoader.load(ILanguage.class)) {
-            if (language instanceof DataProvider) {
-                gen.addProvider(event.includeClient(), (DataProvider) language.setModid(MOD_ID).setOutput(pack));
-            }
+            gen.addProvider(event.includeClient(), language.setModid(MOD_ID).setOutput(pack));
         }
 
         gen.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockModelProvider(pack, helper));
-        gen.addProvider(event.includeClient(), new ModelProvider().setModid(MOD_ID).setOutput(pack));
+        for (IModel<?> model : ServiceLoader.load(IModel.class)) {
+            gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(pack));
+        }
+//        gen.addProvider(event.includeClient(), new ModelProvider().setModid(MOD_ID).setOutput(pack));
 //        gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(pack, provider));

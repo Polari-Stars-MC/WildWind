@@ -31,6 +31,7 @@ public enum Codes {
             import java.util.Map;
             import java.util.concurrent.CompletableFuture;
             import java.util.concurrent.ConcurrentHashMap;
+            import java.util.function.Supplier;
             
             public final class %%classname%% implements DataProvider, IModel<%%classname%%> {
                 private static final Gson GSON = new GsonBuilder().setPrettyPrinting().setLenient().create();
@@ -40,6 +41,20 @@ public enum Codes {
                 private Path assetsDir;
                 private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
                     new ConcurrentHashMap<>();// object is Bean or map， by gson
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
+                    MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                                        "layer0", key.toString()
+                    )));
+                    return this;
+                }
+            
+                private <T extends SpawnEggItem> %%classname%% spawnEggItem(DeferredHolder<Item, T> item) {
+                    MODELS.put(BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/"), SPAWN_EGG);
+                    return this;
+                }
+            
                 @Override
                 public void init() {
                     %%init%%;
@@ -104,7 +119,7 @@ public enum Codes {
             import net.minecraft.world.item.CreativeModeTab;
             import net.minecraft.world.item.ItemStack;
             
-            public class %%classname%% implements ILanguage<%%classname%%>, DataProvider {
+            public final class %%classname%% implements ILanguage<%%classname%%>, DataProvider {
                 private static final Gson GSON = new com.google.gson.GsonBuilder().setLenient().setPrettyPrinting().create();
             
                 private PackOutput output;
