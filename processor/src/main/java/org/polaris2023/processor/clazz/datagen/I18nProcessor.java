@@ -16,7 +16,7 @@ public class I18nProcessor extends ClassProcessor {
 
     public static void add(String key, String value) {
         if (!LANGUAGES.containsKey(key)) LANGUAGES.put(key, new StringBuilder());
-        LANGUAGES.get(key).append(value).append("\n");
+        LANGUAGES.get(key).append("\t\t\t").append(value).append("\n");
     }
 
     public I18nProcessor(JavacProcessingEnvironment environment) {

@@ -1,8 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
-import lombok.experimental.Delegate;
-import net.minecraft.core.component.DataComponentType;
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -14,6 +13,7 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.village.poi.PoiType;
 import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -31,8 +31,6 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.polaris2023.annotation.jc.Final;
-import org.polaris2023.wild_wind.util.RegistryUtil;
 
 import java.util.Collection;
 import java.util.List;
@@ -77,36 +75,27 @@ public class ModInitializer {
             DeferredRegister.create(BuiltInRegistries.MENU, MOD_ID);
 
     public static void init(IEventBus bus) {
-        try {
-            init(
-                    ModComponents.class,
-                    ModSounds.class,
-                    ModEntities.class,
-                    ModFluids.class,
-                    ModBlocks.class,
-                    ModEffects.class,
-                    ModPotions.class,
-                    ModItems.class,
-                    ModRecipes.class,
-                    ModRecipeSerializes.class,
-                    ModCreativeTabs.class,
-                    ModVillagers.class
-            );
-        } catch (ClassNotFoundException ignored) {}
-        RegistryUtil.register(bus,
-                COMPONENTS,
-                SOUNDS,
-                ENTITIES, FLUIDS, BLOCKS, TILES,
-                EFFECTS,POTIONS,
-                ITEMS, RECIPES, RECIPES_SERIALIZERS, TABS,
-                POIS, VILLAGERS, PROFESSIONS,
-                MENU_TYPES);
+        init(bus, ModComponents.class, COMPONENTS);
+        init(bus, ModSounds.class, SOUNDS);
+        init(bus, ModEntities.class, ENTITIES);
+        init(bus, ModFluids.class, FLUIDS);
+        init(bus, ModBlocks.class, BLOCKS);
+        init(bus, ModEffects.class, EFFECTS);
+        init(bus, ModPotions.class, POTIONS);
+        init(bus, ModItems.class, ITEMS);
+        init(bus, ModRecipes.class, RECIPES);
+        init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
+        init(bus, ModCreativeTabs.class, TABS);
+        init(bus, ModVillagers.class, POIS, VILLAGERS, PROFESSIONS);
+        init(bus, ModMenus.class, MENU_TYPES);
     }
 
-    public static void init(Class<?>... clazz) throws ClassNotFoundException {
-        for (Class<?> aClass : clazz) {
-            System.out.println(aClass.getName());
-            Class.forName(aClass.getName());
+    public static void init(IEventBus bus, Class<?> clazz, DeferredRegister<?>... registers) {
+        try {
+            Class.forName(clazz.getName());
+        } catch (ClassNotFoundException ignored) {}
+        for (DeferredRegister<?> register : registers) {
+            register.register(bus);
         }
     }
 
@@ -175,8 +164,21 @@ public class ModInitializer {
         return ITEMS.registerSimpleItem(name);
     }
 
-    static DeferredItem<Item> simpleItem(String name, Item.Properties properties) {
-        return ITEMS.registerSimpleItem(name, properties);
+    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
+        return ITEMS.registerItem(name, properties -> {
+            consumer.accept(properties);
+            return new Item(properties);
+        });
+    }
+
+    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> supplier) {
+        return simpleItem(name, properties -> properties.food(supplier.get()));
+    }
+
+    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
+        return simpleItem(name, properties -> {
+            consumer.accept(properties.food(food.get()));
+        });
     }
 
     static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, T> item) {

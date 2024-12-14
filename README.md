@@ -17,7 +17,7 @@ A Minecraft Mod for Vanilla Expandability
 public static final Object test;
 ```
 #### Currently only applies to:
-    STRING
+    String
     DeferredHolder
     Supplier
     Item
