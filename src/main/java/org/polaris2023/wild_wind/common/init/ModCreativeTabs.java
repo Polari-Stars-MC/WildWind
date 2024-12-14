@@ -32,7 +32,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     WILD_WIND(ModItems.GLOW_POWDER::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
-                    check(output, item, FOOD_AND_DRINK);
+                    if (check(item, FOOD_AND_DRINK)) {
+                        output.accept(item.get());
+                    }
                 }
                 //肉食
                 ItemStack stack = new ItemStack(Items.SLIME_BALL);
@@ -42,11 +44,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
 
     ;
 
-    private static <T extends Item> void check(CreativeModeTab.Output output, DeferredHolder<Item, T> item, Supplier<CreativeModeTab> supplier) {
-        if (supplier.get().getDisplayItems().stream().filter(stack -> stack.is(item)).findFirst().isEmpty()) {
-            return;
-        }
-        output.accept(item.get());
+    private static <T extends Item> boolean check(DeferredHolder<Item, T> item, Supplier<CreativeModeTab> supplier) {
+        return supplier.get().getDisplayItems().stream().filter(stack -> stack.is(item)).findFirst().isEmpty();
     }
 
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;

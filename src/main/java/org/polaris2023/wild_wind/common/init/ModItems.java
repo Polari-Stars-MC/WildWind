@@ -244,6 +244,7 @@ public class ModItems {
                             .component(ModComponents.MONSTER_VALUE, 1F),
                     ModFoods.COOKED_FROG_LEG);
 
+    @BasicItem
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
     public static final DeferredItem<Item> SALT =
             simpleItem("salt", p -> p.stacksTo(16), ModFoods.SALT);
