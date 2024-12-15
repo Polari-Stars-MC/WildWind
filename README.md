@@ -33,6 +33,7 @@ public static final Object test;
 ```
 #### Currently only applies to:
     String
+    SoundEvent
     DeferredHolder
     Supplier
     Item

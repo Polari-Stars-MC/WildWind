@@ -115,6 +115,10 @@ public class ModInitializer {
         return ENTITIES.getEntries();
     }
 
+    public static Collection<DeferredHolder<SoundEvent, ? extends SoundEvent>> sounds() {
+        return SOUNDS.getEntries();
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> Collection<DeferredHolder<T, ? extends T>> entry(TypeToken<T> token) {
         return (Collection<DeferredHolder<T, ? extends T>>)
