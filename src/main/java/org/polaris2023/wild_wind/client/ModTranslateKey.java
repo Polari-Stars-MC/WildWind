@@ -13,6 +13,16 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 public enum ModTranslateKey implements Supplier<TranslatableContents> {
+    @I18n(en_us = "Nutrition: ", zh_cn = "饥饿值：", zh_tw = "饑餓值：")
+    NUTRITION("wild","wind","nutrition"),
+    @I18n(en_us = "Saturation: ", zh_cn = "饱食度：", zh_tw = "飽食度：")
+    SATURATION("wild","wind","saturation"),
+    @I18n(en_us = "effect: ", zh_cn = "效果：", zh_tw = "效果：")
+    EFFECT("wild", "wind", "effects"),
+    @I18n(en_us = "Trigger probability", zh_cn = "概率触发", zh_tw = "概率觸發")
+    TRIGGER_PROBABILITY,
+    @I18n(en_us = "Duration", zh_cn = "持续时间", zh_tw = "持續時間")
+    DURATION("wild","wind","duration"),
     @I18n(en_us = "Meat: ", zh_cn = "肉值：", zh_tw = "肉值：")
     MEAT_VALUE(ModComponents.MEAT_VALUE),
     @I18n(en_us = "Vegetable: ", zh_cn = "菜值：", zh_tw = "菜值：")
@@ -37,16 +47,16 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     }
 
     ModTranslateKey(String... keys) {
-        String key = "";
+        StringBuilder key = new StringBuilder();
         for (int i = 0; i < keys.length; i++) {
             String k = keys[i];
             if (i == 1) {
-                key+=k;
+                key.append(k);
             } else {
-                key+=("." + k);
+                key.append(".").append(k);
             }
         }
-        translatable = Component.translatable(key);
+        translatable = Component.translatable(key.toString());
     }
 
     <T> ModTranslateKey(DeferredHolder<DataComponentType<?>, DataComponentType<T>> holder) {

@@ -57,29 +57,30 @@ neoForge {
         client {
             client()
             systemProperty 'neoforge.enabledGameTestNamespaces', project.name
+            gameDirectory.set(file("run/client"))
         }
 
         server {
             server()
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.name
+            gameDirectory.set(file("run/server"))
         }
 
         gameTestServer {
             type = "gameTestServer"
             systemProperty 'neoforge.enabledGameTestNamespaces', project.name
+            gameDirectory.set(file("run/test-server"))
         }
 
         data {
             data()
-
             programArguments.addAll '--mod', project.name, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            gameDirectory.set(file("run/data"))
         }
 
         configureEach {
-
             systemProperty 'forge.logging.markers', 'REGISTRIES'
-
             logLevel = org.slf4j.event.Level.DEBUG
         }
     }

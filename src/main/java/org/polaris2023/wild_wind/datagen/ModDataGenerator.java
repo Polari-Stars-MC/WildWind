@@ -1,17 +1,16 @@
 package org.polaris2023.wild_wind.datagen;
 
-import net.minecraft.data.DataProvider;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import org.polaris2023.wild_wind.datagen.model.ModBlockModelProvider;
-import org.polaris2023.wild_wind.datagen.model.ModItemModelProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModInstrumentTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModItemTagsProvider;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
+import org.polaris2023.wild_wind.util.interfaces.IModel;
 
 import java.util.ServiceLoader;
 
@@ -27,16 +26,14 @@ public class ModDataGenerator {
         var provider = event.getLookupProvider();
         var helper = event.getExistingFileHelper();
         for (ILanguage<?> language : ServiceLoader.load(ILanguage.class)) {
-            if (language instanceof DataProvider) {
-                language.setModid(MOD_ID);
-                language.setOutput(pack);
-                gen.addProvider(event.includeClient(), (DataProvider) language);
-            }
+            gen.addProvider(event.includeClient(), language.setModid(MOD_ID).setOutput(pack));
         }
 
         gen.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(pack, helper));
         gen.addProvider(event.includeClient(), new ModBlockModelProvider(pack, helper));
-        gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
+        for (IModel<?> model : ServiceLoader.load(IModel.class)) {
+            gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(pack));
+        }
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));

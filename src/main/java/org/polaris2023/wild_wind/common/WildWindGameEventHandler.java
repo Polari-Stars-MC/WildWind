@@ -2,9 +2,12 @@ package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.component.DataComponentType;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -27,13 +30,35 @@ public class WildWindGameEventHandler {
     public static void tooltipAdd(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         List<Component> toolTip = event.getToolTip();
+        if (stack.has(DataComponents.FOOD)) {
+            FoodProperties foodProperties = stack.get(DataComponents.FOOD);
+            assert foodProperties != null;
+            toolTip.addLast(Component.empty().append(ModTranslateKey.NUTRITION.translatable()).append(String.valueOf(foodProperties.nutrition())));
+            toolTip.addLast(Component.empty().append(ModTranslateKey.SATURATION.translatable()).append(String.valueOf(foodProperties.saturation())));
+            List<FoodProperties.PossibleEffect> effects = foodProperties.effects();
+            if (!effects.isEmpty()) {
+                toolTip.addLast(ModTranslateKey.EFFECT.translatable());
+                for (FoodProperties.PossibleEffect effect : effects) {
+                    MobEffectInstance effected = effect.effect();
+                    toolTip.addLast(Component
+                            .empty()
+                            .append(effect.probability() * 100 + "% ")
+                            .append(Component.translatable(effected.getDescriptionId()))
+                            .append(effected.getAmplifier() + " ")
+                            .append(String.valueOf(effected.getDuration()))
+                            .append("tick")
+                    );
+                }
+            }
+
+        }
         componentAdd(stack, toolTip, ModTranslateKey.MEAT_VALUE, ModComponents.MEAT_VALUE, 0F);
         componentAdd(stack, toolTip, ModTranslateKey.VEGETABLE_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.FRUIT_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.PROTEIN_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.FISH_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.MONSTER_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
-        componentAdd(stack, toolTip, ModTranslateKey.SWEET_VALUE, ModComponents.VEGETABLE_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.FRUIT_VALUE, ModComponents.FRUIT_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.PROTEIN_VALUE, ModComponents.PROTEIN_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.FISH_VALUE, ModComponents.FISH_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.MONSTER_VALUE, ModComponents.MONSTER_VALUE, 0F);
+        componentAdd(stack, toolTip, ModTranslateKey.SWEET_VALUE, ModComponents.SWEET_VALUE, 0F);
 
     }
 
