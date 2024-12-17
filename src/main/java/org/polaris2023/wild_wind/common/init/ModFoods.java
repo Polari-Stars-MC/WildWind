@@ -65,7 +65,25 @@ public enum ModFoods implements Supplier<FoodProperties> {
     SNIFFER_EGG(4, 0.3F,
             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
     DRAGON_EGG(5, 0.6F,
-            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F));
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_BEEF(3, 0.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_MUTTON(2, 0.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_PORKCHOP(3, 0.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_RABBIT(3, 0.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RABBIT_FOOT(2, 0.3F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F),
+            of(() -> new MobEffectInstance(MobEffects.LUCK, 600, 0), 0.3F)),
+    RAW_COD(2, 0.1F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_SALMON(2, 0.1F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    RAW_TROPICAL_FISH(1, 0.1F,
+            of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F),
+            of(() -> new MobEffectInstance(MobEffects.CONFUSION, 600, 0), 0.3F));
 
     private final FoodProperties properties;
 
