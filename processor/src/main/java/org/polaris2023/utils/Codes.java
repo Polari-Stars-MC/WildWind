@@ -176,7 +176,7 @@ public enum Codes {
                         case Supplier<?> supplier -> add(supplier.get(), value);
                         case Item item -> add(item.getDescriptionId(), value);
                         case Block block -> add(block.getDescriptionId(), value);
-                        case SoundEvent sound -> add("sound." + soundEvent.getLocation().toString().replace(":", "."), value);
+                        case SoundEvent sound -> add("sound." + sound.getLocation().toString().replace(":", "."), value);
                         case EntityType<?> type -> add(type.getDescriptionId(), value);
                         case TranslatableContents contents -> add(contents.getKey(), value);
                         case MobEffect effect -> add(effect.getDescriptionId(), value);
