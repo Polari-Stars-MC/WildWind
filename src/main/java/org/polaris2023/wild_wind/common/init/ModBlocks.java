@@ -44,7 +44,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> GLAREFLOWER_SEEDS = register("glareflower_seeds");
     @BasicItem
     public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM =
-            register("glareflower_seeds", GLAREFLOWER_SEEDS);
+            register("glareflower_seeds", GLAREFLOWER_SEEDS, ModFoods.GLAREFLOWER_SEEDS);
 
     @I18n(en_us = "Spider Egg", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
     public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg");
