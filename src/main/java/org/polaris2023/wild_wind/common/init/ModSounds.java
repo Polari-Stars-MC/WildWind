@@ -4,41 +4,39 @@ import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.util.Helpers;
 
+import java.util.Locale;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.SOUNDS;
 
-public class ModSounds {
+public enum ModSounds implements Supplier<SoundEvent> {
+    GLARE_AMBIENT_1(1),
+    GLARE_AMBIENT_2(1),
+    GLARE_AMBIENT_3(1),
+    GLARE_AMBIENT_4(1),
+    GLARE_AMBIENT_5(1),
+    GLARE_AMBIENT_6(1),
+    GLARE_AMBIENT_7(1),
+    GLARE_AMBIENT_8(1),
+    GLARE_AMBIENT_9(1),
+    GLARE_AMBIENT_10(1),
+    GLARE_AMBIENT_11(1),
+    GLARE_AMBIENT_12(1),
+    GLARE_AMBIENT_13(1),
+    ;
+    private final DeferredHolder<SoundEvent, SoundEvent> holder;
 
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_1 =
-            registerFixedRange("glare_ambient_1", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_2 =
-            registerFixedRange("glare_ambient_2", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_3 =
-            registerFixedRange("glare_ambient_3", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_4 =
-            registerFixedRange("glare_ambient_4", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_5 =
-            registerFixedRange("glare_ambient_5", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_6 =
-            registerFixedRange("glare_ambient_6", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_7 =
-            registerFixedRange("glare_ambient_7", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_8 =
-            registerFixedRange("glare_ambient_8", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_9 =
-            registerFixedRange("glare_ambient_9", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_10 =
-            registerFixedRange("glare_ambient_10", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_11 =
-            registerFixedRange("glare_ambient_11", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_12 =
-            registerFixedRange("glare_ambient_12", 1);
-    public static final DeferredHolder<SoundEvent, SoundEvent> glare_ambient_13 =
-            registerFixedRange("glare_ambient_13", 1);
+    ModSounds(float range) {
+        this.holder = registerFixedRange(name().toLowerCase(Locale.ROOT), range);
+    }
 
+    ModSounds() {
+        this.holder = registerVariableRange(name().toLowerCase(Locale.ROOT));
+    }
 
-
+    private static DeferredHolder<SoundEvent, SoundEvent> registerVariableRange(String name) {
+        return SOUNDS.register(name,() -> SoundEvent.createVariableRangeEvent(Helpers.location(name)));
+    }
 
 
     private static DeferredHolder<SoundEvent,SoundEvent> register(String name, Supplier<SoundEvent> supplier){
@@ -47,5 +45,15 @@ public class ModSounds {
 
     private static DeferredHolder<SoundEvent, SoundEvent> registerFixedRange(String name, float range) {
         return SOUNDS.register(name, () -> SoundEvent.createFixedRangeEvent(Helpers.location(name), range));
+    }
+
+    /**
+     * Gets a result.
+     *
+     * @return a result
+     */
+    @Override
+    public SoundEvent get() {
+        return holder.get();
     }
 }
