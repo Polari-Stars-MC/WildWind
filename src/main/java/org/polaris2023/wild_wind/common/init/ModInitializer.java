@@ -114,6 +114,10 @@ public class ModInitializer {
         return ENTITIES.getEntries();
     }
 
+    public static Collection<DeferredHolder<SoundEvent, ? extends SoundEvent>> sounds() {
+        return SOUNDS.getEntries();
+    }
+
     @SuppressWarnings("unchecked")
     public static <T> Collection<DeferredHolder<T, ? extends T>> entry(TypeToken<T> token) {
         return (Collection<DeferredHolder<T, ? extends T>>)
@@ -157,6 +161,10 @@ public class ModInitializer {
 
     static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
         return ITEMS.registerSimpleBlockItem(name, block);
+    }
+
+    static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block, Supplier<FoodProperties> supplier) {
+        return ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
     }
 
     static DeferredItem<Item> simpleItem(String name) {

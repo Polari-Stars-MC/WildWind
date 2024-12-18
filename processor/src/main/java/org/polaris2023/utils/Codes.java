@@ -117,6 +117,7 @@ public enum Codes {
             import net.minecraft.world.effect.MobEffect;
             import net.minecraft.world.item.CreativeModeTab;
             import net.minecraft.world.item.ItemStack;
+            import net.minecraft.sounds.SoundEvent;
             
             public final class %%classname%% implements ILanguage<%%classname%%>, DataProvider {
                 private static final Gson GSON = new com.google.gson.GsonBuilder().setLenient().setPrettyPrinting().create();
@@ -175,6 +176,7 @@ public enum Codes {
                         case Supplier<?> supplier -> add(supplier.get(), value);
                         case Item item -> add(item.getDescriptionId(), value);
                         case Block block -> add(block.getDescriptionId(), value);
+                        case SoundEvent sound -> add("sound." + sound.getLocation().toString().replace(":", "."), value);
                         case EntityType<?> type -> add(type.getDescriptionId(), value);
                         case TranslatableContents contents -> add(contents.getKey(), value);
                         case MobEffect effect -> add(effect.getDescriptionId(), value);

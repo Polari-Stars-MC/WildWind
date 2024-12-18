@@ -1,7 +1,6 @@
 # WildWind
 A Minecraft Mod for Vanilla Expandability
 
-
 ## Processor tutorial
 
 
@@ -34,6 +33,7 @@ public static final Object test;
 ```
 #### Currently only applies to:
     String
+    SoundEvent
     DeferredHolder
     Supplier
     Item
