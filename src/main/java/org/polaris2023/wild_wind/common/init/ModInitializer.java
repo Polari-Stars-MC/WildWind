@@ -1,7 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -172,21 +171,23 @@ public class ModInitializer {
         return ITEMS.registerSimpleItem(name);
     }
 
+    static DeferredItem<Item> item(String name, Function<Item.Properties, Item> toItemFunction) {
+        return ITEMS.registerItem(name, toItemFunction);
+    }
+
     static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
-        return ITEMS.registerItem(name, properties -> {
+        return item(name, properties -> {
             consumer.accept(properties);
             return new Item(properties);
         });
     }
 
-    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> supplier) {
-        return simpleItem(name, properties -> properties.food(supplier.get()));
+    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
+        return simpleItem(name, properties -> properties.food(food.get()));
     }
 
     static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
-        return simpleItem(name, properties -> {
-            consumer.accept(properties.food(food.get()));
-        });
+        return simpleItem(name, properties -> consumer.accept(properties.food(food.get())));
     }
 
     static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, T> item) {

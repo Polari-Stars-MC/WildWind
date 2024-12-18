@@ -4,9 +4,7 @@ import io.github.tt432.eyelib.event.InitComponentEvent;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.component.TypedDataComponent;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.food.Foods;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.neoforged.bus.api.IEventBus;
@@ -56,6 +54,14 @@ public class WildWindMod {
             food(Items.GLISTERING_MELON_SLICE, ModFoods.GLISTERING_MELON_SLICE);
             food(Items.MILK_BUCKET, ModFoods.MILK);
             food(Items.KELP, ModFoods.KELP);
+            food(Items.BEEF, ModFoods.RAW_BEEF);
+            food(Items.MUTTON, ModFoods.RAW_MUTTON);
+            food(Items.PORKCHOP, ModFoods.RAW_PORKCHOP);
+            food(Items.RABBIT, ModFoods.RAW_RABBIT);
+            food(Items.RABBIT_FOOT, ModFoods.RABBIT_FOOT);
+            food(Items.COD, ModFoods.RAW_COD);
+            food(Items.SALMON, ModFoods.RAW_SALMON);
+            food(Items.TROPICAL_FISH, ModFoods.RAW_TROPICAL_FISH);
             component(ModComponents.VEGETABLE_VALUE, 0.5F,
                     Items.KELP, Items.DRIED_KELP,
                     Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,

@@ -2,9 +2,13 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -14,8 +18,9 @@ import org.polaris2023.annotation.modelgen.SpawnEggItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
-import static org.polaris2023.wild_wind.common.init.ModInitializer.simpleItem;
+import java.util.List;
+
+import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
 public class ModItems {
@@ -79,7 +84,16 @@ public class ModItems {
     @BasicItem
     @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
     public static final DeferredItem<Item> CHEESE =
-            simpleItem("cheese", p -> p.stacksTo(16), ModFoods.CHEESE);
+            item("cheese", p -> new Item(p.stacksTo(16).food(ModFoods.CHEESE.get())) {
+                @Override
+                public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
+                    super.finishUsingItem(itemStack, level, entity);
+                    List<MobEffectInstance> activeEffects = List.copyOf(entity.getActiveEffects());
+                    activeEffects.stream().filter(mobEffectInstance -> !mobEffectInstance.getEffect().value().isBeneficial())
+                            .forEach(mobEffectInstance -> entity.removeEffect(mobEffectInstance.getEffect()));
+                    return itemStack;
+                }
+            });
 
     @BasicItem
     @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")

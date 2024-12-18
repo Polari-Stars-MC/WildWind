@@ -50,7 +50,7 @@ public class WildWindGameEventHandler {
                             .empty()
                             .append(effect.probability() * 100 + "% ")
                             .append(Component.translatable(effected.getDescriptionId()))
-                            .append(effected.getAmplifier() + " ")
+                            .append((effected.getAmplifier() + 1) + " ")
                             .append(String.valueOf(effected.getDuration()))
                             .append("tick")
                     );
