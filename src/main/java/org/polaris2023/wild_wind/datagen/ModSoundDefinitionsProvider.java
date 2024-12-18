@@ -30,8 +30,8 @@ public class ModSoundDefinitionsProvider extends SoundDefinitionsProvider {
             SoundEvent soundEvent = sound.get();
             add(soundEvent, SoundDefinition.definition()
                     .with(sound(soundEvent.getLocation().toString(), SoundDefinition.SoundType.SOUND)
-                            .volume(0.8f)
-                            .pitch(1.2f)
+                            .volume(1F)
+                            .pitch(1F)
                             .weight(2)
                             .attenuationDistance(8)
                             .stream()

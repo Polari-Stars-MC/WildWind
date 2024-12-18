@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.BasicItem;
 import org.polaris2023.annotation.modelgen.SpawnEggItem;
+import org.polaris2023.wild_wind.common.item.LivingTuberItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
@@ -29,13 +30,13 @@ public class ModItems {
     public static final DeferredItem<Item> GLOW_POWDER = simpleItem("glow_powder");
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
-    public static final DeferredItem<Item> LIVING_TUBER =
-            simpleItem("living_tuber", p -> p
+    public static final DeferredItem<LivingTuberItem> LIVING_TUBER =
+            register("living_tuber", properties -> new LivingTuberItem(properties
                     .stacksTo(16)
                     .component(ModComponents.VEGETABLE_VALUE, 1F)
                     .component(ModComponents.MEAT_VALUE, 1F)
-                    .component(ModComponents.MONSTER_VALUE, 1F),
-                    ModFoods.LIVING_TUBER);
+                    .component(ModComponents.MONSTER_VALUE, 1F)
+                    .food(ModFoods.LIVING_TUBER.get())));
     @BasicItem
     @I18n(en_us = "Baked Living Tuber", zh_cn = "烤活根", zh_tw = "烤活根")
     public static final DeferredItem<Item> BAKED_LIVING_TUBER =
