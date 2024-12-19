@@ -88,7 +88,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     RAW_TROPICAL_FISH(1, 0.1F,
             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F),
             of(() -> new MobEffectInstance(MobEffects.CONFUSION, 600, 0), 0.3F)),
-    POPPED_CHORUS_FRUIT(4, 0.3F);
+    POPPED_CHORUS_FRUIT(4, 0.3F, FoodProperties.Builder::alwaysEdible);
 
     private final FoodProperties properties;
 
