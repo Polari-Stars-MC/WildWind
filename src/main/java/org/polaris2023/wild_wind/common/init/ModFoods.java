@@ -42,7 +42,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     SUGAR(1, 1.2F,
             of(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0), 1.0F)),
     FERMENTED_SPIDER_EYE(3, 0.8F,
-            of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 200, 0), 0.5F)),
+            of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 200, 0), 1.0F)),
     GLISTERING_MELON_SLICE(4, 0.6F),
     BAKED_MUSHROOM(4, 0.6F),
     NETHER_MUSHROOM_STEW(6, 0.6F),
