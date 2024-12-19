@@ -130,6 +130,10 @@ public class WildWindGameEventHandler {
                     player.getCooldowns().addCooldown(item, 20);
                 }
             }
+        } else if(item.equals(Items.GLISTERING_MELON_SLICE)) {
+            if(!livingEntity.level().isClientSide) {
+                livingEntity.heal(1.0F);
+            }
         }
     }
 }
