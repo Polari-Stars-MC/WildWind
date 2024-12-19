@@ -16,6 +16,7 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Instrument;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -72,6 +73,8 @@ public class ModInitializer {
             DeferredRegister.create(BuiltInRegistries.VILLAGER_PROFESSION, MOD_ID);
     static DeferredRegister<MenuType<?>> MENU_TYPES =
             DeferredRegister.create(BuiltInRegistries.MENU, MOD_ID);
+    static DeferredRegister<Instrument> INSTRUMENTS =
+            DeferredRegister.create(BuiltInRegistries.INSTRUMENT, MOD_ID);
 
     public static void init(IEventBus bus) {
         init(bus, ModComponents.class, COMPONENTS);
@@ -87,6 +90,7 @@ public class ModInitializer {
         init(bus, ModCreativeTabs.class, TABS);
         init(bus, ModVillagers.class, POIS, VILLAGERS, PROFESSIONS);
         init(bus, ModMenus.class, MENU_TYPES);
+        init(bus, ModInstruments.class, INSTRUMENTS);
     }
 
     public static void init(IEventBus bus, Class<?> clazz, DeferredRegister<?>... registers) {
