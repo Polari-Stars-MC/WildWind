@@ -42,15 +42,14 @@ public enum ModFoods implements Supplier<FoodProperties> {
     SUGAR(1, 1.2F,
             of(() -> new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 60, 0), 1.0F)),
     FERMENTED_SPIDER_EYE(3, 0.8F,
-            of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 200, 0), 0.5F)),
-    GLISTERING_MELON_SLICE(4, 0.6F,
-            of(() -> new MobEffectInstance(MobEffects.HEAL, 1, 0), 0.3F)),
+            of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 200, 0), 1.0F)),
+    GLISTERING_MELON_SLICE(4, 0.6F),
     BAKED_MUSHROOM(4, 0.6F),
     NETHER_MUSHROOM_STEW(6, 0.6F),
-    FLOUR(1, 0.5F),
-    DOUGH(3, 1.4F),
-    SALT(1, 2.4F),
-    GLAREFLOWER_SEEDS(1, 0.4F),
+    FLOUR(1, 0.6F),
+    DOUGH(3, 0.3F),
+    SALT(1, 1.2F),
+    GLAREFLOWER_SEEDS(1, 0.3F),
     LIVING_TUBER(4, 0.1F,
             of(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, 6), 1F),
             of(() -> new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 600, 3), 1F),
@@ -88,7 +87,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     RAW_TROPICAL_FISH(1, 0.1F,
             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F),
             of(() -> new MobEffectInstance(MobEffects.CONFUSION, 600, 0), 0.3F)),
-    POPPED_CHORUS_FRUIT(4, 0.3F);
+    POPPED_CHORUS_FRUIT(4, 0.3F, FoodProperties.Builder::alwaysEdible);
 
     private final FoodProperties properties;
 
