@@ -5,28 +5,34 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.util.RegistryUtil;
+import org.polaris2023.wild_wind.util.TeleportUtil;
 
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
@@ -87,7 +93,6 @@ public class WildWindGameEventHandler {
     }
 
     private static final ResourceLocation VANILLA_FISHERMAN = ResourceLocation.withDefaultNamespace("fisherman");
-
     @SubscribeEvent
     public static void registerTrades(VillagerTradesEvent event) {
         Int2ObjectMap<List<VillagerTrades.ItemListing>> trades = event.getTrades();
@@ -98,4 +103,37 @@ public class WildWindGameEventHandler {
         }
     }
 
+    @SubscribeEvent
+    public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
+        Item item = event.getItem().getItem();
+        LivingEntity livingEntity = event.getEntity();
+        if(item.equals(Items.POPPED_CHORUS_FRUIT)) {
+            if(livingEntity.level() instanceof ServerLevel serverLevel) {
+                if(TeleportUtil.tryTeleportToSurface(livingEntity, serverLevel, livingEntity.getOnPos()) || TeleportUtil.randomTeleportAround(livingEntity, serverLevel)) {
+                    serverLevel.gameEvent(GameEvent.TELEPORT, livingEntity.position(), GameEvent.Context.of(livingEntity));
+                    SoundSource soundsource;
+                    SoundEvent soundevent;
+                    if (livingEntity instanceof Fox) {
+                        soundevent = SoundEvents.FOX_TELEPORT;
+                        soundsource = SoundSource.NEUTRAL;
+                    } else {
+                        soundevent = SoundEvents.CHORUS_FRUIT_TELEPORT;
+                        soundsource = SoundSource.PLAYERS;
+                    }
+
+                    serverLevel.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundevent, soundsource);
+                    livingEntity.resetFallDistance();
+                }
+
+                if (livingEntity instanceof Player player) {
+                    player.resetCurrentImpulseContext();
+                    player.getCooldowns().addCooldown(item, 20);
+                }
+            }
+        } else if(item.equals(Items.GLISTERING_MELON_SLICE)) {
+            if(!livingEntity.level().isClientSide) {
+                livingEntity.heal(1.0F);
+            }
+        }
+    }
 }

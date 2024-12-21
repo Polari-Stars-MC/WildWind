@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -28,6 +29,7 @@ public enum ModSounds implements Supplier<SoundEvent> {
     GLARE_DEATH_1,
     GLARE_DEATH_2,
     GLARE_DEATH_3,
+    MAGIC_FLUTE
     ;
 
     public static final Map<Integer, ModSounds> AMBIENT_S = new HashMap<>();
@@ -83,5 +85,9 @@ public enum ModSounds implements Supplier<SoundEvent> {
     @Override
     public SoundEvent get() {
         return holder.get();
+    }
+
+    public Holder<SoundEvent> getHolder() {
+        return this.holder;
     }
 }

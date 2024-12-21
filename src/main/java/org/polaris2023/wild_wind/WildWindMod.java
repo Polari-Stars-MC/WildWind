@@ -62,6 +62,7 @@ public class WildWindMod {
             food(Items.COD, ModFoods.RAW_COD);
             food(Items.SALMON, ModFoods.RAW_SALMON);
             food(Items.TROPICAL_FISH, ModFoods.RAW_TROPICAL_FISH);
+            food(Items.POPPED_CHORUS_FRUIT, ModFoods.POPPED_CHORUS_FRUIT);
             component(ModComponents.VEGETABLE_VALUE, 0.5F,
                     Items.KELP, Items.DRIED_KELP,
                     Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,
