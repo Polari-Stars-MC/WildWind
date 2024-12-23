@@ -52,7 +52,7 @@ public class MagicFluteItem extends Item {
 
 	public static void onFluteWorks(ItemStack stack, LivingEntity livingEntity) {
 		Level level = livingEntity.level();
-		if(level instanceof ServerLevel serverLevel && livingEntity.getUseItemRemainingTicks() <= 0) {
+		if(level instanceof ServerLevel serverLevel) {
 			serverLevel.getEntities(livingEntity, AABB.ofSize(livingEntity.position(), 15, 15, 15), entity -> entity.getType().is(EntityTypeTags.UNDEAD))
 					.forEach(entity -> {
 						if (entity instanceof Mob mob) {
