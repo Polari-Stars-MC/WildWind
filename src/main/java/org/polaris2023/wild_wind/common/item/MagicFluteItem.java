@@ -42,6 +42,7 @@ public class MagicFluteItem extends Item {
 			Instrument instrument = optional.get().value();
 			player.startUsingItem(usedHand);
 			play(level, player, instrument);
+			onFluteWorks(itemStack, player);
 			player.getCooldowns().addCooldown(this, 300);
 			player.awardStat(Stats.ITEM_USED.get(this));
 			return InteractionResultHolder.consume(itemStack);
@@ -49,10 +50,9 @@ public class MagicFluteItem extends Item {
 		return InteractionResultHolder.fail(itemStack);
 	}
 
-	@Override
-	public void onStopUsing(ItemStack stack, LivingEntity livingEntity, int count) {
+	public static void onFluteWorks(ItemStack stack, LivingEntity livingEntity) {
 		Level level = livingEntity.level();
-		if(level instanceof ServerLevel serverLevel && livingEntity.getUseItemRemainingTicks() <= 0) {
+		if(level instanceof ServerLevel serverLevel) {
 			serverLevel.getEntities(livingEntity, AABB.ofSize(livingEntity.position(), 15, 15, 15), entity -> entity.getType().is(EntityTypeTags.UNDEAD))
 					.forEach(entity -> {
 						if (entity instanceof Mob mob) {
