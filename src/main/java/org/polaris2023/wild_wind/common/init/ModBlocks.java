@@ -4,6 +4,7 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.BasicItem;
+import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.CookingPotBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
@@ -82,6 +84,14 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
 
+    @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
+    public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
+            register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).isValidSpawn(Blocks::never).noLootTable());
+    public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
+            register("brittle_ice", BRITTLE_ICE);
+
+
+
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
              Type<?> type,
@@ -89,8 +99,4 @@ public class ModBlocks {
              DeferredBlock<?>... blocks) {
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
     }
-
-
-
-
 }
