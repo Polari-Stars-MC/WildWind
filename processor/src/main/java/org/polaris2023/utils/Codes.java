@@ -27,6 +27,7 @@ public enum Codes {
             import org.polaris2023.wild_wind.util.interfaces.IModel;
             
             import java.nio.file.Path;
+            import java.util.HashMap;
             import java.util.Map;
             import java.util.concurrent.CompletableFuture;
             import java.util.concurrent.ConcurrentHashMap;
@@ -46,6 +47,25 @@ public enum Codes {
                     MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
                                         "layer0", key.toString()
                     )));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% parentItem(
+                    Supplier<T> supplier,
+                    String parent,
+                    String... textures
+                ) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(supplier.get()).withPrefix("item/");
+                    Map<String, String> texturesMap = new HashMap<>();
+                    for (int i = 0; i < textures.length - 1; i+=2) {
+                        texturesMap.put(textures[i], textures[i + 1]);
+                    }
+                    Map map = new HashMap<>();
+                    map.put("parent", parent);
+                    if (!texturesMap.isEmpty()) {
+                        map.put("textures", texturesMap);
+                    }
+                    MODELS.put(key, map);
                     return this;
                 }
             

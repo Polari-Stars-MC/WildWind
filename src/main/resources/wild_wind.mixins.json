@@ -5,7 +5,7 @@
   "refmap": "wild_wind.refmap.json",
   "mixins": [
     "AnimalMixin",
-    "CowMixin",
+    "GoatCowMixin",
     "GoatMixin"
   ],
   "minVersion": "0.8",

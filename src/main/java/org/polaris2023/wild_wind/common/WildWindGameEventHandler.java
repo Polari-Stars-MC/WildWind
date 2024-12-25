@@ -11,7 +11,9 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
@@ -24,11 +26,13 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
+import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 import org.polaris2023.wild_wind.util.TeleportUtil;
 
@@ -100,6 +104,25 @@ public class WildWindGameEventHandler {
         //TODO: add villager trades
         if(VANILLA_FISHERMAN.equals(currentVillagerProfession)) {
 
+        }
+    }
+
+    @SubscribeEvent
+    private static void mobTick(EntityTickEvent.Pre event) {
+        switch (event.getEntity()) {
+            case Goat goat -> {
+                int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
+                if (i > 0) {
+                    goat.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
+                }
+            }
+            case Cow cow -> {
+                int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
+                if (i > 0) {
+                    cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
+                }
+            }
+            default -> {}
         }
     }
 

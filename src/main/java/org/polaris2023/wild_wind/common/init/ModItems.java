@@ -12,8 +12,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
+import org.polaris2023.annotation.KV;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.BasicItem;
+import org.polaris2023.annotation.modelgen.ParentItem;
 import org.polaris2023.annotation.modelgen.SpawnEggItem;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
@@ -263,6 +265,5 @@ public class ModItems {
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
     public static final DeferredItem<Item> SALT =
             simpleItem("salt", p -> p.stacksTo(16), ModFoods.SALT);
-
 
 }

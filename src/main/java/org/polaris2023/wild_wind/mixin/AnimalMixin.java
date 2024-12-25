@@ -9,6 +9,7 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(AgeableMob.class)
+@Debug(export = true)
 public abstract class AnimalMixin extends PathfinderMob {
     protected AnimalMixin(EntityType<? extends PathfinderMob> entityType, Level level) {
         super(entityType, level);

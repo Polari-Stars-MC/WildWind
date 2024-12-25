@@ -5,23 +5,22 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
+import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
+import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(Cow.class)
-public abstract class CowMixin extends Animal {
+@Mixin({Goat.class, Cow.class})
+@Debug(export = true)
+public abstract class GoatCowMixin extends Animal {
 
 
-    protected CowMixin(EntityType<? extends Animal> entityType, Level level) {
+    protected GoatCowMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
