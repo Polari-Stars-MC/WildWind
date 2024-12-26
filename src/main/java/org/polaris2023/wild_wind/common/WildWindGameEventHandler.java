@@ -117,15 +117,16 @@ public class WildWindGameEventHandler {
 
         switch (event.getEntity()) {
             case Goat goat -> {
-                int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
+                int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT);
                 if (i > 0) {
-                    goat.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
+                    goat.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT, i - 1);
                 }
             }
             case Cow cow -> {
-                int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
+                int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW);
                 if (i > 0) {
-                    cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
+                    WildWindMod.LOGGER.info(i);
+                    cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, i - 1);
                 }
             }
             case ItemEntity item -> {
