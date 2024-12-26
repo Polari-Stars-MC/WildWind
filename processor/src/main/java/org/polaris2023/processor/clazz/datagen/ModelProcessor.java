@@ -1,6 +1,7 @@
 package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import org.polaris2023.annotation.modelgen.block.Button;
 import org.polaris2023.annotation.modelgen.block.CubeAll;
 import org.polaris2023.annotation.modelgen.block.Slab;
 import org.polaris2023.annotation.modelgen.block.Stairs;
@@ -65,7 +66,13 @@ public class ModelProcessor extends ClassProcessor {
                     .append(typeElement.getQualifiedName())
                     .append(".")
                     .append(variableElement.getSimpleName())
-                    .append(")");
+                    .append(", \"")
+                    .append(stairs.bottom())
+                    .append(", \"")
+                    .append(stairs.side())
+                    .append(", \"")
+                    .append(stairs.top())
+                    .append("\")");
         }
         Slab slab = variableElement.getAnnotation(Slab.class);
         if (slab != null) {
@@ -75,7 +82,25 @@ public class ModelProcessor extends ClassProcessor {
                     .append(typeElement.getQualifiedName())
                     .append(".")
                     .append(variableElement.getSimpleName())
+                    .append(", \"")
+                    .append(slab.bottom())
+                    .append(", \"")
+                    .append(slab.side())
+                    .append(", \"")
+                    .append(slab.top())
                     .append(")");
+        }
+        Button button = variableElement.getAnnotation(Button.class);
+        if (button != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".buttonBlock(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(", \"")
+                    .append(button.texture())
+                    .append("\")");
         }
         SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
         if (spawnEggItem != null) {

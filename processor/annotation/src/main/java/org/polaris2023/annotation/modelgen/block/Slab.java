@@ -5,4 +5,7 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
 public @interface Slab {
+    String bottom() default "";
+    String side() default "";
+    String top() default "";
 }
