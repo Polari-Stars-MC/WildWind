@@ -157,6 +157,12 @@ public enum Codes {
                     MODELS.put(key, Map.of(
                         "parent", "minecraft:block/button",
                         "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                    MODELS.put(key.withSuffix("_inventory"), Map.of(
+                        "parent", "minecraft:block/button_inventory",
+                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                    MODELS.put(key.withSuffix("_pressed"), Map.of(
+                        "parent", "minecraft:block/button_pressed",
+                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
                     return this;
                 }
             
