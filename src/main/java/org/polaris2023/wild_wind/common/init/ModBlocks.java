@@ -13,6 +13,8 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 
+import org.polaris2023.annotation.modelgen.block.CubeAll;
+import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 
@@ -86,9 +88,11 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
 
+    @CubeAll
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
             register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).isValidSpawn(Blocks::never).noLootTable());
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
 

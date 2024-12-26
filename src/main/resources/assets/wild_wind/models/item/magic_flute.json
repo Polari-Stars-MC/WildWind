@@ -30,7 +30,7 @@
             "predicate": {
                 "tooting": 1
             },
-            "model": "wild_wind:item/magic_flute"
+            "model": "wild_wind:item/tooling_magic_flute"
         }
     ]
 }

@@ -1,6 +1,11 @@
 package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import org.polaris2023.annotation.modelgen.block.Button;
+import org.polaris2023.annotation.modelgen.block.CubeAll;
+import org.polaris2023.annotation.modelgen.block.Slab;
+import org.polaris2023.annotation.modelgen.block.Stairs;
+import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
@@ -32,6 +37,70 @@ public class ModelProcessor extends ClassProcessor {
         BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         if (basicItem != null && basicItem.used()) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
+        }
+        BasicBlockItem basicBlockItem = variableElement.getAnnotation(BasicBlockItem.class);
+        if (basicBlockItem != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".basicBlockItem(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(")");
+        }
+        CubeAll cube = variableElement.getAnnotation(CubeAll.class);
+        if (cube != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".cubeAll(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(")");
+        }
+        Stairs stairs = variableElement.getAnnotation(Stairs.class);
+        if (stairs != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".stairsBlock(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(", \"")
+                    .append(stairs.bottom())
+                    .append(", \"")
+                    .append(stairs.side())
+                    .append(", \"")
+                    .append(stairs.top())
+                    .append("\")");
+        }
+        Slab slab = variableElement.getAnnotation(Slab.class);
+        if (slab != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".slabBlock(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(", \"")
+                    .append(slab.bottom())
+                    .append(", \"")
+                    .append(slab.side())
+                    .append(", \"")
+                    .append(slab.top())
+                    .append(")");
+        }
+        Button button = variableElement.getAnnotation(Button.class);
+        if (button != null) {
+            check();
+            MODEL.append("\n\t\t")
+                    .append(".buttonBlock(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(", \"")
+                    .append(button.texture())
+                    .append("\")");
         }
         SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
         if (spawnEggItem != null) {
