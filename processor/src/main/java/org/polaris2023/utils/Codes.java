@@ -27,6 +27,8 @@ public enum Codes {
             import org.polaris2023.wild_wind.util.interfaces.IModel;
             
             import java.nio.file.Path;
+            import java.util.List;
+            import java.util.HashMap;
             import java.util.Map;
             import java.util.concurrent.CompletableFuture;
             import java.util.concurrent.ConcurrentHashMap;
@@ -46,6 +48,140 @@ public enum Codes {
                     MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
                                         "layer0", key.toString()
                     )));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item, String prefix) {
+                    MODELS.put(BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + prefix + "_"), Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                                        "layer0", BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/").toString()
+                    )));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item, Map<String, Object> display) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
+                    MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                        "layer0", key.toString()
+                    ), "display", display));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item, Map<String, Object> display, String prefix) {
+                    MODELS.put(BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + prefix + "_"), Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                        "layer0", BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/").toString()
+                    ), "display", display));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item, Map<String, Object> display, List<Object> overrides) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
+                    MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                        "layer0", key.toString()
+                    ), "display", display, "overrides", overrides));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicItem(Supplier<T> item, Map<String, Object> display, List<Object> overrides, String prefix) {
+                    MODELS.put(BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + prefix + "_"), Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                        "layer0", BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/").toString()
+                    ), "display", display, "overrides", overrides));
+                    return this;
+                }
+            
+                private <T extends BlockItem> %%classname%% basicBlockItem(Supplier<T> blockItem) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockItem.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    MODELS.put(itemKey, Map.of("parent", blockKey.toString()));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% cubeAll(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/cube_all",
+                        "textures", Map.of(
+                            "all", key.toString()
+                        )
+                    ));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/stairs",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
+                            "side", side.isEmpty() ? key.toString() : side,
+                            "top", top.isEmpty() ? key.toString() : top
+                    )));
+                    MODELS.put(key.withSuffix("_inner"), Map.of(
+                        "parent", "minecraft:block/inner_stairs",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
+                            "side", side.isEmpty() ? key.toString() : side,
+                            "top", top.isEmpty() ? key.toString() : top
+                    )));
+                    MODELS.put(key.withSuffix("_outer"), Map.of(
+                        "parent", "minecraft:block/outer_stairs",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
+                            "side", side.isEmpty() ? key.toString() : side,
+                            "top", top.isEmpty() ? key.toString() : top
+                    )));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/slab",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
+                            "side", side.isEmpty() ? key.toString() : side,
+                            "top", top.isEmpty() ? key.toString() : top
+                    )));
+                    MODELS.put(key.withSuffix("_top"), Map.of(
+                     "parent", "minecraft:block/slab_top",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
+                            "side", side.isEmpty() ? key.toString() : side,
+                            "top", top.isEmpty() ? key.toString() : top
+                        )));
+                     return this;
+                }
+            
+                private <T extends Block> %%classname%% buttonBlock(Supplier<T> block, String texture) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/button",
+                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                    MODELS.put(key.withSuffix("_inventory"), Map.of(
+                        "parent", "minecraft:block/button_inventory",
+                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                    MODELS.put(key.withSuffix("_pressed"), Map.of(
+                        "parent", "minecraft:block/button_pressed",
+                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% parentItem(
+                    Supplier<T> supplier,
+                    String parent,
+                    String... textures
+                ) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(supplier.get()).withPrefix("item/");
+                    Map<String, String> texturesMap = new HashMap<>();
+                    for (int i = 0; i < textures.length - 1; i+=2) {
+                        texturesMap.put(textures[i], textures[i + 1]);
+                    }
+                    Map map = new HashMap<>();
+                    map.put("parent", parent);
+                    if (!texturesMap.isEmpty()) {
+                        map.put("textures", texturesMap);
+                    }
+                    MODELS.put(key, map);
                     return this;
                 }
             
