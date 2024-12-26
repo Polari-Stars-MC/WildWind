@@ -11,7 +11,6 @@ import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -23,48 +22,30 @@ public abstract class AnimalMixin extends PathfinderMob {
         super(entityType, level);
     }
 
-    @Unique
-    private AgeableMob wild_wind$self() {
-        return (AgeableMob) (Object) this;
-    }
-
     @Inject(method = "defineSynchedData", at = @At("RETURN"))
     private void add(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        AgeableMob self = wild_wind$self();
-        if (self instanceof Goat || self instanceof Cow) {
-            builder.define(ModEntityDataAccess.MILKING_INTERVALS, 0);
+        switch (self()) {
+            case Cow __ -> builder.define(ModEntityDataAccess.MILKING_INTERVALS, 0);
+            case Goat __ -> builder.define(ModEntityDataAccess.MILKING_INTERVALS, 0);
+            default -> {}
         }
-
-
-    }
-
-    @Override
-    public void tick() {
-        super.tick();
-        AgeableMob self = wild_wind$self();
-        if (self instanceof Goat || self instanceof Cow) {
-            int i = entityData.get(ModEntityDataAccess.MILKING_INTERVALS);
-            if (i > 0) {
-                entityData.set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
-            }
-        }
-
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void put(CompoundTag compound, CallbackInfo ci) {
-        AgeableMob self = wild_wind$self();
-        if (self instanceof Goat || self instanceof Cow) {
-            compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS));
+        switch (self()) {
+            case Cow __ -> compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS));
+            case Goat __ -> compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS));
+            default -> {}
         }
-
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     private void get(CompoundTag compound, CallbackInfo ci) {
-        AgeableMob self = wild_wind$self();
-        if (self instanceof Goat || self instanceof Cow) {
-            this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS, compound.getInt("milking_intervals"));
+        switch (self()) {
+            case Cow __ -> this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS, compound.getInt("milking_intervals"));
+            case Goat __ -> this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS, compound.getInt("milking_intervals"));
+            default -> {}
         }
     }
 }
