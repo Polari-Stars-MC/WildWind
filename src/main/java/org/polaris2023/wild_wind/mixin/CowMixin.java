@@ -5,7 +5,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
-import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
@@ -15,12 +14,12 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-@Mixin({Goat.class, Cow.class})
+@Mixin(Cow.class)
 @Debug(export = true)
-public abstract class GoatCowMixin extends Animal {
+public abstract class CowMixin extends Animal {
 
 
-    protected GoatCowMixin(EntityType<? extends Animal> entityType, Level level) {
+    protected CowMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -29,10 +28,10 @@ public abstract class GoatCowMixin extends Animal {
                     target = "Lnet/minecraft/world/entity/player/Player;playSound(Lnet/minecraft/sounds/SoundEvent;FF)V"
             ), cancellable = true)
     private void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        if (entityData.get(ModEntityDataAccess.MILKING_INTERVALS) > 0) {
+        if (entityData.get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW) > 0) {
             cir.setReturnValue(super.mobInteract(player, hand));
             cir.cancel();
         }
-        entityData.set(ModEntityDataAccess.MILKING_INTERVALS, 6000);
+        entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, 6000);
     }
 }

@@ -24,28 +24,22 @@ public abstract class AnimalMixin extends PathfinderMob {
 
     @Inject(method = "defineSynchedData", at = @At("RETURN"))
     private void add(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        switch (self()) {
-            case Cow __ -> builder.define(ModEntityDataAccess.MILKING_INTERVALS, 0);
-            case Goat __ -> builder.define(ModEntityDataAccess.MILKING_INTERVALS, 0);
-            default -> {}
+        if (self() instanceof Cow) {
+            builder.define(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, 0);
         }
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void put(CompoundTag compound, CallbackInfo ci) {
-        switch (self()) {
-            case Cow __ -> compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS));
-            case Goat __ -> compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS));
-            default -> {}
+        if (self() instanceof Cow) {
+            compound.putInt("milking_intervals", this.entityData.get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW));
         }
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("RETURN"))
     private void get(CompoundTag compound, CallbackInfo ci) {
-        switch (self()) {
-            case Cow __ -> this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS, compound.getInt("milking_intervals"));
-            case Goat __ -> this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS, compound.getInt("milking_intervals"));
-            default -> {}
+        if (self() instanceof Cow) {
+            this.entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, compound.getInt("milking_intervals"));
         }
     }
 }
