@@ -37,14 +37,15 @@ public class TutorialConfig {
     long
 
 ```java
-@org.polaris2023.annotation.modelgen.BasicItem
+@org.polaris2023.annotation.modelgen.item.BasicItem
 private static final Object o;
-@org.polaris2023.annotation.modelgen.SpawnEggItem
+@org.polaris2023.annotation.modelgen.item.SpawnEggItem
 private static final Object o2;
 ```
 
 ### Currently only applies to
     DeferredHolder<Item, T>
+    Supplier<T>
 
     you can add to Codes to add some method
     and goto ModelProcessor to add annotations

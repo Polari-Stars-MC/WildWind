@@ -88,6 +88,70 @@ public enum Codes {
                     return this;
                 }
             
+                private <T extends BlockItem> %%classname%% basicBlockItem(Supplier<T> blockItem) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockItem.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    MODELS.put(itemKey, Map.of("parent", blockKey.toString()));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% cubeAll(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/cube_all",
+                        "textures", Map.of(
+                            "all", key.toString()
+                        )
+                    ));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                    MODELS.put(key, Map.of(
+                        "parent", "minecraft:block/stairs",
+                        "textures", Map.of(
+                            "bottom", key.toString(),
+                            "side", key.toString(),
+                            "top", key.toString()
+                    )));
+                    MODELS.put(key.withSuffix("_inner"), Map.of(
+                        "parent", "minecraft:block/inner_stairs",
+                        "textures", Map.of(
+                            "bottom", key.toString(),
+                            "side", key.toString(),
+                            "top", key.toString()
+                    )));
+                    MODELS.put(key.withSuffix("_outer"), Map.of(
+                        "parent", "minecraft:block/outer_stairs",
+                        "textures", Map.of(
+                            "bottom", key.toString(),
+                            "side", key.toString(),
+                            "top", key.toString()
+                    )));
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% slabBlock(Supplier<T> block) {
+                ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
+                MODELS.put(key, Map.of(
+                    "parent", "minecraft:block/slab",
+                    "textures", Map.of(
+                        "bottom", key.toString(),
+                        "side", key.toString(),
+                        "top", key.toString()
+                )));
+                MODELS.put(key.withSuffix("_top"), Map.of(
+                    "parent", "minecraft:block/slab_top",
+                    "textures", Map.of(
+                        "bottom", key.toString(),
+                        "side", key.toString(),
+                        "top", key.toString()
+                )));
+                return this;
+            }
+            
                 private <T extends Item> %%classname%% parentItem(
                     Supplier<T> supplier,
                     String parent,
