@@ -64,76 +64,7 @@ public class ModItems {
                             .component(ModComponents.FISH_VALUE, 1F),
                     ModFoods.COOKED_TROUT);
 
-    @BasicItem(value = @Addition(display =
-            {
-                    @Display(
-                            name = "thirdperson_righthand",
-                            rotation = @XYZ(x= 0, y=180, z=0),
-                            scale = @XYZ(x=0, y = 3, z = 1),
-                            translation = @XYZ(x=0.55, y = 0.55, z = 0.55)
-                    ),
-                    @Display(
-                            name = "thirdperson_lefthand",
-                            rotation = @XYZ(x= 0, y=0, z=0),
-                            scale = @XYZ(x=0, y = 3, z = 1),
-                            translation = @XYZ(x=0.55, y = 0.55, z = 0.55)
-                    ),
-                    @Display(
-                            name = "firstperson_righthand",
-                            rotation = @XYZ(x= 0, y=-90, z=25),
-                            scale = @XYZ(x=1.13, y = 3.2, z = 1.13),
-                            translation = @XYZ(x=0.68, y = 0.68, z = 0.68)
-                    ),
-                    @Display(
-                            name = "firstperson_lefthand",
-                            rotation = @XYZ(x= 0, y=-90, z=-25),
-                            scale = @XYZ(x=1.13, y = 3.2, z = 1.13),
-                            translation = @XYZ(x=0.68, y = 0.68, z = 0.68)
-                    )
-            },
-    overrides = {
-            @org.polaris2023.annotation.modelgen.other.Override(
-                    predicate = @Predicate(
-                            name = "tooling",
-                            value = "1"
-                    ),
-                    model = "wild_wind:item/tooling_magic_flute"
-            )
-    }),
-    more = {
-            @KeyAddition(
-                    key = "tooling",
-                    value = @Addition(
-                            display = {
-                                    @Display(
-                                            name = "thirdperson_righthand",
-                                            rotation = @XYZ(x = 0, y = 125, z = 0),
-                                            translation = @XYZ(x = -1, y = 2, z = 2),
-                                            scale = @XYZ(x = 0.5, y = 0.5, z = 0.5)
-                                    ),
-                                    @Display(
-                                            name = "thirdperson_lefthand",
-                                            rotation = @XYZ(x = 0, y = 55, z = 0),
-                                            translation = @XYZ(x = -1, y = 2, z = 2),
-                                            scale = @XYZ(x = 0.5, y = 0.5, z = 0.5)
-                                    ),
-                                    @Display(
-                                            name = "firstperson_righthand",
-                                            rotation = @XYZ(x = 0, y = 115, z = 5),
-                                            translation = @XYZ(x = -1, y = -2.5, z = -7.5),
-                                            scale = @XYZ(x = 1, y = 1, z = 1)
-                                    ),
-                                    @Display(
-                                            name = "firstperson_lefthand",
-                                            rotation = @XYZ(x = 0, y = 115, z = 5),
-                                            translation = @XYZ(x = 0, y = -2.5, z = -7.5),
-                                            scale = @XYZ(x = 1, y = 1, z = 1)
-                                    )
-
-                            }
-                    )
-            )
-    })
+    @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
     public static final DeferredItem<MagicFluteItem> MAGIC_FLUTE =
             register("magic_flute", MagicFluteItem::stackTo1);

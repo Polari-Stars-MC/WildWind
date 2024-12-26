@@ -10,4 +10,5 @@ import java.lang.annotation.RetentionPolicy;
 public @interface BasicItem {
     Addition value() default @Addition;
     KeyAddition[] more() default {};
+    boolean used() default true;
 }

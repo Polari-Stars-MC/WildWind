@@ -30,7 +30,7 @@ public class ModelProcessor extends ClassProcessor {
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
         BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
-        if (basicItem != null) {
+        if (basicItem != null && basicItem.used()) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
         }
         SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
