@@ -9,17 +9,20 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -33,6 +36,8 @@ import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
+import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.ModSounds;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 import org.polaris2023.wild_wind.util.TeleportUtil;
 
@@ -109,6 +114,7 @@ public class WildWindGameEventHandler {
 
     @SubscribeEvent
     private static void mobTick(EntityTickEvent.Pre event) {
+
         switch (event.getEntity()) {
             case Goat goat -> {
                 int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
@@ -120,6 +126,18 @@ public class WildWindGameEventHandler {
                 int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS);
                 if (i > 0) {
                     cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS, i - 1);
+                }
+            }
+            case ItemEntity item -> {
+                if (item.getItem().is(ModItems.LIVING_TUBER)) {
+                    RandomSource random = item.getRandom();
+                    Level level = item.level();
+                    int j = random.nextInt(20, 200);
+                    if (level.getGameTime() % j == 0) {
+                        int i = random.nextInt(1, 13);
+                        ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
+                        level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
+                    }
                 }
             }
             default -> {}
