@@ -28,10 +28,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
+        // Glow Mucus
         VariantBlockStateBuilder glowMucusStates = getVariantBuilder(ModBlocks.GLOW_MUCUS.get());
-
-
 
         for (Direction value : Direction.values()) {
             AtomicInteger x = new AtomicInteger();
@@ -55,8 +53,10 @@ public class ModBlockStateProvider extends BlockStateProvider {
             for (Integer possibleValue : GlowMucusBlock.LAYERS.getPossibleValues()) {
                 glow_mucus_model(glowMucusStates, value, possibleValue, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
             }
-
         }
+
+        // Brittle Ice
+        simpleBlock(ModBlocks.BRITTLE_ICE.get());
     }
 
     private void glow_mucus_model(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {
@@ -65,8 +65,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .partialState()
                         .with(GlowMucusBlock.FACING, facing)
                         .with(GlowMucusBlock.LAYERS, layers),
-                        function.apply(layers - 1)
-                );
+                function.apply(layers - 1)
+        );
 
     }
 }
