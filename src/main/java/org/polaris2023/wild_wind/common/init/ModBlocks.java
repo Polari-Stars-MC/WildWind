@@ -12,8 +12,10 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
+
 import org.polaris2023.annotation.modelgen.BasicItem;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
+
 import org.polaris2023.wild_wind.common.block.CookingPotBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;

@@ -13,12 +13,14 @@ import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
-import org.polaris2023.annotation.modelgen.BasicItem;
-import org.polaris2023.annotation.modelgen.SpawnEggItem;
+import org.polaris2023.annotation.modelgen.item.BasicItem;
+import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
+import org.polaris2023.annotation.modelgen.other.*;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
+import java.lang.Override;
 import java.util.List;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
@@ -62,7 +64,7 @@ public class ModItems {
                             .component(ModComponents.FISH_VALUE, 1F),
                     ModFoods.COOKED_TROUT);
 
-    @BasicItem
+    @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
     public static final DeferredItem<MagicFluteItem> MAGIC_FLUTE =
             register("magic_flute", MagicFluteItem::stackTo1);
@@ -263,6 +265,5 @@ public class ModItems {
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
     public static final DeferredItem<Item> SALT =
             simpleItem("salt", p -> p.stacksTo(16), ModFoods.SALT);
-
 
 }
