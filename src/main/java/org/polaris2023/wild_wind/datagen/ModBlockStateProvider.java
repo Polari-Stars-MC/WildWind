@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -24,6 +25,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/glow_mucus_light9"),
             Helpers.location("block/glow_mucus_light12"),
             Helpers.location("block/glow_mucus_light15"),
+    };
+    public static final ResourceLocation[] BRITTLE_ICES = new ResourceLocation[] {
+            Helpers.location("block/brittle_ice_0"),
+            Helpers.location("block/brittle_ice_1"),
+            Helpers.location("block/brittle_ice_2"),
+            Helpers.location("block/brittle_ice_3")
     };
 
     @Override
@@ -51,15 +58,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
 
             }
             for (Integer possibleValue : GlowMucusBlock.LAYERS.getPossibleValues()) {
-                glow_mucus_model(glowMucusStates, value, possibleValue, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
+                glowMucusModel(glowMucusStates, value, possibleValue, i -> new ConfiguredModel(models().getExistingFile(GLOW_MUCUS_LIGHTS[i]), x.get(), y.get(), false));
             }
         }
 
         // Brittle Ice
-        simpleBlock(ModBlocks.BRITTLE_ICE.get());
+        VariantBlockStateBuilder brittleIceStates = getVariantBuilder(ModBlocks.BRITTLE_ICE.get());
+        for(int age : BrittleIceBlock.AGE.getPossibleValues()) {
+            for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {
+                brittleIceModel(brittleIceStates, age, unstable);
+            }
+        }
     }
 
-    private void glow_mucus_model(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {
+    private void glowMucusModel(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {
         glowMucusStates.addModels(
                 glowMucusStates
                         .partialState()
@@ -67,6 +79,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
                         .with(GlowMucusBlock.LAYERS, layers),
                 function.apply(layers - 1)
         );
+    }
 
+    private void brittleIceModel(VariantBlockStateBuilder brittleIceStates, int age, boolean unstable) {
+        brittleIceStates.addModels(
+                brittleIceStates.partialState().with(BrittleIceBlock.AGE, age).with(BrittleIceBlock.UNSTABLE, unstable),
+                new ConfiguredModel(models().getExistingFile(BRITTLE_ICES[age]))
+        );
     }
 }
