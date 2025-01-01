@@ -10,11 +10,14 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.IceBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -55,7 +58,7 @@ public class BrittleIceBlock extends IceBlock {
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
 		super.stepOn(level, pos, state, entity);
 
-		if (!level.isClientSide() && !level.getBlockTicks().willTickThisTick(pos, this)) {
+		if (!level.isClientSide() && !level.getBlockTicks().willTickThisTick(pos, this) && !entity.isSteppingCarefully()) {
 			level.scheduleTick(pos, this, 10);
 		}
 	}
@@ -69,7 +72,7 @@ public class BrittleIceBlock extends IceBlock {
 			this.crash(level, blockPos, null);
 			return;
 		}
-		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos);
+		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos) && !entity.isSteppingCarefully();
 		List<? extends Entity> entitiesOnBlock = level.getEntities(EntityTypeTest.forClass(LivingEntity.class), entityPredicate);
 		if(entitiesOnBlock.isEmpty()) {
 			if(age > 0) {
@@ -89,11 +92,11 @@ public class BrittleIceBlock extends IceBlock {
 
 	private void crash(ServerLevel level, BlockPos blockPos, @Nullable Entity entity) {
 		level.destroyBlock(blockPos, false, entity);
-		this.tryChainReactAt(level, blockPos.south());
-		this.tryChainReactAt(level, blockPos.east());
-		this.tryChainReactAt(level, blockPos.above());
-		this.tryChainReactAt(level, blockPos.north());
-		this.tryChainReactAt(level, blockPos.west());
+		//this.tryChainReactAt(level, blockPos.south());
+		//this.tryChainReactAt(level, blockPos.east());
+		//this.tryChainReactAt(level, blockPos.above());
+		//this.tryChainReactAt(level, blockPos.north());
+		//this.tryChainReactAt(level, blockPos.west());
 		this.tryChainReactAt(level, blockPos.below());
 	}
 
@@ -105,6 +108,16 @@ public class BrittleIceBlock extends IceBlock {
 				level.scheduleTick(blockPos, this, 2);
 			}
 		}
+	}
+
+	@Override
+	public void playerDestroy(Level level, Player player, BlockPos pos, BlockState state, @javax.annotation.Nullable BlockEntity te, ItemStack stack) {
+		super.playerDestroy(level, player, pos, state, te, stack);
+	}
+
+	@Override
+	protected void melt(BlockState state, Level level, BlockPos pos) {
+		level.removeBlock(pos, false);
 	}
 
 	@Override
