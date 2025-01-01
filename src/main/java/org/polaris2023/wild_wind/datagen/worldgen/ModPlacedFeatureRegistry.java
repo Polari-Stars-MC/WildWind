@@ -8,11 +8,12 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
+import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.List;
 
 public class ModPlacedFeatureRegistry {
-	public static final ResourceKey<PlacedFeature> BRITTLE_ICE = PlacementUtils.createKey("brittle_ice");
+	public static final ResourceKey<PlacedFeature> BRITTLE_ICE = ResourceKey.create(Registries.PLACED_FEATURE, Helpers.location("brittle_ice"));
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
