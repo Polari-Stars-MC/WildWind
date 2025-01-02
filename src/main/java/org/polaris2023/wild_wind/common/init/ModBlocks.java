@@ -8,6 +8,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -89,7 +90,8 @@ public class ModBlocks {
 
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
-            register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE).isValidSpawn(Blocks::never).noLootTable());
+            register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
+                    .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
     @BasicBlockItem
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
