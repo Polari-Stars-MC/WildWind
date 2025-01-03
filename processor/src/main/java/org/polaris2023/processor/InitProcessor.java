@@ -18,7 +18,6 @@ import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.tools.Diagnostic;
-import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
@@ -62,11 +61,6 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new ModelProcessor(environment));
     }
 
-    public static final MethodSpec.Builder MODEL_INIT = MethodSpec
-            .methodBuilder("init")
-            .addModifiers(Modifier.PUBLIC)
-            .returns(TypeName.VOID);
-
     /**
      * {@inheritDoc}
      *
@@ -87,12 +81,8 @@ public class InitProcessor extends AbstractProcessor {
                     .append("\t\t\t.setTargetLanguage(\"%s\")".formatted(lang))
                     .append("\n")
                     .append(code));
-            saveAndAddServiceCode("org.polaris2023.wild_wind.datagen.custom", "LanguageProviderWildWind",Codes.LanguageProvider.code()
-                    .replace("%%init%%", language_init.toString()), "org.polaris2023.wild_wind.util.interfaces.ILanguage");
-            saveAndAddServiceCode("org.polaris2023.wild_wind.datagen.custom", "ModelProviderWildWind", Codes.ModelProvider.code()
-                    .replace("%%init%%", ModelProcessor.MODEL.toString()), "org.polaris2023.wild_wind.util.interfaces.IModel");
-//            saveAndAddService(Types.LanguageProviderWildWind,List.of(MethodTypes.LANGUAGE_INIT), "org.polaris2023.wild_wind.util.interfaces.ILanguage");
-//            saveAndAddService(Types.ModelProviderWildWind,List.of(MethodTypes.MODEL_INIT), "org.polaris2023.wild_wind.util.interfaces.IModel");
+            Codes.LanguageProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.ILanguage", language_init);
+            Codes.ModelProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.IMode", ModelProcessor.MODEL);
             servicesSave();
             ONLY_ONCE.set(false);
         }
@@ -114,21 +104,6 @@ public class InitProcessor extends AbstractProcessor {
 //            tree.body.stats = tree.body.stats.prepend(jcStatement);
 //    }
 
-
-    private void saveAndAddServiceCode(String packageName,String classname, String code, String services_className) {
-        try {
-            String qName = "%s.%s".formatted(packageName, classname);
-            JavaFileObject sourceFile = filer.createSourceFile(qName);
-            try(Writer writer = sourceFile.openWriter()) {
-                writer.write(code.replace("%%classname%%", classname).replace("%%package%%", packageName));
-            }
-
-            InitProcessor.add(services_className, qName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
 
     private void servicesSave() {
         for (Map.Entry<String, StringBuilder> entry : SERVICES.entrySet()) {
