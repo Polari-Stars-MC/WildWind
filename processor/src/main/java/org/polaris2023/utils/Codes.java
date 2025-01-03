@@ -1,5 +1,12 @@
 package org.polaris2023.utils;
 
+import org.polaris2023.processor.InitProcessor;
+
+import javax.annotation.processing.Filer;
+import javax.tools.JavaFileObject;
+import java.io.IOException;
+import java.io.Writer;
+
 public enum Codes {
     ModelProvider(
             """
@@ -229,7 +236,9 @@ public enum Codes {
                     return this;
                 }
             }
-            """.stripIndent()
+            """.stripIndent(),
+            "org.polaris2023.wild_wind.datagen.custom",
+            "ModelProviderWildWind"
     ),
     LanguageProvider("""
             package %%package%%;
@@ -333,14 +342,39 @@ public enum Codes {
                     %%init%%;
                 }
             }
-            """.stripIndent());
+            """.stripIndent(),
+            "org.polaris2023.wild_wind.datagen.custom",
+            "LanguageProviderWildWind"
+    );
     private final String code;
+    private final String packageName;
+    private final String classname;
 
-    Codes(String code) {
+    Codes(String code, String packageName, String classname) {
         this.code = code;
+        this.packageName = packageName;
+        this.classname = classname;
     }
 
     public String code() {
         return code;
+    }
+
+    public void saveAndAddServiceCode(Filer filer, String services_className, Object init) {
+        try {
+            String qName = "%s.%s".formatted(packageName, classname);
+            JavaFileObject sourceFile = filer.createSourceFile(qName);
+            try(Writer writer = sourceFile.openWriter()) {
+                writer.write(code
+                        .replace("%%classname%%", classname)
+                        .replace("%%package%%", packageName)
+                        .replace("%%init%%", init.toString()));
+            }
+
+            InitProcessor.add(services_className, qName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }
