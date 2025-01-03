@@ -25,7 +25,7 @@ public class ModBiomeModifierRegistry {
 		context.register(BRITTLE_ICE, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_COLD_OVERWORLD),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.BRITTLE_ICE)),
-				GenerationStep.Decoration.VEGETAL_DECORATION)
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
 		);
 	}
 }
