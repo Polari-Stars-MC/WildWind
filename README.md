@@ -2,7 +2,7 @@
 # WildWind
 A Minecraft Mod for Vanilla Expandability
 
-## Processor tutorial
+## Annotation Processor tutorial
 
 
 ```java
