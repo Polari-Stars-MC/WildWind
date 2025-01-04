@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title id="title.key"></title>
+
+    <script language="JavaScript" id="GetArgsParam">
+        function UrlSearch() {
+            let name,value;
+            let str=location.href;
+            let num = str.indexOf("?");
+            str=str.substring(num+1);
+            const arr = str.split("&");
+            for(let i=0;i < arr.length;i++) {
+                num=arr[i].indexOf("=");
+                if (num>0) {
+                    name=arr[i].substring(0, num);
+                    value=arr[i].substring(num+1);
+                    this[name]=value;
+                }
+            }
+        }
+
+        function getKey(key) {
+            let Request = new UrlSearch();
+            for (let requestKey in Request) {
+                if (requestKey === key) {
+                    return Request[requestKey]
+                }
+            }
+        }
+    </script>
+
+    <script language="JavaScript">
+        function loadJson() {
+            let xhr = new XMLHttpRequest();
+            xhr.open('Get', 'language.json', true)
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let data = JSON.parse(xhr.responseText)
+                    let language = getKey("language");
+                    if (language == null) {
+                        language = "en_us"
+                    }
+                    let d = data[language]
+                    for (let dKey in d) {
+                        document.getElementById(dKey).innerHTML = d[dKey];
+                    }
+                }
+            }
+            xhr.send()
+        }
+        loadJson()
+    </script>
+</head>
+
+<body>
+
+<h1 id="synopsis.key"></h1>
+<pre id="synopsis.note.key"></pre>
+<h2 id="annotation.processor.tutorial.key"></h2>
+<details>
+    <summary id="auto.config.generated.tutorial.key"></summary>
+    <pre>
+@AutoConfig(modid = WildWindMod.MOD_ID)
+@Push("wild-wind-common")
+@Note({
+        "Wild wind common ->",
+        "\tfirefly age?"
+})
+public class TutorialConfig {
+    @org.polaris2023.annotation.config.Note("firefly age")
+    @DefineIntRange(defaultValue = 24000, min = 2000, max = 24000)
+    public static int FIREFLY_AGE;
+
+    @org.polaris2023.annotation.config.SubConfig
+    public static class SubConfig {
+        @DefineIntRange(defaultValue = 80, min = 0, max = 65536)
+        public static int OVERWORLD_BIOMES_WEIGHT;
+        @DefineIntRange(defaultValue = 80, min = 0, max = 65536)
+        public static int NETHER_BIOMES_WEIGHT;
+    }
+}
+    </pre>
+    <h3 style="color: red" id="auto.config.generated.warn.key"></h3>
+    <h4 style="color: red" id="auto.config.generated.warn.key.1"></h4>
+    <pre style="color:red; font-size: 15px">
+    &nbsp;&nbsp;&nbsp;&nbsp;int<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;enum<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;string<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;float<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;double<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;short<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;boolean<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;long
+    </pre>
+</details>
+<details>
+    <summary id="model.generated.tutorial.key"></summary>
+    <pre>
+@org.polaris2023.annotation.modelgen.item.BasicItem
+private static final T o;
+@org.polaris2023.annotation.modelgen.item.SpawnEggItem
+private static final T o2;
+    </pre>
+    <h3 style="color: red" id="model.generated.warn.key"></h3>
+    <h4 style="color: red" id="model.generated.warn.key.1"></h4>
+    <pre>
+    &nbsp;&nbsp;&nbsp;&nbsp;DeferredHolder&lt;Item, T&gt;<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Supplier&lt;T&gt;
+    </pre>
+    <h4 style="color: red" id="model.generated.warn.key.2"></h4>
+    <h4 style="color: red" id="model.generated.warn.key.3"></h4>
+    <h4 style="color: red" id="model.generated.warn.key.4"></h4>
+</details>
+<details>
+    <summary id="language.generated.tutorial.key"></summary>
+    <h3 style="color: red" id="language.generated.warn.key"></h3>
+    <h4 style="color: red" id="language.generated.warn.key.1"></h4>
+    <pre>
+    &nbsp;&nbsp;&nbsp;&nbsp;String<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;SoundEvent<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;DeferredHolder<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Supplier<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Item<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;Block<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;EntityType<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;TranslatableContents<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;MobEffect<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;CreativeModeTab<br>
+    &nbsp;&nbsp;&nbsp;&nbsp;ItemStack
+    </pre>
+    <h4 style="color: red" id="language.generated.warn.key.2"></h4>
+</details>
+<h2 id="developer.related.key" style="color: purple"></h2>
+<h4 id="developer.related.key.1" style="color: purple"></h4>
+<h4 id="developer.related.key.1.1" style="color: purple"></h4>
+<h4 id="developer.related.key.2" style="color: purple"></h4>
+<h4 id="developer.related.key.2.1" style="color: purple"></h4>
+</body>
+
+</html>
