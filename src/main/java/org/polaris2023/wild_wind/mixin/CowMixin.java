@@ -1,5 +1,7 @@
 package org.polaris2023.wild_wind.mixin;
 
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
@@ -12,13 +14,12 @@ import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Cow.class)
 @Debug(export = true)
 public abstract class CowMixin extends Animal {
-
-
     protected CowMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -33,5 +34,10 @@ public abstract class CowMixin extends Animal {
             cir.cancel();
         }
         entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, 6000);
+    }
+
+    @Inject(method = "<clinit>", at = @At(value = "TAIL"))
+    private static void defineEntityDataAccessors(CallbackInfo ci) {
+        ModEntityDataAccess.MILKING_INTERVALS_BY_COW = SynchedEntityData.defineId(Cow.class, EntityDataSerializers.INT);
     }
 }
