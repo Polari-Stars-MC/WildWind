@@ -1,8 +1,8 @@
 [versions]
 terrablender-version="1.21.1-4.1.0.5"
 jei-version="19.21.0.247"
-eye-lib-version="21.1.5"
-mod-dev-gradle-version="2.0.61-beta"
+eye-lib-version="21.1.7"
+mod-dev-gradle-version="2.0.73"
 repositories-setting="""
 GeckoLib -> https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/
     --> software.bernie.geckolib
