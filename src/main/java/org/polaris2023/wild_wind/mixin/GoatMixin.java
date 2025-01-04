@@ -1,11 +1,13 @@
 package org.polaris2023.wild_wind.mixin;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -51,4 +53,8 @@ public abstract class GoatMixin extends Animal {
         entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT, 6000);
     }
 
+    @Inject(method = "<clinit>", at = @At(value = "TAIL"))
+    private static void defineEntityDataAccessors(CallbackInfo ci) {
+        ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT = SynchedEntityData.defineId(Goat.class, EntityDataSerializers.INT);
+    }
 }

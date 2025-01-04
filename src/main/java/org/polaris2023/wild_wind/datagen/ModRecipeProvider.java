@@ -19,6 +19,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
+import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
@@ -74,10 +75,19 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addShapedRecipe() {
-        add(shaped(RecipeCategory.MISC, ModItems.MAGIC_FLUTE, 1, magic_flute -> {
-            unlockedBy(magic_flute, Items.BONE);
-            unlockedBy(magic_flute, ModItems.LIVING_TUBER);
-            magic_flute
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
+            unlockedBy(builder, ModBlocks.BRITTLE_ICE_ITEM);
+            builder
+                    .pattern("III")
+                    .pattern("III")
+                    .pattern("III")
+                    .group("ice")
+                    .define('I', ModBlocks.BRITTLE_ICE_ITEM);
+        }), Helpers.location("ice_from_brittle_ice"));
+        add(shaped(RecipeCategory.MISC, ModItems.MAGIC_FLUTE, 1, builder -> {
+            unlockedBy(builder, Items.BONE);
+            unlockedBy(builder, ModItems.LIVING_TUBER);
+            builder
                     .pattern("BRB")
                     .group("magic_flute")
                     .define('B', Items.BONE)
@@ -265,6 +275,9 @@ public class ModRecipeProvider extends RecipeProvider {
 
     public void add(RecipeBuilder builder) {
         list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()), builder);
+    }
+    public void add(RecipeBuilder builder, ResourceLocation name) {
+        list.put(name, builder);
     }
 
     public void add(RecipeBuilder builder, String sufPath) {

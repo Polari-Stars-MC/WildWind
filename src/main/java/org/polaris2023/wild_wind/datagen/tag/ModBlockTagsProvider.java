@@ -10,6 +10,7 @@ import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -28,8 +29,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        IntrinsicTagAppender<Block> tag = tag(ModBlockTags.FIREFLY_ROOST_BLOCK.get());
-        tag.add(
+        IntrinsicTagAppender<Block> fireflyRoost = tag(ModBlockTags.FIREFLY_ROOST_BLOCK.get());
+        fireflyRoost.add(
                 Blocks.TALL_GRASS,
                 Blocks.SHORT_GRASS,
                 Blocks.FERN,
@@ -38,6 +39,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 Blocks.MANGROVE_PROPAGULE,
                 Blocks.POTTED_MANGROVE_PROPAGULE
         );
-        tag.addTag(BlockTags.FLOWERS);
+        fireflyRoost.addTag(BlockTags.FLOWERS);
+
+        tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(ModBlocks.BRITTLE_ICE.get());
     }
 }

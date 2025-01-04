@@ -11,8 +11,8 @@ public final class RandomUtil {
 			this.pdf = pdf;
 			this.length = length;
 		}
-		public GaussianMixture2D(long seed, int length, int mix) {
-			this(buildPDF(seed, length, mix), length);
+		public GaussianMixture2D(long seed, int length, int mix, double minSig, double maxSig) {
+			this(buildPDF(seed, length, mix, minSig, maxSig), length);
 		}
 
 		private static void addGaussian(double[][] destination, int length, double mu1, double mu2, double sig1, double sig2, double cov) {
@@ -28,24 +28,27 @@ public final class RandomUtil {
 			}
 		}
 
-		private static final double MIN_SIG = 2.0D;
-		private static final double MAX_SIG = 8.0D;
 		private static final double MAX_R = 0.8D;
-		private static double[][] buildPDF(long seed, int length, int mix) {
+		private static double[][] buildPDF(long seed, int length, int mix, double minSig, double maxSig) {
 			double[][] pdf = new double[length][length];
+			Random random = new Random(seed);
+			double mu1 = random.nextDouble() * length * 0.75D + length * 0.125D;
+			double mu2 = random.nextDouble() * length * 0.75D + length * 0.125D;
 			for(int i = 0; i < length; ++i) {
+				double x = i - mu1;
 				for(int j = 0; j < length; ++j) {
-					pdf[i][j] = Math.pow(2.0D * Math.PI, -1.0D) / 5.0D * Math.exp(-0.05D * (i * i + j * j));
+					double y = j - mu2;
+					pdf[i][j] = Math.pow(2.0D * Math.PI, -1.0D) / 5.0D * Math.exp(-0.05D * (x * x + y * y));
 				}
 			}
-			Random random = new Random(seed);
 			for(int ignored = 0; ignored < mix; ++ignored) {
-				double sig1 = random.nextDouble() * (MAX_SIG - MIN_SIG) + MIN_SIG;
-				double sig2 = random.nextDouble() * (MAX_SIG - MIN_SIG) + MIN_SIG;
+				double sig1 = random.nextDouble() * (maxSig - minSig) + minSig;
+				double sig2 = random.nextDouble() * (maxSig - minSig) + minSig;
 				double bound = Math.pow(sig1 * sig2, 0.5D);
 				addGaussian(
 						pdf, length,
-						random.nextDouble() * length, random.nextDouble() * length,
+						random.nextDouble() * length * 0.75D + length * 0.125D,
+						random.nextDouble() * length * 0.75D + length * 0.125D,
 						sig1, sig2, (random.nextDouble() * MAX_R * 2.0D - MAX_R) * bound
 				);
 			}
