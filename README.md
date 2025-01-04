@@ -1,23 +1,3 @@
-<script language="JavaScript">
-function UrlSearch() {
-    let name,value;
-    let str=location.href;
-    let num = str.indexOf("?");
-    str=str.substring(num+1);
-    const arr = str.split("&");
-    for(let i=0;i < arr.length;i++) {
-        num= arr[i].indexOf("=");
-        if (num>0) {
-            name=arr[i].substring(0, num);
-            value=arr[i].substring(num+1);
-            this[name]=value;
-        }
-    }
-    let Request = new UrlSearch();
-    alert(Request.id)
-
-}
-</script>
 
 # WildWind
 A Minecraft Mod for Vanilla Expandability
