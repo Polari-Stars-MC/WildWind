@@ -19,7 +19,7 @@ public class ModPlacedFeatureRegistry {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
 		PlacementUtils.register(
 				context, BRITTLE_ICE, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.BRITTLE_ICE),
-				orePlacement(CountPlacement.of(2), HeightRangePlacement.uniform(VerticalAnchor.absolute(60), VerticalAnchor.absolute(63)))
+				orePlacement(CountPlacement.of(2), HeightRangePlacement.uniform(VerticalAnchor.absolute(60), VerticalAnchor.absolute(67)))
 		);
 	}
 
