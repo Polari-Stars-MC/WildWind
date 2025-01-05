@@ -13,7 +13,6 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.polaris2023.wild_wind.common.init.ModEnchantments;
-import org.polaris2023.wild_wind.datagen.model.ModBlockModelProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModEntityTypeTagsProvider;
 import org.polaris2023.wild_wind.datagen.tag.ModInstrumentTagsProvider;
@@ -49,7 +48,6 @@ public class ModDataGenerator {
         }
 
         gen.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(pack, helper));
-        gen.addProvider(event.includeClient(), new ModBlockModelProvider(pack, helper));
         for (IModel<?> model : ServiceLoader.load(IModel.class)) {
             gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(pack));
         }
