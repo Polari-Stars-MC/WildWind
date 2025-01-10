@@ -1,7 +1,6 @@
 package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import net.minecraft.advancements.critereon.ItemDurabilityTrigger;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -27,14 +26,11 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -49,7 +45,6 @@ import org.polaris2023.wild_wind.util.TeleportUtil;
 
 import java.util.List;
 import java.util.function.Supplier;
-import java.util.stream.Stream;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class WildWindGameEventHandler {
@@ -122,6 +117,7 @@ public class WildWindGameEventHandler {
     public static void playerBreakBlock(BlockEvent.BreakEvent event) {
         Player player = event.getPlayer();
         if (event.getLevel() instanceof  ServerLevel serverLevel) {
+
             ItemStack mainHandItem = player.getMainHandItem();
             if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.SMELTING.get())) {
                 BlockPos pos = event.getPos();

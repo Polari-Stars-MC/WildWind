@@ -11,8 +11,6 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentEffectComponents;
-import net.minecraft.world.item.enchantment.effects.RemoveBinomial;
 import net.minecraft.world.level.block.Block;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -23,7 +21,7 @@ public enum ModEnchantments implements Supplier<ResourceKey<Enchantment>> {
     SMELTING((location, hg, hg1, hg2, hg3) -> Enchantment.enchantment(
             Enchantment.definition(
                     hg2.getOrThrow(ItemTags.MINING_ENCHANTABLE),
-                    2,
+                    1,//权重比时运低，优先触发时运
                     1,
                     Enchantment.constantCost(25),
                     Enchantment.constantCost(50),
@@ -54,7 +52,6 @@ public enum ModEnchantments implements Supplier<ResourceKey<Enchantment>> {
 
     ModEnchantments(String name, Function5<ResourceLocation, HolderGetter<DamageType>, HolderGetter<Enchantment>, HolderGetter<Item>, HolderGetter<Block>, Enchantment.Builder> builder) {
         this.key = key(name);
-
         this.builder = builder;
     }
 
