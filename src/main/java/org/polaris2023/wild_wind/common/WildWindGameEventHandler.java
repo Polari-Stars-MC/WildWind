@@ -1,9 +1,13 @@
 package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -22,22 +26,25 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
-import org.polaris2023.wild_wind.common.init.ModComponents;
+import org.polaris2023.wild_wind.common.init.*;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
-import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
-import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.ModSounds;
+import org.polaris2023.wild_wind.util.EnchantmentHelper;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 import org.polaris2023.wild_wind.util.TeleportUtil;
 
@@ -108,7 +115,55 @@ public class WildWindGameEventHandler {
         ResourceLocation currentVillagerProfession = RegistryUtil.getDefaultRegisterName(event.getType());
         //TODO: add villager trades
         if(VANILLA_FISHERMAN.equals(currentVillagerProfession)) {
+        }
+    }
 
+    @SubscribeEvent
+    public static void playerUseItem(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        //common code
+
+
+        // end common code
+        if (!(player.level() instanceof ServerLevel serverLevel)) return;
+        // server code
+        ItemStack resultStack = event.getResultStack();
+        if (resultStack.has(DataComponents.DAMAGE) && EnchantmentHelper.hasEnchantment(serverLevel, resultStack, ModEnchantments.RUSTY.get())) {
+            ItemEnchantments enchantments = resultStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+            if (!enchantments.isEmpty()) {
+                for (var entry : enchantments.entrySet()) {
+                    ResourceKey<Enchantment> key = entry.getKey().getKey();
+                    if (key != null && key.isFor(ModEnchantments.RUSTY.get().registryKey())) {
+                        int level = entry.getIntValue();// 0 1 2
+                        resultStack.setDamageValue(resultStack.getDamageValue() + level + 1);
+                    }
+                }
+            }
+
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerBreakBlock(BlockEvent.BreakEvent event) {
+        Player player = event.getPlayer();
+        if (event.getLevel() instanceof  ServerLevel serverLevel) {
+
+            ItemStack mainHandItem = player.getMainHandItem();
+            if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.SMELTING.get())) {
+                BlockPos pos = event.getPos();
+
+                //获取掉落物
+                List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
+                for (ItemStack drop : drops) {
+                    serverLevel
+                            .getRecipeManager()
+                            .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
+                                Block.popResource(serverLevel, pos, h.value().getResultItem(serverLevel.registryAccess()));
+                            }, () -> {
+                                Block.popResource(serverLevel, pos, drop);
+                            });
+                }
+            }
         }
     }
 
