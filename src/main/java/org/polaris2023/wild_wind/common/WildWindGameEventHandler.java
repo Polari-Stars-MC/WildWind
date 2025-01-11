@@ -1,10 +1,13 @@
 package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -24,6 +27,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.gameevent.GameEvent;
@@ -110,6 +115,31 @@ public class WildWindGameEventHandler {
         ResourceLocation currentVillagerProfession = RegistryUtil.getDefaultRegisterName(event.getType());
         //TODO: add villager trades
         if(VANILLA_FISHERMAN.equals(currentVillagerProfession)) {
+        }
+    }
+
+    @SubscribeEvent
+    public static void playerUseItem(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof Player player)) return;
+        //common code
+
+
+        // end common code
+        if (!(player.level() instanceof ServerLevel serverLevel)) return;
+        // server code
+        ItemStack resultStack = event.getResultStack();
+        if (resultStack.has(DataComponents.DAMAGE) && EnchantmentHelper.hasEnchantment(serverLevel, resultStack, ModEnchantments.RUSTY.get())) {
+            ItemEnchantments enchantments = resultStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+            if (!enchantments.isEmpty()) {
+                for (var entry : enchantments.entrySet()) {
+                    ResourceKey<Enchantment> key = entry.getKey().getKey();
+                    if (key != null && key.isFor(ModEnchantments.RUSTY.get().registryKey())) {
+                        int level = entry.getIntValue();// 0 1 2
+                        resultStack.setDamageValue(resultStack.getDamageValue() + level + 1);
+                    }
+                }
+            }
+
         }
     }
 
