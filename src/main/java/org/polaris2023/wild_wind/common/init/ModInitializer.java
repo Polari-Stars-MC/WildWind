@@ -152,7 +152,6 @@ public class ModInitializer {
 
     static DeferredBlock<Block> register(String name) {
         return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
-
     }
 
     static <T extends Block> DeferredBlock<T> register(String name, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties) {

@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.datagen.loot;
 
-import com.google.common.reflect.TypeToken;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
