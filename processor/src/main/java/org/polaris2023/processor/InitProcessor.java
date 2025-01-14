@@ -82,7 +82,7 @@ public class InitProcessor extends AbstractProcessor {
                     .append("\n")
                     .append(code));
             Codes.LanguageProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.ILanguage", language_init);
-            Codes.ModelProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.IMode", ModelProcessor.MODEL);
+            Codes.ModelProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.IModel", ModelProcessor.MODEL);
             servicesSave();
             ONLY_ONCE.set(false);
         }

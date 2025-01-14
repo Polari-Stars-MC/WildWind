@@ -60,12 +60,13 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addSmeltingRecipes() {
-        add(smelting(ModItems.RAW_TROUT, RecipeCategory.FOOD, ModItems.COOKED_TROUT, 0.35F));
-        add(smelting(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F));
-        add(smelting(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.BAKED_LIVING_TUBER, 0.35F));
-        add(smelting(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F));// input category result exp
-        add(smelting(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F));
-        add(smelting(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F));
+        smeltingSmokingAndCampfire(ModItems.RAW_TROUT, RecipeCategory.FOOD, ModItems.COOKED_TROUT, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.BAKED_LIVING_TUBER, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
+        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F);
+        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F);
+
     }
 
     public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
@@ -255,22 +256,104 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
     }
 
+    public static SimpleCookingRecipeBuilder smoking(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp, int cookingTime
+    ) {
+        ItemStack[] items = input.getItems();
+        Item item = items[0].getItem();
+        return SimpleCookingRecipeBuilder.smoking(input, category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
+    }
+
+    public static SimpleCookingRecipeBuilder campfire(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp, int cookingTime
+    ) {
+        ItemStack[] items = input.getItems();
+        Item item = items[0].getItem();
+        return SimpleCookingRecipeBuilder.campfireCooking(input, category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
+    }
+
+    public static SimpleCookingRecipeBuilder campfire(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return  campfire(input, category, result, exp, 200);
+    }
+
+    public static SimpleCookingRecipeBuilder campfire(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp, int cookingTime
+    ) {
+        return SimpleCookingRecipeBuilder.campfireCooking(Ingredient.of(input), category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
+    }
+
+    public static SimpleCookingRecipeBuilder campfire(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return campfire(input, category, result, exp,200);
+    }
+
     public static SimpleCookingRecipeBuilder smelting(
             ItemLike input, RecipeCategory category, ItemLike result, float exp, int cookingTime
     ) {
         return SimpleCookingRecipeBuilder.smelting(Ingredient.of(input), category, result, exp, cookingTime)
                 .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
     }
+
+    public static SimpleCookingRecipeBuilder smoking(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp, int cookingTime) {
+        return SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
+    }
+
+    public void smeltingAndSmoking(Ingredient input, RecipeCategory category, ItemLike result, float exp) {
+        add(smelting(input, category, result, exp));
+        add(smoking(input, category, result, exp), "smoking/");
+    }
+
+    public void smeltingSmokingAndCampfire(Ingredient input, RecipeCategory category, ItemLike result, float exp) {
+        add(smelting(input, category, result, exp));
+        add(smoking(input, category, result, exp), "smoking/");
+        add(campfire(input, category, result, exp), "campfire/");
+    }
+
+
+
     public static SimpleCookingRecipeBuilder smelting(
             Ingredient input, RecipeCategory category, ItemLike result, float exp
     ) {
         return  smelting(input, category, result, exp, 200);
     }
 
+    public static SimpleCookingRecipeBuilder smoking(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return  smoking(input, category, result, exp, 200);
+    }
+
+    public void smeltingAndSmoking(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        add(smelting(input, category, result, exp));
+        add(smoking(input, category, result, exp), "smoking/");
+    }
+
+    public void smeltingSmokingAndCampfire(ItemLike input, RecipeCategory category, ItemLike result, float exp) {
+        add(smelting(input, category, result, exp));
+        add(smoking(input, category, result, exp), "smoking/");
+        add(campfire(input, category, result, exp), "campfire/");
+    }
+
     public static SimpleCookingRecipeBuilder smelting(
             ItemLike input, RecipeCategory category, ItemLike result, float exp
     ) {
         return smelting(input, category, result, exp,200);
+    }
+
+    public static SimpleCookingRecipeBuilder smoking(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return smoking(input, category, result, exp, 200);
     }
 
     public void add(RecipeBuilder builder) {
@@ -280,8 +363,12 @@ public class ModRecipeProvider extends RecipeProvider {
         list.put(name, builder);
     }
 
-    public void add(RecipeBuilder builder, String sufPath) {
-        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withSuffix(sufPath), builder);
+    public void add(RecipeBuilder builder, String prePath) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withPrefix(prePath), builder);
+    }
+
+    public void add(RecipeBuilder builder, String prePath, String sufPath) {
+        list.put(BuiltInRegistries.ITEM.getKey(builder.getResult()).withPrefix(prePath).withSuffix(sufPath), builder);
     }
 
     public void add(String prePath,RecipeBuilder builder) {
