@@ -42,5 +42,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         fireflyRoost.addTag(BlockTags.FLOWERS);
 
         tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(ModBlocks.BRITTLE_ICE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get());
     }
 }
