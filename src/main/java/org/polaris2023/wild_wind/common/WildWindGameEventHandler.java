@@ -1,9 +1,7 @@
 package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
-import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -13,7 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
@@ -24,7 +21,6 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -37,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -55,6 +50,8 @@ import org.polaris2023.wild_wind.util.TeleportUtil;
 
 import java.util.List;
 import java.util.function.Supplier;
+
+import static org.polaris2023.wild_wind.common.Dyed.handler.RightClickHandler.rightClick;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class WildWindGameEventHandler {
@@ -248,14 +245,8 @@ public class WildWindGameEventHandler {
         BlockPos pos = event.getPos();
         BlockState blockState = level.getBlockState(pos);
 
-
-        if (!level.isClientSide || blockState.is(Tags.Blocks.DYED)){
-          if (itemStack.getItem() instanceof DyeItem) {
-              player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()));
-              System.out.println("Right Click Block");
-          }
-        }
-
+        rightClick(player, level, itemStack, pos, blockState);
+        event.setCanceled(true);
 
     }
 
