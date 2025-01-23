@@ -1,28 +1,38 @@
 package org.polaris2023.wild_wind.common.Dyed.handler;
 
-import net.minecraft.client.renderer.block.model.BlockModelDefinition;
+import net.minecraft.commands.arguments.CompoundTagArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.util.datafix.fixes.EntityCustomNameToComponentFix;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.HitResult;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.Dyed.DyedBlockMap;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Stream;
 
 public class RightClickHandler {
 
@@ -103,8 +113,7 @@ public class RightClickHandler {
         bannerBlock.add(Blocks.YELLOW_BANNER);
     }
 
-    public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState) {
-        System.out.println("right click");
+    public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
         DyedBlockMap dyedBlockMap = new DyedBlockMap();
         Map<DyeColor, Block> dyedBlock = null;
         switch (blockType(blockState)) {
@@ -147,23 +156,90 @@ public class RightClickHandler {
 
         }
 
-        if(dyedBlock !=null & dyedBlock !=dyedBlockMap.getDyedBlock("BED")){
+        if(dyedBlock !=null){
             DyeColor dyeColor = DyeColor.getColor(itemStack);
             Block dyedBlockInstance = dyedBlock.get(dyeColor);
+//            if (dyedBlockInstance != null & dyeColor != null) {
+//                //保存方块状态
+//                BlockState newBlockStateProperties = dyedBlockInstance.withPropertiesOf(blockState);
+//                System.out.println(newBlockStateProperties+"--------------");
+//                level.setBlockAndUpdate(pos,newBlockStateProperties);
+//                player.swing(InteractionHand.MAIN_HAND);
+//                if(!player.isCreative()){
+//                    itemStack.shrink(1);
+//                }
+//                level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+//                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+//                event.setCanceled(true);
+//
+//            }
             if (dyedBlockInstance != null & dyeColor != null) {
-                //保存方块状态
                 BlockState newBlockStateProperties = dyedBlockInstance.withPropertiesOf(blockState);
-                System.out.println(newBlockStateProperties+"--------------");
-                level.setBlockAndUpdate(pos,newBlockStateProperties);
-                player.swing(InteractionHand.MAIN_HAND);
-                if(!player.isCreative()){
-                    itemStack.shrink(1);
+
+                if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
+                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
+                    if (DyeColor.getColor(itemStack) != bedEntity.getColor()) {
+                        System.out.println(bedEntity.getColor());
+                        handleDyedBed(player ,itemStack, blockState, level, pos, newBlockStateProperties);
+                        System.out.println(bedEntity.getColor());
+                        event.setCanceled(true);
+                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+                    }
+
+                } else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
+                    if (player.isCrouching()){
+                        handleDyedShulkerBox(level, pos, newBlockStateProperties);
+                        if(!player.isCreative()){
+                            itemStack.shrink(1);
+                        }
+                        event.setCanceled(true);
+                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+                    }
+                } else {
+                    level.setBlockAndUpdate(pos,newBlockStateProperties);
+                    event.setCanceled(true);
+
+                    player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+                    level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
                 }
-                level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
             }
-        }else {
-            return;
+        }
+
+    }
+
+    private static void handleDyedBed(Player player,ItemStack itemStack, BlockState blockState, Level level, BlockPos pos,BlockState newBlockStateProperties){
+        BedBlock newBedBlock = (BedBlock) newBlockStateProperties.getBlock();
+//        newBedBlock.setPlacedBy(level, pos, newBlockStateProperties, player, Items.BLUE_BED.getDefaultInstance());
+//        ItemStack newBedItem = blockState.getBlock().getCloneItemStack(level, pos, blockState);
+
+
+    }
+
+    private static void handleDyedShulkerBox(Level level, BlockPos pos, BlockState newBlockStateProperties) {
+        ShulkerBoxBlockEntity shulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
+        List<ItemStack> items = new ArrayList<>();
+        // 获取 HolderLookup.Provider
+        HolderLookup.Provider provider = level.registryAccess();
+        for (int i = 0; i < shulkerBoxEntity.getContainerSize(); i++) {
+//            System.out.println(shulkerBoxEntity.getItem(i));
+            items.add(shulkerBoxEntity.getItem(i));
+//            System.out.println(items);
+        }
+        CompoundTag oldTag = shulkerBoxEntity.saveWithFullMetadata(provider);
+//
+//        System.out.println(oldTag.getString("CustomName"));
+//        System.out.println(oldTag);
+//
+//        System.out.println("---------------");
+        level.setBlockAndUpdate(pos, newBlockStateProperties);
+        ShulkerBoxBlockEntity newShulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
+
+//        newShulkerBoxEntity.setCustomName();
+
+        for (int i = 0; i < items.size(); i++) {
+            newShulkerBoxEntity.setItem(i, items.get(i));
         }
 
     }

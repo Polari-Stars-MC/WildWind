@@ -12,8 +12,10 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
@@ -52,7 +54,9 @@ import org.polaris2023.wild_wind.util.EnchantmentHelper;
 import org.polaris2023.wild_wind.util.RegistryUtil;
 import org.polaris2023.wild_wind.util.TeleportUtil;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.common.Dyed.handler.RightClickHandler.rightClick;
@@ -244,17 +248,22 @@ public class WildWindGameEventHandler {
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
 
         Player player = event.getEntity();
-        Level level = player.getCommandSenderWorld();
+        Level level = player.level();
         ItemStack itemStack = player.getMainHandItem();
         BlockPos pos = event.getPos();
         BlockState blockState = level.getBlockState(pos);
 
-        if(itemStack.getItem() instanceof DyeItem){
-            if (!level.isClientSide) {
-                rightClick(player, level, itemStack, pos, blockState);
-                event.setCanceled(true);
-            }
+        if (event.getHand() == InteractionHand.MAIN_HAND){
+            if(itemStack.getItem() instanceof DyeItem){
+                if (!level.isClientSide) {
+                    System.out.println("right click server");
+                    rightClick(player, level, itemStack, pos, blockState,event);
 
+                }
+                else {
+                    System.out.println("right click client");
+                }
+        }
         }
 
 
