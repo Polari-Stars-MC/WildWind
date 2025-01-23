@@ -1,38 +1,26 @@
 package org.polaris2023.wild_wind.common.Dyed.handler;
 
-import net.minecraft.commands.arguments.CompoundTagArgument;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.datafix.fixes.EntityCustomNameToComponentFix;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BaseContainerBlockEntity;
-import net.minecraft.world.level.block.entity.BedBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.HitResult;
-import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.Dyed.DyedBlockMap;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 public class RightClickHandler {
 
@@ -159,48 +147,41 @@ public class RightClickHandler {
         if(dyedBlock !=null){
             DyeColor dyeColor = DyeColor.getColor(itemStack);
             Block dyedBlockInstance = dyedBlock.get(dyeColor);
-//            if (dyedBlockInstance != null & dyeColor != null) {
-//                //保存方块状态
-//                BlockState newBlockStateProperties = dyedBlockInstance.withPropertiesOf(blockState);
-//                System.out.println(newBlockStateProperties+"--------------");
-//                level.setBlockAndUpdate(pos,newBlockStateProperties);
-//                player.swing(InteractionHand.MAIN_HAND);
-//                if(!player.isCreative()){
-//                    itemStack.shrink(1);
-//                }
-//                level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-//                player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-//                event.setCanceled(true);
-//
-//            }
             if (dyedBlockInstance != null & dyeColor != null) {
                 BlockState newBlockStateProperties = dyedBlockInstance.withPropertiesOf(blockState);
 
                 if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
-                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
-                    if (DyeColor.getColor(itemStack) != bedEntity.getColor()) {
-                        System.out.println(bedEntity.getColor());
-                        handleDyedBed(player ,itemStack, blockState, level, pos, newBlockStateProperties);
-                        System.out.println(bedEntity.getColor());
-                        event.setCanceled(true);
-                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-                    }
+//                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
+//                    if (DyeColor.getColor(itemStack) != bedEntity.getColor()) {
+//                        System.out.println(bedEntity.getColor());
+//                        handleDyedBed(player ,itemStack, blockState, level, pos, newBlockStateProperties);
+//                        System.out.println(bedEntity.getColor());
+//                        event.setCanceled(true);
+//                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+//                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+//                    }
+                    return;
 
                 } else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
-                    if (player.isCrouching()){
-                        handleDyedShulkerBox(level, pos, newBlockStateProperties);
+                    if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
+                        if (player.isCrouching()){
+                            handleDyedShulkerBox(level, pos, newBlockStateProperties);
+                            if(!player.isCreative()){
+                                itemStack.shrink(1);
+                            }
+                            event.setCanceled(true);
+                            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+                            level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+                        }
+                    }
+                } else {
+                    if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
+                        level.setBlockAndUpdate(pos,newBlockStateProperties);
                         if(!player.isCreative()){
                             itemStack.shrink(1);
                         }
-                        event.setCanceled(true);
-                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
                     }
-                } else {
-                    level.setBlockAndUpdate(pos,newBlockStateProperties);
                     event.setCanceled(true);
-
                     player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
                     level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
                 }

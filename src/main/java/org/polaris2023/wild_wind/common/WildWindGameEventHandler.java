@@ -17,23 +17,24 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.food.FoodProperties;
-import net.minecraft.world.item.DyeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.SkullBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -42,6 +43,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
@@ -56,6 +58,7 @@ import org.polaris2023.wild_wind.util.TeleportUtil;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -246,7 +249,6 @@ public class WildWindGameEventHandler {
 
     @SubscribeEvent
     public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
-
         Player player = event.getEntity();
         Level level = player.level();
         ItemStack itemStack = player.getMainHandItem();
@@ -260,13 +262,30 @@ public class WildWindGameEventHandler {
                     rightClick(player, level, itemStack, pos, blockState,event);
 
                 }
-                else {
-                    System.out.println("right click client");
-                }
+            }
         }
-        }
-
-
     }
-
+    @SubscribeEvent
+    public static void onRightClickEntity(PlayerInteractEvent.EntityInteractSpecific event){
+        Player player = event.getEntity();
+        Level level = player.level();
+        Entity shulker = event.getTarget();
+        ItemStack dyeItem = player.getMainHandItem();
+        if (event.getHand() == InteractionHand.MAIN_HAND){
+            if(!level.isClientSide) {
+                if (dyeItem.getItem() instanceof DyeItem) {
+                    if (!((Shulker) shulker).getVariant().equals(Optional.ofNullable(DyeColor.getColor(dyeItem)))){
+                        if(shulker instanceof Shulker){
+                            ((Shulker) shulker).setVariant(Optional.ofNullable(DyeColor.getColor(dyeItem)));
+                            if(!player.isCreative()){
+                                dyeItem.shrink(1);
+                            }
+                            player.awardStat(Stats.ITEM_USED.get(dyeItem.getItem()),1);
+                            player.playSound(SoundEvents.DYE_USE);
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
