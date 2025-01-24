@@ -145,6 +145,7 @@ public class RightClickHandler {
                         );
                         BlockState otherBlockState = level.getBlockState(otherPos);
                         BlockState newOtherBlockState = dyedBlockInstance.withPropertiesOf(otherBlockState);
+                        BedBlockEntity bedOtherEntity = (BedBlockEntity) level.getBlockEntity(otherPos);
                         handleDyedBed(
                                 level,
                                 player,
@@ -152,11 +153,13 @@ public class RightClickHandler {
                                 blockState,
                                 pos,
                                 newBlockState,
+                                bedEntity,
                                 otherBlockState,
                                 otherPos,
-                                newOtherBlockState
+                                newOtherBlockState,
+                                bedOtherEntity
                                 );
-                        Clearable.tryClear(bedEntity);
+
 
                     }
 //                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
@@ -204,11 +207,13 @@ public class RightClickHandler {
             BlockState blockState,
             BlockPos pos,
             BlockState newState,
-
+            BedBlockEntity bedEntity,
             BlockState otherBlockState,
             BlockPos otherPos,
-            BlockState newOtherState){
-
+            BlockState newOtherState,
+            BedBlockEntity bedOtherEntity){
+        Clearable.tryClear(bedEntity);
+        Clearable.tryClear(bedOtherEntity);
 
 
 
