@@ -1,24 +1,33 @@
-package org.polaris2023.wild_wind.common.Dyed.handler;
+package org.polaris2023.wild_wind.common.dyed.handler;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.commands.SetBlockCommand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.entity.BedBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import org.polaris2023.wild_wind.common.Dyed.DyedBlockMap;
+import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 
 import java.util.*;
 
@@ -103,69 +112,67 @@ public class RightClickHandler {
 
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
         DyedBlockMap dyedBlockMap = new DyedBlockMap();
-        Map<DyeColor, Block> dyedBlock = null;
-        switch (blockType(blockState)) {
-            case "WOOL":
-                dyedBlock= dyedBlockMap.getDyedBlock("WOOL");
-                break;
-            case "CARPET":
-                dyedBlock=dyedBlockMap.getDyedBlock("CARPET");
-                break;
-            case "BED":
-                dyedBlock=dyedBlockMap.getDyedBlock("BED");
-                break;
-            case "TERRACOTTA":
-                dyedBlock=dyedBlockMap.getDyedBlock("TERRACOTTA");
-                break;
-            case "CONCRETE":
-                dyedBlock=dyedBlockMap.getDyedBlock("CONCRETE");
-                break;
-            case "CONCRETE_POWDER":
-                dyedBlock=dyedBlockMap.getDyedBlock("CONCRETE_POWDER");
-                break;
-            case "GLAZED_TERRACOTTA":
-                dyedBlock=dyedBlockMap.getDyedBlock("GLAZED_TERRACOTTA");
-                break;
-            case "GLASS":
-                dyedBlock=dyedBlockMap.getDyedBlock("GLASS");
-                break;
-            case "GLASS_PANE":
-                dyedBlock=dyedBlockMap.getDyedBlock("GLASS_PANE");
-                break;
-            case "SHULKER_BOX":
-                dyedBlock=dyedBlockMap.getDyedBlock("SHULKER_BOX");
-                break;
-            case "CANDLE":
-                dyedBlock=dyedBlockMap.getDyedBlock("CANDLE");
-                break;
-            case "BANNER":
-                dyedBlock=dyedBlockMap.getDyedBlock("BANNER");
-                break;
+        Map<DyeColor, Block> dyedBlock = switch (blockType(blockState)) {
+            case "WOOL" -> dyedBlockMap.getDyedBlock("WOOL");
+            case "CARPET" -> dyedBlockMap.getDyedBlock("CARPET");
+            case "BED" -> dyedBlockMap.getDyedBlock("BED");
+            case "TERRACOTTA" -> dyedBlockMap.getDyedBlock("TERRACOTTA");
+            case "CONCRETE" -> dyedBlockMap.getDyedBlock("CONCRETE");
+            case "CONCRETE_POWDER" -> dyedBlockMap.getDyedBlock("CONCRETE_POWDER");
+            case "GLAZED_TERRACOTTA" -> dyedBlockMap.getDyedBlock("GLAZED_TERRACOTTA");
+            case "GLASS" -> dyedBlockMap.getDyedBlock("GLASS");
+            case "GLASS_PANE" -> dyedBlockMap.getDyedBlock("GLASS_PANE");
+            case "SHULKER_BOX" -> dyedBlockMap.getDyedBlock("SHULKER_BOX");
+            case "CANDLE" -> dyedBlockMap.getDyedBlock("CANDLE");
+            case "BANNER" -> dyedBlockMap.getDyedBlock("BANNER");
+            default -> null;
+        };
 
-        }
-
-        if(dyedBlock !=null){
+        if(dyedBlock != null){
             DyeColor dyeColor = DyeColor.getColor(itemStack);
             Block dyedBlockInstance = dyedBlock.get(dyeColor);
             if (dyedBlockInstance != null & dyeColor != null) {
-                BlockState newBlockStateProperties = dyedBlockInstance.withPropertiesOf(blockState);
+                BlockState newBlockState = dyedBlockInstance.withPropertiesOf(blockState);
 
                 if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
-//                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
-//                    if (DyeColor.getColor(itemStack) != bedEntity.getColor()) {
+
+                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
+                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
+                        Direction direction = bedEntity.getBlockState().getValue(BedBlock.FACING);
+                        BedPart value = bedEntity.getBlockState().getValue(BedBlock.PART);
+                        BlockPos otherPos = pos.offset(
+                                value.equals(BedPart.HEAD) ? direction.getOpposite().getNormal() : direction.getNormal()
+                        );
+                        BlockState otherBlockState = level.getBlockState(otherPos);
+                        BlockState newOtherBlockState = dyedBlockInstance.withPropertiesOf(otherBlockState);
+                        handleDyedBed(
+                                level,
+                                player,
+                                itemStack,
+                                blockState,
+                                pos,
+                                newBlockState,
+                                otherBlockState,
+                                otherPos,
+                                newOtherBlockState
+                                );
+                        Clearable.tryClear(bedEntity);
+
+                    }
+//                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
 //                        System.out.println(bedEntity.getColor());
-//                        handleDyedBed(player ,itemStack, blockState, level, pos, newBlockStateProperties);
+//                        handleDyedBed(player, itemStack, blockState, level, pos, newBlockState);
 //                        System.out.println(bedEntity.getColor());
 //                        event.setCanceled(true);
-//                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-//                        level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+//                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()), 1);
+//                        level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
 //                    }
                     return;
 
                 } else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
                     if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
                         if (player.isCrouching()){
-                            handleDyedShulkerBox(level, pos, newBlockStateProperties);
+                            handleDyedShulkerBox(level, pos, newBlockState);
                             if(!player.isCreative()){
                                 itemStack.shrink(1);
                             }
@@ -176,7 +183,7 @@ public class RightClickHandler {
                     }
                 } else {
                     if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
-                        level.setBlockAndUpdate(pos,newBlockStateProperties);
+                        level.setBlockAndUpdate(pos,newBlockState);
                         if(!player.isCreative()){
                             itemStack.shrink(1);
                         }
@@ -190,8 +197,22 @@ public class RightClickHandler {
 
     }
 
-    private static void handleDyedBed(Player player,ItemStack itemStack, BlockState blockState, Level level, BlockPos pos,BlockState newBlockStateProperties){
-        BedBlock newBedBlock = (BedBlock) newBlockStateProperties.getBlock();
+    private static void handleDyedBed(
+            Level level,
+            Player player,
+            ItemStack itemStack,
+            BlockState blockState,
+            BlockPos pos,
+            BlockState newState,
+
+            BlockState otherBlockState,
+            BlockPos otherPos,
+            BlockState newOtherState){
+
+
+
+
+
 //        newBedBlock.setPlacedBy(level, pos, newBlockStateProperties, player, Items.BLUE_BED.getDefaultInstance());
 //        ItemStack newBedItem = blockState.getBlock().getCloneItemStack(level, pos, blockState);
 

@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.common.Dyed;
+package org.polaris2023.wild_wind.common.dyed;
 
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
