@@ -38,7 +38,7 @@ public class ModBlocks {
             register("glow_mucus", GLOW_MUCUS);
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
-    public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar");
+    public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
@@ -53,13 +53,13 @@ public class ModBlocks {
             register("glareflower_seeds", GLAREFLOWER_SEEDS, ModFoods.GLAREFLOWER_SEEDS);
 
     @I18n(en_us = "Spider Egg", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
-    public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg");
+    public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Spider Attachments", zh_cn = "蛛丝附层", zh_tw = "蛛絲附層")
-    public static final DeferredBlock<Block> SPIDER_ATTACHMENTS = register("spider_attachments");
+    public static final DeferredBlock<Block> SPIDER_ATTACHMENTS = register("spider_attachments", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
-    public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa");
+    public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
     public static final DeferredBlock<Block> REEDS = register("reeds");
@@ -74,11 +74,11 @@ public class ModBlocks {
             register("cattails", CATTAILS);
 
     @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
-    public static final DeferredBlock<Block> PRESENT = register("present");
+    public static final DeferredBlock<Block> PRESENT = register("present", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
     public static final DeferredBlock<Block> TRAPPED_PRESENT =
-            register("trapped_present");
+            register("trapped_present", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
     public static final DeferredBlock<CookingPotBlock> COOKING_POT =
