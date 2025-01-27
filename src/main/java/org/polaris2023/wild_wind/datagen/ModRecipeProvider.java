@@ -66,6 +66,8 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F);
         smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F);
+        smeltingSmokingAndCampfire(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
+
 
     }
 
@@ -108,6 +110,27 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('P', ItemTags.LOGS)
                     .define('C', ItemTags.COALS);
         }));
+
+        add(shaped(RecipeCategory.MISC, ModBlocks.WOOD.get(), 1,
+                builder -> {
+            unlockedBy(builder, Items.STRING);
+            builder
+                    .pattern("SS ")
+                    .pattern("SS ")
+                    .pattern("   ")
+                    .group("wood")
+                    .define('S', Items.STRING);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 1,
+                builder -> {
+            unlockedBy(builder, ModBlocks.WOOD.get());
+            builder
+                    .pattern("SS ")
+                    .pattern("   ")
+                    .pattern("   ")
+                    .group("carpet")
+                    .define('S', ModBlocks.WOOD.get());
+                }));
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
@@ -224,6 +247,11 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.APPLE)
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
+        }));
+        add(shapeless(RecipeCategory.MISC, Items.STRING, 1, wool ->{
+            unlockedBy(wool, ItemTags.WOOL);
+            wool
+                    .requires(ItemTags.WOOL);
         }));
     }
 
