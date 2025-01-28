@@ -1,26 +1,14 @@
 package org.polaris2023.wild_wind.common.dyed;
 
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.common.Tags;
-import org.jetbrains.annotations.Nullable;
-import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
-import java.util.function.Supplier;
 
 public class DyedBlockMap {
-
-
-    private static final Map<TagKey<Block>, Map<DyeColor, Block>> dyedBlockMap = new HashMap<>();
+    private static final Map<String, Map<DyeColor, Block>> dyedBlockMap = new HashMap<>();
 
     static {
         Map<DyeColor,Block> woolBlock = new HashMap<>();
@@ -40,7 +28,7 @@ public class DyedBlockMap {
         woolBlock.put(DyeColor.GREEN, Blocks.GREEN_WOOL);
         woolBlock.put(DyeColor.RED, Blocks.RED_WOOL);
         woolBlock.put(DyeColor.BLACK, Blocks.BLACK_WOOL);
-        dyedBlockMap.put(BlockTags.WOOL, woolBlock);
+        dyedBlockMap.put("WOOL", woolBlock);
         Map<DyeColor, Block> carpetBlock= new HashMap<>();
         carpetBlock.put(DyeColor.BLACK, Blocks.BLACK_CARPET);
         carpetBlock.put(DyeColor.BLUE, Blocks.BLUE_CARPET);
@@ -58,7 +46,7 @@ public class DyedBlockMap {
         carpetBlock.put(DyeColor.RED, Blocks.RED_CARPET);
         carpetBlock.put(DyeColor.WHITE, Blocks.WHITE_CARPET);
         carpetBlock.put(DyeColor.YELLOW, Blocks.YELLOW_CARPET);
-        dyedBlockMap.put(BlockTags.WOOL_CARPETS, carpetBlock);
+        dyedBlockMap.put("CARPET", carpetBlock);
         Map<DyeColor, Block> terracottaBlock= new HashMap<>();
         terracottaBlock.put(DyeColor.BLACK, Blocks.BLACK_TERRACOTTA);
         terracottaBlock.put(DyeColor.BLUE, Blocks.BLUE_TERRACOTTA);
@@ -76,7 +64,7 @@ public class DyedBlockMap {
         terracottaBlock.put(DyeColor.RED, Blocks.RED_TERRACOTTA);
         terracottaBlock.put(DyeColor.WHITE, Blocks.WHITE_TERRACOTTA);
         terracottaBlock.put(DyeColor.YELLOW, Blocks.YELLOW_TERRACOTTA);
-        dyedBlockMap.put(BlockTags.TERRACOTTA, terracottaBlock);
+        dyedBlockMap.put("TERRACOTTA", terracottaBlock);
         Map<DyeColor, Block> bedBlock= new HashMap<>();
         bedBlock.put(DyeColor.BLACK, Blocks.BLACK_BED);
         bedBlock.put(DyeColor.BLUE, Blocks.BLUE_BED);
@@ -94,7 +82,7 @@ public class DyedBlockMap {
         bedBlock.put(DyeColor.RED, Blocks.RED_BED);
         bedBlock.put(DyeColor.WHITE, Blocks.WHITE_BED);
         bedBlock.put(DyeColor.YELLOW, Blocks.YELLOW_BED);
-        dyedBlockMap.put(BlockTags.BEDS, bedBlock);
+        dyedBlockMap.put("BED", bedBlock);
         Map<DyeColor, Block> concreteBlock= new HashMap<>();
         concreteBlock.put(DyeColor.BLACK, Blocks.BLACK_CONCRETE);
         concreteBlock.put(DyeColor.BLUE, Blocks.BLUE_CONCRETE);
@@ -112,7 +100,7 @@ public class DyedBlockMap {
         concreteBlock.put(DyeColor.RED, Blocks.RED_CONCRETE);
         concreteBlock.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE);
         concreteBlock.put(DyeColor.YELLOW, Blocks.YELLOW_CONCRETE);
-        dyedBlockMap.put(Tags.Blocks.CONCRETES, concreteBlock);
+        dyedBlockMap.put("CONCRETE", concreteBlock);
         Map<DyeColor, Block> concrete_powderBlock= new HashMap<>();
         concrete_powderBlock.put(DyeColor.BLACK, Blocks.BLACK_CONCRETE_POWDER);
         concrete_powderBlock.put(DyeColor.BLUE, Blocks.BLUE_CONCRETE_POWDER);
@@ -130,7 +118,7 @@ public class DyedBlockMap {
         concrete_powderBlock.put(DyeColor.RED, Blocks.RED_CONCRETE_POWDER);
         concrete_powderBlock.put(DyeColor.WHITE, Blocks.WHITE_CONCRETE_POWDER);
         concrete_powderBlock.put(DyeColor.YELLOW, Blocks.YELLOW_CONCRETE_POWDER);
-        dyedBlockMap.put(BlockTags.CONCRETE_POWDER, concrete_powderBlock);
+        dyedBlockMap.put("CONCRETE_POWDER", concrete_powderBlock);
         Map<DyeColor, Block> glazed_terracottaBlock= new HashMap<>();
         glazed_terracottaBlock.put(DyeColor.BLACK, Blocks.BLACK_GLAZED_TERRACOTTA);
         glazed_terracottaBlock.put(DyeColor.BLUE, Blocks.BLUE_GLAZED_TERRACOTTA);
@@ -148,7 +136,7 @@ public class DyedBlockMap {
         glazed_terracottaBlock.put(DyeColor.RED, Blocks.RED_GLAZED_TERRACOTTA);
         glazed_terracottaBlock.put(DyeColor.WHITE, Blocks.WHITE_GLAZED_TERRACOTTA);
         glazed_terracottaBlock.put(DyeColor.YELLOW, Blocks.YELLOW_GLAZED_TERRACOTTA);
-        dyedBlockMap.put(Tags.Blocks.GLAZED_TERRACOTTAS, glazed_terracottaBlock);
+        dyedBlockMap.put("GLAZED_TERRACOTTA", glazed_terracottaBlock);
         Map<DyeColor, Block> glassBlock= new HashMap<>();
         glassBlock.put(DyeColor.BLACK, Blocks.BLACK_STAINED_GLASS);
         glassBlock.put(DyeColor.BLUE, Blocks.BLUE_STAINED_GLASS);
@@ -166,7 +154,7 @@ public class DyedBlockMap {
         glassBlock.put(DyeColor.RED, Blocks.RED_STAINED_GLASS);
         glassBlock.put(DyeColor.WHITE, Blocks.WHITE_STAINED_GLASS);
         glassBlock.put(DyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS);
-        dyedBlockMap.put(Tags.Blocks.GLASS_BLOCKS, glassBlock);
+        dyedBlockMap.put("GLASS", glassBlock);
         Map<DyeColor, Block> glass_paneBlock= new HashMap<>();
         glass_paneBlock.put(DyeColor.BLACK, Blocks.BLACK_STAINED_GLASS_PANE);
         glass_paneBlock.put(DyeColor.BLUE, Blocks.BLUE_STAINED_GLASS_PANE);
@@ -184,7 +172,7 @@ public class DyedBlockMap {
         glass_paneBlock.put(DyeColor.RED, Blocks.RED_STAINED_GLASS_PANE);
         glass_paneBlock.put(DyeColor.WHITE, Blocks.WHITE_STAINED_GLASS_PANE);
         glass_paneBlock.put(DyeColor.YELLOW, Blocks.YELLOW_STAINED_GLASS_PANE);
-        dyedBlockMap.put(Tags.Blocks.GLASS_PANES, glass_paneBlock);
+        dyedBlockMap.put("GLASS_PANE", glass_paneBlock);
         Map<DyeColor, Block> shulker_boxBlock= new HashMap<>();
         shulker_boxBlock.put(DyeColor.BLACK, Blocks.BLACK_SHULKER_BOX);
         shulker_boxBlock.put(DyeColor.BLUE, Blocks.BLUE_SHULKER_BOX);
@@ -202,7 +190,7 @@ public class DyedBlockMap {
         shulker_boxBlock.put(DyeColor.RED, Blocks.RED_SHULKER_BOX);
         shulker_boxBlock.put(DyeColor.WHITE, Blocks.WHITE_SHULKER_BOX);
         shulker_boxBlock.put(DyeColor.YELLOW, Blocks.YELLOW_SHULKER_BOX);
-        dyedBlockMap.put(BlockTags.SHULKER_BOXES, shulker_boxBlock);
+        dyedBlockMap.put("SHULKER_BOX", shulker_boxBlock);
         Map<DyeColor, Block> candleBlock= new HashMap<>();
         candleBlock.put(DyeColor.BLACK, Blocks.BLACK_CANDLE);
         candleBlock.put(DyeColor.BLUE, Blocks.BLUE_CANDLE);
@@ -220,7 +208,7 @@ public class DyedBlockMap {
         candleBlock.put(DyeColor.RED, Blocks.RED_CANDLE);
         candleBlock.put(DyeColor.WHITE, Blocks.WHITE_CANDLE);
         candleBlock.put(DyeColor.YELLOW, Blocks.YELLOW_CANDLE);
-        dyedBlockMap.put(BlockTags.CANDLES, candleBlock);
+        dyedBlockMap.put("CANDLE", candleBlock);
         Map<DyeColor, Block> bannerBlock= new HashMap<>();
         bannerBlock.put(DyeColor.BLACK, Blocks.BLACK_BANNER);
         bannerBlock.put(DyeColor.BLUE, Blocks.BLUE_BANNER);
@@ -238,18 +226,10 @@ public class DyedBlockMap {
         bannerBlock.put(DyeColor.RED, Blocks.RED_BANNER);
         bannerBlock.put(DyeColor.WHITE, Blocks.WHITE_BANNER);
         bannerBlock.put(DyeColor.YELLOW, Blocks.YELLOW_BANNER);
-        dyedBlockMap.put(BlockTags.BANNERS, bannerBlock);
+        dyedBlockMap.put("BANNER", bannerBlock);
 
     }
-
-    @Nullable
-    public Map<DyeColor,Block> getDyedBlock(BlockState blockState){
-        for (Map.Entry<TagKey<Block>, Map<DyeColor, Block>> entry : dyedBlockMap.entrySet()) {
-            Map<DyeColor, Block> map = entry.getValue();
-            if (blockState.is(entry.getKey())) {
-                return map;
-            }
-        }
-        return null;
+    public Map<DyeColor,Block> getDyedBlock(String type){
+        return dyedBlockMap.get(type);
     }
 }
