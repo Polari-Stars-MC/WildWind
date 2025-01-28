@@ -270,6 +270,16 @@ public class ModItems {
                     0x8290a5,
                     0x6b9f93
                     );
+
+    @SpawnEggItem
+    @I18n(en_us = "Piranha Spawn Egg", zh_cn = "食人鲳刷怪蛋", zh_tw = "食人魚生怪蛋")
+    public static final DeferredItem<DeferredSpawnEggItem> PIRANHA_SPAWN_EGG =
+            register("piranha_spawn_egg",
+                    ModEntities.PIRANHA,
+                    0x564943,
+                    0x82200B
+                    );
+
     @BasicItem
     @I18n(en_us = "Raw Frog Leg", zh_cn = "生蛙腿", zh_tw = "生蛙腿")
     public static final DeferredItem<Item> RAW_FROG_LEG =
