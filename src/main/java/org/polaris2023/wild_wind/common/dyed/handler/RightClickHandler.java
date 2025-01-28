@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.server.commands.FillCommand;
 import net.minecraft.server.commands.SetBlockCommand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -19,6 +20,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 
 import java.util.*;
@@ -110,8 +113,13 @@ public class RightClickHandler {
         bannerBlock.add(Blocks.YELLOW_BANNER);
     }
 
+    @Nullable
+    private static DyedBlockMap dyedBlockMap = null;
+
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
-        DyedBlockMap dyedBlockMap = new DyedBlockMap();
+        if (dyedBlockMap == null) {
+            dyedBlockMap = new DyedBlockMap();
+        }
         Map<DyeColor, Block> dyedBlock = switch (blockType(blockState)) {
             case "WOOL" -> dyedBlockMap.getDyedBlock("WOOL");
             case "CARPET" -> dyedBlockMap.getDyedBlock("CARPET");
@@ -137,31 +145,7 @@ public class RightClickHandler {
                 if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
 
                     BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
-                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
-                        Direction direction = bedEntity.getBlockState().getValue(BedBlock.FACING);
-                        BedPart value = bedEntity.getBlockState().getValue(BedBlock.PART);
-                        BlockPos otherPos = pos.offset(
-                                value.equals(BedPart.HEAD) ? direction.getOpposite().getNormal() : direction.getNormal()
-                        );
-                        BlockState otherBlockState = level.getBlockState(otherPos);
-                        BlockState newOtherBlockState = dyedBlockInstance.withPropertiesOf(otherBlockState);
-                        BedBlockEntity bedOtherEntity = (BedBlockEntity) level.getBlockEntity(otherPos);
-                        handleDyedBed(
-                                level,
-                                player,
-                                itemStack,
-                                blockState,
-                                pos,
-                                newBlockState,
-                                bedEntity,
-                                otherBlockState,
-                                otherPos,
-                                newOtherBlockState,
-                                bedOtherEntity
-                        );
 
-
-                    }
 //                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
 //                        System.out.println(bedEntity.getColor());
 //                        handleDyedBed(player, itemStack, blockState, level, pos, newBlockState);
@@ -200,27 +184,15 @@ public class RightClickHandler {
 
     }
 
-    private static void handleDyedBed(
+    private static void handleDyedBedFoot(
             Level level,
             Player player,
-            ItemStack itemStack,
-            BlockState blockState,
-            BlockPos pos,
-            BlockState newState,
-            BedBlockEntity bedEntity,
-            BlockState otherBlockState,
-            BlockPos otherPos,
-            BlockState newOtherState,
-            BedBlockEntity bedOtherEntity){
-        Clearable.tryClear(bedEntity);
-        Clearable.tryClear(bedOtherEntity);
-
-
-
-
-//        newBedBlock.setPlacedBy(level, pos, newBlockStateProperties, player, Items.BLUE_BED.getDefaultInstance());
-//        ItemStack newBedItem = blockState.getBlock().getCloneItemStack(level, pos, blockState);
-
+            ItemStack stack,
+            BedBlockEntity bedEntity,//对于旧的实体的清理
+            BlockState state,//新的床脚状态
+            BlockPos pos,//床脚的坐标
+            BlockPos headPos//床头的坐标
+    ) {
 
     }
 

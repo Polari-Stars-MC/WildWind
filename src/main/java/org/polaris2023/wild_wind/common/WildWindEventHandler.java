@@ -9,6 +9,7 @@ import net.neoforged.neoforge.registries.RegisterEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.entity.Glare;
+import org.polaris2023.wild_wind.common.entity.Piranha;
 import org.polaris2023.wild_wind.common.entity.Trout;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModFeatures;
@@ -21,6 +22,7 @@ public class WildWindEventHandler {
         event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes().build());
         event.put(ModEntities.GLARE.get(), Glare.createAttributes().build());
         event.put(ModEntities.TROUT.get(), Trout.createAttributes().build());
+        event.put(ModEntities.PIRANHA.get(), Piranha.createAttributes().build());
     }
 
     @SubscribeEvent

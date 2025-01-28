@@ -64,6 +64,20 @@ public class ModItems {
                             .component(ModComponents.FISH_VALUE, 1F),
                     ModFoods.COOKED_TROUT);
 
+    @BasicItem
+    @I18n(en_us = "Raw Piranha", zh_cn = "生食人鲳", zh_tw = "生食人魚")
+    public static final DeferredItem<Item> RAW_PIRANHA =
+            simpleItem("raw_piranha", p -> p
+                    .component(ModComponents.MEAT_VALUE, 0.5F)
+                    .component(ModComponents.FISH_VALUE, 1F),
+                    ModFoods.RAW_TROUT);
+    @I18n(en_us = "Cooked Piranha", zh_cn = "烤食人鲳", zh_tw = "烤食人魚")
+    public static final DeferredItem<Item> COOKED_PIRANHA =
+            simpleItem("cooked_piranha", p -> p
+                            .component(ModComponents.MEAT_VALUE, 0.5F)
+                            .component(ModComponents.FISH_VALUE, 1F),
+                    ModFoods.COOKED_TROUT);
+
     @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
     public static final DeferredItem<MagicFluteItem> MAGIC_FLUTE =
@@ -140,6 +154,17 @@ public class ModItems {
     public static final DeferredItem<MobBucketItem> TROUT_BUCKET =
             register("trout_bucket", () -> new MobBucketItem(
                     ModEntities.TROUT.get(),
+                    Fluids.WATER,
+                    SoundEvents.BUCKET_EMPTY_FISH,
+                    new Item.Properties()
+                            .stacksTo(1)
+                            .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
+
+    @BasicItem
+    @I18n(en_us = "Piranha Bucket", zh_cn = "食人鲳桶", zh_tw = "食人魚桶")
+    public static final DeferredItem<MobBucketItem> PIRANHA_BUCKET =
+            register("piranha_bucket", () -> new MobBucketItem(
+                    ModEntities.PIRANHA.get(),
                     Fluids.WATER,
                     SoundEvents.BUCKET_EMPTY_FISH,
                     new Item.Properties()
