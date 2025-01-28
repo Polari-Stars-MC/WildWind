@@ -3,11 +3,11 @@ package org.polaris2023.wild_wind.common.init;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -96,6 +96,31 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
 
+    @I18n(en_us = "wood", zh_cn = "羊毛", zh_tw = "羊毛")
+    public static final DeferredBlock<Block> WOOD = register("wood", BlockBehaviour.Properties.of()
+            .instrument(NoteBlockInstrument.GUITAR)
+            .strength(0.8F)
+            .sound(SoundType.WOOL)
+            .ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
+
+    @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
+    public static final DeferredBlock<Block> CARPET =
+            register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
+
+    @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
+    public static final DeferredBlock<Block> CONCRETE =
+            register("concrete", BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.STONE).ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", CONCRETE);
+    @I18n(en_us ="Glazed Terracotta", zh_cn = "釉陶瓦", zh_tw = "釉陶瓦")
+    public static final DeferredBlock<Block> GLAZED_TERRACOTTA =
+            register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
@@ -105,4 +130,5 @@ public class ModBlocks {
              DeferredBlock<?>... blocks) {
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
     }
+
 }

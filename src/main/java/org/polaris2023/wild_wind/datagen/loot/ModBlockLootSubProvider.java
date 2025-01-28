@@ -32,5 +32,9 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CATTAILS.get());
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
+        this.dropSelf(ModBlocks.WOOD.get());
+        this.dropSelf(ModBlocks.CARPET.get());
+        this.dropSelf(ModBlocks.CONCRETE.get());
+        this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
     }
 }
