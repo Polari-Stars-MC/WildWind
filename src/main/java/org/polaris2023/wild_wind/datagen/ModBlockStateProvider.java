@@ -32,6 +32,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/brittle_ice_2"),
             Helpers.location("block/brittle_ice_3")
     };
+    public static final ResourceLocation[] WOOD = new ResourceLocation[] {
+            Helpers.location("block/wood")
+    };
+    public static final ResourceLocation[] CONCRETE = new ResourceLocation[] {
+            Helpers.location("block/concrete")
+    };
+    public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
+            Helpers.location("block/glazed_terracotta")
+    };
 
     @Override
     protected void registerStatesAndModels() {
@@ -68,6 +77,32 @@ public class ModBlockStateProvider extends BlockStateProvider {
             for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {
                 brittleIceModel(brittleIceStates, age, unstable);
             }
+        }
+
+        // Wood
+        BlockModelBuilder woodModel = models().cubeAll("wood", WOOD[0]);
+        simpleBlock(ModBlocks.WOOD.get(), woodModel);
+
+        //Carpet
+        BlockModelBuilder carpetModel = models().carpet("carpet", WOOD[0]);
+        simpleBlock(ModBlocks.CARPET.get(), carpetModel);
+
+        //Concrete
+        BlockModelBuilder concreteModel = models().cubeAll("concrete", CONCRETE[0]);
+        simpleBlock(ModBlocks.CONCRETE.get(), concreteModel);
+
+        // Glazed Terracotta
+        VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());
+        for (Direction facing : Direction.Plane.HORIZONTAL) {
+            int yRotation = switch (facing) {
+                case EAST -> 270;
+                case NORTH -> 180;
+                case SOUTH -> 0;
+                case WEST -> 90;
+                default -> 0;
+            };
+            glazedTerracottaStates.partialState().with(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, facing)
+                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", GLAZED_TERRACOTTA[0]), 0, yRotation, false));
         }
     }
 
