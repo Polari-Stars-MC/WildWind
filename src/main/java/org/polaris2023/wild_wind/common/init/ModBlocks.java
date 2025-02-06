@@ -2,12 +2,14 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -133,20 +135,23 @@ public class ModBlocks {
             register("salt_block", SALT_BLOCK);
     @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
     public static final DeferredBlock<Block> SALT_ORE =
-            register("salt_ore", Block::new, BlockBehaviour.Properties.of()
+            register("salt_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
-                    .strength(3)
-                    .isRedstoneConductor((_0, _1, _2) -> true));
+                    .strength(3));
     @BasicBlockItem
     public static final DeferredItem<BlockItem> SALT_ORE_ITEM =
             register("salt_ore", SALT_ORE);
 
     @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
-    public static final DeferredBlock<Block> DEEPSLATE_SALT_ORE =
-            register("deepslate_salt_ore", Block::new, BlockBehaviour.Properties.of()
-                    .requiresCorrectToolForDrops()
-                    .strength(4.5F, 3)
-                    .isRedstoneConductor((_0, _1, _2) -> true));
+    public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_SALT_ORE =
+            register("deepslate_salt_ore",
+                    properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.ofLegacyCopy(ModBlocks.SALT_ORE.get())
+                            .strength(4.5F, 3)
+                            .sound(SoundType.DEEPSLATE)
+                            .mapColor(MapColor.DEEPSLATE));
+
     @BasicBlockItem
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("salt_ore", SALT_ORE);
