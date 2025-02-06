@@ -122,6 +122,38 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
+    @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
+    public static final DeferredBlock<Block> SALT_BLOCK =
+            register("salt_block", Block::new, BlockBehaviour.Properties.of()
+                    .strength(3F)
+                    .requiresCorrectToolForDrops()
+                    .isRedstoneConductor((_0, _1, _2) -> true));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_BLOCK_ITEM =
+            register("salt_block", SALT_BLOCK);
+    @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
+    public static final DeferredBlock<Block> SALT_ORE =
+            register("salt_ore", Block::new, BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(3)
+                    .isRedstoneConductor((_0, _1, _2) -> true));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_ORE_ITEM =
+            register("salt_ore", SALT_ORE);
+
+    @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
+    public static final DeferredBlock<Block> DEEPSLATE_SALT_ORE =
+            register("deepslate_salt_ore", Block::new, BlockBehaviour.Properties.of()
+                    .requiresCorrectToolForDrops()
+                    .strength(4.5F, 3)
+                    .isRedstoneConductor((_0, _1, _2) -> true));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
+            register("salt_ore", SALT_ORE);
+
+
+
+
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
