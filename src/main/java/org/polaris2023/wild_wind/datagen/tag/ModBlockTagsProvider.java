@@ -31,22 +31,15 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        add(ModBlockTags.FIREFLY_ROOST_BLOCK.get(), BlockTags.FLOWERS);
-        add(ModBlockTags.FIREFLY_ROOST_BLOCK.get(),
-                Blocks.TALL_GRASS, Blocks.SHORT_GRASS,
+        var firefly_roost = tag(ModBlockTags.FIREFLY_ROOST_BLOCK.get());
+        firefly_roost.add(Blocks.TALL_GRASS, Blocks.SHORT_GRASS,
                 Blocks.FERN, Blocks.LARGE_FERN,
                 Blocks.POTTED_FERN, Blocks.MANGROVE_PROPAGULE,
                 Blocks.POTTED_MANGROVE_PROPAGULE);
-        add(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON,
-                ModBlocks.BRITTLE_ICE.get());
-        add(BlockTags.MINEABLE_WITH_PICKAXE,
-                ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get());
+        firefly_roost.addTag(BlockTags.FLOWERS);
+        tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(ModBlocks.BRITTLE_ICE.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get());
 
-    }
-
-    @SafeVarargs
-    public final void add(TagKey<Block> tag, TagKey<Block>... tags) {
-        tag(tag).addTags(tags);
     }
 
 

@@ -4,6 +4,7 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -147,14 +148,16 @@ public class ModBlocks {
     @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
     public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_SALT_ORE =
             register("deepslate_salt_ore",
-                    properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.ofLegacyCopy(ModBlocks.SALT_ORE.get())
+                    properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.of()
+                            .requiresCorrectToolForDrops()
+                            .instrument(NoteBlockInstrument.BASEDRUM)
                             .strength(4.5F, 3)
                             .sound(SoundType.DEEPSLATE)
                             .mapColor(MapColor.DEEPSLATE));
 
     @BasicBlockItem
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
-            register("salt_ore", SALT_ORE);
+            register("deepslate_salt_ore", SALT_ORE);
 
 
 
