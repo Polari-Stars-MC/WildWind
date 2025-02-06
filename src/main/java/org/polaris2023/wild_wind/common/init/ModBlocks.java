@@ -2,12 +2,15 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -106,7 +109,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
-    public static final DeferredBlock<Block> CARPET =
+    public static final DeferredBlock<CarpetBlock> CARPET =
             register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
     @BasicBlockItem
     public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
@@ -117,10 +120,47 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", CONCRETE);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "釉陶瓦", zh_tw = "釉陶瓦")
-    public static final DeferredBlock<Block> GLAZED_TERRACOTTA =
+    public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
             register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
     @BasicBlockItem
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
+
+    @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
+    public static final DeferredBlock<Block> SALT_BLOCK =
+            register("salt_block", Block::new, BlockBehaviour.Properties.of()
+                    .strength(3F)
+                    .requiresCorrectToolForDrops()
+                    .isRedstoneConductor((_0, _1, _2) -> true));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_BLOCK_ITEM =
+            register("salt_block", SALT_BLOCK);
+    @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
+    public static final DeferredBlock<Block> SALT_ORE =
+            register("salt_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(3));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_ORE_ITEM =
+            register("salt_ore", SALT_ORE);
+
+    @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
+    public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_SALT_ORE =
+            register("deepslate_salt_ore",
+                    properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.of()
+                            .requiresCorrectToolForDrops()
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .strength(4.5F, 3)
+                            .sound(SoundType.DEEPSLATE)
+                            .mapColor(MapColor.DEEPSLATE));
+
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
+            register("deepslate_salt_ore", SALT_ORE);
+
+
+
 
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>

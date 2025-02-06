@@ -3,6 +3,8 @@ terrablender-version="1.21.1-4.1.0.5"
 jei-version="19.21.0.247"
 eye-lib-version="21.1.8"
 mod-dev-gradle-version="2.0.74"
+biomes-o-plenty-version="5855568"
+glitchfiend-version="1.21.1-2.1.0.0"
 repositories-setting="""
 GeckoLib -> https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/
     --> software.bernie.geckolib
@@ -12,6 +14,8 @@ Minecraft Forge -> https://maven.minecraftforge.net/
     --> io.github.tt432.chin
 Jared's Maven -> https://maven.blamejared.com/
 ModMaven -> https://modmaven.dev/
+CurseMaven -> https://www.cursemaven.com/
+    --> curse.maven
 """
 
 [libraries]
@@ -19,12 +23,14 @@ terrablender-neoforge={group = "com.github.glitchfiend", name = "TerraBlender-ne
 eye-lib-neoforge={group = "io.github.tt432", name = "eyelib", version.ref="eye-lib-version"}
 jei-neoforge-api={group="mezz.jei", name= "jei-1.21.1-neoforge-api", version.ref="jei-version"}
 jei-neoforge={group="mezz.jei", name= "jei-1.21.1-neoforge", version.ref="jei-version"}
+biomes-o-plenty={group="curse.maven", name="biomes-o-plenty-220318", version.ref="biomes-o-plenty-version"}
+glitchfiend={group="com.github.glitchfiend", name="GlitchCore-neoforge", version.ref="glitchfiend-version"}
 [plugins]
 mod-dev-gradle={id = "net.neoforged.moddev", version.ref= "mod-dev-gradle-version"}
 
 [bundles]
 jar-in-jar=["eye-lib-neoforge"]
-linkage=["terrablender-neoforge"]
+linkage=["terrablender-neoforge", "biomes-o-plenty", "glitchfiend"]
 implementation=[]
 compileonly=["jei-neoforge-api"]
 runtimeonly=["jei-neoforge"]

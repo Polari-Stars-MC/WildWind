@@ -255,6 +255,14 @@ public class ModRecipeProvider extends RecipeProvider {
             wool
                     .requires(ItemTags.WOOL);
         }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK_ITEM, 1, salt_block -> {
+            unlockedBy(salt_block, ModItems.SALT);
+            salt_block.requires(ModItems.SALT, 9);
+        }));
+        add(shapeless(RecipeCategory.MISC, ModItems.SALT, 9, salt -> {
+            unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
+            salt.requires(ModBlocks.SALT_BLOCK_ITEM);
+        }));
     }
 
     public static ShapedRecipeBuilder shaped(

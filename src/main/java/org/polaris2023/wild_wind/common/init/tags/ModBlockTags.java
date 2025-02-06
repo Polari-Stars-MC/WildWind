@@ -12,7 +12,8 @@ import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 
 public enum ModBlockTags implements Supplier<TagKey<Block>> {
-    FIREFLY_ROOST_BLOCK;
+    FIREFLY_ROOST_BLOCK,
+    ;
     final TagKey<Block> tag;
     ModBlockTags() {
         tag = ctags(Registries.BLOCK, name().toLowerCase(Locale.ROOT));
