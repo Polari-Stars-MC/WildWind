@@ -181,7 +181,7 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
 
     private void setupAnimationStates() {
-        this.flyAnimationState.start(this.tickCount);
+        this.flyAnimationState.startIfStopped(this.tickCount);
 
     }
 
