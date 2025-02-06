@@ -39,11 +39,10 @@ public class Firefly extends Animal implements FlyingAnimal {
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.LONG);
-
+    private static final EntityDataAccessor<BlockPos> POSITION = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BLOCK_POS);
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState glowAnimationState = new AnimationState();
 
-    private static final long max = 60;
 
     public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -66,15 +65,22 @@ public class Firefly extends Animal implements FlyingAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ROOST, false);
-        builder.define(TICKER, 0L);
-
-
+        builder.define(TICKER, 60L);
+        builder.define(POSITION, this.blockPosition());
     }
 
 
 
     public void setRoost(boolean r) {
         this.entityData.set(ROOST, r);
+    }
+
+    public BlockPos movePos() {
+        return this.entityData.get(POSITION);
+    }
+
+    public void setMovePos(BlockPos pos) {
+        this.entityData.set(POSITION, pos);
     }
 
     public void setTicker(long ticker) { this.entityData.set(TICKER, ticker); }
@@ -94,6 +100,7 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
 
 
+
     @Override
     public void tick() {
         super.tick();
@@ -110,6 +117,7 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
         this.setTicker(compound.getInt("ticker"));
+        this.setMovePos(new BlockPos(compound.getInt("mpx"), compound.getInt("mpy"), compound.getInt("mpz")));
     }
 
     @Override
@@ -122,6 +130,10 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
         compound.putLong("ticker", getTicker());
+        BlockPos blockPos = movePos();
+        compound.putInt("mpx", blockPos.getX());
+        compound.putInt("mpy", blockPos.getY());
+        compound.putInt("mpz", blockPos.getZ());
     }
 
     @Override
