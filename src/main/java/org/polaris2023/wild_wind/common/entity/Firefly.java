@@ -40,6 +40,9 @@ public class Firefly extends Animal implements FlyingAnimal {
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
 
+    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState glowAnimationState = new AnimationState();
+
     private static final int max = 60;
 
     public Firefly(EntityType<? extends Animal> type, Level level) {
@@ -96,6 +99,7 @@ public class Firefly extends Animal implements FlyingAnimal {
     @Override
     public void tick() {
         super.tick();
+        setupAnimationStates();
     }
 
     @Override
@@ -174,6 +178,11 @@ public class Firefly extends Animal implements FlyingAnimal {
                 .add(Attributes.MAX_HEALTH, 8f)
                 .add(Attributes.FLYING_SPEED, 0.6f)
                 .add(Attributes.GRAVITY, 0.0f);
+    }
+
+    private void setupAnimationStates() {
+        this.flyAnimationState.start(this.tickCount);
+
     }
 
 
