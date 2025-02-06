@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import org.joml.Vector3f;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -35,6 +36,7 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
 	private final ModelPart left_wing1;
 
 	public FireflyModel(ModelPart root) {
+
 		this.bug = root.getChild("bug");
 		this.head = this.bug.getChild("head");
 		this.antennae = this.head.getChild("antennae");

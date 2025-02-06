@@ -38,12 +38,12 @@ public class Firefly extends Animal implements FlyingAnimal {
     private static final EntityDimensions BABY_DIMENSIONS = ModEntities.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Long> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.LONG);
 
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState glowAnimationState = new AnimationState();
 
-    private static final int max = 60;
+    private static final long max = 60;
 
     public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -66,7 +66,7 @@ public class Firefly extends Animal implements FlyingAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ROOST, false);
-        builder.define(TICKER, 0);
+        builder.define(TICKER, 0L);
 
 
     }
@@ -77,17 +77,15 @@ public class Firefly extends Animal implements FlyingAnimal {
         this.entityData.set(ROOST, r);
     }
 
-    public void setTicker(int ticker) { this.entityData.set(TICKER, ticker); }
+    public void setTicker(long ticker) { this.entityData.set(TICKER, ticker); }
 
-    public int getTicker() {
-        return Math.min(this.entityData.get(TICKER), 60);
+    public long getTicker() {
+        return this.entityData.get(TICKER);
     }
 
 
     public void addTicker() {
-        int ticker = getTicker();
-        if (ticker == max) return;
-        setTicker(ticker + 1);
+        setTicker(getTicker() + 1);
     }
     public void clearTicker() { setTicker(0); }
 
@@ -123,7 +121,7 @@ public class Firefly extends Animal implements FlyingAnimal {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
-        compound.putInt("ticker", getTicker());
+        compound.putLong("ticker", getTicker());
     }
 
     @Override
@@ -181,7 +179,15 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
 
     private void setupAnimationStates() {
-        this.flyAnimationState.startIfStopped(this.tickCount);
+        long ticker = getTicker();
+
+        if (ticker >= 60 && (ticker - 60) % 100 > 40) {
+            this.flyAnimationState.stop();
+            this.glowAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.glowAnimationState.stop();
+            this.flyAnimationState.startIfStopped(this.tickCount);
+        }
 
     }
 

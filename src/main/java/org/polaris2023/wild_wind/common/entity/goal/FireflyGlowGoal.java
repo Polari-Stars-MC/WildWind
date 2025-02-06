@@ -15,6 +15,6 @@ public class FireflyGlowGoal extends FireflyBaseGoal {
 
     @Override
     public boolean canUse() {
-        return firefly.getLastHurtByMob() != null;
+        return true;
     }
 }
