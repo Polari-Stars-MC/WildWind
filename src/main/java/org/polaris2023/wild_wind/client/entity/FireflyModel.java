@@ -107,8 +107,8 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
 		if (firefly.isRoost()) {
 			this.applyHeadRotation(netHeadYaw);
 		}
-		this.animate(firefly.flyAnimationState, BatAnimation.BAT_FLYING, ageInTicks, 1.0F);
-		this.animate(firefly.glowAnimationState, BatAnimation.BAT_RESTING, ageInTicks, 1.0F);
+		this.animate(firefly.flyAnimationState, FireFlyAnimation.IDLE, ageInTicks, 1.0F);
+		this.animate(firefly.glowAnimationState, FireFlyAnimation.GLOW, ageInTicks, 1.0F);
 	}
 
 	private void applyHeadRotation(float headRotation) {
