@@ -1,17 +1,12 @@
-package org.polaris2023.wild_wind.client.entity;
+package org.polaris2023.wild_wind.client.entity.firefly;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.animation.definitions.BatAnimation;
-import net.minecraft.client.model.AgeableListModel;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HierarchicalModel;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
-import org.joml.Vector3f;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -106,9 +101,6 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
 	@Override
 	public void setupAnim(Firefly firefly, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
-		if (firefly.isRoost()) {
-			this.applyHeadRotation(netHeadYaw);
-		}
 		this.animate(firefly.flyAnimationState, FireFlyAnimation.IDLE, ageInTicks, 1.0F);
 		this.animate(firefly.glowAnimationState, FireFlyAnimation.GLOW, ageInTicks, 1.0F);
 	}

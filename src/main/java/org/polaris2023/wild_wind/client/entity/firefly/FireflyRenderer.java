@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.client.entity;
+package org.polaris2023.wild_wind.client.entity.firefly;
 
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;

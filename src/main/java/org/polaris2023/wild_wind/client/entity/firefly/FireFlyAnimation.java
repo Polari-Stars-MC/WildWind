@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.client.entity;
+package org.polaris2023.wild_wind.client.entity.firefly;
 
 import net.minecraft.client.animation.AnimationChannel;
 import net.minecraft.client.animation.AnimationDefinition;
