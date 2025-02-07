@@ -29,7 +29,7 @@ glitchfiend={group="com.github.glitchfiend", name="GlitchCore-neoforge", version
 mod-dev-gradle={id = "net.neoforged.moddev", version.ref= "mod-dev-gradle-version"}
 
 [bundles]
-jar-in-jar=["eye-lib-neoforge"]
+jar-in-jar=[]
 linkage=["terrablender-neoforge", "biomes-o-plenty", "glitchfiend"]
 implementation=[]
 compileonly=["jei-neoforge-api"]

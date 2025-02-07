@@ -38,9 +38,11 @@ public class Firefly extends Animal implements FlyingAnimal {
     private static final EntityDimensions BABY_DIMENSIONS = ModEntities.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
-    private static final EntityDataAccessor<Integer> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Long> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.LONG);
+    private static final EntityDataAccessor<BlockPos> POSITION = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BLOCK_POS);
+    public final AnimationState flyAnimationState = new AnimationState();
+    public final AnimationState glowAnimationState = new AnimationState();
 
-    private static final int max = 60;
 
     public Firefly(EntityType<? extends Animal> type, Level level) {
         super(type, level);
@@ -63,9 +65,8 @@ public class Firefly extends Animal implements FlyingAnimal {
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
         super.defineSynchedData(builder);
         builder.define(ROOST, false);
-        builder.define(TICKER, 0);
-
-
+        builder.define(TICKER, 60L);
+        builder.define(POSITION, new BlockPos(0, 0, 0));
     }
 
 
@@ -74,17 +75,23 @@ public class Firefly extends Animal implements FlyingAnimal {
         this.entityData.set(ROOST, r);
     }
 
-    public void setTicker(int ticker) { this.entityData.set(TICKER, ticker); }
+    public BlockPos movePos() {
+        return this.entityData.get(POSITION);
+    }
 
-    public int getTicker() {
-        return Math.min(this.entityData.get(TICKER), 60);
+    public void setMovePos(BlockPos pos) {
+        this.entityData.set(POSITION, pos);
+    }
+
+    public void setTicker(long ticker) { this.entityData.set(TICKER, ticker); }
+
+    public long getTicker() {
+        return this.entityData.get(TICKER);
     }
 
 
     public void addTicker() {
-        int ticker = getTicker();
-        if (ticker == max) return;
-        setTicker(ticker + 1);
+        setTicker(getTicker() + 1);
     }
     public void clearTicker() { setTicker(0); }
 
@@ -93,9 +100,11 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
 
 
+
     @Override
     public void tick() {
         super.tick();
+        setupAnimationStates();
     }
 
     @Override
@@ -108,6 +117,7 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
         this.setTicker(compound.getInt("ticker"));
+        this.setMovePos(new BlockPos(compound.getInt("mpx"), compound.getInt("mpy"), compound.getInt("mpz")));
     }
 
     @Override
@@ -119,7 +129,11 @@ public class Firefly extends Animal implements FlyingAnimal {
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
-        compound.putInt("ticker", getTicker());
+        compound.putLong("ticker", getTicker());
+        BlockPos blockPos = movePos();
+        compound.putInt("mpx", blockPos.getX());
+        compound.putInt("mpy", blockPos.getY());
+        compound.putInt("mpz", blockPos.getZ());
     }
 
     @Override
@@ -174,6 +188,19 @@ public class Firefly extends Animal implements FlyingAnimal {
                 .add(Attributes.MAX_HEALTH, 8f)
                 .add(Attributes.FLYING_SPEED, 0.6f)
                 .add(Attributes.GRAVITY, 0.0f);
+    }
+
+    private void setupAnimationStates() {
+        long ticker = getTicker();
+
+        if (ticker >= 60 && (ticker - 60) % 100 > 40) {
+            this.flyAnimationState.stop();
+            this.glowAnimationState.startIfStopped(this.tickCount);
+        } else {
+            this.glowAnimationState.stop();
+            this.flyAnimationState.startIfStopped(this.tickCount);
+        }
+
     }
 
 

@@ -2,7 +2,7 @@ package org.polaris2023.wild_wind.common.entity.goal;
 
 import org.polaris2023.wild_wind.common.entity.Firefly;
 
-public class FireflyGlowGoal extends FireflyBaseGoal {
+public class FireflyGlowGoal extends FireflyBaseGoal {//发光
 
     public FireflyGlowGoal(Firefly firefly) {
         super(firefly);
@@ -15,6 +15,6 @@ public class FireflyGlowGoal extends FireflyBaseGoal {
 
     @Override
     public boolean canUse() {
-        return firefly.getLastHurtByMob() != null;
+        return true;
     }
 }
