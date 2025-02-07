@@ -24,10 +24,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.polaris2023.wild_wind.common.entity.goal.FireflyBaseGoal;
-import org.polaris2023.wild_wind.common.entity.goal.FireflyFlyGoal;
-import org.polaris2023.wild_wind.common.entity.goal.FireflyRoostGoal;
-import org.polaris2023.wild_wind.common.entity.goal.FireflyGlowGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyBaseGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyFlyGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyRoostGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyGlowGoal;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 

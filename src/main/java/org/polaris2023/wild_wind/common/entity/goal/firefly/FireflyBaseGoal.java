@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.common.entity.goal;
+package org.polaris2023.wild_wind.common.entity.goal.firefly;
 
 import net.minecraft.world.entity.ai.goal.Goal;
 import org.polaris2023.wild_wind.common.entity.Firefly;
