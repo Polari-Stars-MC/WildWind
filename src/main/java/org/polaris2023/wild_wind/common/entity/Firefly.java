@@ -66,7 +66,7 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.defineSynchedData(builder);
         builder.define(ROOST, false);
         builder.define(TICKER, 60L);
-        builder.define(POSITION, this.blockPosition());
+        builder.define(POSITION, new BlockPos(0, 0, 0));
     }
 
 
