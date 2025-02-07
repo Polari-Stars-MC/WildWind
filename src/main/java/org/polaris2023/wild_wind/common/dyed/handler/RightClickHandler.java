@@ -1,32 +1,22 @@
 package org.polaris2023.wild_wind.common.dyed.handler;
 
-import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.commands.FillCommand;
-import net.minecraft.server.commands.SetBlockCommand;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.world.Clearable;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.GrassBlock;
 import net.minecraft.world.level.block.entity.BedBlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.properties.BedPart;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.jetbrains.annotations.Nullable;
@@ -113,14 +103,12 @@ public class RightClickHandler {
         bannerBlock.add(Blocks.YELLOW_BANNER);
     }
 
-    @Nullable
-    private static DyedBlockMap dyedBlockMap = null;
+
 
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
-        if (dyedBlockMap == null) {
-            dyedBlockMap = new DyedBlockMap();
-        }
-        Map<DyeColor, Block> dyedBlock = switch (blockType(blockState)) {
+        DyedBlockMap dyedBlockMap = DyedBlockMap.getInstance();
+        boolean canceled = false;
+        Map<Integer, Block> dyedBlock = switch (blockType(blockState)) {
             case "WOOL" -> dyedBlockMap.getDyedBlock("WOOL");
             case "CARPET" -> dyedBlockMap.getDyedBlock("CARPET");
             case "BED" -> dyedBlockMap.getDyedBlock("BED");
@@ -135,16 +123,16 @@ public class RightClickHandler {
             case "BANNER" -> dyedBlockMap.getDyedBlock("BANNER");
             default -> null;
         };
+        if (dyedBlock == null) return;
+        DyeColor dyeColor = DyeColor.getColor(itemStack);
+        if (dyeColor == null) return;
+        Block dyedBlockInstance = dyedBlock.get(dyeColor.getId());
+        if (dyedBlockInstance == null) return;
+        BlockState newBlockState = dyedBlockInstance.withPropertiesOf(blockState);
 
-        if(dyedBlock != null){
-            DyeColor dyeColor = DyeColor.getColor(itemStack);
-            Block dyedBlockInstance = dyedBlock.get(dyeColor);
-            if (dyedBlockInstance != null & dyeColor != null) {
-                BlockState newBlockState = dyedBlockInstance.withPropertiesOf(blockState);
+        if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
 
-                if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
-
-                    BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
+            BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
 
 //                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
 //                        System.out.println(bedEntity.getColor());
@@ -154,34 +142,27 @@ public class RightClickHandler {
 //                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()), 1);
 //                        level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
 //                    }
-                    return;
+            return;
 
-                } else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
-                    if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
-                        if (player.isCrouching()){
-                            handleDyedShulkerBox(level, pos, newBlockState);
-                            if(!player.isCreative()){
-                                itemStack.shrink(1);
-                            }
-                            event.setCanceled(true);
-                            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-                            level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-                        }
-                    }
-                } else {
-                    if (level.getBlockState(pos).getBlock() != dyedBlock.get(dyeColor)) {
-                        level.setBlockAndUpdate(pos,newBlockState);
-                        if(!player.isCreative()){
-                            itemStack.shrink(1);
-                        }
-                    }
-                    event.setCanceled(true);
-                    player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
-                    level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-                }
-            }
         }
-
+        else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
+            if (level.getBlockState(pos).is(dyedBlock.get(dyeColor.getId()))) return;
+            if (player.isCrouching()){
+                canceled = handleDyedShulkerBox(level, pos, newBlockState);
+            }
+        } else {
+            if (level.getBlockState(pos).is(dyedBlock.get(dyeColor.getId()))) return;
+            canceled = true;
+            level.setBlockAndUpdate(pos,newBlockState);
+        }
+        if (canceled) {
+            if(!player.isCreative()){
+                itemStack.shrink(1);
+            }
+            event.setCanceled(true);
+            player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
+            level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
+        }
     }
 
     private static void handleDyedBedFoot(
@@ -196,8 +177,9 @@ public class RightClickHandler {
 
     }
 
-    private static void handleDyedShulkerBox(Level level, BlockPos pos, BlockState newBlockStateProperties) {
+    private static boolean handleDyedShulkerBox(Level level, BlockPos pos, BlockState newBlockStateProperties) {
         ShulkerBoxBlockEntity shulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
+        if (shulkerBoxEntity == null) return false;
         List<ItemStack> items = new ArrayList<>();
         // 获取 HolderLookup.Provider
         HolderLookup.Provider provider = level.registryAccess();
@@ -220,7 +202,7 @@ public class RightClickHandler {
         for (int i = 0; i < items.size(); i++) {
             newShulkerBoxEntity.setItem(i, items.get(i));
         }
-
+        return true;
     }
 
 
@@ -265,6 +247,6 @@ public class RightClickHandler {
 
 
 
-        return "pass";
+        return "PASS";
     }
 }
