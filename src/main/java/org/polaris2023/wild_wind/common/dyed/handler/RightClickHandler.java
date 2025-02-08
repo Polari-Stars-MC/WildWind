@@ -19,7 +19,6 @@ import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
-import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 
 import java.util.*;
@@ -165,17 +164,7 @@ public class RightClickHandler {
         }
     }
 
-    private static void handleDyedBedFoot(
-            Level level,
-            Player player,
-            ItemStack stack,
-            BedBlockEntity bedEntity,//对于旧的实体的清理
-            BlockState state,//新的床脚状态
-            BlockPos pos,//床脚的坐标
-            BlockPos headPos//床头的坐标
-    ) {
 
-    }
 
     private static boolean handleDyedShulkerBox(Level level, BlockPos pos, BlockState newBlockStateProperties) {
         ShulkerBoxBlockEntity shulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
@@ -196,7 +185,7 @@ public class RightClickHandler {
 //        System.out.println("---------------");
         level.setBlockAndUpdate(pos, newBlockStateProperties);
         ShulkerBoxBlockEntity newShulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
-
+        if (newShulkerBoxEntity == null) return false;
 //        newShulkerBoxEntity.setCustomName();
 
         for (int i = 0; i < items.size(); i++) {
