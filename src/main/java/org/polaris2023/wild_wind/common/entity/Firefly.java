@@ -28,6 +28,7 @@ import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyBaseGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyFlyGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyRoostGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyGlowGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyAfraidGoal;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
@@ -167,10 +168,11 @@ public class Firefly extends Animal implements FlyingAnimal {
     public static final List<Function<Firefly, Goal>> FACTORY = List
             .of(
                     FireflyBaseGoal::new,
+                    FireflyAfraidGoal::new,
                     FireflyFlyGoal::new,
                     FireflyRoostGoal::new,
                     FireflyGlowGoal::new
-            );
+            );//按优先级注入，方便其他模组添加ai
     @Override
     protected void registerGoals() {
         for (int i = 0; i < FACTORY.size(); i++) {

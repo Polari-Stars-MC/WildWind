@@ -15,6 +15,7 @@ public class FireflyBaseGoal extends Goal {
     @Override
     public void tick() {
         super.tick();
+
     }
 
     @Override
