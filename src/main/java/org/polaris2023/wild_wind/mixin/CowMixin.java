@@ -9,6 +9,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
@@ -30,6 +31,7 @@ public abstract class CowMixin extends Animal {
             ), cancellable = true)
     private void interact(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
         if (entityData.get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW) > 0) {
+            player.sendSystemMessage(ModTranslateKey.GOAT_INTOLERANCE.translatable());
             cir.setReturnValue(super.mobInteract(player, hand));
             cir.cancel();
         }
