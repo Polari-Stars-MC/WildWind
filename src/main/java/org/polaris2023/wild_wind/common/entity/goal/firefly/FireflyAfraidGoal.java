@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.entity.Firefly;
+import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
 public class FireflyAfraidGoal extends FireflyBaseGoal {
     double deltaX = 0, deltaY = 0, deltaZ = 0;
@@ -36,7 +37,8 @@ public class FireflyAfraidGoal extends FireflyBaseGoal {
     @Override
     public boolean canUse() {
         LivingEntity nearestEntity = getNearestEntity();
-        return nearestEntity != null && !(nearestEntity instanceof Firefly);//避开逃离同类
+        
+        return nearestEntity != null && !(nearestEntity instanceof Firefly) && !nearestEntity.getUseItem().is(ModItemTags.FIREFLY_FOOD.get());//避开逃离同类
     }
 
     private @Nullable LivingEntity getNearestEntity() {
