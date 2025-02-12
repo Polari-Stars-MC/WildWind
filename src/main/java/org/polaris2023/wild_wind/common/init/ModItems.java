@@ -16,6 +16,7 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
 import org.polaris2023.annotation.modelgen.other.*;
+import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
@@ -245,40 +246,9 @@ public class ModItems {
                     .component(ModComponents.FRUIT_VALUE, 0.5F),
             ModFoods.BAKED_BERRIES);
 
-
-    @SpawnEggItem
-    @I18n(en_us = "Firefly Spawn Egg", zh_cn = "萤火虫刷怪蛋", zh_tw = "螢火蟲生怪蛋")
-    public static final DeferredItem<DeferredSpawnEggItem> FIREFLY_SPAWN_EGG =
-            register("firefly_spawn_egg",
-                    ModEntities.FIREFLY,
-                    0x0A233F,
-                            0xAA8F74);
-
-
-    @SpawnEggItem
-    @I18n(en_us = "Glare Spawn Egg", zh_cn = "怒目怪刷怪蛋", zh_tw = "怒目靈生怪蛋")
-    public static final DeferredItem<DeferredSpawnEggItem> GLARE_SPAWN_EGG =
-            register("glare_spawn_egg",
-                    ModEntities.GLARE,
-                    0x49601B,
-                    0x10160A);
-    @SpawnEggItem
-    @I18n(en_us = "Glare Spawn Egg", zh_cn = "鳟鱼刷怪蛋", zh_tw = "鱒魚生怪蛋")
-    public static final DeferredItem<DeferredSpawnEggItem> TROUT_SPAWN_EGG =
-            register("trout_spawn_egg",
-                    ModEntities.TROUT,
-                    0x8290a5,
-                    0x6b9f93
-                    );
-
-    @SpawnEggItem
-    @I18n(en_us = "Piranha Spawn Egg", zh_cn = "食人鲳刷怪蛋", zh_tw = "食人魚生怪蛋")
-    public static final DeferredItem<DeferredSpawnEggItem> PIRANHA_SPAWN_EGG =
-            register("piranha_spawn_egg",
-                    ModEntities.PIRANHA,
-                    0x564943,
-                    0x82200B
-                    );
+    static {
+        ModSpawnEggs.init();
+    }
 
     @BasicItem
     @I18n(en_us = "Raw Frog Leg", zh_cn = "生蛙腿", zh_tw = "生蛙腿")

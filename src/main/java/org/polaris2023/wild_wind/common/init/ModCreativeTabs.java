@@ -10,6 +10,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
 
 import java.util.List;
 import java.util.Locale;
@@ -64,30 +65,31 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModBlocks.GLOW_MUCUS_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.GLOW_MUCUS_ITEM);
+        output.accept(ModItems.GLOW_POWDER);
         output.accept(ModBlocks.GLAREFLOWER_ITEM);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS_ITEM);
         output.accept(ModBlocks.REEDS_ITEM);
         output.accept(ModBlocks.CATTAILS_ITEM);
     }),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")
-    SPAWN_EGGS(ModItems.FIREFLY_SPAWN_EGG::toStack, () -> (__, output) -> {
-        output.accept(ModItems.FIREFLY_SPAWN_EGG);
-        output.accept(ModItems.GLARE_SPAWN_EGG);
-        output.accept(ModItems.PIRANHA_SPAWN_EGG);
-        output.accept(ModItems.TROUT_SPAWN_EGG);
+    SPAWN_EGGS(ModSpawnEggs.FIREFLY_SPAWN_EGG.entry::toStack, () -> (__, output) -> {
+        output.accept(ModSpawnEggs.FIREFLY_SPAWN_EGG.get());
+        output.accept(ModSpawnEggs.GLARE_SPAWN_EGG.get());
+        output.accept(ModSpawnEggs.PIRANHA_SPAWN_EGG.get());
+        output.accept(ModSpawnEggs.TROUT_SPAWN_EGG.get());
     }),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT_ITEM::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
                     if (checkOr(item,
-                            FOOD_AND_DRINK,
                             BUILDING_BLOCK,
-                            TOOLS_AND_UTILITIES,
+                            COLORED_BLOCKS,
                             NATURAL_BLOCKS,
+                            TOOLS_AND_UTILITIES,
+                            FOOD_AND_DRINK,
                             INGREDIENTS,
-                            SPAWN_EGGS,
-                            COLORED_BLOCKS
+                            SPAWN_EGGS
                     )) {
                         output.accept(item.get());
                     }

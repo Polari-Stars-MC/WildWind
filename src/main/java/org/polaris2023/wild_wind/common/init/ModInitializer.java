@@ -212,7 +212,7 @@ public class ModInitializer {
         });
     }
 
-    static DeferredItem<DeferredSpawnEggItem> register(String name,
+    public static DeferredItem<DeferredSpawnEggItem> register(String name,
                                                        Supplier<? extends EntityType<? extends Mob>> type,
                                                        int backgroundColor,
                                                        int highlightColor) {
