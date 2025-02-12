@@ -39,10 +39,6 @@ public enum ModNonFunctionItems implements Supplier<Item> {
         entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer);
     }
 
-    ModNonFunctionItems(Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer, food);
-    }
-
     public static void init() {
         ModNonFunctionFoods.init();
     }
