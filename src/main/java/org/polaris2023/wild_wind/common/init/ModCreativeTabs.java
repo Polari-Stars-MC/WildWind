@@ -9,6 +9,7 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.items.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.ModNonFunctionItems;
 import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
 
@@ -46,8 +47,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     TOOLS_AND_UTILITIES(ModItems.MAGIC_FLUTE::toStack, () -> (__, output) -> {
         output.accept(ModItems.MAGIC_FLUTE);
         output.accept(Items.BUCKET);
-        output.accept(ModItems.PIRANHA_BUCKET);
-        output.accept(ModItems.TROUT_BUCKET);
+        output.accept(ModMobBuckets.PIRANHA_BUCKET.get());
+        output.accept(ModMobBuckets.TROUT_BUCKET.get());
 
     }),
     @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")

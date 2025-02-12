@@ -41,8 +41,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         );
         IntrinsicTagAppender<Item> vegetable_food = tag(ModItemTags.VEGETABLE_FOOD);
         add(vegetable_food,
-                Items.CARROT, ModItems.BAKED_CARROT, Items.GOLDEN_CARROT,
-                Items.BEETROOT, ModItems.BAKED_BEETROOT,
+                Items.CARROT, ModNonFunctionFoods.BAKED_CARROT.get(), Items.GOLDEN_CARROT,
+                Items.BEETROOT, ModNonFunctionFoods.BAKED_BEETROOT.get(),
                 Items.POTATO, Items.BAKED_POTATO,
                 ModItems.PUMPKIN_SLICE, ModItems.BAKED_PUMPKIN_SLICE,
                 Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModItems.BAKED_MUSHROOM,

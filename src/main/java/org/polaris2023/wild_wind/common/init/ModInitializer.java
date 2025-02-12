@@ -197,7 +197,7 @@ public class ModInitializer {
         return ITEMS.registerItem(name, item);
     }
 
-    static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
+    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         return ITEMS.register(name, item);
     }
 

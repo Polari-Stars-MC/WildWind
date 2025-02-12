@@ -50,7 +50,19 @@ public enum ModNonFunctionFoods implements Supplier<Item> {
             p -> p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F),
-            ModFoods.COOKED_TROUT),;
+            ModFoods.COOKED_TROUT),
+    @I18n(en_us = "Baked Beetroot", zh_cn = "烤甜菜根", zh_tw = "烤甜菜根")
+    BAKED_BEETROOT(p ->
+            p
+                    .component(ModComponents.VEGETABLE_VALUE, 1F),
+            ModFoods.BAKED_BEETROOT),
+    @I18n(en_us = "Baked carrot", zh_tw = "烤胡蘿蔔", zh_cn = "烤胡萝卜")
+    BAKED_CARROT(
+            p -> p
+                    .component(ModComponents.VEGETABLE_VALUE, 1F),
+            ModFoods.BAKED_CARROT),
+
+    ;
 
     public final DeferredItem<Item> entry;
 

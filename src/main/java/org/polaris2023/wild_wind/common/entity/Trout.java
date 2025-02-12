@@ -11,6 +11,7 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.items.ModMobBuckets;
 
 public class Trout extends AbstractSchoolingFish {
 
@@ -34,6 +35,6 @@ public class Trout extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ModItems.TROUT_BUCKET.toStack();
+        return ModMobBuckets.TROUT_BUCKET.entry.toStack();
     }
 }

@@ -65,8 +65,8 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModNonFunctionFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModNonFunctionFoods.COOKED_TROUT.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModNonFunctionFoods.BAKED_LIVING_TUBER.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
-        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F);
-        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F);
+        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModNonFunctionFoods.BAKED_CARROT.get(), 0.35F);
+        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModNonFunctionFoods.BAKED_BEETROOT.get(), 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F);
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
