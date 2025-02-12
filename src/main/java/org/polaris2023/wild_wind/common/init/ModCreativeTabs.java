@@ -9,9 +9,9 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.common.init.items.ModMobBuckets;
+import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.ModNonFunctionItems;
-import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
+import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 
 import java.util.List;
 import java.util.Locale;

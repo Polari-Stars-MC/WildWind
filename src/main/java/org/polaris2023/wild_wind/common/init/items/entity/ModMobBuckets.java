@@ -1,7 +1,6 @@
-package org.polaris2023.wild_wind.common.init.items;
+package org.polaris2023.wild_wind.common.init.items.entity;
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
@@ -9,7 +8,6 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -17,7 +15,6 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.Locale;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
