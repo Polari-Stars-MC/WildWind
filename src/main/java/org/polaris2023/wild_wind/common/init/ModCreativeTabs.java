@@ -25,6 +25,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.BRITTLE_ICE_ITEM);
         output.accept(ModBlocks.SALT_BLOCK_ITEM);
     }),
+    @I18n(en_us = "Wild wind: Colored block", zh_cn = "原野之风：染色方块", zh_tw = "原野之風：染色方塊")
     COLORED_BLOCKS(ModBlocks.CATTAILS_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.CATTAILS_ITEM);
         output.accept(ModBlocks.WOOL_ITEM);
