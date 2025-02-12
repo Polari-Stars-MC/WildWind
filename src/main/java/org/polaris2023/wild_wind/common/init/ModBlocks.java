@@ -171,7 +171,7 @@ public class ModBlocks {
 
     @BasicBlockItem
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
-            register("deepslate_salt_ore", SALT_ORE);
+            register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
 
 

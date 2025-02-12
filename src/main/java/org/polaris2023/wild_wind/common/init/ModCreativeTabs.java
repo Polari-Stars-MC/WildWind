@@ -23,10 +23,22 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Building block", zh_cn = "原野之风：建筑方块", zh_tw = "原野之風：建築方塊")
     BUILDING_BLOCK(ModBlocks.BRITTLE_ICE::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.BRITTLE_ICE_ITEM);
+        output.accept(ModBlocks.SALT_BLOCK_ITEM);
+    }),
+    COLORED_BLOCKS(ModBlocks.CATTAILS_ITEM::toStack, () -> (__, output) -> {
+        output.accept(ModBlocks.CATTAILS_ITEM);
+        output.accept(ModBlocks.WOOL_ITEM);
+        output.accept(ModBlocks.CONCRETE_ITEM);
+        output.accept(ModBlocks.GLAZED_TERRACOTTA_ITEM);
     }),
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
     NATURAL_BLOCKS(ModBlocks.SALT_BLOCK_ITEM::toStack, () -> (__, output) -> {
+        output.accept(ModBlocks.BRITTLE_ICE_ITEM);
         output.accept(ModBlocks.SALT_BLOCK_ITEM);
+        output.accept(ModBlocks.DUCKWEED_ITEM);
+        output.accept(ModBlocks.SCULK_JAW_ITEM);
+        output.accept(ModBlocks.SALT_ORE_ITEM);
+        output.accept(ModBlocks.DEEPSLATE_SALT_ORE_ITEM);
     }),
     @I18n(en_us = "Wild wind: Tools and Utilities", zh_cn = "原野之风：工具与实用物品", zh_tw = "原野之風：工具與實用物品")
     TOOLS_AND_UTILITIES(ModItems.MAGIC_FLUTE::toStack, () -> (__, output) -> {
@@ -72,7 +84,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                             BUILDING_BLOCK,
                             TOOLS_AND_UTILITIES,
                             NATURAL_BLOCKS,
-                            INGREDIENTS
+                            INGREDIENTS,
+                            SPAWN_EGGS,
+                            COLORED_BLOCKS
                     )) {
                         output.accept(item.get());
                     }
