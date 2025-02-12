@@ -46,7 +46,8 @@ public class Firefly extends Animal implements FlyingAnimal {
     //是否为首领,首领将带领它们一起迁徙
     private static final EntityDataAccessor<Boolean> LEADER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     //族群编号
-    private static final EntityDataAccessor<Optional<UUID>> EGM = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.OPTIONAL_UUID)
+    private static final EntityDataAccessor<Optional<UUID>> EGM = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Boolean> SUMMON_ETHNIC = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState glowAnimationState = new AnimationState();
 
@@ -75,6 +76,15 @@ public class Firefly extends Animal implements FlyingAnimal {
         builder.define(TICKER, 60L);
         builder.define(LEADER, false);
         builder.define(EGM, Optional.of(UUID.randomUUID()));
+        builder.define(SUMMON_ETHNIC, true);//第一次生成的时候将生成它的族群
+    }
+
+    public void summonEthnic(boolean b) {
+        this.entityData.set(SUMMON_ETHNIC, true);
+    }
+
+    public boolean summonEthnic() {
+        return this.entityData.get(SUMMON_ETHNIC);
     }
 
 
@@ -140,6 +150,7 @@ public class Firefly extends Animal implements FlyingAnimal {
         this.setRoost(compound.getBoolean("roost"));
         this.setTicker(compound.getInt("ticker"));
         this.setLeader(compound.getBoolean("leader"));
+        this.summonEthnic(compound.getBoolean("summon_ethnic"));
 
     }
 
@@ -154,6 +165,7 @@ public class Firefly extends Animal implements FlyingAnimal {
         compound.putBoolean("roost", isRoost());
         compound.putLong("ticker", getTicker());
         compound.putBoolean("leader", isLeader());
+        compound.putBoolean("summon_ethnic", summonEthnic());
     }
 
     @Override
@@ -186,12 +198,11 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
     public static final List<Function<Firefly, Goal>> FACTORY = List
             .of(
-                    FireflyBaseGoal::new,
-                    FireflyAttractGoal::new,
-                    FireflyAfraidGoal::new,
-                    FireflyPopulationMigration::new,
-                    FireflyRoostGoal::new,
-                    FireflyGlowGoal::new
+                    FireflyAttractGoal::new,//食物吸引
+                    FireflyAfraidGoal::new,//逃离
+                    FireflyPopulationMigration::new,//种群迁徙
+                    FireflyRoostGoal::new,//栖息
+                    FireflyGlowGoal::new//发光
             );//按优先级注入，方便其他模组添加ai
     @Override
     protected void registerGoals() {

@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.util;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -19,6 +20,10 @@ public final class Helpers {
 
     public static ResourceLocation location(String path) {
         return ResourceLocation.fromNamespaceAndPath(WildWindMod.MOD_ID, path);
+    }
+
+    public static ModelLayerLocation location(String path, String parent) {
+        return new ModelLayerLocation(location(path), parent);
     }
 
     public static <T> TagKey<T> tags(ResourceKey<Registry<T>> resourceKey, String name) {

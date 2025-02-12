@@ -1,10 +1,8 @@
 package org.polaris2023.wild_wind.common.entity.goal.firefly;
 
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.entity.Firefly;
-import org.polaris2023.wild_wind.common.entity.goal.firefly.abstracts.FireflyBaseGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.abstracts.FireflyMoveGoal;
 
 import java.util.ArrayList;

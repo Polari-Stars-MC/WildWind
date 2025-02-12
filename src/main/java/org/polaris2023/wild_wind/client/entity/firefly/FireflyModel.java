@@ -11,7 +11,7 @@ import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.util.Helpers;
 
 public class FireflyModel extends HierarchicalModel<Firefly> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Helpers.location("firefly"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = Helpers.location("firefly", "main");
 	private final ModelPart bug;
 	private final ModelPart head;
 	private final ModelPart antennae;
@@ -101,6 +101,7 @@ public class FireflyModel extends HierarchicalModel<Firefly> {
 	@Override
 	public void setupAnim(Firefly firefly, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		this.root().getAllParts().forEach(ModelPart::resetPose);
+
 		this.animate(firefly.flyAnimationState, FireFlyAnimation.IDLE, ageInTicks, 1.0F);
 		this.animate(firefly.glowAnimationState, FireFlyAnimation.GLOW, ageInTicks, 1.0F);
 	}
