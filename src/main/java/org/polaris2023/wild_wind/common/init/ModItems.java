@@ -10,14 +10,13 @@ import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
-import org.polaris2023.annotation.modelgen.other.*;
+import org.polaris2023.wild_wind.common.init.items.ModNonFunctionItems;
 import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
+import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
@@ -28,9 +27,7 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
 public class ModItems {
-    @BasicItem
-    @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
-    public static final DeferredItem<Item> GLOW_POWDER = simpleItem("glow_powder");
+
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
     public static final DeferredItem<LivingTuberItem> LIVING_TUBER =
@@ -40,44 +37,6 @@ public class ModItems {
                     .component(ModComponents.MEAT_VALUE, 1F)
                     .component(ModComponents.MONSTER_VALUE, 1F)
                     .food(ModFoods.LIVING_TUBER.get())));
-    @BasicItem
-    @I18n(en_us = "Baked Living Tuber", zh_cn = "烤活根", zh_tw = "烤活根")
-    public static final DeferredItem<Item> BAKED_LIVING_TUBER =
-            simpleItem(
-                    "baked_living_tuber", p -> p
-                            .stacksTo(16)
-                            .component(ModComponents.VEGETABLE_VALUE, 1F)
-                            .component(ModComponents.MEAT_VALUE, 1F)
-                            .component(ModComponents.MONSTER_VALUE, 1F),
-                    ModFoods.COOKED_LIVING_TUBER);
-    @BasicItem
-    @I18n(en_us = "Raw Trout", zh_cn = "生鳟鱼", zh_tw = "生鱒魚")
-    public static final DeferredItem<Item> RAW_TROUT =
-            simpleItem("raw_trout", p -> p
-                            .component(ModComponents.MEAT_VALUE, 0.5F)
-                            .component(ModComponents.FISH_VALUE, 1F),
-                    ModFoods.RAW_TROUT);
-    @BasicItem
-    @I18n(en_us = "Cooked Trout", zh_cn = "烤鳟鱼", zh_tw = "烤鱒魚")
-    public static final DeferredItem<Item> COOKED_TROUT =
-            simpleItem("cooked_trout", p -> p
-                            .component(ModComponents.MEAT_VALUE, 0.5F)
-                            .component(ModComponents.FISH_VALUE, 1F),
-                    ModFoods.COOKED_TROUT);
-
-    @BasicItem
-    @I18n(en_us = "Raw Piranha", zh_cn = "生食人鲳", zh_tw = "生食人魚")
-    public static final DeferredItem<Item> RAW_PIRANHA =
-            simpleItem("raw_piranha", p -> p
-                    .component(ModComponents.MEAT_VALUE, 0.5F)
-                    .component(ModComponents.FISH_VALUE, 1F),
-                    ModFoods.RAW_TROUT);
-    @I18n(en_us = "Cooked Piranha", zh_cn = "烤食人鲳", zh_tw = "烤食人魚")
-    public static final DeferredItem<Item> COOKED_PIRANHA =
-            simpleItem("cooked_piranha", p -> p
-                            .component(ModComponents.MEAT_VALUE, 0.5F)
-                            .component(ModComponents.FISH_VALUE, 1F),
-                    ModFoods.COOKED_TROUT);
 
     @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
@@ -85,38 +44,9 @@ public class ModItems {
             register("magic_flute", MagicFluteItem::stackTo1);
 
     @BasicItem
-    @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
-    public static final DeferredItem<Item> APPLE_CAKE =
-            simpleItem("apple_cake");
-
-    @BasicItem
-    @I18n(en_us = "Berry Cake", zh_cn = "浆果派", zh_tw = "漿果派")
-    public static final DeferredItem<Item> BERRY_CAKE =
-            simpleItem("berry_cake");
-
-    @BasicItem
-    @I18n(en_us = "Candy", zh_cn = "糖果", zh_tw = "糖果")
-    public static final DeferredItem<Item> CANDY =
-            simpleItem("candy", p -> p.stacksTo(16));
-
-    @BasicItem
     @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
     public static final DeferredItem<Item> CHEESE =
-            item("cheese", p -> new Item(p.stacksTo(16).food(ModFoods.CHEESE.get())) {
-                @Override
-                public ItemStack finishUsingItem(ItemStack itemStack, Level level, LivingEntity entity) {
-                    super.finishUsingItem(itemStack, level, entity);
-                    List<MobEffectInstance> activeEffects = List.copyOf(entity.getActiveEffects());
-                    activeEffects.stream().filter(mobEffectInstance -> !mobEffectInstance.getEffect().value().isBeneficial())
-                            .forEach(mobEffectInstance -> entity.removeEffect(mobEffectInstance.getEffect()));
-                    return itemStack;
-                }
-            });
-
-    @BasicItem
-    @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")
-    public static final DeferredItem<Item> CHEESE_PUMPKIN_SOUP =
-            simpleItem("cheese_pumpkin_soup", p -> p.stacksTo(1));
+            register("cheese", p -> new CheeseItem(p.stacksTo(16).food(ModFoods.CHEESE.get())));
 
     @BasicItem
     @I18n(en_us = "Baked Beetroot", zh_cn = "烤甜菜根", zh_tw = "烤甜菜根")
@@ -247,7 +177,9 @@ public class ModItems {
             ModFoods.BAKED_BERRIES);
 
     static {
+        ModNonFunctionItems.init();
         ModSpawnEggs.init();
+
     }
 
     @BasicItem

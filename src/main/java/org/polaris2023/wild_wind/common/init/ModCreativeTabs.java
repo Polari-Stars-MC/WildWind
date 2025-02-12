@@ -7,9 +7,9 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.items.ModNonFunctionItems;
 import org.polaris2023.wild_wind.common.init.items.ModSpawnEggs;
 
 import java.util.List;
@@ -65,7 +65,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModBlocks.GLOW_MUCUS_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.GLOW_MUCUS_ITEM);
-        output.accept(ModItems.GLOW_POWDER);
+        output.accept(ModNonFunctionItems.GLOW_POWDER.get());
         output.accept(ModBlocks.GLAREFLOWER_ITEM);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS_ITEM);
         output.accept(ModBlocks.REEDS_ITEM);
