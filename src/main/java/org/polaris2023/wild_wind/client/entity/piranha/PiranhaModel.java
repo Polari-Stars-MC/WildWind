@@ -15,7 +15,7 @@ import org.polaris2023.wild_wind.util.Helpers;
 
 public class PiranhaModel extends ColorableHierarchicalModel<Piranha> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(Helpers.location("piranha"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = Helpers.location("piranha", "main");
 	private final ModelPart bone4;
 	private final ModelPart bone;
 	private final ModelPart bone3;

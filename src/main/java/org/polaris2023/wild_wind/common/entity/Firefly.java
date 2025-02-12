@@ -24,14 +24,18 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyBaseGoal;
-import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyFlyGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.abstracts.FireflyBaseGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyRoostGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyGlowGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyAfraidGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyAttractGoal;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyPopulationMigration;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class Firefly extends Animal implements FlyingAnimal {
 
@@ -39,7 +43,11 @@ public class Firefly extends Animal implements FlyingAnimal {
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.LONG);
-    private static final EntityDataAccessor<BlockPos> POSITION = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BLOCK_POS);
+    //是否为首领,首领将带领它们一起迁徙
+    private static final EntityDataAccessor<Boolean> LEADER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
+    //族群编号
+    private static final EntityDataAccessor<Optional<UUID>> EGM = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.OPTIONAL_UUID);
+    private static final EntityDataAccessor<Boolean> SUMMON_ETHNIC = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     public final AnimationState flyAnimationState = new AnimationState();
     public final AnimationState glowAnimationState = new AnimationState();
 
@@ -66,7 +74,17 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.defineSynchedData(builder);
         builder.define(ROOST, false);
         builder.define(TICKER, 60L);
-        builder.define(POSITION, new BlockPos(0, 0, 0));
+        builder.define(LEADER, false);
+        builder.define(EGM, Optional.of(UUID.randomUUID()));
+        builder.define(SUMMON_ETHNIC, true);//第一次生成的时候将生成它的族群
+    }
+
+    public void summonEthnic(boolean b) {
+        this.entityData.set(SUMMON_ETHNIC, true);
+    }
+
+    public boolean summonEthnic() {
+        return this.entityData.get(SUMMON_ETHNIC);
     }
 
 
@@ -75,13 +93,15 @@ public class Firefly extends Animal implements FlyingAnimal {
         this.entityData.set(ROOST, r);
     }
 
-    public BlockPos movePos() {
-        return this.entityData.get(POSITION);
+    public void setEGM(UUID uuid) {
+        this.entityData.set(EGM, Optional.of(UUID.randomUUID()));
     }
 
-    public void setMovePos(BlockPos pos) {
-        this.entityData.set(POSITION, pos);
+    public UUID getEGM() {
+        return this.entityData.get(EGM).orElse(getUUID());
     }
+
+
 
     public void setTicker(long ticker) { this.entityData.set(TICKER, ticker); }
 
@@ -112,12 +132,26 @@ public class Firefly extends Animal implements FlyingAnimal {
         return false;
     }
 
+    public void setLeader(boolean isLeader) {
+        this.entityData.set(LEADER, isLeader);
+    }
+
+    public void setLeader() {
+        setLeader(true);
+    }
+
+    public boolean isLeader() {
+        return this.entityData.get(LEADER);
+    }
+
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
         this.setRoost(compound.getBoolean("roost"));
         this.setTicker(compound.getInt("ticker"));
-        this.setMovePos(new BlockPos(compound.getInt("mpx"), compound.getInt("mpy"), compound.getInt("mpz")));
+        this.setLeader(compound.getBoolean("leader"));
+        this.summonEthnic(compound.getBoolean("summon_ethnic"));
+
     }
 
     @Override
@@ -130,10 +164,8 @@ public class Firefly extends Animal implements FlyingAnimal {
         super.addAdditionalSaveData(compound);
         compound.putBoolean("roost", isRoost());
         compound.putLong("ticker", getTicker());
-        BlockPos blockPos = movePos();
-        compound.putInt("mpx", blockPos.getX());
-        compound.putInt("mpy", blockPos.getY());
-        compound.putInt("mpz", blockPos.getZ());
+        compound.putBoolean("leader", isLeader());
+        compound.putBoolean("summon_ethnic", summonEthnic());
     }
 
     @Override
@@ -166,11 +198,12 @@ public class Firefly extends Animal implements FlyingAnimal {
     }
     public static final List<Function<Firefly, Goal>> FACTORY = List
             .of(
-                    FireflyBaseGoal::new,
-                    FireflyFlyGoal::new,
-                    FireflyRoostGoal::new,
-                    FireflyGlowGoal::new
-            );
+                    FireflyAttractGoal::new,//食物吸引
+                    FireflyAfraidGoal::new,//逃离
+                    FireflyPopulationMigration::new,//种群迁徙
+                    FireflyRoostGoal::new,//栖息
+                    FireflyGlowGoal::new//发光
+            );//按优先级注入，方便其他模组添加ai
     @Override
     protected void registerGoals() {
         for (int i = 0; i < FACTORY.size(); i++) {

@@ -39,6 +39,11 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     SWEET_VALUE(ModComponents.SWEET_VALUE),
     @I18n(en_us = "cooking pot", zh_cn = "烹饪锅", zh_tw = "烹飪鍋")
     COOKIN_POT("gui", WildWindMod.MOD_ID, "cooking_pot"),
+    @I18n(en_us = "Cow intolerance", zh_tw = "奶牛不耐受", zh_cn = "奶牛不耐受")
+    COW_INTOLERANCE("cow", "intolerance"),
+    @I18n(en_us = "Goat intolerance", zh_tw = "山羊不耐受", zh_cn = "山羊不耐受")
+    GOAT_INTOLERANCE("cow", "intolerance"),
+
     ;
 
     final MutableComponent translatable;

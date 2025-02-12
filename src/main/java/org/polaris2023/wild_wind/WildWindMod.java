@@ -6,7 +6,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
@@ -131,14 +130,14 @@ public class WildWindMod {
     }
 
     private static <T> void component(Supplier<DataComponentType<T>> type, T t, Item... items) {
+
         for (Item item : items) {
-            component(item, builder -> {
-                builder.set(type, t);
-            });
+            component(item, type, t);
         }
     }
 
     private static <T> void component(Item item, Supplier<DataComponentType<T>> type, T t) {
+
         component(item, builder -> {
             builder.set(type, t);
         });

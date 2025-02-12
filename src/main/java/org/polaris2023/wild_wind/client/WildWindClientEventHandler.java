@@ -8,12 +8,10 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
-import org.polaris2023.wild_wind.client.entity.firefly.FireflyRenderer;
 import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
-import org.polaris2023.wild_wind.client.entity.piranha.PiranhaRenderer;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
-import org.polaris2023.wild_wind.client.entity.trout.TroutRenderer;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 
@@ -27,9 +25,12 @@ public class WildWindClientEventHandler {
 
     @SubscribeEvent
     public static void registerRender(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.FIREFLY.get(), FireflyRenderer::new);
-        event.registerEntityRenderer(ModEntities.TROUT.get(), TroutRenderer::new);
-        event.registerEntityRenderer(ModEntities.PIRANHA.get(), PiranhaRenderer::new);
+        event.registerEntityRenderer(ModEntities.FIREFLY.get(), context ->
+                new ModMobRenderer<>("firefly", context, FireflyModel::new, FireflyModel.LAYER_LOCATION, 1));
+        event.registerEntityRenderer(ModEntities.TROUT.get(), context ->
+                new ModMobRenderer<>("trout", context, TroutModel::new, TroutModel.LAYER_LOCATION, 1));
+        event.registerEntityRenderer(ModEntities.PIRANHA.get(), context ->
+                new ModMobRenderer<>("piranha", context, PiranhaModel::new, PiranhaModel.LAYER_LOCATION, 1));
     }
 
     @SubscribeEvent
