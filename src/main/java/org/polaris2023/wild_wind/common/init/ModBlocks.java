@@ -22,8 +22,10 @@ import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 
 import org.polaris2023.wild_wind.common.block.CookingPotBlock;
+import org.polaris2023.wild_wind.common.block.DuckweedBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
 
 import java.util.Arrays;
 
@@ -90,6 +92,14 @@ public class ModBlocks {
             entity("cooking_pot", DSL.remainderType(), CookingPotBlockEntity::new, COOKING_POT);
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
+
+    @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
+    public static final DeferredBlock<DuckweedBlock> DUCKWEED =
+            register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
+            entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
+    public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
+            register("duckweed", DUCKWEED);
 
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
