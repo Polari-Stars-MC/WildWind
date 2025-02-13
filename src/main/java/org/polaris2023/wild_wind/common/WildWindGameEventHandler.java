@@ -24,6 +24,7 @@ import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrownEgg;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
@@ -110,6 +111,34 @@ public class WildWindGameEventHandler {
     public static void hurtEvent(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof Firefly firefly) {
             firefly.clearTicker();
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void clickEventEmpty(PlayerInteractEvent.LeftClickEmpty event) {
+        eggShoot(event, event.getItemStack());
+    }
+
+    @SubscribeEvent
+    public static void clickEventBlock(PlayerInteractEvent.LeftClickBlock event) {
+        eggShoot(event, event.getItemStack());
+    }
+
+    private static void eggShoot(PlayerInteractEvent event, ItemStack itemstack) {
+        if (itemstack.is(Items.EGG)) {
+            Level level = event.getLevel();
+            Player player = event.getEntity();
+            level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.EGG_THROW, SoundSource.PLAYERS, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
+            if (!level.isClientSide) {
+                ThrownEgg thrownegg = new ThrownEgg(level, player);
+                thrownegg.setItem(itemstack);
+                thrownegg.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
+                level.addFreshEntity(thrownegg);
+            }
+
+            player.awardStat(Stats.ITEM_USED.get(Items.EGG));
+            itemstack.consume(1, player);
         }
     }
 

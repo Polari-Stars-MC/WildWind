@@ -34,19 +34,17 @@ public abstract class EggMixin {
                      InteractionHand hand,
                      CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         ItemStack itemstack = player.getItemInHand(hand);
-        if (!player.isCrouching()) {
-            FoodProperties foodproperties = itemstack.getFoodProperties(player);
-            if (foodproperties != null) {
-                if (player.canEat(foodproperties.canAlwaysEat())) {
-                    player.startUsingItem(hand);
-                    cir.setReturnValue(InteractionResultHolder.consume(itemstack));
-                } else {
-                    cir.setReturnValue(InteractionResultHolder.fail(itemstack));
-                }
+        FoodProperties foodproperties = itemstack.getFoodProperties(player);
+        if (foodproperties != null) {
+            if (player.canEat(foodproperties.canAlwaysEat())) {
+                player.startUsingItem(hand);
+                cir.setReturnValue(InteractionResultHolder.consume(itemstack));
             } else {
-                cir.setReturnValue(InteractionResultHolder.pass(player.getItemInHand(hand)));
+                cir.setReturnValue(InteractionResultHolder.fail(itemstack));
             }
-            cir.cancel();
+        } else {
+            cir.setReturnValue(InteractionResultHolder.pass(player.getItemInHand(hand)));
         }
+        cir.cancel();
     }
 }
