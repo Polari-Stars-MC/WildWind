@@ -6,6 +6,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.MobBucketItem;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -22,7 +23,7 @@ import java.util.function.Supplier;
  * {@code @Date : 2025/02/12 21:17:12}
  */
 @BasicItem
-public enum ModMobBuckets implements Supplier<MobBucketItem> {
+public enum ModMobBuckets implements Supplier<MobBucketItem>, ItemLike {
     @I18n(en_us = "Trout Bucket", zh_cn = "鳟鱼桶", zh_tw = "鱒魚桶")
     TROUT_BUCKET(ModEntities.TROUT,  () -> Fluids.WATER),
     @I18n(en_us = "Piranha Bucket", zh_cn = "食人鲳桶", zh_tw = "食人魚桶")
@@ -46,5 +47,10 @@ public enum ModMobBuckets implements Supplier<MobBucketItem> {
     @Override
     public MobBucketItem get() {
         return entry.get();
+    }
+
+    @Override
+    public Item asItem() {
+        return entry.asItem();
     }
 }

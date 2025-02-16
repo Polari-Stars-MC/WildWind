@@ -9,9 +9,10 @@ import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
-import org.polaris2023.wild_wind.common.init.items.ModNonFunctionItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
 import java.util.List;
 import java.util.Locale;
@@ -52,10 +53,10 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
 
     }),
     @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")
-    FOOD_AND_DRINK(ModItems.PUMPKIN_SLICE::toStack,
+    FOOD_AND_DRINK(ModBaseFoods.PUMPKIN_SLICE.entry::toStack,
             () -> (__, output) -> {
                 List<Item> ignoresFood =
-                        List.of(ModItems.NETHER_MUSHROOM_STEW.get(), ModItems.FISH_CHOWDER.get());// ignore some food
+                        List.of(ModItems.NETHER_MUSHROOM_STEW.get(), ModBaseFoods.FISH_CHOWDER.get());// ignore some food
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
                     Item it = item.get();
                     if (it.components().has(DataComponents.FOOD) && !ignoresFood.contains(it)) {
@@ -66,7 +67,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModBlocks.GLOW_MUCUS_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.GLOW_MUCUS_ITEM);
-        output.accept(ModNonFunctionItems.GLOW_POWDER.get());
+        output.accept(ModBaseItems.GLOW_POWDER.get());
         output.accept(ModBlocks.GLAREFLOWER_ITEM);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS_ITEM);
         output.accept(ModBlocks.REEDS_ITEM);

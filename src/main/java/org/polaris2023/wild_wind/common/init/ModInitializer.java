@@ -185,7 +185,7 @@ public class ModInitializer {
         });
     }
 
-    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
+    public static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
         return simpleItem(name, properties -> properties.food(food.get()));
     }
 

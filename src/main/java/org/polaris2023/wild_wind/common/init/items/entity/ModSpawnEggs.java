@@ -2,6 +2,8 @@ package org.polaris2023.wild_wind.common.init.items.entity;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -17,7 +19,7 @@ import java.util.function.Supplier;
  * @author : baka4n
  * {@code @Date : 2025/02/12 19:56:04}
  */
-public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem> {
+public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem>, ItemLike {
     @SpawnEggItem
     @I18n(en_us = "Firefly Spawn Egg", zh_cn = "萤火虫刷怪蛋", zh_tw = "螢火蟲生怪蛋")
     FIREFLY_SPAWN_EGG(ModEntities.FIREFLY, 0x0A233F, 0xAA8F74),
@@ -41,5 +43,10 @@ public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem> {
     @Override
     public DeferredSpawnEggItem get() {
         return entry.get();
+    }
+
+    @Override
+    public Item asItem() {
+        return entry.asItem();
     }
 }
