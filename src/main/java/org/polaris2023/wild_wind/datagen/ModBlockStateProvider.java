@@ -41,6 +41,9 @@ public class ModBlockStateProvider extends BlockStateProvider {
     public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
             Helpers.location("block/glazed_terracotta")
     };
+    public static final ResourceLocation[] POLISHED_STONE = new ResourceLocation[] {
+            Helpers.location("block/polished_stone")
+    };
 
     @Override
     protected void registerStatesAndModels() {
@@ -104,6 +107,20 @@ public class ModBlockStateProvider extends BlockStateProvider {
             glazedTerracottaStates.partialState().with(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, facing)
                     .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", GLAZED_TERRACOTTA[0]), 0, yRotation, false));
         }
+
+        // polished_stone
+        BlockModelBuilder polishedStoneModel = models().cubeAll("polished_stone", POLISHED_STONE[0]);
+        simpleBlock(ModBlocks.POLISHED_STONE.get(), polishedStoneModel);
+
+        //glistering_melon
+        BlockModelBuilder glisteringMelonModel = models().cubeBottomTop(
+                "glistering_melon",
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_top")
+        );
+        simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
+
     }
 
     private void glowMucusModel(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {

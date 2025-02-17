@@ -159,9 +159,19 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("deepslate_salt_ore", SALT_ORE);
 
+    @I18n(en_us = "Glistering Melon", zh_cn = "金西瓜", zh_tw = "金西瓜")
+    public static final DeferredBlock<Block> GLISTERING_MELON =
+            register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
+            register("glistering_melon", GLISTERING_MELON);
 
-
-
+    @I18n(en_us = "Polished Stone",zh_cn = "磨制石头",zh_tw = "磨製石頭")
+    public static final DeferredBlock<Block> POLISHED_STONE =
+            register("polished_stone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM =
+            register("polished_stone", POLISHED_STONE);
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
