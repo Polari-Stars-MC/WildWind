@@ -4,7 +4,6 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
@@ -188,6 +187,28 @@ public class ModBlocks {
     @I18n(en_us = "Azalea Wall Hanging Sign", zh_cn = "墙上的杜鹃木悬挂式告示牌", zh_tw = "牆上的杜鵑木懸挂式告示牌")
     public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
             register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
+
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
+            register("azalea_log", AZALEA_LOG);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
+            register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_WOOD_ITEM =
+            register("azalea_wood", AZALEA_WOOD);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
+            register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
+            register("azalea_planks", AZALEA_PLANKS);
+    @BasicBlockItem
+    public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
+            registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
+    @BasicBlockItem
+    public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
+            registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
