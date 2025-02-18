@@ -8,6 +8,7 @@ version="1.0.0"
 displayName="Wild Wind Mod"
 authors="wdog5734,baka4n,Viola-Siemens"
 description='''Wild Wind Mod'''
+enumExtensions="META-INF/enumextensions.json"
 
 [[mixins]]
 config="wild_wind.mixins.json"

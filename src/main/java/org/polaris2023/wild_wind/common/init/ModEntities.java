@@ -6,6 +6,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.entity.Glare;
+import org.polaris2023.wild_wind.common.entity.Piranha;
 import org.polaris2023.wild_wind.common.entity.Trout;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
@@ -21,6 +22,9 @@ public class ModEntities {
     @I18n(en_us = "Glare", zh_cn = "鳟鱼", zh_tw = "鱒魚")
     public static final DeferredHolder<EntityType<?>, EntityType<Trout>> TROUT =
             register("trout", Trout::new, MobCategory.WATER_AMBIENT);
+    @I18n(en_us = "Piranha", zh_cn = "食人鲳", zh_tw = "食人魚")
+    public static final DeferredHolder<EntityType<?>, EntityType<Piranha>> PIRANHA =
+            register("piranha", Piranha::new, MobCategory.WATER_AMBIENT);
 
 
 

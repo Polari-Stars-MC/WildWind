@@ -2,13 +2,17 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -95,6 +99,66 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
+  
+    @I18n(en_us = "wood", zh_cn = "羊毛", zh_tw = "羊毛")
+    public static final DeferredBlock<Block> WOOD = register("wood", BlockBehaviour.Properties.of()
+            .instrument(NoteBlockInstrument.GUITAR)
+            .strength(0.8F)
+            .sound(SoundType.WOOL)
+            .ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
+
+    @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
+    public static final DeferredBlock<CarpetBlock> CARPET =
+            register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
+
+    @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
+    public static final DeferredBlock<Block> CONCRETE =
+            register("concrete", BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.STONE).ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", CONCRETE);
+    @I18n(en_us ="Glazed Terracotta", zh_cn = "釉陶瓦", zh_tw = "釉陶瓦")
+    public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
+            register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
+
+    @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
+    public static final DeferredBlock<Block> SALT_BLOCK =
+            register("salt_block", Block::new, BlockBehaviour.Properties.of()
+                    .strength(3F)
+                    .requiresCorrectToolForDrops()
+                    .isRedstoneConductor((_0, _1, _2) -> true));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_BLOCK_ITEM =
+            register("salt_block", SALT_BLOCK);
+    @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
+    public static final DeferredBlock<Block> SALT_ORE =
+            register("salt_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.STONE)
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .requiresCorrectToolForDrops()
+                    .strength(3));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> SALT_ORE_ITEM =
+            register("salt_ore", SALT_ORE);
+
+    @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
+    public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_SALT_ORE =
+            register("deepslate_salt_ore",
+                    properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.of()
+                            .requiresCorrectToolForDrops()
+                            .instrument(NoteBlockInstrument.BASEDRUM)
+                            .strength(4.5F, 3)
+                            .sound(SoundType.DEEPSLATE)
+                            .mapColor(MapColor.DEEPSLATE));
+
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
+            register("deepslate_salt_ore", SALT_ORE);
 
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃木原木", zh_tw = "杜鵑木原木")
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =
@@ -124,28 +188,6 @@ public class ModBlocks {
     @I18n(en_us = "Azalea Wall Hanging Sign", zh_cn = "墙上的杜鹃木悬挂式告示牌", zh_tw = "牆上的杜鵑木懸挂式告示牌")
     public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
             register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
-
-    @BasicBlockItem
-    public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
-            register("azalea_log", AZALEA_LOG);
-    @BasicBlockItem
-    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
-            register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
-    @BasicBlockItem
-    public static final DeferredItem<BlockItem> AZALEA_WOOD_ITEM =
-            register("azalea_wood", AZALEA_WOOD);
-    @BasicBlockItem
-    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
-            register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
-    @BasicBlockItem
-    public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
-            register("azalea_planks", AZALEA_PLANKS);
-    @BasicBlockItem
-    public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
-            registerSign("azalea_planks", AZALEA_SIGN, AZALEA_WALL_SIGN);
-    @BasicBlockItem
-    public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
-            registerHangingSign("azalea_planks", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

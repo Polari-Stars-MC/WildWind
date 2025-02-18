@@ -11,6 +11,7 @@ import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.common.init.ModEntityDataAccess;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -47,6 +48,7 @@ public abstract class GoatMixin extends Animal {
                           InteractionHand hand,
                           CallbackInfoReturnable<InteractionResult> cir) {
         if (entityData.get(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT) > 0) {
+            player.sendSystemMessage(ModTranslateKey.COW_INTOLERANCE.translatable());
             cir.setReturnValue(super.mobInteract(player, hand));
             cir.cancel();
         }

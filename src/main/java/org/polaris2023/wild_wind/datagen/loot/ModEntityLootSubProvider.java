@@ -49,5 +49,6 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
                         .setRolls(ConstantValue.exactly(1.0F))
                         .add(LootItem.lootTableItem(ModItems.RAW_TROUT)
                                 .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))));
+        add(ModEntities.PIRANHA.get(), LootTable.lootTable());
     }
 }

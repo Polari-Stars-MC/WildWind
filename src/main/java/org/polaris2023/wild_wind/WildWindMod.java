@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind;
 
-import io.github.tt432.eyelib.event.InitComponentEvent;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
@@ -12,6 +11,7 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
@@ -33,7 +33,7 @@ public class WildWindMod {
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
-        NeoForge.EVENT_BUS.addListener((InitComponentEvent event) -> {
+        NeoForge.EVENT_BUS.addListener((ServerStartingEvent event) -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);
             food(Items.SNIFFER_EGG, ModFoods.SNIFFER_EGG);
@@ -117,8 +117,6 @@ public class WildWindMod {
             );
 
             component(Items.SLIME_BALL, ModComponents.SLIME_COLOR, 0);
-
-
         });
 
         for (var iConfig : ServiceLoader.load(IConfig.class))
@@ -132,14 +130,14 @@ public class WildWindMod {
     }
 
     private static <T> void component(Supplier<DataComponentType<T>> type, T t, Item... items) {
+
         for (Item item : items) {
-            component(item, builder -> {
-                builder.set(type, t);
-            });
+            component(item, type, t);
         }
     }
 
     private static <T> void component(Item item, Supplier<DataComponentType<T>> type, T t) {
+
         component(item, builder -> {
             builder.set(type, t);
         });

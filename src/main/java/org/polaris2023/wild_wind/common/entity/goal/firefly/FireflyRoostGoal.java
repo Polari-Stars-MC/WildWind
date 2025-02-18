@@ -1,10 +1,11 @@
-package org.polaris2023.wild_wind.common.entity.goal;
+package org.polaris2023.wild_wind.common.entity.goal.firefly;
 
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.entity.Firefly;
+import org.polaris2023.wild_wind.common.entity.goal.firefly.abstracts.FireflyBaseGoal;
 
-public class FireflyRoostGoal extends FireflyFlyGoal{
+public class FireflyRoostGoal extends FireflyBaseGoal {
 
     public FireflyRoostGoal(Firefly firefly) {
         super(firefly);
