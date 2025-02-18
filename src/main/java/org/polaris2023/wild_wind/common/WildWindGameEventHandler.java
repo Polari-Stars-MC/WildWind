@@ -2,6 +2,7 @@ package org.polaris2023.wild_wind.common;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -133,6 +134,23 @@ public class WildWindGameEventHandler {
     @SubscribeEvent
     public static void clickEventBlock(PlayerInteractEvent.LeftClickBlock event) {
         eggShoot(event.getItemStack(), event.getEntity(), event.getLevel());
+    }
+    @SubscribeEvent
+    public static void rightClickEventBlock(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        Direction face = event.getFace();
+        if (stack.is(Items.MILK_BUCKET) && !player.isCrouching() && face != null) {
+
+            BlockPos relative = event.getPos().relative(face);
+            if (level.getBlockState(relative).canBeReplaced()) {
+                event.getLevel().setBlockAndUpdate(relative, ModFluids.MILK_BLOCK.get().defaultBlockState());
+                player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
+                event.setCanceled(true);
+            }
+
+        }
     }
 
     @SubscribeEvent

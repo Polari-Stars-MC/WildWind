@@ -32,8 +32,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/brittle_ice_2"),
             Helpers.location("block/brittle_ice_3")
     };
-    public static final ResourceLocation[] WOOD = new ResourceLocation[] {
-            Helpers.location("block/wood")
+    public static final ResourceLocation[] WOOL = new ResourceLocation[] {
+            Helpers.location("block/wool")
     };
     public static final ResourceLocation[] CONCRETE = new ResourceLocation[] {
             Helpers.location("block/concrete")
@@ -80,11 +80,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
 
         // Wood
-        BlockModelBuilder woodModel = models().cubeAll("wood", WOOD[0]);
-        simpleBlock(ModBlocks.WOOD.get(), woodModel);
+        BlockModelBuilder woodModel = models().cubeAll("wool", WOOL[0]);
+        simpleBlock(ModBlocks.WOOL.get(), woodModel);
 
         //Carpet
-        BlockModelBuilder carpetModel = models().carpet("carpet", WOOD[0]);
+        BlockModelBuilder carpetModel = models().carpet("carpet", WOOL[0]);
         simpleBlock(ModBlocks.CARPET.get(), carpetModel);
 
         //Concrete

@@ -4,6 +4,7 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -23,6 +24,8 @@ import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.WoolBlockEntity;
+import org.polaris2023.wild_wind.common.block.item.WoolBlockItem;
 
 import java.util.Arrays;
 
@@ -113,14 +116,18 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
 
-    @I18n(en_us = "wood", zh_cn = "羊毛", zh_tw = "羊毛")
-    public static final DeferredBlock<Block> WOOD = register("wood", BlockBehaviour.Properties.of()
+    @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
+    public static final DeferredBlock<WoolBlock> WOOL = register("wool", WoolBlock::new, BlockBehaviour.Properties.of()
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
             .sound(SoundType.WOOL)
             .ignitedByLava());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WoolBlockEntity>> WOOL_TILE =
+            entity("wool", DSL.remainderType(), WoolBlockEntity::new, WOOL);
     @BasicBlockItem
-    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
+    public static final DeferredItem<BlockItem> WOOL_ITEM =
+            register("wool", p -> new WoolBlockItem(WOOL.get(), p));
+//            register("wood", WOOL);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
     public static final DeferredBlock<CarpetBlock> CARPET =
