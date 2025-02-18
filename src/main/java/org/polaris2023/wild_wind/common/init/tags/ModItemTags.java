@@ -19,6 +19,7 @@ public enum ModItemTags implements Supplier<TagKey<Item>> {
     PROTEIN_FOOD,
     FISH_FOOD,
     MONSTER_FOOD,
+    AZALEA_LOGS
     ;
     final TagKey<Item> tag;
     ModItemTags() {
