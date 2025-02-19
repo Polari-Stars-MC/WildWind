@@ -13,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
+import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
 import java.util.Arrays;
@@ -78,8 +79,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.TROPICAL_FISH, Items.PUFFERFISH,
                 Items.ROTTEN_FLESH
         );
-
-
+        this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {

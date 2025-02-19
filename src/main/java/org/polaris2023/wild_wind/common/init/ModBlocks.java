@@ -6,6 +6,8 @@ import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.HangingSignItem;
+import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -29,8 +31,7 @@ import org.polaris2023.wild_wind.common.block.item.WoolBlockItem;
 
 import java.util.Arrays;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.TILES;
-import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
+import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
 public class ModBlocks {
@@ -118,6 +119,7 @@ public class ModBlocks {
 
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     public static final DeferredBlock<WoolBlock> WOOL = register("wool", WoolBlock::new, BlockBehaviour.Properties.of()
+
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
             .sound(SoundType.WOOL)
@@ -180,9 +182,56 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
+    @I18n(en_us = "Azalea Log", zh_cn = "杜鹃木原木", zh_tw = "杜鵑木原木")
+    public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =
+            register("azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
+    @I18n(en_us = "Stripped Azalea Log", zh_cn = "去皮杜鹃木原木", zh_tw = "剝皮杜鵑木原木")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_LOG =
+            register("stripped_azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
+    @I18n(en_us = "Azalea Wood", zh_cn = "杜鹃木", zh_tw = "杜鵑木塊")
+    public static final DeferredBlock<RotatedPillarBlock> AZALEA_WOOD =
+            register("azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
+    @I18n(en_us = "Stripped Azalea Wood", zh_cn = "去皮杜鹃木", zh_tw = "剝皮杜鵑木塊")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_WOOD =
+            register("stripped_azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
 
+    @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
+    public static final DeferredBlock<Block> AZALEA_PLANKS =
+            register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+    @I18n(en_us = "Azalea Sign", zh_cn = "杜鹃木告示牌", zh_tw = "杜鵑木告示牌")
+    public static final DeferredBlock<StandingSignBlock> AZALEA_SIGN =
+            register("azalea_sign", props -> new StandingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SIGN));
+    @I18n(en_us = "Azalea Wall Sign", zh_cn = "墙上的杜鹃木告示牌", zh_tw = "牆上的杜鵑木告示牌")
+    public static final DeferredBlock<WallSignBlock> AZALEA_WALL_SIGN =
+            register("azalea_wall_sign", props -> new WallSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_SIGN).lootFrom(AZALEA_SIGN));
+    @I18n(en_us = "Azalea Hanging Sign", zh_cn = "杜鹃木悬挂式告示牌", zh_tw = "杜鵑木懸挂式告示牌")
+    public static final DeferredBlock<CeilingHangingSignBlock> AZALEA_HANGING_SIGN =
+            register("azalea_hanging_sign", props -> new CeilingHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_HANGING_SIGN));
+    @I18n(en_us = "Azalea Wall Hanging Sign", zh_cn = "墙上的杜鹃木悬挂式告示牌", zh_tw = "牆上的杜鵑木懸挂式告示牌")
+    public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
+            register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
 
-
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
+            register("azalea_log", AZALEA_LOG);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
+            register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_WOOD_ITEM =
+            register("azalea_wood", AZALEA_WOOD);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
+            register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
+            register("azalea_planks", AZALEA_PLANKS);
+    @BasicBlockItem
+    public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
+            registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
+    @BasicBlockItem
+    public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
+            registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
@@ -191,5 +240,4 @@ public class ModBlocks {
              DeferredBlock<?>... blocks) {
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
     }
-
 }
