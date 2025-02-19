@@ -16,6 +16,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
+import net.neoforged.neoforge.fluids.FluidType;
 import org.polaris2023.wild_wind.common.init.ModFluids;
 
 /**
@@ -23,6 +24,12 @@ import org.polaris2023.wild_wind.common.init.ModFluids;
  * {@code @Date : 2025/02/16 18:51:39}
  */
 public abstract class MilkFluid extends FlowingFluid {
+
+    @Override
+    public FluidType getFluidType() {
+        return new FluidType(FluidType.Properties.create()
+                .canSwim(true));
+    }
 
     @Override
     public Fluid getFlowing() {
