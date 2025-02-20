@@ -4,12 +4,13 @@ import net.minecraft.world.item.Item;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * @author : baka4n
  * {@code @Date : 2025/02/16 18:24:53}
  */
-public enum ItemPropertiesUtil implements Consumer<Item.Properties> {
+public enum ItemPropertiesUtil implements Consumer<Item.Properties>, Supplier<Item.Properties> {
     STACK_TO_1(p -> p.stacksTo(1)),
     STACK_TO_SNOW(p -> p.stacksTo(16))
     ;
@@ -27,5 +28,12 @@ public enum ItemPropertiesUtil implements Consumer<Item.Properties> {
     @Override
     public Consumer<Item.Properties> andThen(@NotNull Consumer<? super Item.Properties> after) {
         return props.andThen(after);
+    }
+
+    @Override
+    public Item.Properties get() {
+        Item.Properties properties = new Item.Properties();
+        accept(properties);
+        return properties;
     }
 }
