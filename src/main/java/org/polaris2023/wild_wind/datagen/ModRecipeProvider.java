@@ -113,25 +113,25 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('C', ItemTags.COALS);
         }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.WOOD.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.WOOL.get(), 1,
                 builder -> {
             unlockedBy(builder, Items.STRING);
             builder
                     .pattern("SS ")
                     .pattern("SS ")
                     .pattern("   ")
-                    .group("wood")
+                    .group("wool")
                     .define('S', Items.STRING);
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 1,
                 builder -> {
-            unlockedBy(builder, ModBlocks.WOOD.get());
+            unlockedBy(builder, ModBlocks.WOOL.get());
             builder
                     .pattern("SS ")
                     .pattern("   ")
                     .pattern("   ")
                     .group("carpet")
-                    .define('S', ModBlocks.WOOD.get());
+                    .define('S', ModBlocks.WOOL.get());
                 }));
     }
 

@@ -99,14 +99,14 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
   
-    @I18n(en_us = "wood", zh_cn = "羊毛", zh_tw = "羊毛")
-    public static final DeferredBlock<Block> WOOD = register("wood", BlockBehaviour.Properties.of()
+    @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
+    public static final DeferredBlock<Block> WOOL = register("wool", BlockBehaviour.Properties.of()
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
             .sound(SoundType.WOOL)
             .ignitedByLava());
     @BasicBlockItem
-    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
+    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wool", WOOL);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
     public static final DeferredBlock<CarpetBlock> CARPET =
@@ -175,6 +175,30 @@ public class ModBlocks {
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
     public static final DeferredBlock<Block> AZALEA_PLANKS =
             register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+    @I18n(en_us = "Azalea Button", zh_cn = "杜鹃木按钮", zh_tw = "杜鵑木按鈕")
+    public static final DeferredBlock<ButtonBlock> AZALEA_BUTTON =
+            register("azalea_button", props -> new ButtonBlock(ModBlockSetTypes.AZALEA, 30, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_BUTTON));
+    @I18n(en_us = "Azalea Fence", zh_cn = "杜鹃木栅栏", zh_tw = "杜鵑木柵欄")
+    public static final DeferredBlock<FenceBlock> AZALEA_FENCE =
+            register("azalea_fence", FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE));
+    @I18n(en_us = "Azalea Fence Gate", zh_cn = "杜鹃木栅栏门", zh_tw = "杜鵑木柵欄門")
+    public static final DeferredBlock<FenceGateBlock> AZALEA_FENCE_GATE =
+            register("azalea_fence_gate", props -> new FenceGateBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE_GATE));
+    @I18n(en_us = "Azalea Pressure Plate", zh_cn = "杜鹃木压力板", zh_tw = "杜鵑木压力板")
+    public static final DeferredBlock<PressurePlateBlock> AZALEA_PRESSURE_PLATE =
+            register("azalea_pressure_plate", props -> new PressurePlateBlock(ModBlockSetTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PRESSURE_PLATE));
+    @I18n(en_us = "Azalea Slab", zh_cn = "杜鹃木台阶", zh_tw = "杜鵑木半磚")
+    public static final DeferredBlock<SlabBlock> AZALEA_SLAB =
+            register("azalea_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SLAB));
+    @I18n(en_us = "Azalea Stairs", zh_cn = "杜鹃木楼梯", zh_tw = "杜鵑木樓梯")
+    public static final DeferredBlock<StairBlock> AZALEA_STAIRS =
+            register("azalea_stairs", props -> new StairBlock(AZALEA_PLANKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_STAIRS));
+    @I18n(en_us = "Azalea Door", zh_cn = "杜鹃木门", zh_tw = "杜鵑木門")
+    public static final DeferredBlock<DoorBlock> AZALEA_DOOR =
+            register("azalea_door", props -> new DoorBlock(ModBlockSetTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_DOOR));
+    @I18n(en_us = "Azalea Door", zh_cn = "杜鹃木活板门", zh_tw = "杜鵑木地板門")
+    public static final DeferredBlock<TrapDoorBlock> AZALEA_TRAPDOOR =
+            register("azalea_trapdoor", props -> new TrapDoorBlock(ModBlockSetTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_TRAPDOOR));
     @I18n(en_us = "Azalea Sign", zh_cn = "杜鹃木告示牌", zh_tw = "杜鵑木告示牌")
     public static final DeferredBlock<StandingSignBlock> AZALEA_SIGN =
             register("azalea_sign", props -> new StandingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SIGN));
@@ -203,6 +227,30 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
             register("azalea_planks", AZALEA_PLANKS);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
+            register("azalea_button", AZALEA_BUTTON);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_FENCE_ITEM =
+            register("azalea_fence", AZALEA_FENCE);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_FENCE_GATE_ITEM =
+            register("azalea_fence_gate", AZALEA_FENCE_GATE);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_PRESSURE_PLATE_ITEM =
+            register("azalea_pressure_plate", AZALEA_PRESSURE_PLATE);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_SLAB_ITEM =
+            register("azalea_slab", AZALEA_SLAB);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_STAIRS_ITEM =
+            register("azalea_stairs", AZALEA_STAIRS);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_DOOR_ITEM =
+            register("azalea_door", AZALEA_DOOR);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> AZALEA_TRAPDOOR_ITEM =
+            register("azalea_trapdoor", AZALEA_TRAPDOOR);
     @BasicBlockItem
     public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
             registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);

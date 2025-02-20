@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Set;
 
@@ -33,7 +34,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CATTAILS.get());
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
-        this.dropSelf(ModBlocks.WOOD.get());
+        this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
         this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
@@ -47,5 +48,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.AZALEA_PLANKS.get());
         this.dropSelf(ModBlocks.AZALEA_SIGN.get());
         this.dropSelf(ModBlocks.AZALEA_HANGING_SIGN.get());
+        ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
     }
 }

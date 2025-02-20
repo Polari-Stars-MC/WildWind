@@ -3,19 +3,18 @@ package org.polaris2023.wild_wind.datagen.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
+import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -81,6 +80,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.ROTTEN_FLESH
         );
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
+        ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
