@@ -4,8 +4,6 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
@@ -238,6 +236,7 @@ public class ModBlocks {
              Type<?> type,
              BlockEntityType.BlockEntitySupplier<T> factory,
              DeferredBlock<?>... blocks) {
+
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
     }
 }
