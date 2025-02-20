@@ -122,7 +122,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("SS ")
                     .pattern("SS ")
                     .pattern("   ")
-                    .group("wood")
+                    .group("wool")
                     .define('S', Items.STRING);
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 1,
