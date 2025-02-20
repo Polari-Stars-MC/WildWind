@@ -3,17 +3,16 @@ package org.polaris2023.wild_wind.datagen.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
@@ -42,20 +41,20 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         );
         IntrinsicTagAppender<Item> vegetable_food = tag(ModItemTags.VEGETABLE_FOOD);
         add(vegetable_food,
-                Items.CARROT, ModItems.BAKED_CARROT, Items.GOLDEN_CARROT,
-                Items.BEETROOT, ModItems.BAKED_BEETROOT,
+                Items.CARROT, ModBaseFoods.BAKED_CARROT, Items.GOLDEN_CARROT,
+                Items.BEETROOT, ModBaseFoods.BAKED_BEETROOT,
                 Items.POTATO, Items.BAKED_POTATO,
-                ModItems.PUMPKIN_SLICE, ModItems.BAKED_PUMPKIN_SLICE,
-                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModItems.BAKED_MUSHROOM,
+                ModBaseFoods.PUMPKIN_SLICE, ModBaseFoods.BAKED_PUMPKIN_SLICE,
+                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModBaseFoods.BAKED_MUSHROOM,
                 Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS,
-                ModItems.LIVING_TUBER,ModItems.BAKED_LIVING_TUBER
+                ModItems.LIVING_TUBER, ModBaseFoods.BAKED_LIVING_TUBER
         );
         IntrinsicTagAppender<Item> fruit_food = tag(ModItemTags.FRUIT_FOOD);
         add(fruit_food,
-                Items.APPLE, ModItems.BAKED_APPLE, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE,
+                Items.APPLE, ModBaseFoods.BAKED_APPLE, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE,
                 Items.CHORUS_FRUIT, Items.POPPED_CHORUS_FRUIT,
-                Items.MELON_SLICE, ModItems.BAKED_MELON_SLICE, Items.GLISTERING_MELON_SLICE,
-                Items.SWEET_BERRIES, Items.GLOW_BERRIES,ModItems.BAKED_BERRIES,
+                Items.MELON_SLICE, ModBaseFoods.BAKED_MELON_SLICE, Items.GLISTERING_MELON_SLICE,
+                Items.SWEET_BERRIES, Items.GLOW_BERRIES,ModBaseFoods.BAKED_BERRIES,
                 Items.SUGAR_CANE
         );
         IntrinsicTagAppender<Item> protein_food = tag(ModItemTags.PROTEIN_FOOD);
@@ -64,13 +63,13 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.TURTLE_EGG,
                 Items.SNIFFER_EGG,
                 Items.DRAGON_EGG,
-                ModItems.COOKED_EGG
+                ModBaseFoods.COOKED_EGG
         );
         IntrinsicTagAppender<Item> fish_food = tag(ModItemTags.FISH_FOOD);
         add(fish_food,
                 Items.COD, Items.COOKED_COD,
                 Items.SALMON, Items.COOKED_SALMON,
-                ModItems.RAW_TROUT, ModItems.COOKED_TROUT,
+                ModBaseFoods.RAW_TROUT, ModBaseFoods.COOKED_TROUT,
                 Items.KELP, Items.DRIED_KELP
         );
         IntrinsicTagAppender<Item> monster_food = tag(ModItemTags.MONSTER_FOOD);

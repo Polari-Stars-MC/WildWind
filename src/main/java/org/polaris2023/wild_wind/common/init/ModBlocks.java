@@ -4,6 +4,8 @@ import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
@@ -20,11 +22,12 @@ import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
+import org.polaris2023.wild_wind.common.block.*;
 
-import org.polaris2023.wild_wind.common.block.CookingPotBlock;
-import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.WoolBlockEntity;
+import org.polaris2023.wild_wind.common.block.item.WoolBlockItem;
 
 import java.util.Arrays;
 
@@ -91,6 +94,21 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
 
+    @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
+    public static final DeferredBlock<DuckweedBlock> DUCKWEED =
+            register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
+            entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
+    public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
+            register("duckweed", DUCKWEED);
+
+    @I18n(en_us = "Sculk Jaw", zh_cn = "幽匿厄口", zh_tw = "幽匿厄口")
+    public static final DeferredBlock<SculkJawBlock> SCULK_JAW =
+            register("sculk_jaw", SculkJawBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredItem<BlockItem> SCULK_JAW_ITEM =
+            register("sculk_jaw", SCULK_JAW);
+
+
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
             register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
@@ -98,15 +116,20 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
-  
-    @I18n(en_us = "wood", zh_cn = "羊毛", zh_tw = "羊毛")
-    public static final DeferredBlock<Block> WOOD = register("wood", BlockBehaviour.Properties.of()
+
+    @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
+    public static final DeferredBlock<WoolBlock> WOOL = register("wool", WoolBlock::new, BlockBehaviour.Properties.of()
+
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
             .sound(SoundType.WOOL)
             .ignitedByLava());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<WoolBlockEntity>> WOOL_TILE =
+            entity("wool", DSL.remainderType(), WoolBlockEntity::new, WOOL);
     @BasicBlockItem
-    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wood", WOOD);
+    public static final DeferredItem<BlockItem> WOOL_ITEM =
+            register("wool", p -> new WoolBlockItem(WOOL.get(), p));
+//            register("wood", WOOL);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
     public static final DeferredBlock<CarpetBlock> CARPET =
@@ -157,7 +180,7 @@ public class ModBlocks {
 
     @BasicBlockItem
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
-            register("deepslate_salt_ore", SALT_ORE);
+            register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃木原木", zh_tw = "杜鵑木原木")
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =

@@ -18,6 +18,8 @@ import static org.polaris2023.wild_wind.common.recipe.CookingPotRecipe.Serialize
 public class ModComponents {
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> SLIME_COLOR =
             register("slime_color", Codec.INT, ByteBufCodecs.INT);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> COLOR =
+            register("color", Codec.INT, ByteBufCodecs.INT);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> MEAT_VALUE =
             register("meat", Codec.FLOAT, ByteBufCodecs.FLOAT);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<Float>> VEGETABLE_VALUE =
