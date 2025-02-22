@@ -15,6 +15,7 @@ import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
+import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -80,6 +81,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.ROTTEN_FLESH
         );
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
+        ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {

@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.datagen;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.polaris2023.wild_wind.WildWindMod;
@@ -31,15 +32,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/brittle_ice_1"),
             Helpers.location("block/brittle_ice_2"),
             Helpers.location("block/brittle_ice_3")
-    };
-    public static final ResourceLocation[] WOOL = new ResourceLocation[] {
-            Helpers.location("block/wool")
-    };
-    public static final ResourceLocation[] CONCRETE = new ResourceLocation[] {
-            Helpers.location("block/concrete")
-    };
-    public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
-            Helpers.location("block/glazed_terracotta")
     };
 
     @Override
@@ -79,19 +71,22 @@ public class ModBlockStateProvider extends BlockStateProvider {
             }
         }
 
-        // Wood
-        BlockModelBuilder woodModel = models().cubeAll("wool", WOOL[0]);
-        simpleBlock(ModBlocks.WOOL.get(), woodModel);
+        // Logs
+        logModel(getVariantBuilder(ModBlocks.AZALEA_LOG.get()), "azalea");
+        logModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_LOG.get()), "stripped_azalea");
+        woodModel(getVariantBuilder(ModBlocks.AZALEA_WOOD.get()), "azalea");
+        woodModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_WOOD.get()), "stripped_azalea");
+        simpleBlock(ModBlocks.AZALEA_PLANKS.get(), models().cubeAll("azalea_planks", Helpers.location("block/azalea_planks")));
+        ModBlockFamilies.AZALEA_PLANKS.registerStatesAndModels(this, "azalea");
 
-        //Carpet
-        BlockModelBuilder carpetModel = models().carpet("carpet", WOOL[0]);
-        simpleBlock(ModBlocks.CARPET.get(), carpetModel);
+        // Wool
+        simpleBlock(ModBlocks.WOOL.get(), models().cubeAll("wool", Helpers.location("block/wool")));
 
-        //Concrete
-        BlockModelBuilder concreteModel = models().cubeAll("concrete", CONCRETE[0]);
-        simpleBlock(ModBlocks.CONCRETE.get(), concreteModel);
+        // Carpet
+        simpleBlock(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
 
-
+        // Concrete
+        simpleBlock(ModBlocks.CONCRETE.get(), models().cubeAll("concrete", Helpers.location("block/concrete")));
 
         // Glazed Terracotta
         VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());
@@ -99,12 +94,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
             int yRotation = switch (facing) {
                 case EAST -> 270;
                 case NORTH -> 180;
-                case SOUTH -> 0;
-                case WEST -> 90;
+				case WEST -> 90;
                 default -> 0;
             };
-            glazedTerracottaStates.partialState().with(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, facing)
-                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", GLAZED_TERRACOTTA[0]), 0, yRotation, false));
+            glazedTerracottaStates.partialState().with(BlockStateProperties.HORIZONTAL_FACING, facing)
+                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
         }
     }
 
@@ -122,6 +116,41 @@ public class ModBlockStateProvider extends BlockStateProvider {
         brittleIceStates.addModels(
                 brittleIceStates.partialState().with(BrittleIceBlock.AGE, age).with(BrittleIceBlock.UNSTABLE, unstable),
                 new ConfiguredModel(models().getExistingFile(BRITTLE_ICES[age]))
+        );
+    }
+
+    private void logModel(VariantBlockStateBuilder woodStates, String name) {
+        ResourceLocation side = Helpers.location("block/" + name + "_log");
+        ResourceLocation top = Helpers.location("block/" + name + "_log_top");
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
+                new ConfiguredModel(models().cubeColumn(name + "_log", side, top))
+        );
+        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_log_horizontal", side, top);
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
+        );
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
+        );
+    }
+
+    private void woodModel(VariantBlockStateBuilder woodStates, String name) {
+        ResourceLocation side = Helpers.location("block/" + name + "_log");
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
+                new ConfiguredModel(models().cubeColumn(name + "_wood", side, side))
+        );
+        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_wood_horizontal", side, side);
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
+        );
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
         );
     }
 }
