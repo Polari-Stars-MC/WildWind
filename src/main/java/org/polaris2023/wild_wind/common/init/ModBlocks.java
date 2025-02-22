@@ -20,11 +20,10 @@ import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
+import org.polaris2023.wild_wind.common.block.*;
 
-import org.polaris2023.wild_wind.common.block.CookingPotBlock;
-import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
 
 import java.util.Arrays;
 
@@ -90,6 +89,20 @@ public class ModBlocks {
             entity("cooking_pot", DSL.remainderType(), CookingPotBlockEntity::new, COOKING_POT);
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
+
+    @I18n(en_us = "Sculk Jaw", zh_cn = "幽匿厄口", zh_tw = "幽匿厄口")
+    public static final DeferredBlock<SculkJawBlock> SCULK_JAW =
+            register("sculk_jaw", SculkJawBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredItem<BlockItem> SCULK_JAW_ITEM =
+            register("sculk_jaw", SCULK_JAW);
+
+    @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
+    public static final DeferredBlock<DuckweedBlock> DUCKWEED =
+            register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
+            entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
+    public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
+            register("duckweed", DUCKWEED);
 
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
@@ -263,6 +276,7 @@ public class ModBlocks {
              Type<?> type,
              BlockEntityType.BlockEntitySupplier<T> factory,
              DeferredBlock<?>... blocks) {
+
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
     }
 }

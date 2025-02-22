@@ -43,6 +43,7 @@ public class MagicFluteItem extends Item {
 			player.startUsingItem(usedHand);
 			play(level, player, instrument);
 			onFluteWorks(itemStack, player);
+
 			player.getCooldowns().addCooldown(this, 300);
 			player.awardStat(Stats.ITEM_USED.get(this));
 			return InteractionResultHolder.consume(itemStack);

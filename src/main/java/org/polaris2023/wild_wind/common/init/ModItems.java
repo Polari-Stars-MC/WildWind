@@ -1,10 +1,12 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
@@ -55,6 +57,8 @@ public class ModItems {
         ModBaseItems.init();
         ModSpawnEggs.init();
         ModMobBuckets.init();
+        ModBoats.init();
+
     }
 
 }

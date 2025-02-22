@@ -15,8 +15,7 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 public class Trout extends AbstractSchoolingFish {
 
     public final AnimationState swim = new AnimationState();
-    public final AnimationState struggle = new AnimationState();
-    public final AnimationState attack = new AnimationState();
+    public final AnimationState jump = new AnimationState();
 
     public Trout(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
@@ -25,6 +24,16 @@ public class Trout extends AbstractSchoolingFish {
     public static AttributeSupplier.Builder createAttributes() {
         return AmbientCreature.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 3f);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (!this.moveControl.hasWanted()) {
+            swim.ifStarted(AnimationState::stop);
+        } else {
+            swim.startIfStopped(tickCount);
+        }
     }
 
     @Override
