@@ -105,9 +105,9 @@ public enum Codes {
                 }
             
                 private <T extends Block> %%classname%% cubeAll(Supplier<T> block) {
-                 .  ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
-                    MODELS.put(blockKry, Map.of(
+                    MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/cube_all",
                         "textures", Map.of(
                             "all", blockKey.toString()
@@ -124,28 +124,82 @@ public enum Codes {
                 }
             
                 private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top) {
-                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
-                    MODELS.put(key, Map.of(
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation inner =  blockKey.withSuffix("_inner");
+                    ResourceLocation outer = blockKey.withSuffix("_outer");
+                    MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
-                            "side", side.isEmpty() ? key.toString() : side,
-                            "top", top.isEmpty() ? key.toString() : top
+                            "bottom", bottom.isEmpty() ?  blockKey.toString() : bottom,
+                            "side", side.isEmpty() ? blockKey.toString() : side,
+                            "top", top.isEmpty() ? blockKey.toString() : top
                     )));
-                    MODELS.put(key.withSuffix("_inner"), Map.of(
+                    MODELS.put(inner, Map.of(
                         "parent", "minecraft:block/inner_stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
-                            "side", side.isEmpty() ? key.toString() : side,
-                            "top", top.isEmpty() ? key.toString() : top
+                            "bottom", bottom.isEmpty() ? blockKey.toString() : bottom,
+                            "side", side.isEmpty() ? blockKey.toString() : side,
+                            "top", top.isEmpty() ? blockKey.toString() : top
                     )));
-                    MODELS.put(key.withSuffix("_outer"), Map.of(
+                    MODELS.put(outer, Map.of(
                         "parent", "minecraft:block/outer_stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
-                            "side", side.isEmpty() ? key.toString() : side,
-                            "top", top.isEmpty() ? key.toString() : top
+                            "bottom", bottom.isEmpty() ? blockKey.toString() : bottom,
+                            "side", side.isEmpty() ? blockKey.toString() : side,
+                            "top", top.isEmpty() ? blockKey.toString() : top
                     )));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "facing=east,half=bottom,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 270
+                            ),
+                            "facing=east,half=bottom,shape=inner_right", Map.of(
+                                "model", inner.toString()
+                            ),
+                            "facing=east,half=bottom,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 270
+                            ),
+                            "facing=east,half=bottom,shape=outer_right", Map.of(
+                                "model", outer.toString()
+                            ),
+                            "facing=east,half=bottom,shape=straight", Map.of(
+                                "model",  blockKey.toString()
+                            ),
+                            "facing=east,half= top,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180
+                            ),
+                            "facing=east,half=top,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 90
+                            ),
+                            "facing=east,half=top,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "z", 180
+                            ),
+                            "facing=east,half=top,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 90
+                                
+                            ),
+                            "facing=east,half= top,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "x", 180
+                            )
+                        )
+                    ));
                     return this;
                 }
             

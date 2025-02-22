@@ -49,6 +49,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.AZALEA_PLANKS.get());
         this.dropSelf(ModBlocks.AZALEA_SIGN.get());
         this.dropSelf(ModBlocks.AZALEA_HANGING_SIGN.get());
+        this.dropSelf(ModBlocks.SCULK_JAW.get());
+        this.dropSelf(ModBlocks.DUCKWEED.get());
         ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
     }
 }
