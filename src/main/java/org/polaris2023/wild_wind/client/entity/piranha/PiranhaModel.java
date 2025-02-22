@@ -16,36 +16,42 @@ import org.polaris2023.wild_wind.util.Helpers;
 public class PiranhaModel extends ColorableHierarchicalModel<Piranha> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public static final ModelLayerLocation LAYER_LOCATION = Helpers.location("piranha", "main");
-	private final ModelPart bone4;
+	private final ModelPart root;
 	private final ModelPart bone;
-	private final ModelPart bone3;
+	private final ModelPart mouth;
 	private final ModelPart bone2;
+	private final ModelPart tail;
 
 	public PiranhaModel(ModelPart root) {
-		this.bone4 = root.getChild("bone4");
-		this.bone = this.bone4.getChild("bone");
-		this.bone3 = this.bone.getChild("bone3");
-		this.bone2 = this.bone4.getChild("bone2");
+		this.root = root.getChild("root");
+		this.bone = this.root.getChild("bone");
+		this.mouth = this.bone.getChild("mouth");
+		this.bone2 = this.root.getChild("bone2");
+		this.tail = this.bone2.getChild("tail");
 	}
 
 	public static LayerDefinition createBodyLayer() {
 		MeshDefinition meshdefinition = new MeshDefinition();
 		PartDefinition partdefinition = meshdefinition.getRoot();
 
-		PartDefinition bone4 = partdefinition.addOrReplaceChild("bone4", CubeListBuilder.create(), PartPose.offset(0.0F, 22.0F, -6.0F));
+		PartDefinition root = partdefinition.addOrReplaceChild("root", CubeListBuilder.create(), PartPose.offset(0.0F, 21.0F, 0.0F));
 
-		PartDefinition bone = bone4.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(21, 4).addBox(0.0F, -7.0F, -2.0F, 0.0F, 2.0F, 4.0F, new CubeDeformation(0.0F))
-		.texOffs(8, 12).addBox(-1.0F, -4.5F, -5.0F, 2.0F, 3.0F, 2.0F, new CubeDeformation(0.0F))
-		.texOffs(6, 10).addBox(-1.5F, -5.0F, -3.0F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 5.0F));
+		PartDefinition bone = root.addOrReplaceChild("bone", CubeListBuilder.create().texOffs(13, 0).addBox(-0.75F, -3.0F, -3.0F, 2.0F, 4.0F, 3.0F, new CubeDeformation(0.0F))
+				.texOffs(24, 5).addBox(-0.75F, 1.0F, -1.0F, 2.0F, 2.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(24, 9).addBox(-0.5F, 1.0F, -2.5F, 0.0F, 1.0F, 1.0F, new CubeDeformation(0.0F))
+				.texOffs(24, 9).mirror().addBox(1.0F, 1.0F, -2.5F, 0.0F, 1.0F, 1.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offset(-0.25F, 0.0F, -1.0F));
 
-		PartDefinition cube_r1 = bone.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 13).addBox(0.0F, 0.0F, -1.0F, 2.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(1.5F, 0.0F, -2.0F, 0.0F, 0.0F, 0.7854F));
+		PartDefinition mouth = bone.addOrReplaceChild("mouth", CubeListBuilder.create().texOffs(24, 0).addBox(-0.5F, -0.5F, -2.0F, 1.0F, 2.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.25F, 1.5F, -1.0F));
 
-		PartDefinition cube_r2 = bone.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 13).addBox(-2.0F, 0.0F, -1.0F, 2.0F, 0.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.5F, 0.0F, -2.0F, 0.0F, 0.0F, -0.7854F));
+		PartDefinition bone2 = root.addOrReplaceChild("bone2", CubeListBuilder.create().texOffs(11, 16).addBox(0.0F, -5.0F, -1.0F, 0.0F, 2.0F, 5.0F, new CubeDeformation(0.0F))
+				.texOffs(0, 0).addBox(-1.0F, -3.0F, 0.0F, 2.0F, 4.0F, 4.0F, new CubeDeformation(0.0F))
+				.texOffs(11, 9).addBox(-1.0F, 1.0F, 0.0F, 2.0F, 2.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, -1.0F));
 
-		PartDefinition bone3 = bone.addOrReplaceChild("bone3", CubeListBuilder.create().texOffs(6, 15).addBox(-1.0F, -0.5F, -2.0F, 2.0F, 1.0F, 2.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, -1.0F, -3.0F));
+		PartDefinition cube_r1 = bone2.addOrReplaceChild("cube_r1", CubeListBuilder.create().texOffs(0, 20).mirror().addBox(0.0F, -1.0F, 0.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)).mirror(false), PartPose.offsetAndRotation(1.0F, 1.0F, 0.0F, 0.0F, 0.2618F, 0.0F));
 
-		PartDefinition bone2 = bone4.addOrReplaceChild("bone2", CubeListBuilder.create().texOffs(12, 0).addBox(-1.5F, -5.0F, 0.0F, 3.0F, 5.0F, 3.0F, new CubeDeformation(0.0F))
-		.texOffs(6, 0).addBox(0.0F, -5.0F, 3.0F, 0.0F, 5.0F, 3.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 2.0F, 5.0F));
+		PartDefinition cube_r2 = bone2.addOrReplaceChild("cube_r2", CubeListBuilder.create().texOffs(0, 20).addBox(0.0F, -1.0F, 0.0F, 0.0F, 3.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offsetAndRotation(-1.0F, 1.0F, 0.0F, 0.0F, -0.2618F, 0.0F));
+
+		PartDefinition tail = bone2.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 9).addBox(0.0F, -3.0F, 0.0F, 0.0F, 6.0F, 4.0F, new CubeDeformation(0.0F)), PartPose.offset(0.0F, 0.0F, 4.0F));
 
 		return LayerDefinition.create(meshdefinition, 32, 32);
 	}
@@ -54,18 +60,17 @@ public class PiranhaModel extends ColorableHierarchicalModel<Piranha> {
 	public void setupAnim(Piranha piranha, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 		root().getAllParts().forEach(ModelPart::resetPose);
 		animate(piranha.swim, PiranhaAnimation.SWIM, ageInTicks, 1.0F);
-		animate(piranha.struggle, PiranhaAnimation.STRUGGLE, ageInTicks, 1.0F);
-		animate(piranha.attack, PiranhaAnimation.BITE, ageInTicks, 1.0F);
-		animate(piranha.attack2, PiranhaAnimation.BITE2, ageInTicks, 1.0F);
+		animate(piranha.jump, PiranhaAnimation.JUMP, ageInTicks, 1.0F);
+		animate(piranha.attack, PiranhaAnimation.ATTACK, ageInTicks, 1.0F);
 	}
 
 	@Override
 	public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, int rgba) {
-		bone4.render(poseStack, vertexConsumer, packedLight, packedOverlay, rgba);
+		root().render(poseStack, vertexConsumer, packedLight, packedOverlay, rgba);
 	}
 
 	@Override
 	public ModelPart root() {
-		return bone4;
+		return root;
 	}
 }

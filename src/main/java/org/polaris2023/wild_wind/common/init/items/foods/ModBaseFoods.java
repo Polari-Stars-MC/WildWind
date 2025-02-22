@@ -86,8 +86,7 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     COOKED_FROG_LEG(p -> p
                             .component(ModComponents.MEAT_VALUE, 0.5F)
                             .component(ModComponents.MONSTER_VALUE, 1F)),
-    @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
-    SALT(STACK_TO_SNOW)
+
     ;
 
     public final DeferredItem<Item> entry;
