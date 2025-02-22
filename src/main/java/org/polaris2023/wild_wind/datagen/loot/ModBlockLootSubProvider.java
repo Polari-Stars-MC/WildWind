@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.Block;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Set;
@@ -39,8 +40,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CONCRETE.get());
         this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
-        this.dropOther(ModBlocks.SALT_ORE.get(), ModItems.SALT.get());
-        this.dropOther(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModItems.SALT.get());
+        this.dropOther(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get());
+        this.dropOther(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get());
         this.dropSelf(ModBlocks.AZALEA_LOG.get());
         this.dropSelf(ModBlocks.STRIPPED_AZALEA_LOG.get());
         this.dropSelf(ModBlocks.AZALEA_WOOD.get());

@@ -49,7 +49,8 @@ public enum Codes {
                 private Path assetsDir;
                 private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
                     new ConcurrentHashMap<>();// object is Bean or map， by gson
-            
+                private final ConcurrentHashMap<ResourceLocation, Object> BLOCKSTATES = 
+                    new ConcurrentHashMap<>();
                 private <T extends Item> %%classname%% basicItem(Supplier<T> item) {
                     ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
                     MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
@@ -104,11 +105,19 @@ public enum Codes {
                 }
             
                 private <T extends Block> %%classname%% cubeAll(Supplier<T> block) {
-                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
-                    MODELS.put(key, Map.of(
+                 .  ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    MODELS.put(blockKry, Map.of(
                         "parent", "minecraft:block/cube_all",
                         "textures", Map.of(
-                            "all", key.toString()
+                            "all", blockKey.toString()
+                        )
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "", Map.of(
+                                "model", blockKey.toString()
+                            )
                         )
                     ));
                     return this;
@@ -212,7 +221,7 @@ public enum Codes {
                 @Override
                 public CompletableFuture<?> run(CachedOutput output) {
                     init();
-                    CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size()];
+                    CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size() + BLOCKSTATES.size()];
                     int i = 0;
                     for (Map.Entry<ResourceLocation, Object> entry : MODELS.entrySet()) {
                         ResourceLocation key = entry.getKey();
@@ -221,6 +230,14 @@ public enum Codes {
                         JsonElement jsonTree = GSON.toJsonTree(object);
                         futures[i] = DataProvider.saveStable(output, jsonTree, itemModel);
                         i++;
+                    }
+                    for(Map.Entry<ResourceLocation, Object> entry : BLOCKSTATES.entrySet()) {
+                        ResourceLocation key = entry.getKey();
+                        Object object = entry.getValue();
+                        Path states = assetsDir.resolve(key.getNamespace()).resolve("blockstates").resolve(key.getPath() + ".json");
+                         JsonElement jsonTree = GSON.toJsonTree(object);
+                         futures[i] = DataProvider.saveStable(output, jsonTree, states);
+                         i++;
                     }
                     return CompletableFuture.allOf(futures);
                 }

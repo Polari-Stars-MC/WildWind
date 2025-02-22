@@ -15,7 +15,6 @@ import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.entity.goal.piranha.PiranhaAttackGoal;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class Piranha extends AbstractSchoolingFish {
