@@ -170,7 +170,7 @@ public enum Codes {
                             "facing=east,half=bottom,shape=straight", Map.of(
                                 "model",  blockKey.toString()
                             ),
-                            "facing=east,half= top,shape=inner_left", Map.of(
+                            "facing=east,half=top,shape=inner_left", Map.of(
                                 "model", inner.toString(),
                                 "uvlock", true,
                                 "x", 180
@@ -184,7 +184,7 @@ public enum Codes {
                             "facing=east,half=top,shape=outer_left", Map.of(
                                 "model", outer.toString(),
                                 "uvlock", true,
-                                "z", 180
+                                "x", 180
                             ),
                             "facing=east,half=top,shape=outer_right", Map.of(
                                 "model", outer.toString(),
@@ -193,11 +193,170 @@ public enum Codes {
                                 "y", 90
                                 
                             ),
-                            "facing=east,half= top,shape=straight", Map.of(
+                            "facing=east,half=top,shape=straight", Map.of(
                                 "model",  blockKey.toString(),
                                 "uvlock", true,
                                 "x", 180
-                            )
+                            ),
+                            "facing=north,half=bottom,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 180
+                            ),
+                            "facing=north,half=bottom,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 270
+                            ),
+                            "facing=north,half=bottom,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 180
+                            ),
+                            "facing=north,half=bottom,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 270
+                            ),
+                            "facing=north,half=bottom,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "y", 270
+                            ),
+                            "facing=north,half=top,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 270
+                            ),
+                            "facing=north,half=top,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180
+                            ),
+                            "facing=north,half=top,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180
+                            ),
+                            "facing=north,half=top,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180
+                            ),
+                            "facing=north,half=top,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 270
+                            ),
+                            "facing=south,half=bottom,shape=inner_left", Map.of(
+                                "model", inner.toString()
+                            ),
+                            "facing=south,half=bottom,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 90
+                            ),
+                            "facing=south,half=bottom,shape=outer_left", Map.of(
+                                "model", outer.toString()
+                            ),
+                            "facing=south,half=bottom,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 90
+                            ),
+                            "facing=south,half=bottom,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "y", 90
+                            ),
+                            "facing=south,half=top,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 90
+                            ),
+                            "facing=south,half=top,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 180
+                            ),
+                            "facing=south,half=top,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 90
+                            ),
+                            "facing=south,half=top,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 180
+                            ),
+                            "facing=south,half=top,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 90
+                            ),
+                            "facing=west,half=bottom,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 90
+                            ),
+                            "facing=west,half=bottom,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "y", 180
+                            ),
+                            "facing=west,half=bottom,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 90
+                            ),
+                            "facing=west,half=bottom,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "y", 180
+                            ),
+                            "facing=west,half=bottom,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "y", 180
+                            ),
+                            "facing=west,half=top,shape=inner_left", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 180
+                            ),
+                            "facing=west,half=top,shape=inner_right", Map.of(
+                                "model", inner.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 270
+                            ),
+                            "facing=west,half=top,shape=outer_left", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 180
+                            ),
+                            "facing=west,half=top,shape=outer_right", Map.of(
+                                "model", outer.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 270
+                            ),
+                            "facing=west,half=top,shape=straight", Map.of(
+                                "model",  blockKey.toString(),
+                                "uvlock", true,
+                                "x", 180,
+                                "y", 180
+                            ),
+                            
                         )
                     ));
                     return this;
