@@ -49,7 +49,7 @@ public enum Codes {
                 private Path assetsDir;
                 private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
                     new ConcurrentHashMap<>();// object is Bean or map， by gson
-                private final ConcurrentHashMap<ResourceLocation, Object> BLOCKSTATES = 
+                private final ConcurrentHashMap<ResourceLocation, Object> BLOCKSTATES =
                     new ConcurrentHashMap<>();
                 private <T extends Item> %%classname%% basicItem(Supplier<T> item) {
                     ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
@@ -96,6 +96,13 @@ public enum Codes {
                     return this;
                 }
             
+                private <T extends BlockItem> %%classname%% basicParentBlockItem(Supplier<T> blockItem, ResourceLocation inventory) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockItem.get());
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    MODELS.put(itemKey, Map.of("parent", inventory.toString()));
+                    return this;
+                }
+            
                 private <T extends BlockItem> %%classname%% basicBlockItem(Supplier<T> blockItem) {
                     ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockItem.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
@@ -103,8 +110,130 @@ public enum Codes {
                     MODELS.put(itemKey, Map.of("parent", blockKey.toString()));
                     return this;
                 }
+                private <T extends Block> %%classname%% allDoorBlock(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation doorBottom = replace(blockKey, "door_bottom");
+                    ResourceLocation doorTop = replace(blockKey, "door_top");
+                    Map<String, ResourceLocation> locations = new HashMap<>();
+                    for (String s : List.of(
+                    "door_bottom_left", "door_bottom_left_open", "door_bottom_right", "door_bottom_right_open",
+                    "door_upper_left", "door_upper_left_open", "door_upper_right", "door_upper_right_open"
+                    )) {
+                        ResourceLocation replace = replace(blockKey, s);
+                        locations.put(s, replace);
+                        MODELS.put(replace, Map.of(
+                            "parent", "minecraft:block/" + s,
+                            "textures", Map.of(
+                                "bottom", doorBottom,
+                                "top", doorTop
+                            )
+                        ));
+                    }
+                    Map<String, Object> tMap = new HashMap<>();
+                    tMap.put("facing=east,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, null, null, false));
+                    tMap.put("facing=east,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 90, null, false));
+                    tMap.put("facing=east,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, null, null, false));
+                    tMap.put("facing=east,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 270, null, false));
+                    tMap.put("facing=east,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, null, null, false));
+                    tMap.put("facing=east,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 90, null, false));
+                    tMap.put("facing=east,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, null, null, false));
+                    tMap.put("facing=east,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, null, null, false));
+                    tMap.put("facing=north,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 180, null, false));
+                    tMap.put("facing=north,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 270, null, false));
+                    tMap.put("facing=north,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, null, null, false));
+                    tMap.put("facing=north,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 270, null, false));
+                    tMap.put("facing=north,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 90, null, false));
+                    tMap.put("facing=south,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 90, null, false));
+                    tMap.put("facing=south,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, null, null, false));
+                    tMap.put("facing=south,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 90, null, false));
+                    tMap.put("facing=south,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 90, null, false));
+                    tMap.put("facing=south,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, null, null, false));
+                    tMap.put("facing=west,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 180, null, false));
+                    tMap.put("facing=west,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 270, null, false));
+                    tMap.put("facing=west,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 180, null, false));
+                    tMap.put("facing=west,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 90, null, false));
+                    tMap.put("facing=west,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 180, null, false));
+                    tMap.put("facing=west,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 270, null, false));
+                    tMap.put("facing=west,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 180, null, false));
+                    tMap.put("facing=west,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 90, null, false));
+                    BLOCKSTATES.put(key, Map.of("variants", tMap));
+                    basicItem(() -> block.get().asItem());
+                    ResourceLocation trapdoor = replace(key, "trapdoor");
+                    ResourceLocation blockTrapdoor = replace(blockKey, "trapdoor");
+                    ResourceLocation itemTrapdoor = trapdoor.withPrefix("item/");
+                    ResourceLocation trapdoorBottom = replace(blockKey, "trapdoor_bottom");
+                    ResourceLocation trapdoorTop = replace(blockKey, "trapdoor_top");
+                    ResourceLocation trapdoorOpen = replace(blockKey, "trapdoor_open");
+                    MODELS.put(trapdoorBottom, Map.of("parent", "minecraft:block/template_orientable_trapdoor_top","textures", Map.of("texture", blockTrapdoor.toString())));
+                    MODELS.put(trapdoorTop, Map.of("parent", "minecraft:block/template_orientable_trapdoor_top","textures", Map.of("texture", blockTrapdoor.toString())));
+                    MODELS.put(trapdoorOpen, Map.of("parent", "minecraft:block/template_orientable_trapdoor_open","textures", Map.of("texture", blockTrapdoor.toString())));
+                    MODELS.put(itemTrapdoor, Map.of("parent", trapdoorBottom.toString()));
+                    Map<String, Object> ttMap = new HashMap<>();
+                    ttMap.put("facing=east,half=bottom,open=false", model(trapdoorBottom, null, 90, null, false));
+                    ttMap.put("facing=east,half=bottom,open=true", model(trapdoorOpen, null, 90, null, false));
+                    ttMap.put("facing=east,half=top,open=false", model(trapdoorTop, null, 90, null, false));
+                    ttMap.put("facing=east,half=top,open=true", model(trapdoorOpen, 180, 270, null, false));
+                    ttMap.put("facing=north,half=bottom,open=false", model(trapdoorBottom, null, null, null, false));
+                    ttMap.put("facing=north,half=bottom,open=true", model(trapdoorOpen, null, null, null, false));
+                    ttMap.put("facing=north,half=top,open=false", model(trapdoorTop, null, null, null, false));
+                    ttMap.put("facing=north,half=top,open=true", model(trapdoorOpen, 180, 180, null, false));
+                    ttMap.put("facing=south,half=bottom,open=false", model(trapdoorBottom, null, 180, null, false));
+                    ttMap.put("facing=south,half=bottom,open=true", model(trapdoorOpen, null, 180, null, false));
+                    ttMap.put("facing=south,half=top,open=false", model(trapdoorTop, null, 180, null, false));
+                    ttMap.put("facing=south,half=top,open=true", model(trapdoorOpen, 180, 0, null, false));
+                    ttMap.put("facing=west,half=bottom,open=false", model(trapdoorBottom, null, 270, null, false));
+                    ttMap.put("facing=west,half=bottom,open=true", model(trapdoorOpen, null, 270, null, false));
+                    ttMap.put("facing=west,half=top,open=false", model(trapdoorTop, null, 270, null, false));
+                    ttMap.put("facing=west,half=top,open=true", model(trapdoorOpen, 180, 90, null, false));
+                    BLOCKSTATES.put(trapdoor, Map.of("variants", ttMap));
+                    return this;
+                }
+                private <T extends Block> %%classname%% allSignBlock(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());//modid:xxx_sign
+                    ResourceLocation blockKey = key.withPrefix("block/");//modid:block/xxx_sign
+                    ResourceLocation hangingKey = replace(key, "hanging_sign");//modid:block/xxx_hanging_sign
+                    ResourceLocation hangingBlockKey = replace(blockKey, "hanging_sign");//modid:block/xxx_hanging_sign
+                    ResourceLocation wallHangingKey = replace(key, "wall_hanging_sign");
+                    ResourceLocation wallKey = replace(key, "wall_sign");
+                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation strippedLog = replace(key, "log").withPrefix("block/stripped_");
+                    MODELS.put(blockKey, Map.of("textures", Map.of("particle", planks.toString())));
+                    MODELS.put(hangingBlockKey, Map.of("textures", Map.of("particle", strippedLog.toString())));
+                    basicItem(() -> block.get().asItem());
+                    basicItem(() -> BuiltInRegistries.BLOCK.get(replace(key, "hanging_sign")).asItem());
+                    BLOCKSTATES.put(key, Map.of("variants",  model(blockKey, null, null, null, false)));
+                    BLOCKSTATES.put(hangingKey, Map.of("variants", model(hangingBlockKey, null, null, null, false)));
+                    BLOCKSTATES.put(wallKey, Map.of("variants", model(blockKey, null, null, null, false)));
+                    BLOCKSTATES.put(wallHangingKey, Map.of("variants", model(hangingBlockKey, null, null, null, false)));
+                    return this;
+                }
             
-                private <T extends Block> %%classname%% cubeAll(Supplier<T> block) {
+                private <T extends Block> %%classname%% cubeColumn(Supplier<T> block, String end, String side, boolean isItem, boolean isHorizontal, boolean isSuffix) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    MODELS.put((isHorizontal && isSuffix) ? blockKey.withSuffix("_horizontal") : blockKey, Map.of(
+                        "parent", "minecraft:block/cube_column" + (isHorizontal ? "_horizontal" : ""),
+                        "textures", Map.of(
+                            "end", end,
+                            "side", side
+                        )
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of("", model(blockKey, null, null, null, false))
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% cubeAll(Supplier<T> block, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     MODELS.put(blockKey, Map.of(
@@ -114,284 +243,362 @@ public enum Codes {
                         )
                     ));
                     BLOCKSTATES.put(key, Map.of(
-                        "variants", Map.of(
-                            "", Map.of(
-                                "model", blockKey.toString()
-                            )
-                        )
+                        "variants", Map.of("", model(blockKey, null, null, null, false))
                     ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+                private Map<String, Object> model(ResourceLocation key, Number x, Number y, Number z, boolean uvLock) {
+                    Map<String, Object> tMap = new HashMap<>();
+                    tMap.put("model", key.toString());
+                    if (x != null) tMap.put("x", x);
+                    if (y != null) tMap.put("y", y);
+                    if (z != null) tMap.put("z", z);
+                    if (uvLock) tMap.put("uvlock", uvLock);
+                    return tMap;
+                }
+            
+                private <T extends Block> %%classname%% allWoodBlock(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());//modid:xxx_planks
+                    if (!key.getPath().contains("planks")) {
+                        key = planks(key);
+                        ResourceLocation finalKey = key;
+                        cubeAll(() -> BuiltInRegistries.BLOCK.get(finalKey), true);
+                    } else {
+                        cubeAll(block, true);
+                    }
+                    ResourceLocation finalKey1 = key;
+                    buttonBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "button")), "");
+                    fenceBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence")), "", true);
+                    fenceGateBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence_gate")), "", true);
+                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "slab")), "", "", "", true);
+                    logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log")), true);
+                    logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log").withPrefix("stripped_")), true);
+                    woodBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "wood")), true);
+                    woodBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "wood").withPrefix("stripped_")), true);
+                    stairsBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "stairs")), "", "", "", true);
+                    pressurePlateBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "pressure_plate")), "", true);
+                    allSignBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "sign")));
+                    allDoorBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "door")));
                     return this;
                 }
             
-                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top) {
+                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation inner =  blockKey.withSuffix("_inner");
                     ResourceLocation outer = blockKey.withSuffix("_outer");
+                    ResourceLocation planks = planks(blockKey);
                     MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ?  blockKey.toString() : bottom,
-                            "side", side.isEmpty() ? blockKey.toString() : side,
-                            "top", top.isEmpty() ? blockKey.toString() : top
+                            "bottom", bottom.isEmpty() ?  planks.toString() : bottom,
+                            "side", side.isEmpty() ? planks.toString() : side,
+                            "top", top.isEmpty() ? planks.toString() : top
                     )));
                     MODELS.put(inner, Map.of(
                         "parent", "minecraft:block/inner_stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? blockKey.toString() : bottom,
-                            "side", side.isEmpty() ? blockKey.toString() : side,
-                            "top", top.isEmpty() ? blockKey.toString() : top
+                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
+                            "side", side.isEmpty() ? planks.toString() : side,
+                            "top", top.isEmpty() ? planks.toString() : top
                     )));
                     MODELS.put(outer, Map.of(
                         "parent", "minecraft:block/outer_stairs",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? blockKey.toString() : bottom,
-                            "side", side.isEmpty() ? blockKey.toString() : side,
-                            "top", top.isEmpty() ? blockKey.toString() : top
+                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
+                            "side", side.isEmpty() ? planks.toString() : side,
+                            "top", top.isEmpty() ? planks.toString() : top
                     )));
+                    Map tMap = new HashMap<>();
+                    tMap.putAll(Map.of(
+                        "facing=east,half=bottom,shape=inner_left", model(inner, null, 270, null, true),
+                        "facing=east,half=bottom,shape=inner_right", model(inner, null, null, null, false),
+                        "facing=east,half=bottom,shape=outer_left", model(outer, null, 270, null, true),
+                        "facing=east,half=bottom,shape=outer_right", model(outer, null, null, null, false),
+                        "facing=east,half=bottom,shape=straight", model(blockKey, null, null, null, false)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=east,half=top,shape=inner_left", model(inner, 180, null, null, true),
+                        "facing=east,half=top,shape=inner_right", model(inner, 180, 90, null, true),
+                        "facing=east,half=top,shape=outer_left", model(outer, 180, null, null, true),
+                        "facing=east,half=top,shape=outer_right", model(outer, 180, 90, null,  true),
+                        "facing=east,half=top,shape=straight", model(blockKey, 180, null, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=north,half=bottom,shape=inner_left", model(inner, null, 180, null, true),
+                        "facing=north,half=bottom,shape=inner_right", model(inner, null, 270, null, true),
+                        "facing=north,half=bottom,shape=outer_left", model(outer, null, 180, null, true),
+                        "facing=north,half=bottom,shape=outer_right", model(outer, null, 270, null, true),
+                        "facing=north,half=bottom,shape=straight", model(blockKey, null, 270, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=north,half=top,shape=inner_left", model(inner, 180, 270, null, true),
+                        "facing=north,half=top,shape=inner_right", model(inner, 180, null, null, true),
+                        "facing=north,half=top,shape=outer_left", model(outer, 180, null, null, true),
+                        "facing=north,half=top,shape=outer_right", model(outer, 180, null, null,  true),
+                        "facing=north,half=top,shape=straight", model(blockKey, 180, 270, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=south,half=bottom,shape=inner_left", model(inner, null, null, null, false),
+                        "facing=south,half=bottom,shape=inner_right", model(inner, null, 90, null, true),
+                        "facing=south,half=bottom,shape=outer_left", model(outer, null, null, null, false),
+                        "facing=south,half=bottom,shape=outer_right", model(outer, null, 90, null, true),
+                        "facing=south,half=bottom,shape=straight", model(blockKey, null, 90, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=south,half=top,shape=inner_left", model(inner, 180, 90, null, true),
+                        "facing=south,half=top,shape=inner_right", model(inner, 180, 180, null, true),
+                        "facing=south,half=top,shape=outer_left", model(outer, 180, 90, null, true),
+                        "facing=south,half=top,shape=outer_right", model(outer, 180, 180, null,  true),
+                        "facing=south,half=top,shape=straight", model(blockKey, 180, 90, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=west,half=bottom,shape=inner_left", model(inner, null, 90, null, true),
+                        "facing=west,half=bottom,shape=inner_right", model(inner, null, 180, null, true),
+                        "facing=west,half=bottom,shape=outer_left", model(outer, null, 90, null, true),
+                        "facing=west,half=bottom,shape=outer_right", model(outer, null, 180, null, true),
+                        "facing=west,half=bottom,shape=straight", model(blockKey, null, 180, null, true)
+                    ));
+                    tMap.putAll(Map.of(
+                        "facing=west,half=top,shape=inner_left", model(inner, 180, 180, null, true),
+                        "facing=west,half=top,shape=inner_right", model(inner, 180, 270, null, true),
+                        "facing=west,half=top,shape=outer_left", model(outer, 180, 180, null, true),
+                        "facing=west,half=top,shape=outer_right", model(outer, 180, 270, null,  true),
+                        "facing=west,half=top,shape=straight", model(blockKey, 180, 180, null, true)
+                    ));
                     BLOCKSTATES.put(key, Map.of(
-                        "variants", Map.of(
-                            "facing=east,half=bottom,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 270
-                            ),
-                            "facing=east,half=bottom,shape=inner_right", Map.of(
-                                "model", inner.toString()
-                            ),
-                            "facing=east,half=bottom,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 270
-                            ),
-                            "facing=east,half=bottom,shape=outer_right", Map.of(
-                                "model", outer.toString()
-                            ),
-                            "facing=east,half=bottom,shape=straight", Map.of(
-                                "model",  blockKey.toString()
-                            ),
-                            "facing=east,half=top,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=east,half=top,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 90
-                            ),
-                            "facing=east,half=top,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=east,half=top,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 90
-                                
-                            ),
-                            "facing=east,half=top,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=north,half=bottom,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 180
-                            ),
-                            "facing=north,half=bottom,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 270
-                            ),
-                            "facing=north,half=bottom,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 180
-                            ),
-                            "facing=north,half=bottom,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 270
-                            ),
-                            "facing=north,half=bottom,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "y", 270
-                            ),
-                            "facing=north,half=top,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 270
-                            ),
-                            "facing=north,half=top,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=north,half=top,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=north,half=top,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180
-                            ),
-                            "facing=north,half=top,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 270
-                            ),
-                            "facing=south,half=bottom,shape=inner_left", Map.of(
-                                "model", inner.toString()
-                            ),
-                            "facing=south,half=bottom,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 90
-                            ),
-                            "facing=south,half=bottom,shape=outer_left", Map.of(
-                                "model", outer.toString()
-                            ),
-                            "facing=south,half=bottom,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 90
-                            ),
-                            "facing=south,half=bottom,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "y", 90
-                            ),
-                            "facing=south,half=top,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 90
-                            ),
-                            "facing=south,half=top,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 180
-                            ),
-                            "facing=south,half=top,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 90
-                            ),
-                            "facing=south,half=top,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 180
-                            ),
-                            "facing=south,half=top,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 90
-                            ),
-                            "facing=west,half=bottom,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 90
-                            ),
-                            "facing=west,half=bottom,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "y", 180
-                            ),
-                            "facing=west,half=bottom,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 90
-                            ),
-                            "facing=west,half=bottom,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "y", 180
-                            ),
-                            "facing=west,half=bottom,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "y", 180
-                            ),
-                            "facing=west,half=top,shape=inner_left", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 180
-                            ),
-                            "facing=west,half=top,shape=inner_right", Map.of(
-                                "model", inner.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 270
-                            ),
-                            "facing=west,half=top,shape=outer_left", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 180
-                            ),
-                            "facing=west,half=top,shape=outer_right", Map.of(
-                                "model", outer.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 270
-                            ),
-                            "facing=west,half=top,shape=straight", Map.of(
-                                "model",  blockKey.toString(),
-                                "uvlock", true,
-                                "x", 180,
-                                "y", 180
-                            ),
-                            
+                        "variants", tMap
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+                private <T extends Block> %%classname%% fenceGateBlock(Supplier<T> block, String textures, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    ResourceLocation open = blockKey.withSuffix("_open");
+                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation wall = blockKey.withSuffix("_wall");
+                    ResourceLocation wall_open = blockKey.withSuffix("_wall_open");
+                    MODELS.put(blockKey, Map.of(
+                        "parent", "minecraft:block/template_fence_gate",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    MODELS.put(open, Map.of(
+                        "parent", "minecraft:block/template_fence_gate_open",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    MODELS.put(wall, Map.of(
+                        "parent", "minecraft:block/template_fence_gate_wall",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    MODELS.put(wall_open, Map.of(
+                        "parent", "minecraft:block/template_fence_gate_wall_open",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    Map tMap = new HashMap();
+                    tMap.put("facing=east,in_wall=false,open=false", model(blockKey, null, 270, null, true));
+                    tMap.put("facing=east,in_wall=false,open=true", model(open, null, 270, null, true));
+                    tMap.put("facing=east,in_wall=true,open=false", model(wall, null, 270, null, true));
+                    tMap.put("facing=east,in_wall=true,open=true", model(wall_open, null, 270, null, true));
+                    tMap.put("facing=north,in_wall=false,open=false", model(blockKey, null, 180, null, true));
+                    tMap.put("facing=north,in_wall=false,open=true", model(open, null, 180, null, true));
+                    tMap.put("facing=north,in_wall=true,open=false", model(wall, null, 180, null, true));
+                    tMap.put("facing=north,in_wall=true,open=true", model(wall_open, null, 180, null, true));
+                    tMap.put("facing=south,in_wall=false,open=false", model(blockKey, null, null, null, true));
+                    tMap.put("facing=south,in_wall=false,open=true", model(open, null, null, null, true));
+                    tMap.put("facing=south,in_wall=true,open=false", model(wall, null, null, null, true));
+                    tMap.put("facing=south,in_wall=true,open=true", model(wall_open, null, null, null, true));
+                    tMap.put("facing=west,in_wall=false,open=false", model(blockKey, null, 90, null, true));
+                    tMap.put("facing=west,in_wall=false,open=true", model(open, null, 90, null, true));
+                    tMap.put("facing=west,in_wall=true,open=false", model(wall, null, 90, null, true));
+                    tMap.put("facing=west,in_wall=true,open=true", model(wall_open, null, 90, null, true));
+                    BLOCKSTATES.put(key, Map.of("variants", tMap));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+                private <T extends Block> %%classname%% fenceBlock(Supplier<T> block, String textures, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    ResourceLocation post = blockKey.withSuffix("_post");
+                    ResourceLocation side = blockKey.withSuffix("_side");
+                    ResourceLocation inventory = blockKey.withSuffix("_inventory");
+                    ResourceLocation planks = planks(blockKey);
+                    MODELS.put(post, Map.of(
+                        "parent", "minecraft:block/fence_post",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    MODELS.put(side, Map.of(
+                        "parent", "minecraft:block/fence_side",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "multipart", List.of(
+                            Map.of("apply", model(post, null, null, null, false)),
+                            Map.of("apply", model(side, null, null, null, true), "when", Map.of("north", "true")),
+                            Map.of("apply", model(side, null, 90, null, true), "when", Map.of("east", "true")),
+                            Map.of("apply", model(side, null, 180, null, true), "when", Map.of("south", "true")),
+                            Map.of("apply", model(side, null, 270, null, true), "when", Map.of("west", "true"))
                         )
                     ));
+                    if(isItem) {
+                        MODELS.put(inventory, Map.of(
+                            "parent", "minecraft:block/fence_inventory",
+                            "textures", Map.of("texture", planks.toString())
+                        ));
+                        MODELS.put(itemKey, Map.of("parent", inventory.toString()));
+                    }
+                    return this;
+                }
+                private ResourceLocation planks(ResourceLocation blockKey) {
+                    String path = blockKey.getPath();
+                    path = path.substring(0, path.lastIndexOf("_") + 1) + "planks";
+                    return blockKey.withPath(path);
+                }
+                private ResourceLocation replace(ResourceLocation blockKey, String tPath) {
+                    String path = blockKey.getPath();
+                    path = path.substring(0, path.lastIndexOf("_") + 1) + tPath;
+                    return blockKey.withPath(path);
+                }
+            
+                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation topRl = blockKey.withSuffix("_top");
+                    MODELS.put(blockKey, Map.of(
+                        "parent", "minecraft:block/slab",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
+                            "side", side.isEmpty() ? planks.toString() : side,
+                            "top", top.isEmpty() ? planks.toString() : top
+                    )));
+                    MODELS.put(topRl, Map.of(
+                        "parent", "minecraft:block/slab_top",
+                        "textures", Map.of(
+                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
+                            "side", side.isEmpty() ? planks.toString() : side,
+                            "top", top.isEmpty() ? planks.toString() : top
+                        )));
+                        BLOCKSTATES.put(key, Map.of(
+                            "variants", Map.of(
+                                "type=bottom", model(blockKey, null, null, null, false),
+                                "type=double", model(planks, null, null, null, false),
+                                "type=top", model(topRl, null, null, null, false)
+                            )));
+                      if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
             
-                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top) {
-                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
-                    MODELS.put(key, Map.of(
-                        "parent", "minecraft:block/slab",
-                        "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
-                            "side", side.isEmpty() ? key.toString() : side,
-                            "top", top.isEmpty() ? key.toString() : top
-                    )));
-                    MODELS.put(key.withSuffix("_top"), Map.of(
-                     "parent", "minecraft:block/slab_top",
-                        "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? key.toString() : bottom,
-                            "side", side.isEmpty() ? key.toString() : side,
-                            "top", top.isEmpty() ? key.toString() : top
-                        )));
-                     return this;
+                private <T extends Block> %%classname%% logBlock(Supplier<T> block, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation horizontal = blockKey.withSuffix("_horizontal");
+                    ResourceLocation top = blockKey.withSuffix("_top");
+                    cubeColumn(block, blockKey.toString(), top.toString(), isItem, false, true);
+                    cubeColumn(block, top.toString(), blockKey.toString(), isItem, true, true);
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "axis=x", model(horizontal, 90, 90, null, false),
+                            "axis=y", model(blockKey, null, null, null, false),
+                            "axis=z", model(horizontal, 90, null, null, false)
+                        )
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+                private <T extends Block> %%classname%% woodBlock(Supplier<T> block, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation log = replace(blockKey, "log");
+                    cubeColumn(block, log.toString(), log.toString(), isItem, false, true);
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "axis=x", model(blockKey, 90, 90, null, false),
+                            "axis=y", model(blockKey, null, null, null, false),
+                            "axis=z", model(blockKey, 90, null, null, false)
+                        )
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
                 }
             
                 private <T extends Block> %%classname%% buttonBlock(Supplier<T> block, String texture) {
-                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get()).withPrefix("block/");
-                    MODELS.put(key, Map.of(
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation inventory = blockKey.withSuffix("_inventory");
+                    ResourceLocation pressed = blockKey.withSuffix("_pressed");
+                    ResourceLocation planks = planks(blockKey);
+                    MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/button",
-                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
-                    MODELS.put(key.withSuffix("_inventory"), Map.of(
+                        "textures", Map.of("texture", texture.isEmpty() ? planks.toString(): texture)));
+                    MODELS.put(inventory, Map.of(
                         "parent", "minecraft:block/button_inventory",
-                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
-                    MODELS.put(key.withSuffix("_pressed"), Map.of(
+                        "textures", Map.of("texture", texture.isEmpty() ? planks.toString(): texture)));
+                    MODELS.put(pressed, Map.of(
                         "parent", "minecraft:block/button_pressed",
-                        "textures", Map.of("texture", texture.isEmpty() ? key.toString(): texture)));
+                        "textures", Map.of("texture", texture.isEmpty() ? planks.toString(): texture)));
+                    Map tMap = new HashMap();
+                    tMap.put("face=ceiling,facing=east,powered=false", model(blockKey, 180, 270, null, false));
+                    tMap.put("face=ceiling,facing=east,powered=true", model(pressed, 180, 270, null, false));
+                    tMap.put("face=ceiling,facing=north,powered=false", model(blockKey, 180, 180, null, false));
+                    tMap.put("face=ceiling,facing=north,powered=true", model(pressed, 180, 180, null, false));
+                    tMap.put("face=ceiling,facing=south,powered=false", model(blockKey, 180, null, null, false));
+                    tMap.put("face=ceiling,facing=south,powered=true", model(pressed, 180, null, null, false));
+                    tMap.put("face=ceiling,facing=west,powered=false", model(blockKey, 180, 90, null, false));
+                    tMap.put("face=ceiling,facing=west,powered=true", model(pressed, 180, 90, null, false));
+                    tMap.put("face=floor,facing=east,powered=false", model(blockKey, null, 90, null, false));
+                    tMap.put("face=floor,facing=east,powered=true", model(pressed, null, 90, null, false));
+                    tMap.put("face=floor,facing=north,powered=false", model(blockKey, null, null, null, false));
+                    tMap.put("face=floor,facing=north,powered=true", model(pressed, null, null, null, false));
+                    tMap.put("face=floor,facing=south,powered=false", model(blockKey, null, 180, null, false));
+                    tMap.put("face=floor,facing=south,powered=true", model(pressed, null, 180, null, false));
+                    tMap.put("face=floor,facing=west,powered=false", model(blockKey, null, 270, null, false));
+                    tMap.put("face=floor,facing=west,powered=true", model(pressed, null, 270, null, false));
+                    tMap.put("face=wall,facing=east,powered=false", model(blockKey, 90, 90, null, false));
+                    tMap.put("face=wall,facing=east,powered=true", model(pressed, 90, 90, null, false));
+                    tMap.put("face=wall,facing=north,powered=false", model(blockKey, 90, null, null, false));
+                    tMap.put("face=wall,facing=north,powered=true", model(pressed, 90, null, null, false));
+                    tMap.put("face=wall,facing=south,powered=false", model(blockKey, 90, 180, null, false));
+                    tMap.put("face=wall,facing=south,powered=true", model(pressed, 90, 180, null, false));
+                    tMap.put("face=wall,facing=west,powered=false", model(blockKey, 90, 270, null, false));
+                    tMap.put("face=wall,facing=west,powered=true", model(pressed, 90, 270, null, false));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", tMap
+                    ));
+                    basicParentBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem(), inventory);
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% pressurePlateBlock(Supplier<T> block, String texture, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation down = blockKey.withSuffix("_down");
+                    ResourceLocation planks = planks(blockKey);
+                    MODELS.put(blockKey, Map.of(
+                        "parent", "minecraft:block/pressure_plate_up",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    MODELS.put(down, Map.of(
+                        "parent", "minecraft:block/pressure_plate_down",
+                        "textures", Map.of("texture", planks.toString())
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "powered=false", model(blockKey, null, null, null, false),
+                            "powered=true", model(down, null, null, null, false)
+                        )
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
             

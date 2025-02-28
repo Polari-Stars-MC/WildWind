@@ -18,6 +18,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 
+import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.block.*;
@@ -179,6 +180,7 @@ public class ModBlocks {
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_LOG =
             register("stripped_azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
     @I18n(en_us = "Azalea Wood", zh_cn = "杜鹃木", zh_tw = "杜鵑木塊")
+
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_WOOD =
             register("azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
     @I18n(en_us = "Stripped Azalea Wood", zh_cn = "去皮杜鹃木", zh_tw = "剝皮杜鵑木塊")
@@ -186,6 +188,7 @@ public class ModBlocks {
             register("stripped_azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
 
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
+    @AllWood
     public static final DeferredBlock<Block> AZALEA_PLANKS =
             register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Button", zh_cn = "杜鹃木按钮", zh_tw = "杜鵑木按鈕")
@@ -225,10 +228,8 @@ public class ModBlocks {
     public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
             register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
 
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
             register("azalea_log", AZALEA_LOG);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
             register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
     @BasicBlockItem
@@ -237,7 +238,6 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
             register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
             register("azalea_planks", AZALEA_PLANKS);
     @BasicBlockItem
@@ -252,7 +252,6 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PRESSURE_PLATE_ITEM =
             register("azalea_pressure_plate", AZALEA_PRESSURE_PLATE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_SLAB_ITEM =
             register("azalea_slab", AZALEA_SLAB);
     @BasicBlockItem
