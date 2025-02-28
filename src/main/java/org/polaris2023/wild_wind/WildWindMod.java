@@ -1,25 +1,30 @@
 package org.polaris2023.wild_wind;
 
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModFoods;
+import org.polaris2023.wild_wind.mixin.accessor.BlockEntityTypeAccess;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
 import java.util.ServiceLoader;
+import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
@@ -33,7 +38,7 @@ public class WildWindMod {
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
-        NeoForge.EVENT_BUS.addListener((ServerStartingEvent event) -> {
+        modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);
             food(Items.SNIFFER_EGG, ModFoods.SNIFFER_EGG);
@@ -117,7 +122,9 @@ public class WildWindMod {
             );
 
             component(Items.SLIME_BALL, ModComponents.SLIME_COLOR, 0);
-        });
+
+            appendBlocksToBlockEntities();
+        }));
 
         for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
             iConfig.register(modContainer);
@@ -143,5 +150,29 @@ public class WildWindMod {
         builder.addAll(item.components);
         consumer.accept(builder);
         item.components = builder.build();
+    }
+    private static void appendBlocksToBlockEntities() {
+        BlockEntityTypeAccess signBuilderAccess = (BlockEntityTypeAccess) BlockEntityType.SIGN;
+        Set<Block> signValidBlocks = signBuilderAccess.wild_wind$getValidBlocks();
+        if(!(signValidBlocks instanceof ObjectOpenHashSet<Block>)) {
+            signValidBlocks = new ObjectOpenHashSet<>(signValidBlocks);
+        }
+
+        signValidBlocks.add(ModBlocks.AZALEA_SIGN.get());
+        signValidBlocks.add(ModBlocks.AZALEA_WALL_SIGN.get());
+
+        signBuilderAccess.wild_wind$setValidBlocks(signValidBlocks);
+
+
+        BlockEntityTypeAccess hangingSignBuilderAccess = (BlockEntityTypeAccess) BlockEntityType.HANGING_SIGN;
+        Set<Block> hangingSignValidBlocks = hangingSignBuilderAccess.wild_wind$getValidBlocks();
+        if(!(hangingSignValidBlocks instanceof ObjectOpenHashSet<Block>)) {
+            hangingSignValidBlocks = new ObjectOpenHashSet<>(hangingSignValidBlocks);
+        }
+
+        hangingSignValidBlocks.add(ModBlocks.AZALEA_HANGING_SIGN.get());
+        hangingSignValidBlocks.add(ModBlocks.AZALEA_WALL_HANGING_SIGN.get());
+
+        hangingSignBuilderAccess.wild_wind$setValidBlocks(hangingSignValidBlocks);
     }
 }

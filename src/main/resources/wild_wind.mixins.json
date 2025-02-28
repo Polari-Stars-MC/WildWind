@@ -9,7 +9,8 @@
     "EggMixin",
     "GoatMixin",
     "HalfTransparentBlockMixin",
-    "IceBlockMixin"
+    "IceBlockMixin",
+    "accessor.BlockEntityTypeAccess"
   ],
   "minVersion": "0.8",
   "client": [
