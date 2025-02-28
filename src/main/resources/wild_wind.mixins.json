@@ -7,7 +7,9 @@
     "AnimalMixin",
     "CowMixin",
     "EggMixin",
-    "GoatMixin"
+    "GoatMixin",
+    "HalfTransparentBlockMixin",
+    "IceBlockMixin"
   ],
   "minVersion": "0.8",
   "client": [
