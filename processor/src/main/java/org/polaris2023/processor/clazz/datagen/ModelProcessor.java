@@ -2,10 +2,7 @@ package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import org.polaris2023.annotation.modelgen.block.*;
-import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
-import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.annotation.modelgen.item.ParentItem;
-import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
+import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.modelgen.other.*;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
@@ -78,6 +75,7 @@ public class ModelProcessor extends ClassProcessor {
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
         BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
+        BasicBlockItemWithSuffix basicBlockItemWithSuffix = register(variableElement.getAnnotation(BasicBlockItemWithSuffix.class));
         CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
@@ -104,6 +102,9 @@ public class ModelProcessor extends ClassProcessor {
         }
         if (basicBlockItem != null) {
             checkAppend(typeElement, variableElement,"basicBlockItem");
+        }
+        if (basicBlockItemWithSuffix != null) {
+            checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItemWithSuffix.suffix());
         }
         if (cube != null) {
             checkAppend(typeElement, variableElement,"cubeAll", cube.item());

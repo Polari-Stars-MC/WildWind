@@ -119,31 +119,26 @@ public class WildWindMod {
             component(Items.SLIME_BALL, ModComponents.SLIME_COLOR, 0);
         });
 
-        for (var iConfig : ServiceLoader.load(IConfig.class))
+        for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
             iConfig.register(modContainer);
+        }
     }
 
     private static void food(Item item, Supplier<FoodProperties> food) {
-        component(item, builder -> {
-            builder.set(DataComponents.FOOD, food.get());
-        });
+        component(item, builder -> builder.set(DataComponents.FOOD, food.get()));
     }
 
     private static <T> void component(Supplier<DataComponentType<T>> type, T t, Item... items) {
-
         for (Item item : items) {
             component(item, type, t);
         }
     }
 
     private static <T> void component(Item item, Supplier<DataComponentType<T>> type, T t) {
-
-        component(item, builder -> {
-            builder.set(type, t);
-        });
+        component(item, builder -> builder.set(type, t));
     }
 
-    private static <T> void component(Item item, Consumer<DataComponentMap.Builder> consumer) {
+    private static void component(Item item, Consumer<DataComponentMap.Builder> consumer) {
         DataComponentMap.Builder builder = DataComponentMap.builder();
         builder.addAll(item.components);
         consumer.accept(builder);
