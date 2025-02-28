@@ -3,11 +3,12 @@ package org.polaris2023.annotation.modelgen.block;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+/**
+ * @author : baka4n
+ * {@code @Date : 2025/02/28 17:16:32}
+ */
 @Retention(RetentionPolicy.SOURCE)
-public @interface Slab {
+public @interface Fence {
     boolean item() default true;
-    String all() default  "";
-    String bottom() default "";
-    String side() default "";
-    String top() default "";
+    String texture() default "";
 }

@@ -18,19 +18,20 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 							 CeilingHangingSignBlock ceilingHangingSign, WallHangingSignBlock wallHangingSign,
 							 SlabBlock slab, StairBlock stair, DoorBlock door, TrapDoorBlock trapdoor,
 							 String recipeGroupPrefix, String recipeUnlockedBy) {
+	@Deprecated(since = "using annotation @AllWood", forRemoval = true)
 	public void registerStatesAndModels(BlockStateProvider provider, String name) {
 		ResourceLocation planks = Helpers.location("block/" + name + "_planks");
 		ResourceLocation log = Helpers.location("block/" + name + "_log");
-		provider.buttonBlock(this.button, planks);
-		provider.fenceBlock(this.fence, planks);
-		provider.fenceGateBlock(this.fenceGate, planks);
-		provider.pressurePlateBlock(this.pressurePlate, planks);
-		provider.signBlock(this.standingSign, this.wallSign, planks);
-		provider.hangingSignBlock(this.ceilingHangingSign, this.wallHangingSign, log);
-		provider.slabBlock(this.slab, planks, planks);
-		provider.stairsBlock(this.stair, planks);
-		provider.doorBlock(this.door, Helpers.location("block/" + name + "_door_bottom"), Helpers.location("block/" + name + "_door_top"));
-		provider.trapdoorBlock(this.trapdoor, Helpers.location("block/" + name + "_trapdoor"), true);
+		provider.buttonBlock(this.button, planks);//replace
+		provider.fenceBlock(this.fence, planks);//replace
+		provider.fenceGateBlock(this.fenceGate, planks);//replace
+		provider.pressurePlateBlock(this.pressurePlate, planks);//replace
+		provider.signBlock(this.standingSign, this.wallSign, planks);//replace
+		provider.hangingSignBlock(this.ceilingHangingSign, this.wallHangingSign, log);//replace
+		provider.slabBlock(this.slab, planks, planks);//replace
+		provider.stairsBlock(this.stair, planks);//replace
+		provider.doorBlock(this.door, Helpers.location("block/" + name + "_door_bottom"), Helpers.location("block/" + name + "_door_top"));//replace
+		provider.trapdoorBlock(this.trapdoor, Helpers.location("block/" + name + "_trapdoor"), true);//replace
 	}
 
 	public void generateBlockLoot(Consumer<Block> dropSelf) {

@@ -72,12 +72,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
 
         // Logs
-        logModel(getVariantBuilder(ModBlocks.AZALEA_LOG.get()), "azalea");
-        logModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_LOG.get()), "stripped_azalea");
-        woodModel(getVariantBuilder(ModBlocks.AZALEA_WOOD.get()), "azalea");
-        woodModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_WOOD.get()), "stripped_azalea");
-        simpleBlock(ModBlocks.AZALEA_PLANKS.get(), models().cubeAll("azalea_planks", Helpers.location("block/azalea_planks")));
-        ModBlockFamilies.AZALEA_PLANKS.registerStatesAndModels(this, "azalea");
+//        woodModel(getVariantBuilder(ModBlocks.AZALEA_WOOD.get()), "azalea");
+//        woodModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_WOOD.get()), "stripped_azalea");
 
         // Wool
         simpleBlock(ModBlocks.WOOL.get(), models().cubeAll("wool", Helpers.location("block/wool")));
