@@ -20,6 +20,7 @@ import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
+import org.polaris2023.annotation.modelgen.item.BasicBlockItemWithSuffix;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.block.*;
 
@@ -212,7 +213,7 @@ public class ModBlocks {
     @I18n(en_us = "Azalea Door", zh_cn = "杜鹃木门", zh_tw = "杜鵑木門")
     public static final DeferredBlock<DoorBlock> AZALEA_DOOR =
             register("azalea_door", props -> new DoorBlock(ModBlockSetTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_DOOR));
-    @I18n(en_us = "Azalea Door", zh_cn = "杜鹃木活板门", zh_tw = "杜鵑木地板門")
+    @I18n(en_us = "Azalea Trapdoor", zh_cn = "杜鹃木活板门", zh_tw = "杜鵑木地板門")
     public static final DeferredBlock<TrapDoorBlock> AZALEA_TRAPDOOR =
             register("azalea_trapdoor", props -> new TrapDoorBlock(ModBlockSetTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_TRAPDOOR));
     @I18n(en_us = "Azalea Sign", zh_cn = "杜鹃木告示牌", zh_tw = "杜鵑木告示牌")
@@ -228,8 +229,10 @@ public class ModBlocks {
     public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
             register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
 
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
             register("azalea_log", AZALEA_LOG);
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
             register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
     @BasicBlockItem
@@ -238,12 +241,13 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
             register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
             register("azalea_planks", AZALEA_PLANKS);
-    @BasicBlockItem
+    @BasicBlockItemWithSuffix(suffix = "_inventory")
     public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
             register("azalea_button", AZALEA_BUTTON);
-    @BasicBlockItem
+    @BasicBlockItemWithSuffix(suffix = "_inventory")
     public static final DeferredItem<BlockItem> AZALEA_FENCE_ITEM =
             register("azalea_fence", AZALEA_FENCE);
     @BasicBlockItem
@@ -252,21 +256,22 @@ public class ModBlocks {
     @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PRESSURE_PLATE_ITEM =
             register("azalea_pressure_plate", AZALEA_PRESSURE_PLATE);
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_SLAB_ITEM =
             register("azalea_slab", AZALEA_SLAB);
     @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_STAIRS_ITEM =
             register("azalea_stairs", AZALEA_STAIRS);
-    @BasicBlockItem
+    @BasicItem
     public static final DeferredItem<BlockItem> AZALEA_DOOR_ITEM =
             register("azalea_door", AZALEA_DOOR);
-    @BasicBlockItem
+    @BasicBlockItemWithSuffix(suffix = "_bottom")
     public static final DeferredItem<BlockItem> AZALEA_TRAPDOOR_ITEM =
             register("azalea_trapdoor", AZALEA_TRAPDOOR);
-    @BasicBlockItem
+    @BasicItem
     public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
             registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
-    @BasicBlockItem
+    @BasicItem
     public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
             registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
