@@ -232,41 +232,30 @@ public class ModBlocks {
             register("azalea_log", AZALEA_LOG);
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
             register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_WOOD_ITEM =
             register("azalea_wood", AZALEA_WOOD);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
             register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
     public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
             register("azalea_planks", AZALEA_PLANKS);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
             register("azalea_button", AZALEA_BUTTON);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_FENCE_ITEM =
             register("azalea_fence", AZALEA_FENCE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_FENCE_GATE_ITEM =
             register("azalea_fence_gate", AZALEA_FENCE_GATE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PRESSURE_PLATE_ITEM =
             register("azalea_pressure_plate", AZALEA_PRESSURE_PLATE);
     public static final DeferredItem<BlockItem> AZALEA_SLAB_ITEM =
             register("azalea_slab", AZALEA_SLAB);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_STAIRS_ITEM =
             register("azalea_stairs", AZALEA_STAIRS);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_DOOR_ITEM =
             register("azalea_door", AZALEA_DOOR);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_TRAPDOOR_ITEM =
             register("azalea_trapdoor", AZALEA_TRAPDOOR);
-    @BasicBlockItem
     public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
             registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
-    @BasicBlockItem
     public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
             registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
