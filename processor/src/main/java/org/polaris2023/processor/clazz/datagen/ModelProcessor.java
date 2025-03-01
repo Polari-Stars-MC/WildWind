@@ -93,8 +93,7 @@ public class ModelProcessor extends ClassProcessor {
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
         if (typeBasicItem != null &&
                 typeBasicItem.used() &&
-                variableElement.getModifiers().contains(Modifier.STATIC) &&
-                isAnnotation()) {
+                variableElement.getModifiers().contains(Modifier.STATIC)) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
         }
         if (basicItem != null && basicItem.used()) {
