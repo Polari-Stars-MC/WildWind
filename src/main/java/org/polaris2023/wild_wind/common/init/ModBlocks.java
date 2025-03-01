@@ -240,10 +240,6 @@ public class ModBlocks {
             register("azalea_planks", AZALEA_PLANKS);
     public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
             register("azalea_button", AZALEA_BUTTON);
-
-    public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
-            register("azalea_button", AZALEA_BUTTON);
-
     public static final DeferredItem<BlockItem> AZALEA_FENCE_ITEM =
             register("azalea_fence", AZALEA_FENCE);
     public static final DeferredItem<BlockItem> AZALEA_FENCE_GATE_ITEM =
