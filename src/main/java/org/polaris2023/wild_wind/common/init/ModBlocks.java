@@ -20,7 +20,6 @@ import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
-import org.polaris2023.annotation.modelgen.item.BasicBlockItemWithSuffix;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.block.*;
 

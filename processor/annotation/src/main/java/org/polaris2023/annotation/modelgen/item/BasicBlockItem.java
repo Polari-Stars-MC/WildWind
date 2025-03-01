@@ -5,4 +5,6 @@ import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
 public @interface BasicBlockItem {
+    String suffix() default "";
+    String prefix() default "";
 }
