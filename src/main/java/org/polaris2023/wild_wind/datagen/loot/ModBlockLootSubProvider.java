@@ -8,7 +8,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
-import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
@@ -46,11 +45,21 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_AZALEA_LOG.get());
         this.dropSelf(ModBlocks.AZALEA_WOOD.get());
         this.dropSelf(ModBlocks.STRIPPED_AZALEA_WOOD.get());
-        this.dropSelf(ModBlocks.AZALEA_PLANKS.get());
-        this.dropSelf(ModBlocks.AZALEA_SIGN.get());
-        this.dropSelf(ModBlocks.AZALEA_HANGING_SIGN.get());
+        this.dropSelf(ModBlocks.PALM_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_PALM_LOG.get());
+        this.dropSelf(ModBlocks.PALM_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_PALM_WOOD.get());
+        this.dropSelf(ModBlocks.BAOBAB_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_BAOBAB_LOG.get());
+        this.dropSelf(ModBlocks.BAOBAB_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
         this.dropSelf(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
         ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
+        ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf);
+        ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf);
+        this.add(ModBlocks.AZALEA_DOOR.get(), this.createDoorTable(ModBlocks.AZALEA_DOOR.get()));
+        this.add(ModBlocks.PALM_DOOR.get(), this.createDoorTable(ModBlocks.PALM_DOOR.get()));
+        this.add(ModBlocks.BAOBAB_DOOR.get(), this.createDoorTable(ModBlocks.BAOBAB_DOOR.get()));
     }
 }

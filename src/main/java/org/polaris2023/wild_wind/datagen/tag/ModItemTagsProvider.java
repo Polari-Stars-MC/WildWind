@@ -82,6 +82,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         );
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
         ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
+        ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
+        ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
