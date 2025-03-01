@@ -387,7 +387,7 @@ public enum Codes {
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation itemKey = key.withPrefix("item/");
                     ResourceLocation open = blockKey.withSuffix("_open");
-                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation planks = planks(blockKey, "fence_gate");
                     ResourceLocation wall = blockKey.withSuffix("_wall");
                     ResourceLocation wall_open = blockKey.withSuffix("_wall_open");
                     MODELS.put(blockKey, Map.of(
@@ -465,6 +465,11 @@ public enum Codes {
                 private ResourceLocation planks(ResourceLocation blockKey) {
                     String path = blockKey.getPath();
                     path = path.substring(0, path.lastIndexOf("_") + 1) + "planks";
+                    return blockKey.withPath(path);
+                }
+                private ResourceLocation planks(ResourceLocation blockKey, String key) {
+                    String path = blockKey.getPath();
+                    path = path.replace(key, "planks");
                     return blockKey.withPath(path);
                 }
                 private ResourceLocation replace(ResourceLocation blockKey, String tPath) {
@@ -589,7 +594,7 @@ public enum Codes {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation down = blockKey.withSuffix("_down");
-                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation planks = planks(blockKey, "pressure_plate");
                     MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/pressure_plate_up",
                         "textures", Map.of("texture", planks.toString())

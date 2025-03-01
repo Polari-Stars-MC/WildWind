@@ -228,50 +228,36 @@ public class ModBlocks {
     @I18n(en_us = "Azalea Wall Hanging Sign", zh_cn = "墙上的杜鹃木悬挂式告示牌", zh_tw = "牆上的杜鵑木懸挂式告示牌")
     public static final DeferredBlock<WallHangingSignBlock> AZALEA_WALL_HANGING_SIGN =
             register("azalea_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.AZALEA, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(AZALEA_HANGING_SIGN));
-
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_LOG_ITEM =
             register("azalea_log", AZALEA_LOG);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_LOG_ITEM =
             register("stripped_azalea_log", STRIPPED_AZALEA_LOG);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_WOOD_ITEM =
             register("azalea_wood", AZALEA_WOOD);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> STRIPPED_AZALEA_WOOD_ITEM =
             register("stripped_azalea_wood", STRIPPED_AZALEA_WOOD);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PLANKS_ITEM =
             register("azalea_planks", AZALEA_PLANKS);
-    @BasicBlockItemWithSuffix(suffix = "_inventory")
     public static final DeferredItem<BlockItem> AZALEA_BUTTON_ITEM =
             register("azalea_button", AZALEA_BUTTON);
-    @BasicBlockItemWithSuffix(suffix = "_inventory")
     public static final DeferredItem<BlockItem> AZALEA_FENCE_ITEM =
             register("azalea_fence", AZALEA_FENCE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_FENCE_GATE_ITEM =
             register("azalea_fence_gate", AZALEA_FENCE_GATE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_PRESSURE_PLATE_ITEM =
             register("azalea_pressure_plate", AZALEA_PRESSURE_PLATE);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_SLAB_ITEM =
             register("azalea_slab", AZALEA_SLAB);
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> AZALEA_STAIRS_ITEM =
             register("azalea_stairs", AZALEA_STAIRS);
-    @BasicItem
+
     public static final DeferredItem<BlockItem> AZALEA_DOOR_ITEM =
             register("azalea_door", AZALEA_DOOR);
-    @BasicBlockItemWithSuffix(suffix = "_bottom")
     public static final DeferredItem<BlockItem> AZALEA_TRAPDOOR_ITEM =
             register("azalea_trapdoor", AZALEA_TRAPDOOR);
-    @BasicItem
     public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
             registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
-    @BasicItem
+
     public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
             registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
