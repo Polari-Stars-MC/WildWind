@@ -110,6 +110,13 @@ public enum Codes {
                     MODELS.put(itemKey, Map.of("parent", blockKey.toString()));
                     return this;
                 }
+                private <T extends BlockItem> %%classname%% basicBlockItemWithSuffix(Supplier<T> blockItem, String suffix) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(blockItem.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    MODELS.put(itemKey, Map.of("parent", blockKey.toString() + suffix));
+                    return this;
+                }
                 private <T extends Block> %%classname%% allDoorBlock(Supplier<T> block) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
@@ -171,7 +178,7 @@ public enum Codes {
                     ResourceLocation trapdoorBottom = replace(blockKey, "trapdoor_bottom");
                     ResourceLocation trapdoorTop = replace(blockKey, "trapdoor_top");
                     ResourceLocation trapdoorOpen = replace(blockKey, "trapdoor_open");
-                    MODELS.put(trapdoorBottom, Map.of("parent", "minecraft:block/template_orientable_trapdoor_top","textures", Map.of("texture", blockTrapdoor.toString())));
+                    MODELS.put(trapdoorBottom, Map.of("parent", "minecraft:block/template_orientable_trapdoor_bottom","textures", Map.of("texture", blockTrapdoor.toString())));
                     MODELS.put(trapdoorTop, Map.of("parent", "minecraft:block/template_orientable_trapdoor_top","textures", Map.of("texture", blockTrapdoor.toString())));
                     MODELS.put(trapdoorOpen, Map.of("parent", "minecraft:block/template_orientable_trapdoor_open","textures", Map.of("texture", blockTrapdoor.toString())));
                     MODELS.put(itemTrapdoor, Map.of("parent", trapdoorBottom.toString()));
