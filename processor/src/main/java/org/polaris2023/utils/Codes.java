@@ -125,51 +125,51 @@ public enum Codes {
                     Map<String, ResourceLocation> locations = new HashMap<>();
                     for (String s : List.of(
                     "door_bottom_left", "door_bottom_left_open", "door_bottom_right", "door_bottom_right_open",
-                    "door_upper_left", "door_upper_left_open", "door_upper_right", "door_upper_right_open"
+                    "door_top_left", "door_top_left_open", "door_top_right", "door_top_right_open"
                     )) {
                         ResourceLocation replace = replace(blockKey, s);
                         locations.put(s, replace);
                         MODELS.put(replace, Map.of(
                             "parent", "minecraft:block/" + s,
                             "textures", Map.of(
-                                "bottom", doorBottom,
-                                "top", doorTop
+                                "bottom", doorBottom.toString(),
+                                "top", doorTop.toString()
                             )
                         ));
                     }
                     Map<String, Object> tMap = new HashMap<>();
-                    tMap.put("facing=east,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, null, null, false));
-                    tMap.put("facing=east,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 90, null, false));
-                    tMap.put("facing=east,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, null, null, false));
-                    tMap.put("facing=east,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 270, null, false));
-                    tMap.put("facing=east,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, null, null, false));
-                    tMap.put("facing=east,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 90, null, false));
-                    tMap.put("facing=east,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, null, null, false));
-                    tMap.put("facing=east,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 270, null, false));
-                    tMap.put("facing=north,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 270, null, false));
-                    tMap.put("facing=north,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, null, null, false));
-                    tMap.put("facing=north,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 270, null, false));
-                    tMap.put("facing=north,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 180, null, false));
-                    tMap.put("facing=north,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 270, null, false));
-                    tMap.put("facing=north,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, null, null, false));
-                    tMap.put("facing=north,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 270, null, false));
-                    tMap.put("facing=north,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 180, null, false));
-                    tMap.put("facing=south,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 90, null, false));
-                    tMap.put("facing=south,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 180, null, false));
-                    tMap.put("facing=south,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 90, null, false));
-                    tMap.put("facing=south,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, null, null, false));
-                    tMap.put("facing=south,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 90, null, false));
-                    tMap.put("facing=south,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 180, null, false));
-                    tMap.put("facing=south,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 90, null, false));
-                    tMap.put("facing=south,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, null, null, false));
-                    tMap.put("facing=west,half=lower, hinge=left,open=false", model(locations.get("door_bottom_left"), null, 180, null, false));
-                    tMap.put("facing=west,half=lower, hinge=left,open=open", model(locations.get("door_bottom_left_open"), null, 270, null, false));
-                    tMap.put("facing=west,half=lower, hinge=right,open=false", model(locations.get("door_bottom_right"), null, 180, null, false));
-                    tMap.put("facing=west,half=lower, hinge=right,open=open", model(locations.get("door_bottom_right_open"), null, 90, null, false));
-                    tMap.put("facing=west,half=upper, hinge=left,open=false", model(locations.get("door_upper_left"), null, 180, null, false));
-                    tMap.put("facing=west,half=upper, hinge=left,open=open", model(locations.get("door_upper_left_open"), null, 270, null, false));
-                    tMap.put("facing=west,half=upper, hinge=right,open=false", model(locations.get("door_upper_right"), null, 180, null, false));
-                    tMap.put("facing=west,half=upper, hinge=right,open=open", model(locations.get("door_upper_right_open"), null, 90, null, false));
+                    tMap.put("facing=east,half=lower,hinge=left,open=false", model(locations.get("door_bottom_left"), null, null, null, false));
+                    tMap.put("facing=east,half=lower,hinge=left,open=true", model(locations.get("door_bottom_left_open"), null, 90, null, false));
+                    tMap.put("facing=east,half=lower,hinge=right,open=false", model(locations.get("door_bottom_right"), null, null, null, false));
+                    tMap.put("facing=east,half=lower,hinge=right,open=true", model(locations.get("door_bottom_right_open"), null, 270, null, false));
+                    tMap.put("facing=east,half=upper,hinge=left,open=false", model(locations.get("door_top_left"), null, null, null, false));
+                    tMap.put("facing=east,half=upper,hinge=left,open=true", model(locations.get("door_top_left_open"), null, 90, null, false));
+                    tMap.put("facing=east,half=upper,hinge=right,open=false", model(locations.get("door_top_right"), null, null, null, false));
+                    tMap.put("facing=east,half=upper,hinge=right,open=true", model(locations.get("door_top_right_open"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower,hinge=left,open=false", model(locations.get("door_bottom_left"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower,hinge=left,open=true", model(locations.get("door_bottom_left_open"), null, null, null, false));
+                    tMap.put("facing=north,half=lower,hinge=right,open=false", model(locations.get("door_bottom_right"), null, 270, null, false));
+                    tMap.put("facing=north,half=lower,hinge=right,open=true", model(locations.get("door_bottom_right_open"), null, 180, null, false));
+                    tMap.put("facing=north,half=upper,hinge=left,open=false", model(locations.get("door_top_left"), null, 270, null, false));
+                    tMap.put("facing=north,half=upper,hinge=left,open=true", model(locations.get("door_top_left_open"), null, null, null, false));
+                    tMap.put("facing=north,half=upper,hinge=right,open=false", model(locations.get("door_top_right"), null, 270, null, false));
+                    tMap.put("facing=north,half=upper,hinge=right,open=true", model(locations.get("door_top_right_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=lower,hinge=left,open=false", model(locations.get("door_bottom_left"), null, 90, null, false));
+                    tMap.put("facing=south,half=lower,hinge=left,open=true", model(locations.get("door_bottom_left_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=lower,hinge=right,open=false", model(locations.get("door_bottom_right"), null, 90, null, false));
+                    tMap.put("facing=south,half=lower,hinge=right,open=true", model(locations.get("door_bottom_right_open"), null, null, null, false));
+                    tMap.put("facing=south,half=upper,hinge=left,open=false", model(locations.get("door_top_left"), null, 90, null, false));
+                    tMap.put("facing=south,half=upper,hinge=left,open=true", model(locations.get("door_top_left_open"), null, 180, null, false));
+                    tMap.put("facing=south,half=upper,hinge=right,open=false", model(locations.get("door_top_right"), null, 90, null, false));
+                    tMap.put("facing=south,half=upper,hinge=right,open=true", model(locations.get("door_top_right_open"), null, null, null, false));
+                    tMap.put("facing=west,half=lower,hinge=left,open=false", model(locations.get("door_bottom_left"), null, 180, null, false));
+                    tMap.put("facing=west,half=lower,hinge=left,open=true", model(locations.get("door_bottom_left_open"), null, 270, null, false));
+                    tMap.put("facing=west,half=lower,hinge=right,open=false", model(locations.get("door_bottom_right"), null, 180, null, false));
+                    tMap.put("facing=west,half=lower,hinge=right,open=true", model(locations.get("door_bottom_right_open"), null, 90, null, false));
+                    tMap.put("facing=west,half=upper,hinge=left,open=false", model(locations.get("door_top_left"), null, 180, null, false));
+                    tMap.put("facing=west,half=upper,hinge=left,open=true", model(locations.get("door_top_left_open"), null, 270, null, false));
+                    tMap.put("facing=west,half=upper,hinge=right,open=false", model(locations.get("door_top_right"), null, 180, null, false));
+                    tMap.put("facing=west,half=upper,hinge=right,open=true", model(locations.get("door_top_right_open"), null, 90, null, false));
                     BLOCKSTATES.put(key, Map.of("variants", tMap));
                     basicItem(() -> block.get().asItem());
                     ResourceLocation trapdoor = replace(key, "trapdoor");

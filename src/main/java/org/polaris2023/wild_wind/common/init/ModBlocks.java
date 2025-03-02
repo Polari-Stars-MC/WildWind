@@ -173,6 +173,10 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("deepslate_salt_ore", SALT_ORE);
 
+    @AllWood
+    @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
+    public static final DeferredBlock<Block> AZALEA_PLANKS =
+            register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃木原木", zh_tw = "杜鵑木原木")
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =
             register("azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
@@ -180,17 +184,11 @@ public class ModBlocks {
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_LOG =
             register("stripped_azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
     @I18n(en_us = "Azalea Wood", zh_cn = "杜鹃木", zh_tw = "杜鵑木塊")
-
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_WOOD =
             register("azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
     @I18n(en_us = "Stripped Azalea Wood", zh_cn = "去皮杜鹃木", zh_tw = "剝皮杜鵑木塊")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_WOOD =
             register("stripped_azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
-
-    @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
-    @AllWood
-    public static final DeferredBlock<Block> AZALEA_PLANKS =
-            register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Button", zh_cn = "杜鹃木按钮", zh_tw = "杜鵑木按鈕")
     public static final DeferredBlock<ButtonBlock> AZALEA_BUTTON =
             register("azalea_button", props -> new ButtonBlock(ModBlockSetTypes.AZALEA, 30, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_BUTTON));
@@ -249,16 +247,180 @@ public class ModBlocks {
             register("azalea_slab", AZALEA_SLAB);
     public static final DeferredItem<BlockItem> AZALEA_STAIRS_ITEM =
             register("azalea_stairs", AZALEA_STAIRS);
-
     public static final DeferredItem<BlockItem> AZALEA_DOOR_ITEM =
             register("azalea_door", AZALEA_DOOR);
     public static final DeferredItem<BlockItem> AZALEA_TRAPDOOR_ITEM =
             register("azalea_trapdoor", AZALEA_TRAPDOOR);
     public static final DeferredItem<SignItem> AZALEA_SIGN_ITEM =
             registerSign("azalea_sign", AZALEA_SIGN, AZALEA_WALL_SIGN);
-
     public static final DeferredItem<HangingSignItem> AZALEA_HANGING_SIGN_ITEM =
             registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
+
+    @AllWood
+    @I18n(en_us = "Palm Planks", zh_cn = "棕榈木木板", zh_tw = "棕櫚木材")
+    public static final DeferredBlock<Block> PALM_PLANKS =
+            register("palm_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+    @I18n(en_us = "Palm Log", zh_cn = "棕榈木原木", zh_tw = "棕櫚木原木")
+    public static final DeferredBlock<RotatedPillarBlock> PALM_LOG =
+            register("palm_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
+    @I18n(en_us = "Stripped Palm Log", zh_cn = "去皮棕榈木原木", zh_tw = "剝皮棕櫚木原木")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_PALM_LOG =
+            register("stripped_palm_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
+    @I18n(en_us = "Palm Wood", zh_cn = "棕榈木", zh_tw = "棕櫚木塊")
+    public static final DeferredBlock<RotatedPillarBlock> PALM_WOOD =
+            register("palm_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
+    @I18n(en_us = "Stripped Palm Wood", zh_cn = "去皮棕榈木", zh_tw = "剝皮棕櫚木塊")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_PALM_WOOD =
+            register("stripped_palm_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
+    @I18n(en_us = "Palm Button", zh_cn = "棕榈木按钮", zh_tw = "棕櫚木按鈕")
+    public static final DeferredBlock<ButtonBlock> PALM_BUTTON =
+            register("palm_button", props -> new ButtonBlock(ModBlockSetTypes.PALM, 30, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_BUTTON));
+    @I18n(en_us = "Palm Fence", zh_cn = "棕榈木栅栏", zh_tw = "棕櫚木柵欄")
+    public static final DeferredBlock<FenceBlock> PALM_FENCE =
+            register("palm_fence", FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE));
+    @I18n(en_us = "Palm Fence Gate", zh_cn = "棕榈木栅栏门", zh_tw = "棕櫚木柵欄門")
+    public static final DeferredBlock<FenceGateBlock> PALM_FENCE_GATE =
+            register("palm_fence_gate", props -> new FenceGateBlock(ModWoodTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE_GATE));
+    @I18n(en_us = "Palm Pressure Plate", zh_cn = "棕榈木压力板", zh_tw = "棕櫚木压力板")
+    public static final DeferredBlock<PressurePlateBlock> PALM_PRESSURE_PLATE =
+            register("palm_pressure_plate", props -> new PressurePlateBlock(ModBlockSetTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PRESSURE_PLATE));
+    @I18n(en_us = "Palm Slab", zh_cn = "棕榈木台阶", zh_tw = "棕櫚木半磚")
+    public static final DeferredBlock<SlabBlock> PALM_SLAB =
+            register("palm_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SLAB));
+    @I18n(en_us = "Palm Stairs", zh_cn = "棕榈木楼梯", zh_tw = "棕櫚木樓梯")
+    public static final DeferredBlock<StairBlock> PALM_STAIRS =
+            register("palm_stairs", props -> new StairBlock(PALM_PLANKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_STAIRS));
+    @I18n(en_us = "Palm Door", zh_cn = "棕榈木门", zh_tw = "棕櫚木門")
+    public static final DeferredBlock<DoorBlock> PALM_DOOR =
+            register("palm_door", props -> new DoorBlock(ModBlockSetTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_DOOR));
+    @I18n(en_us = "Palm Trapdoor", zh_cn = "棕榈木活板门", zh_tw = "棕櫚木地板門")
+    public static final DeferredBlock<TrapDoorBlock> PALM_TRAPDOOR =
+            register("palm_trapdoor", props -> new TrapDoorBlock(ModBlockSetTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_TRAPDOOR));
+    @I18n(en_us = "Palm Sign", zh_cn = "棕榈木告示牌", zh_tw = "棕櫚木告示牌")
+    public static final DeferredBlock<StandingSignBlock> PALM_SIGN =
+            register("palm_sign", props -> new StandingSignBlock(ModWoodTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SIGN));
+    @I18n(en_us = "Palm Wall Sign", zh_cn = "墙上的棕榈木告示牌", zh_tw = "牆上的棕櫚木告示牌")
+    public static final DeferredBlock<WallSignBlock> PALM_WALL_SIGN =
+            register("palm_wall_sign", props -> new WallSignBlock(ModWoodTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_SIGN).lootFrom(PALM_SIGN));
+    @I18n(en_us = "Palm Hanging Sign", zh_cn = "棕榈木悬挂式告示牌", zh_tw = "棕櫚木懸挂式告示牌")
+    public static final DeferredBlock<CeilingHangingSignBlock> PALM_HANGING_SIGN =
+            register("palm_hanging_sign", props -> new CeilingHangingSignBlock(ModWoodTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_HANGING_SIGN));
+    @I18n(en_us = "Palm Wall Hanging Sign", zh_cn = "墙上的棕榈木悬挂式告示牌", zh_tw = "牆上的棕櫚木懸挂式告示牌")
+    public static final DeferredBlock<WallHangingSignBlock> PALM_WALL_HANGING_SIGN =
+            register("palm_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(PALM_HANGING_SIGN));
+    public static final DeferredItem<BlockItem> PALM_LOG_ITEM =
+            register("palm_log", PALM_LOG);
+    public static final DeferredItem<BlockItem> STRIPPED_PALM_LOG_ITEM =
+            register("stripped_palm_log", STRIPPED_PALM_LOG);
+    public static final DeferredItem<BlockItem> PALM_WOOD_ITEM =
+            register("palm_wood", PALM_WOOD);
+    public static final DeferredItem<BlockItem> STRIPPED_PALM_WOOD_ITEM =
+            register("stripped_palm_wood", STRIPPED_PALM_WOOD);
+    public static final DeferredItem<BlockItem> PALM_PLANKS_ITEM =
+            register("palm_planks", PALM_PLANKS);
+    public static final DeferredItem<BlockItem> PALM_BUTTON_ITEM =
+            register("palm_button", PALM_BUTTON);
+    public static final DeferredItem<BlockItem> PALM_FENCE_ITEM =
+            register("palm_fence", PALM_FENCE);
+    public static final DeferredItem<BlockItem> PALM_FENCE_GATE_ITEM =
+            register("palm_fence_gate", PALM_FENCE_GATE);
+    public static final DeferredItem<BlockItem> PALM_PRESSURE_PLATE_ITEM =
+            register("palm_pressure_plate", PALM_PRESSURE_PLATE);
+    public static final DeferredItem<BlockItem> PALM_SLAB_ITEM =
+            register("palm_slab", PALM_SLAB);
+    public static final DeferredItem<BlockItem> PALM_STAIRS_ITEM =
+            register("palm_stairs", PALM_STAIRS);
+    public static final DeferredItem<BlockItem> PALM_DOOR_ITEM =
+            register("palm_door", PALM_DOOR);
+    public static final DeferredItem<BlockItem> PALM_TRAPDOOR_ITEM =
+            register("palm_trapdoor", PALM_TRAPDOOR);
+    public static final DeferredItem<SignItem> PALM_SIGN_ITEM =
+            registerSign("palm_sign", PALM_SIGN, PALM_WALL_SIGN);
+    public static final DeferredItem<HangingSignItem> PALM_HANGING_SIGN_ITEM =
+            registerHangingSign("palm_hanging_sign", PALM_HANGING_SIGN, PALM_WALL_HANGING_SIGN);
+
+    @AllWood
+    @I18n(en_us = "Baobab Planks", zh_cn = "猴面包木木板", zh_tw = "猴麵包木材")
+    public static final DeferredBlock<Block> BAOBAB_PLANKS =
+            register("baobab_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+    @I18n(en_us = "Baobab Log", zh_cn = "猴面包木原木", zh_tw = "猴麵包木原木")
+    public static final DeferredBlock<RotatedPillarBlock> BAOBAB_LOG =
+            register("baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
+    @I18n(en_us = "Stripped Baobab Log", zh_cn = "去皮猴面包木原木", zh_tw = "剝皮猴麵包木原木")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_BAOBAB_LOG =
+            register("stripped_baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
+    @I18n(en_us = "Baobab Wood", zh_cn = "猴面包木", zh_tw = "猴麵包木塊")
+    public static final DeferredBlock<RotatedPillarBlock> BAOBAB_WOOD =
+            register("baobab_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
+    @I18n(en_us = "Stripped Baobab Wood", zh_cn = "去皮猴面包木", zh_tw = "剝皮猴麵包木塊")
+    public static final DeferredBlock<RotatedPillarBlock> STRIPPED_BAOBAB_WOOD =
+            register("stripped_baobab_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
+    @I18n(en_us = "Baobab Button", zh_cn = "猴面包木按钮", zh_tw = "猴麵包木按鈕")
+    public static final DeferredBlock<ButtonBlock> BAOBAB_BUTTON =
+            register("baobab_button", props -> new ButtonBlock(ModBlockSetTypes.BAOBAB, 30, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_BUTTON));
+    @I18n(en_us = "Baobab Fence", zh_cn = "猴面包木栅栏", zh_tw = "猴麵包木柵欄")
+    public static final DeferredBlock<FenceBlock> BAOBAB_FENCE =
+            register("baobab_fence", FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE));
+    @I18n(en_us = "Baobab Fence Gate", zh_cn = "猴面包木栅栏门", zh_tw = "猴麵包木柵欄門")
+    public static final DeferredBlock<FenceGateBlock> BAOBAB_FENCE_GATE =
+            register("baobab_fence_gate", props -> new FenceGateBlock(ModWoodTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_FENCE_GATE));
+    @I18n(en_us = "Baobab Pressure Plate", zh_cn = "猴面包木压力板", zh_tw = "猴麵包木压力板")
+    public static final DeferredBlock<PressurePlateBlock> BAOBAB_PRESSURE_PLATE =
+            register("baobab_pressure_plate", props -> new PressurePlateBlock(ModBlockSetTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PRESSURE_PLATE));
+    @I18n(en_us = "Baobab Slab", zh_cn = "猴面包木台阶", zh_tw = "猴麵包木半磚")
+    public static final DeferredBlock<SlabBlock> BAOBAB_SLAB =
+            register("baobab_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SLAB));
+    @I18n(en_us = "Baobab Stairs", zh_cn = "猴面包木楼梯", zh_tw = "猴麵包木樓梯")
+    public static final DeferredBlock<StairBlock> BAOBAB_STAIRS =
+            register("baobab_stairs", props -> new StairBlock(BAOBAB_PLANKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_STAIRS));
+    @I18n(en_us = "Baobab Door", zh_cn = "猴面包木门", zh_tw = "猴麵包木門")
+    public static final DeferredBlock<DoorBlock> BAOBAB_DOOR =
+            register("baobab_door", props -> new DoorBlock(ModBlockSetTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_DOOR));
+    @I18n(en_us = "Baobab Trapdoor", zh_cn = "猴面包木活板门", zh_tw = "猴麵包木地板門")
+    public static final DeferredBlock<TrapDoorBlock> BAOBAB_TRAPDOOR =
+            register("baobab_trapdoor", props -> new TrapDoorBlock(ModBlockSetTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_TRAPDOOR));
+    @I18n(en_us = "Baobab Sign", zh_cn = "猴面包木告示牌", zh_tw = "猴麵包木告示牌")
+    public static final DeferredBlock<StandingSignBlock> BAOBAB_SIGN =
+            register("baobab_sign", props -> new StandingSignBlock(ModWoodTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_SIGN));
+    @I18n(en_us = "Baobab Wall Sign", zh_cn = "墙上的猴面包木告示牌", zh_tw = "牆上的猴麵包木告示牌")
+    public static final DeferredBlock<WallSignBlock> BAOBAB_WALL_SIGN =
+            register("baobab_wall_sign", props -> new WallSignBlock(ModWoodTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_SIGN).lootFrom(BAOBAB_SIGN));
+    @I18n(en_us = "Baobab Hanging Sign", zh_cn = "猴面包木悬挂式告示牌", zh_tw = "猴麵包木懸挂式告示牌")
+    public static final DeferredBlock<CeilingHangingSignBlock> BAOBAB_HANGING_SIGN =
+            register("baobab_hanging_sign", props -> new CeilingHangingSignBlock(ModWoodTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_HANGING_SIGN));
+    @I18n(en_us = "Baobab Wall Hanging Sign", zh_cn = "墙上的猴面包木悬挂式告示牌", zh_tw = "牆上的猴麵包木懸挂式告示牌")
+    public static final DeferredBlock<WallHangingSignBlock> BAOBAB_WALL_HANGING_SIGN =
+            register("baobab_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodTypes.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WALL_HANGING_SIGN).lootFrom(BAOBAB_HANGING_SIGN));
+    public static final DeferredItem<BlockItem> BAOBAB_LOG_ITEM =
+            register("baobab_log", BAOBAB_LOG);
+    public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_LOG_ITEM =
+            register("stripped_baobab_log", STRIPPED_BAOBAB_LOG);
+    public static final DeferredItem<BlockItem> BAOBAB_WOOD_ITEM =
+            register("baobab_wood", BAOBAB_WOOD);
+    public static final DeferredItem<BlockItem> STRIPPED_BAOBAB_WOOD_ITEM =
+            register("stripped_baobab_wood", STRIPPED_BAOBAB_WOOD);
+    public static final DeferredItem<BlockItem> BAOBAB_PLANKS_ITEM =
+            register("baobab_planks", BAOBAB_PLANKS);
+    public static final DeferredItem<BlockItem> BAOBAB_BUTTON_ITEM =
+            register("baobab_button", BAOBAB_BUTTON);
+    public static final DeferredItem<BlockItem> BAOBAB_FENCE_ITEM =
+            register("baobab_fence", BAOBAB_FENCE);
+    public static final DeferredItem<BlockItem> BAOBAB_FENCE_GATE_ITEM =
+            register("baobab_fence_gate", BAOBAB_FENCE_GATE);
+    public static final DeferredItem<BlockItem> BAOBAB_PRESSURE_PLATE_ITEM =
+            register("baobab_pressure_plate", BAOBAB_PRESSURE_PLATE);
+    public static final DeferredItem<BlockItem> BAOBAB_SLAB_ITEM =
+            register("baobab_slab", BAOBAB_SLAB);
+    public static final DeferredItem<BlockItem> BAOBAB_STAIRS_ITEM =
+            register("baobab_stairs", BAOBAB_STAIRS);
+    public static final DeferredItem<BlockItem> BAOBAB_DOOR_ITEM =
+            register("baobab_door", BAOBAB_DOOR);
+    public static final DeferredItem<BlockItem> BAOBAB_TRAPDOOR_ITEM =
+            register("baobab_trapdoor", BAOBAB_TRAPDOOR);
+    public static final DeferredItem<SignItem> BAOBAB_SIGN_ITEM =
+            registerSign("baobab_sign", BAOBAB_SIGN, BAOBAB_WALL_SIGN);
+    public static final DeferredItem<HangingSignItem> BAOBAB_HANGING_SIGN_ITEM =
+            registerHangingSign("baobab_hanging_sign", BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN);
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

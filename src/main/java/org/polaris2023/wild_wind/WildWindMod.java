@@ -160,6 +160,10 @@ public class WildWindMod {
 
         signValidBlocks.add(ModBlocks.AZALEA_SIGN.get());
         signValidBlocks.add(ModBlocks.AZALEA_WALL_SIGN.get());
+        signValidBlocks.add(ModBlocks.PALM_SIGN.get());
+        signValidBlocks.add(ModBlocks.PALM_WALL_SIGN.get());
+        signValidBlocks.add(ModBlocks.BAOBAB_SIGN.get());
+        signValidBlocks.add(ModBlocks.BAOBAB_WALL_SIGN.get());
 
         signBuilderAccess.wild_wind$setValidBlocks(signValidBlocks);
 
@@ -172,6 +176,10 @@ public class WildWindMod {
 
         hangingSignValidBlocks.add(ModBlocks.AZALEA_HANGING_SIGN.get());
         hangingSignValidBlocks.add(ModBlocks.AZALEA_WALL_HANGING_SIGN.get());
+        hangingSignValidBlocks.add(ModBlocks.PALM_HANGING_SIGN.get());
+        hangingSignValidBlocks.add(ModBlocks.PALM_WALL_HANGING_SIGN.get());
+        hangingSignValidBlocks.add(ModBlocks.BAOBAB_HANGING_SIGN.get());
+        hangingSignValidBlocks.add(ModBlocks.BAOBAB_WALL_HANGING_SIGN.get());
 
         hangingSignBuilderAccess.wild_wind$setValidBlocks(hangingSignValidBlocks);
     }
