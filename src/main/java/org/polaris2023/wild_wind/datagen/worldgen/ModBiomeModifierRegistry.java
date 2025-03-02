@@ -24,7 +24,7 @@ public class ModBiomeModifierRegistry {
 		HolderGetter<PlacedFeature> placedFeaturesLookup = context.lookup(Registries.PLACED_FEATURE);
 		context.register(BRITTLE_ICE, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_COLD_OVERWORLD),
-				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.BRITTLE_ICE)),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.BRITTLE_ICE), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.DISK_BRITTLE_ICE)),
 				GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
 		);
 	}
