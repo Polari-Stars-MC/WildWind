@@ -1,5 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -17,9 +19,10 @@ import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
-@BasicItem
+
 public class ModItems {
 
+    @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
     public static final DeferredItem<LivingTuberItem> LIVING_TUBER =
             register("living_tuber", properties -> new LivingTuberItem(properties
@@ -34,20 +37,20 @@ public class ModItems {
     public static final DeferredItem<MagicFluteItem> MAGIC_FLUTE =
             register("magic_flute", MagicFluteItem::stackTo1);
 
-
+    @BasicItem
     @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
     public static final DeferredItem<CheeseItem> CHEESE =
             register("cheese", p -> new CheeseItem(p.stacksTo(16).food(ModFoods.CHEESE.get())));
-
+    @BasicItem
     @I18n(en_us = "Russian Soup", zh_cn = "罗宋汤", zh_tw = "羅宋湯")
     public static final DeferredItem<Item> RUSSIAN_SOUP =
             simpleItem("russian_soup", p -> p.stacksTo(1));
-
+    @BasicItem
     @I18n(en_us = "Vegetable Soup", zh_cn = "蔬菜浓汤", zh_tw = "蔬菜濃湯")
     public static final DeferredItem<Item> VEGETABLE_SOUP =
             simpleItem("vegetable_soup", p -> p.stacksTo(1));
 
-
+    @BasicItem
     @I18n(en_us = "Nether Mushroom Stew", zh_cn = "下界蘑菇煲", zh_tw = "下界蘑菇煲")
     public static final DeferredItem<NetherMushroomStewItem> NETHER_MUSHROOM_STEW =
             register("nether_mushroom_stew", properties -> 

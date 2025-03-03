@@ -130,7 +130,7 @@ public class ModelProcessor extends ClassProcessor {
         }
         //block model gen
         if (cube != null) {
-            checkAppend(typeElement, variableElement,"cubeAll", cube.item());
+            checkAppend(typeElement, variableElement,"cubeAll", cube.texture(), cube.render_type(), cube.item());
         }
         else if (cubeColumn != null) {
             checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
