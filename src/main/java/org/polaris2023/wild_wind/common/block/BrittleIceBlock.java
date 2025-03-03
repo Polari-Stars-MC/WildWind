@@ -9,10 +9,12 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -27,6 +29,7 @@ import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.pathfinder.PathType;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.wild_wind.util.EnchantmentHelper;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -49,7 +52,8 @@ public class BrittleIceBlock extends IceBlock {
 
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-		if(level instanceof ServerLevel serverLevel && entity instanceof LivingEntity && fallDistance > 0.75F) {
+		if(level instanceof ServerLevel serverLevel && entity instanceof LivingEntity livingEntity &&
+				!hasFrostWalker(serverLevel, livingEntity) && fallDistance > 0.75F) {
 			this.crash(serverLevel, pos, entity);
 		}
 		super.fallOn(level, state, pos, entity, fallDistance);
@@ -73,7 +77,9 @@ public class BrittleIceBlock extends IceBlock {
 			this.crash(level, blockPos, null);
 			return;
 		}
-		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos) && !entity.isSteppingCarefully();
+		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos) && !entity.isSteppingCarefully() && (
+				!(entity instanceof LivingEntity livingEntity) || !hasFrostWalker(level, livingEntity)
+		);
 		List<? extends Entity> entitiesOnBlock = level.getEntities(EntityTypeTest.forClass(LivingEntity.class), entityPredicate);
 		if(entitiesOnBlock.isEmpty()) {
 			if(age > 0) {
@@ -91,13 +97,26 @@ public class BrittleIceBlock extends IceBlock {
 		}
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private static boolean hasFrostWalker(ServerLevel level, LivingEntity livingEntity) {
+		return EnchantmentHelper.hasEnchantment(level, livingEntity.getItemBySlot(EquipmentSlot.FEET), Enchantments.FROST_WALKER);
+	}
+
 	private void crash(ServerLevel level, BlockPos blockPos, @Nullable Entity entity) {
 		level.destroyBlock(blockPos, false, entity);
-		//this.tryChainReactAt(level, blockPos.south());
-		//this.tryChainReactAt(level, blockPos.east());
-		//this.tryChainReactAt(level, blockPos.above());
-		//this.tryChainReactAt(level, blockPos.north());
-		//this.tryChainReactAt(level, blockPos.west());
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.south());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.east());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.north());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.west());
+		}
+		this.tryChainReactAt(level, blockPos.above());
 		this.tryChainReactAt(level, blockPos.below());
 	}
 
