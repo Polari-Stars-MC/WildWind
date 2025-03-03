@@ -106,6 +106,7 @@ public class ModBlocks {
             register("duckweed", DUCKWEED);
 
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
+    @CubeAll(render_type = "translucent", texture = "wild_wind:block/brittle_ice_0")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
             register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));

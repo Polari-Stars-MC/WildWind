@@ -240,15 +240,16 @@ public enum Codes {
                     return this;
                 }
             
-                private <T extends Block> %%classname%% cubeAll(Supplier<T> block, boolean isItem) {
+                private <T extends Block> %%classname%% cubeAll(Supplier<T> block, String texture, String renderType, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
-                    MODELS.put(blockKey, Map.of(
-                        "parent", "minecraft:block/cube_all",
-                        "textures", Map.of(
-                            "all", blockKey.toString()
-                        )
-                    ));
+                    Map<String, Object> tMap = new HashMap<>();
+                    tMap.put("parent", "minecraft:block/cube_all");
+                    tMap.put("textures", Map.of(
+                            "all", texture.isEmpty() ? blockKey.toString() : texture
+                        ));
+                    if(!renderType.isEmpty()) tMap.put("render_type", renderType);
+                    MODELS.put(blockKey, tMap);
                     BLOCKSTATES.put(key, Map.of(
                         "variants", Map.of("", model(blockKey, null, null, null, false))
                     ));
@@ -271,9 +272,9 @@ public enum Codes {
                     if (!key.getPath().contains("planks")) {
                         key = planks(key);
                         ResourceLocation finalKey = key;
-                        cubeAll(() -> BuiltInRegistries.BLOCK.get(finalKey), true);
+                        cubeAll(() -> BuiltInRegistries.BLOCK.get(finalKey), "", "", true);
                     } else {
-                        cubeAll(block, true);
+                        cubeAll(block, "", "", true);
                     }
                     ResourceLocation finalKey1 = key;
                     buttonBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "button")), "");

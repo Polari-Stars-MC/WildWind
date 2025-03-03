@@ -75,7 +75,6 @@ public class ModelProcessor extends ClassProcessor {
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
         BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
-        BasicBlockItemWithSuffix basicBlockItemWithSuffix = register(variableElement.getAnnotation(BasicBlockItemWithSuffix.class));
         CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
@@ -91,77 +90,11 @@ public class ModelProcessor extends ClassProcessor {
         AllWood allWood = register(variableElement.getAnnotation(AllWood.class));
         AllSign allSign = register(variableElement.getAnnotation(AllSign.class));
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
-        if (typeBasicItem != null &&
-                typeBasicItem.used() &&
-                variableElement.getModifiers().contains(Modifier.STATIC) &&
-                isAnnotation()) {
-            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
-        }
-        if (basicItem != null && basicItem.used()) {
-            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-        }
-        if (basicBlockItem != null) {
-            checkAppend(typeElement, variableElement,"basicBlockItem");
-        }
-        if (basicBlockItemWithSuffix != null) {
-            checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItemWithSuffix.suffix());
-        }
-        if (cube != null) {
-            checkAppend(typeElement, variableElement,"cubeAll", cube.item());
-        }
-        if (cubeColumn != null) {
-            checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.horizontal());
-        }
-        if (allWood != null) {
-            checkAppend(typeElement, variableElement, "allWoodBlock");
-        }
-        if (allDoor != null) {
-            checkAppend(typeElement, variableElement, "allDoorBlock");
-        }
-        if (allSign != null) {
-            checkAppend(typeElement, variableElement, "allSignBlock");
-        }
-        if (pressurePlate != null) {
-            checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
-        }
-
-        if (stairs != null) {
-            String all = stairs.all();
-            checkAppend(typeElement, variableElement, "stairsBlock",
-                    all.isEmpty() ? stairs.bottom() : all,
-                    all.isEmpty() ? stairs.side() : all,
-                    all.isEmpty() ? stairs.top() : all,
-                    stairs.item()
-            );
-        }
-        if (slab != null) {
-            String all = slab.all();
-            checkAppend(typeElement, variableElement, "slabBlock",
-                    all.isEmpty() ? slab.bottom() : all,
-                    all.isEmpty() ? slab.side() : all,
-                    all.isEmpty() ? slab.top() : all,
-                    slab.item()
-            );
-        }
-        if (log != null) {
-            checkAppend(typeElement, variableElement, "logBlock", log.item());
-        }
-        if (wood != null) {
-            checkAppend(typeElement, variableElement, "woodBlock", wood.item());
-        }
-        if (button != null) {
-            checkAppend(typeElement, variableElement, "buttonBlock", button.texture());
-        }
-        if(fence != null) {
-            checkAppend(typeElement, variableElement, "fenceBlock", fence.texture(), fence.item());
-        }
-        if (fenceGate != null) {
-            checkAppend(typeElement, variableElement, "fenceGateBlock", fenceGate.texture(), fenceGate.item());
-        }
+        //item model gen
         if (spawnEggItem != null) {
             checkAppend(typeElement, variableElement, "spawnEggItem");
         }
-        if (parentItem != null) {
+        else if (parentItem != null) {
             check();
             MODEL.append("\n\t\t")
                     .append(".parentItem(")
@@ -180,6 +113,79 @@ public class ModelProcessor extends ClassProcessor {
             }
             MODEL.append(")");
         }
+        else if (basicBlockItem != null) {
+            if (basicBlockItem.suffix().isEmpty()) {
+                checkAppend(typeElement, variableElement,"basicBlockItem");
+            } else {
+                checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItem.suffix());
+            }
+        }
+        else if (basicItem != null && basicItem.used()) {
+            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
+        }
+        else if (typeBasicItem != null &&
+                typeBasicItem.used() &&
+                variableElement.getModifiers().contains(Modifier.STATIC)) {
+            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
+        }
+        //block model gen
+        if (cube != null) {
+            checkAppend(typeElement, variableElement,"cubeAll", cube.texture(), cube.render_type(), cube.item());
+        }
+        else if (cubeColumn != null) {
+            checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
+        }
+        else if (log != null) {
+            checkAppend(typeElement, variableElement, "logBlock", log.item());
+        }
+        else if (wood != null) {
+            checkAppend(typeElement, variableElement, "woodBlock", wood.item());
+        }
+        else if (button != null) {
+            checkAppend(typeElement, variableElement, "buttonBlock", button.texture());
+        }
+        else if(fence != null) {
+            checkAppend(typeElement, variableElement, "fenceBlock", fence.texture(), fence.item());
+        }
+        else if (fenceGate != null) {
+            checkAppend(typeElement, variableElement, "fenceGateBlock", fenceGate.texture(), fenceGate.item());
+        }
+        else if (stairs != null) {
+            String all = stairs.all();
+            checkAppend(typeElement, variableElement, "stairsBlock",
+                    all.isEmpty() ? stairs.bottom() : all,
+                    all.isEmpty() ? stairs.side() : all,
+                    all.isEmpty() ? stairs.top() : all,
+                    stairs.item()
+            );
+        }
+        else if (slab != null) {
+            String all = slab.all();
+            checkAppend(typeElement, variableElement, "slabBlock",
+                    all.isEmpty() ? slab.bottom() : all,
+                    all.isEmpty() ? slab.side() : all,
+                    all.isEmpty() ? slab.top() : all,
+                    slab.item()
+            );
+        }
+        else if (pressurePlate != null) {
+            checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
+        }
+        else if (allSign != null) {
+            checkAppend(typeElement, variableElement, "allSignBlock");
+        }
+        else if (allDoor != null) {
+            checkAppend(typeElement, variableElement, "allDoorBlock");
+        }
+        else if (allWood != null) {
+            checkAppend(typeElement, variableElement, "allWoodBlock");
+        }
+
+
+
+
+
+
     }
 
     private static void basicSet(String name, BasicItem basicItem, Addition addition, boolean first, String prefix) {
