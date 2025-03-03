@@ -116,13 +116,15 @@ public class BrittleIceBlock extends IceBlock {
 		if(level.random.nextInt(5) < 2) {
 			this.tryChainReactAt(level, blockPos.west());
 		}
-		this.tryChainReactAt(level, blockPos.above());
-		this.tryChainReactAt(level, blockPos.below());
+		if(level.random.nextInt(5) < 3) {
+			this.tryChainReactAt(level, blockPos.below());
+		}
 	}
 
 	private void tryChainReactAt(ServerLevel level, BlockPos blockPos) {
 		BlockState blockState = level.getBlockState(blockPos);
-		if(blockState.is(this)) {
+		BlockState above = level.getBlockState(blockPos.above());
+		if(blockState.is(this) && !above.is(this)) {
 			level.setBlock(blockPos, blockState.setValue(UNSTABLE, true), Block.UPDATE_ALL);
 			if(!level.getBlockTicks().willTickThisTick(blockPos, this)) {
 				level.scheduleTick(blockPos, this, 2);
