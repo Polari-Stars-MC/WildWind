@@ -51,6 +51,7 @@ public enum Codes {
                     new ConcurrentHashMap<>();// object is Bean or map， by gson
                 private final ConcurrentHashMap<ResourceLocation, Object> BLOCKSTATES =
                     new ConcurrentHashMap<>();
+            
                 private <T extends Item> %%classname%% basicItem(Supplier<T> item) {
                     ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
                     MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
@@ -93,6 +94,14 @@ public enum Codes {
                     MODELS.put(BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/" + prefix + "_"), Map.of("parent", "minecraft:item/generated", "textures", Map.of(
                         "layer0", BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/").toString()
                     ), "display", display, "overrides", overrides));
+                    return this;
+                }
+            
+                private <T extends Item> %%classname%% basicBlockLocatedItem(Supplier<T> item) {
+                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("item/");
+                    MODELS.put(key, Map.of("parent", "minecraft:item/generated", "textures", Map.of(
+                                        "layer0", BuiltInRegistries.ITEM.getKey(item.get()).withPrefix("block/").toString()
+                    )));
                     return this;
                 }
             

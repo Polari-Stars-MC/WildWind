@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.datagen.tag;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -11,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
@@ -81,6 +83,12 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.ROTTEN_FLESH
         );
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
+        this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
+        this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
+        tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
+        tag(ItemTags.PLANKS).add(ModBlocks.AZALEA_PLANKS_ITEM.get(), ModBlocks.PALM_PLANKS_ITEM.get(), ModBlocks.BAOBAB_PLANKS_ITEM.get());
+        tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
+        tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
         ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
