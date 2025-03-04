@@ -60,10 +60,8 @@ public class ModBlocks {
 
     @I18n(en_us = "Spider Attachments", zh_cn = "蛛丝附层", zh_tw = "蛛絲附層")
     public static final DeferredBlock<Block> SPIDER_ATTACHMENTS = register("spider_attachments", BlockBehaviour.Properties.of().noLootTable());
-
     @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa", BlockBehaviour.Properties.of().noLootTable());
-
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
     public static final DeferredBlock<Block> REEDS = register("reeds");
     @BasicItem

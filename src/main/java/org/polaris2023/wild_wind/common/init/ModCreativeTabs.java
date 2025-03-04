@@ -80,9 +80,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.GLAREFLOWER);
         output.accept(ModBlocks.DUCKWEED_ITEM);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS);
-        output.accept(ModBlocks.SPIDER_ATTACHMENTS);
-        output.accept(ModBlocks.SPIDER_MUCOSA);
-        output.accept(ModBlocks.SPIDER_EGG);
+//        output.accept(ModBlocks.SPIDER_ATTACHMENTS);
+//        output.accept(ModBlocks.SPIDER_MUCOSA);
+//        output.accept(ModBlocks.SPIDER_EGG);
         output.accept(ModBlocks.SCULK_JAW_ITEM);
     }),
     @I18n(en_us = "Wild wind: Tools and Utilities", zh_cn = "原野之风：工具与实用物品", zh_tw = "原野之風：工具與實用物品")
