@@ -80,8 +80,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.GLAREFLOWER);
         output.accept(ModBlocks.DUCKWEED_ITEM);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS);
-        output.accept(ModBlocks.SPIDER_ATTACHMENTS);
-        output.accept(ModBlocks.SPIDER_MUCOSA);
+//        output.accept(ModBlocks.SPIDER_ATTACHMENTS);
+//        output.accept(ModBlocks.SPIDER_MUCOSA);
         output.accept(ModBlocks.SPIDER_EGG);
         output.accept(ModBlocks.SCULK_JAW_ITEM);
     }),
