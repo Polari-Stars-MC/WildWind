@@ -72,8 +72,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
 
         // Logs
-//        woodModel(getVariantBuilder(ModBlocks.AZALEA_WOOD.get()), "azalea");
-//        woodModel(getVariantBuilder(ModBlocks.STRIPPED_AZALEA_WOOD.get()), "stripped_azalea");
+        simpleBlock(ModBlocks.PALM_CROWN.get(), models().cubeAll("palm_crown", Helpers.location("block/palm_crown")));
+        simpleBlock(ModBlocks.PALM_LEAVES.get(), models().cubeAll("palm_leaves", Helpers.location("block/palm_leaves")).renderType("cutout_mipped"));
+        simpleBlock(ModBlocks.BAOBAB_LEAVES.get(), models().cubeAll("baobab_leaves", Helpers.location("block/baobab_leaves")).renderType("cutout_mipped"));
+        simpleBlock(ModBlocks.PALM_SAPLING.get(), models().cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
+        simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), models().cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
 
         // Wool
         simpleBlock(ModBlocks.WOOL.get(), models().cubeAll("wool", Helpers.location("block/wool")));

@@ -3,13 +3,11 @@ package org.polaris2023.wild_wind.common.init.tags;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.neoforged.neoforge.common.Tags;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.Helpers.ctags;
-import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModItemTags implements Supplier<TagKey<Item>> {
     FIREFLY_FOOD,
@@ -19,7 +17,9 @@ public enum ModItemTags implements Supplier<TagKey<Item>> {
     PROTEIN_FOOD,
     FISH_FOOD,
     MONSTER_FOOD,
-    AZALEA_LOGS
+    AZALEA_LOGS,
+    PALM_LOGS,
+    BAOBAB_LOGS
     ;
     final TagKey<Item> tag;
     ModItemTags() {
