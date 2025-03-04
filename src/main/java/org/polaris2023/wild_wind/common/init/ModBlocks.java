@@ -141,26 +141,28 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
+    @CubeAll
     public static final DeferredBlock<Block> SALT_BLOCK =
             register("salt_block", Block::new, BlockBehaviour.Properties.of()
                     .strength(3F)
                     .requiresCorrectToolForDrops()
                     .isRedstoneConductor((_0, _1, _2) -> true));
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> SALT_BLOCK_ITEM =
             register("salt_block", SALT_BLOCK);
     @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
+    @CubeAll
     public static final DeferredBlock<Block> SALT_ORE =
             register("salt_ore", p -> new DropExperienceBlock(UniformInt.of(2, 5), p), BlockBehaviour.Properties.of()
                     .mapColor(MapColor.STONE)
                     .instrument(NoteBlockInstrument.BASEDRUM)
                     .requiresCorrectToolForDrops()
                     .strength(3));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> SALT_ORE_ITEM =
             register("salt_ore", SALT_ORE);
 
     @I18n(en_us = "Deepslate Salt Ore", zh_cn = "深层盐矿石", zh_tw = "深層鹽礦石")
+    @CubeAll
     public static final DeferredBlock<DropExperienceBlock> DEEPSLATE_SALT_ORE =
             register("deepslate_salt_ore",
                     properties -> new DropExperienceBlock(UniformInt.of(2, 5), properties), BlockBehaviour.Properties.of()
@@ -170,9 +172,8 @@ public class ModBlocks {
                             .sound(SoundType.DEEPSLATE)
                             .mapColor(MapColor.DEEPSLATE));
 
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
-            register("deepslate_salt_ore", SALT_ORE);
+            register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
