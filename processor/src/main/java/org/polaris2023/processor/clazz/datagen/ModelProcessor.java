@@ -75,6 +75,7 @@ public class ModelProcessor extends ClassProcessor {
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
         BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
+        BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
         CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
@@ -119,6 +120,9 @@ public class ModelProcessor extends ClassProcessor {
             } else {
                 checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItem.suffix());
             }
+        }
+        else if (basicBlockLocatedItem != null) {
+            checkAppend(typeElement, variableElement,"basicBlockLocatedItem");
         }
         else if (basicItem != null && basicItem.used()) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
