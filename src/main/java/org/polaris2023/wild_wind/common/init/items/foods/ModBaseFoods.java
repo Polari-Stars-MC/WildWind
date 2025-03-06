@@ -106,7 +106,7 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
         entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), ModFoods.valueOf(name()));
     }
 
-    public static void init() {}
+
 
     @Override
     public Item get() {

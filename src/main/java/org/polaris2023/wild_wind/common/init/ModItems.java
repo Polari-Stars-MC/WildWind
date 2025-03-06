@@ -55,13 +55,4 @@ public class ModItems {
     public static final DeferredItem<NetherMushroomStewItem> NETHER_MUSHROOM_STEW =
             register("nether_mushroom_stew", properties -> 
                     new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
-
-    static {
-        ModBaseItems.init();
-        ModSpawnEggs.init();
-        ModMobBuckets.init();
-        ModBoats.init();
-
-    }
-
 }

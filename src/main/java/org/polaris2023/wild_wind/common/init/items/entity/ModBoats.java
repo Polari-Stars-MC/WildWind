@@ -35,5 +35,5 @@ public class ModBoats {
             register("baobab_chest_boat", () -> new BoatItem(true, ModEnumExtensions.WILD_WIND_BAOBAB.getValue(), new Item.Properties().stacksTo(1)));
 
 
-    public static void init() {}
+
 }

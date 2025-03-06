@@ -38,7 +38,7 @@ public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem>, ItemLike {
         entry = ModInitializer.register(name().toLowerCase(Locale.ROOT), type, backgroundColor, highlightColor);
     }
 
-    public static void init() {}
+
 
     @Override
     public DeferredSpawnEggItem get() {

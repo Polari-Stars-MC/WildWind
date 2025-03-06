@@ -28,6 +28,10 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
+import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
 import java.util.Collection;
 import java.util.List;
@@ -81,7 +85,7 @@ public class ModInitializer {
         init(bus, ModBlocks.class, BLOCKS);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, ModItems.class, ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ITEMS);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
@@ -93,6 +97,17 @@ public class ModInitializer {
     public static void init(IEventBus bus, Class<?> clazz, DeferredRegister<?>... registers) {
         try {
             Class.forName(clazz.getName());
+        } catch (ClassNotFoundException ignored) {}
+        for (DeferredRegister<?> register : registers) {
+            register.register(bus);
+        }
+    }
+
+    public static void init(IEventBus bus, Class<?>[] classes, DeferredRegister<?>... registers) {
+        try {
+            for (Class<?> clazz : classes) {
+                Class.forName(clazz.getName());
+            }
         } catch (ClassNotFoundException ignored) {}
         for (DeferredRegister<?> register : registers) {
             register.register(bus);
