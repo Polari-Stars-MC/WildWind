@@ -1,11 +1,11 @@
 {
-	"credit": "By KeepMeow",
+	"parent": "block/block",
 	"textures": {
+		"particle": "wild_wind:block/sculk_catalyst_side",
 		"teeth": "wild_wind:block/sculk_jaw_teeth",
 		"top": "wild_wind:block/sculk_jaw_top",
-		"bottom": "minecraft:block/sculk_catalyst_bottom",
-		"particle": "minecraft:block/sculk_catalyst_side",
-		"side": "minecraft:block/sculk_catalyst_side"
+		"bottom": "wild_wind:block/sculk_catalyst_bottom",
+		"side": "wild_wind:block/sculk_catalyst_side"
 	},
 	"elements": [
 		{
@@ -18,19 +18,6 @@
 				"west": {"uv": [0, 0, 16, 16], "texture": "#side"},
 				"up": {"uv": [0, 0, 16, 16], "texture": "#top"},
 				"down": {"uv": [0, 0, 16, 16], "texture": "#bottom"}
-			}
-		},
-		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"color": 8,
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#missing"}
 			}
 		},
 		{
@@ -59,41 +46,5 @@
 				"down": {"uv": [0, 0, 6, 16], "texture": "#teeth"}
 			}
 		}
-	],
-	"display": {
-		"thirdperson_righthand": {
-			"rotation": [-110, 45, -180],
-			"translation": [0, 2.75, -1.25],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"thirdperson_lefthand": {
-			"rotation": [-110, 45, -180],
-			"translation": [0, 2.75, -1.25],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_righthand": {
-			"rotation": [0, 45, 0],
-			"translation": [4.25, 0, -2.25],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"firstperson_lefthand": {
-			"rotation": [0, 45, 0],
-			"translation": [4.25, 0, -2.25],
-			"scale": [0.4, 0.4, 0.4]
-		},
-		"ground": {
-			"translation": [0, 2, 0],
-			"scale": [0.3, 0.3, 0.3]
-		},
-		"gui": {
-			"rotation": [45, 45, 0],
-			"scale": [0.6, 0.6, 0.6]
-		},
-		"head": {
-			"rotation": [-90, 0, 0]
-		},
-		"fixed": {
-			"scale": [0.5, 0.5, 0.5]
-		}
-	}
+	]
 }
