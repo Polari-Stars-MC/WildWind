@@ -89,7 +89,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> COOKING_POT_ITEM =
             register("cooking_pot", COOKING_POT);
 
-    @I18n(en_us = "Sculk Jaw", zh_cn = "幽匿鄂口", zh_tw = "幽匿鄂口")
+    @I18n(en_us = "Sculk Jaw", zh_cn = "幽匿颚口", zh_tw = "幽匿顎口")
     public static final DeferredBlock<SculkJawBlock> SCULK_JAW =
             register("sculk_jaw", SculkJawBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredItem<BlockItem> SCULK_JAW_ITEM =
