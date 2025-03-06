@@ -6,6 +6,7 @@
   "mixins": [
     "AnimalMixin",
     "CowMixin",
+    "DyeColorMixin",
     "EggMixin",
     "GoatMixin",
     "HalfTransparentBlockMixin",

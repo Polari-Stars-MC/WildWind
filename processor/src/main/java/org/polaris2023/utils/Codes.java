@@ -224,10 +224,10 @@ public enum Codes {
                     MODELS.put(hangingBlockKey, Map.of("textures", Map.of("particle", strippedLog.toString())));
                     basicItem(() -> block.get().asItem());
                     basicItem(() -> BuiltInRegistries.BLOCK.get(replace(key, "hanging_sign")).asItem());
-                    BLOCKSTATES.put(key, Map.of("variants",  model(blockKey, null, null, null, false)));
-                    BLOCKSTATES.put(hangingKey, Map.of("variants", model(hangingBlockKey, null, null, null, false)));
-                    BLOCKSTATES.put(wallKey, Map.of("variants", model(blockKey, null, null, null, false)));
-                    BLOCKSTATES.put(wallHangingKey, Map.of("variants", model(hangingBlockKey, null, null, null, false)));
+                    BLOCKSTATES.put(key, Map.of("variants",  Map.of("", model(blockKey, null, null, null, false))));
+                    BLOCKSTATES.put(hangingKey, Map.of("variants", Map.of("", model(hangingBlockKey, null, null, null, false))));
+                    BLOCKSTATES.put(wallKey, Map.of("variants", Map.of("", model(blockKey, null, null, null, false))));
+                    BLOCKSTATES.put(wallHangingKey, Map.of("variants", Map.of("", model(hangingBlockKey, null, null, null, false))));
                     return this;
                 }
             
@@ -523,7 +523,7 @@ public enum Codes {
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation horizontal = blockKey.withSuffix("_horizontal");
                     ResourceLocation top = blockKey.withSuffix("_top");
-                    cubeColumn(block, blockKey.toString(), top.toString(), isItem, false, true);
+                    cubeColumn(block, top.toString(), blockKey.toString(), isItem, false, true);
                     cubeColumn(block, top.toString(), blockKey.toString(), isItem, true, true);
                     BLOCKSTATES.put(key, Map.of(
                         "variants", Map.of(
