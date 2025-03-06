@@ -15,7 +15,6 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_1;
-import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_SNOW;
 
 /**
  * @author : baka4n
@@ -35,18 +34,18 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
             p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F)),
-    @I18n(en_us = "Cooked Trout", zh_cn = "烤鳟鱼", zh_tw = "烤鱒魚")
+    @I18n(en_us = "Cooked Trout", zh_cn = "熟鳟鱼", zh_tw = "熟鱒魚")
     COOKED_TROUT(p ->
             p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F)),
-    @I18n(en_us = "Raw Piranha", zh_cn = "生食人鲳", zh_tw = "生食人魚")
+    @I18n(en_us = "Raw Piranha", zh_cn = "生食人鱼", zh_tw = "生食人魚")
     RAW_PIRANHA(
             p -> p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F),
             ModFoods.RAW_TROUT),
-    @I18n(en_us = "Cooked Piranha", zh_cn = "烤食人鲳", zh_tw = "烤食人魚")
+    @I18n(en_us = "Cooked Piranha", zh_cn = "熟食人鱼", zh_tw = "熟食人魚")
     COOKED_PIRANHA(
             p -> p
                     .component(ModComponents.MEAT_VALUE, 0.5F)

@@ -26,7 +26,7 @@ import java.util.function.Supplier;
 public enum ModMobBuckets implements Supplier<MobBucketItem>, ItemLike {
     @I18n(en_us = "Trout Bucket", zh_cn = "鳟鱼桶", zh_tw = "鱒魚桶")
     TROUT_BUCKET(ModEntities.TROUT,  () -> Fluids.WATER),
-    @I18n(en_us = "Piranha Bucket", zh_cn = "食人鲳桶", zh_tw = "食人魚桶")
+    @I18n(en_us = "Piranha Bucket", zh_cn = "食人鱼桶", zh_tw = "食人魚桶")
     PIRANHA_BUCKET(ModEntities.PIRANHA,  () -> Fluids.WATER),
     ;
 
