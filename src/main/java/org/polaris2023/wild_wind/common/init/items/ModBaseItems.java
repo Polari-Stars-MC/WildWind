@@ -47,10 +47,6 @@ public enum  ModBaseItems implements Supplier<Item>, ItemLike {
         entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer);
     }
 
-    public static void init() {
-        ModBaseFoods.init();
-    }
-
     @Override
     public Item get() {
         return entry.get();

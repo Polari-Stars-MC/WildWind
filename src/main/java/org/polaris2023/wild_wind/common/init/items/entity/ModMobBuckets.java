@@ -42,7 +42,7 @@ public enum ModMobBuckets implements Supplier<MobBucketItem>, ItemLike {
                         .component(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY)));
     }
 
-    public static void init() {}
+
 
     @Override
     public MobBucketItem get() {
