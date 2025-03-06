@@ -1,11 +1,11 @@
 {
-	"credit": "By KeepMeow",
+	"parent": "block/block",
 	"textures": {
+		"particle": "wild_wind:block/sculk_catalyst_side",
+		"tendril": "wild_wind:block/sculk_jaw_tendril_inactive",
 		"teeth": "wild_wind:block/sculk_jaw_teeth",
 		"top": "wild_wind:block/sculk_jaw_top",
 		"bottom": "wild_wind:block/sculk_catalyst_bottom",
-		"tendril": "wild_wind:block/sculk_jaw_tendril_inactive",
-		"particle": "wild_wind:block/sculk_catalyst_side",
 		"side": "wild_wind:block/sculk_catalyst_side"
 	},
 	"elements": [
@@ -22,29 +22,12 @@
 			}
 		},
 		{
-			"from": [0, 0, 0],
-			"to": [16, 16, 16],
-			"color": 8,
-			"faces": {
-				"north": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"east": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"west": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"up": {"uv": [0, 0, 16, 16], "texture": "#missing"},
-				"down": {"uv": [0, 0, 16, 16], "texture": "#missing"}
-			}
-		},
-		{
 			"from": [-0.25, 16, 8],
 			"to": [15.75, 32, 8],
 			"rotation": {"angle": 0, "axis": "y", "origin": [0, -3, 0]},
 			"faces": {
 				"north": {"uv": [0, 0, 16, 16], "texture": "#tendril"},
-				"east": {"uv": [0, 0, 1, 16], "texture": "#missing"},
-				"south": {"uv": [0, 0, 16, 16], "texture": "#tendril"},
-				"west": {"uv": [0, 0, 1, 16], "texture": "#missing"},
-				"up": {"uv": [0, 0, 1, 16], "texture": "#missing"},
-				"down": {"uv": [0, 0, 1, 16], "texture": "#missing"}
+				"south": {"uv": [0, 0, 16, 16], "texture": "#tendril"}
 			}
 		},
 		{
