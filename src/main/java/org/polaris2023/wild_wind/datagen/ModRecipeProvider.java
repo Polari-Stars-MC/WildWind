@@ -135,6 +135,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .group("carpet")
                     .define('S', ModBlocks.WOOL.get());
                 }));
+
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
@@ -265,6 +266,11 @@ public class ModRecipeProvider extends RecipeProvider {
             unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
             salt.requires(ModBlocks.SALT_BLOCK_ITEM);
         }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 1, azalea_planks -> {
+            unlockedBy(azalea_planks, ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG);
+            azalea_planks.requires(Ingredient.of(ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG));
+        }));
+
     }
 
     public static ShapedRecipeBuilder shaped(
