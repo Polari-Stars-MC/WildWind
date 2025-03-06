@@ -9,7 +9,6 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
@@ -445,13 +444,13 @@ public class ModBlocks {
     //TODO: TreeGrower
     @I18n(en_us = "Palm Sapling", zh_cn = "棕榈树苗", zh_tw = "棕櫚樹苗")
     public static final DeferredBlock<SaplingBlock> PALM_SAPLING =
-            register("palm_sapling", props -> new SaplingBlock(TreeGrower.OAK, props), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING));
+            register("palm_sapling", props -> new SaplingBlock(ModTreeGrowers.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING));
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> PALM_SAPLING_ITEM =
             register("palm_sapling", PALM_SAPLING);
     @I18n(en_us = "Baobab Sapling", zh_cn = "猴面包树苗", zh_tw = "猴麵包樹苗")
     public static final DeferredBlock<SaplingBlock> BAOBAB_SAPLING =
-            register("baobab_sapling", props -> new SaplingBlock(TreeGrower.OAK, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_SAPLING));
+            register("baobab_sapling", props -> new SaplingBlock(ModTreeGrowers.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_SAPLING));
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> BAOBAB_SAPLING_ITEM =
             register("baobab_sapling", BAOBAB_SAPLING);
