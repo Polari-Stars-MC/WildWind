@@ -174,7 +174,7 @@ public class ModBlocks {
             register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
     @AllWood
-    @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木木板", zh_tw = "杜鵑木材")
+    @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
     public static final DeferredBlock<Block> AZALEA_PLANKS =
             register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃原木", zh_tw = "杜鵑原木")
@@ -257,7 +257,7 @@ public class ModBlocks {
             registerHangingSign("azalea_hanging_sign", AZALEA_HANGING_SIGN, AZALEA_WALL_HANGING_SIGN);
 
     @AllWood
-    @I18n(en_us = "Palm Planks", zh_cn = "棕榈木木板", zh_tw = "棕櫚木材")
+    @I18n(en_us = "Palm Planks", zh_cn = "棕榈木板", zh_tw = "棕櫚木材")
     public static final DeferredBlock<Block> PALM_PLANKS =
             register("palm_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS));
     @I18n(en_us = "Palm Log", zh_cn = "棕榈原木", zh_tw = "棕櫚原木")
@@ -347,7 +347,7 @@ public class ModBlocks {
             register("palm_crown", PALM_CROWN);
 
     @AllWood
-    @I18n(en_us = "Baobab Planks", zh_cn = "猴面包木木板", zh_tw = "猴麵包木材")
+    @I18n(en_us = "Baobab Planks", zh_cn = "猴面包木板", zh_tw = "猴麵包木材")
     public static final DeferredBlock<Block> BAOBAB_PLANKS =
             register("baobab_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PLANKS));
     @I18n(en_us = "Baobab Log", zh_cn = "猴面包原木", zh_tw = "猴麵包原木")

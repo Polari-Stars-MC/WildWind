@@ -30,7 +30,7 @@ public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem>, ItemLike {
     @I18n(en_us = "Glare Spawn Egg", zh_cn = "鳟鱼刷怪蛋", zh_tw = "鱒魚生怪蛋")
     TROUT_SPAWN_EGG(ModEntities.TROUT, 0x8290a5, 0x6b9f93),
     @SpawnEggItem
-    @I18n(en_us = "Piranha Spawn Egg", zh_cn = "食人鲳刷怪蛋", zh_tw = "食人魚生怪蛋")
+    @I18n(en_us = "Piranha Spawn Egg", zh_cn = "食人鱼刷怪蛋", zh_tw = "食人魚生怪蛋")
     PIRANHA_SPAWN_EGG(ModEntities.PIRANHA, 0x564943, 0x82200B),
     ;
     public final DeferredItem<DeferredSpawnEggItem> entry;
