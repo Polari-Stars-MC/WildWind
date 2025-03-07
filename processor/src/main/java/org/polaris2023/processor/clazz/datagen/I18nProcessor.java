@@ -31,11 +31,17 @@ public class I18nProcessor extends ClassProcessor {
                 VariableElement variableElement = (VariableElement) element;
                 I18n i18n = variableElement.getAnnotation(I18n.class);
                 if (i18n != null) {
-                    add("en_us", ".add(%s, \"%s\")".formatted(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), i18n.en_us()));
-                    add("zh_cn", ".add(%s, \"%s\")".formatted(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), i18n.zh_cn()));
-                    add("zh_tw", ".add(%s, \"%s\")".formatted(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), i18n.zh_tw()));
+                    String name;
+                    if(i18n.descriptionId().isEmpty()) {
+                        name = typeElement.getQualifiedName() + "." + variableElement.getSimpleName();
+                    } else {
+                        name = "\"" + i18n.descriptionId() + "\"";
+                    }
+                    add("en_us", ".add(%s, \"%s\")".formatted(name, i18n.en_us()));
+                    add("zh_cn", ".add(%s, \"%s\")".formatted(name, i18n.zh_cn()));
+                    add("zh_tw", ".add(%s, \"%s\")".formatted(name, i18n.zh_tw()));
                     for (I18n.Other other : i18n.other()) {
-                        add(other.value(), ".add(%s, \"%s\")".formatted(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), other.translate()));
+                        add(other.value(), ".add(%s, \"%s\")".formatted(name, other.translate()));
                     }
                 }
             }
