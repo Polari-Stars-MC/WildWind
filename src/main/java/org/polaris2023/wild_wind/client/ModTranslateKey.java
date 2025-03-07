@@ -53,12 +53,10 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
 
     ModTranslateKey(String... keys) {
         StringBuilder key = new StringBuilder();
-        for (int i = 0; i < keys.length; i++) {
-            String k = keys[i];
-            if (i == 1) {
-                key.append(k);
-            } else {
-                key.append(".").append(k);
+        if(keys.length != 0) {
+            key.append(keys[0]);
+            for (int i = 1; i < keys.length; i++) {
+                key.append(".").append(keys[i]);
             }
         }
         translatable = Component.translatable(key.toString());
