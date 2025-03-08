@@ -33,6 +33,15 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/brittle_ice_2"),
             Helpers.location("block/brittle_ice_3")
     };
+    public static final ResourceLocation[] WOOD = new ResourceLocation[] {
+            Helpers.location("block/wood")
+    };
+    public static final ResourceLocation[] CONCRETE = new ResourceLocation[] {
+            Helpers.location("block/concrete")
+    };
+    public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
+            Helpers.location("block/glazed_terracotta")
+    };
 
     @Override
     protected void registerStatesAndModels() {
@@ -99,6 +108,16 @@ public class ModBlockStateProvider extends BlockStateProvider {
             glazedTerracottaStates.partialState().with(BlockStateProperties.HORIZONTAL_FACING, facing)
                     .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
         }
+
+        //glistering_melon
+        BlockModelBuilder glisteringMelonModel = models().cubeBottomTop(
+                "glistering_melon",
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_top")
+        );
+        simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
+
     }
 
     private void glowMucusModel(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {
