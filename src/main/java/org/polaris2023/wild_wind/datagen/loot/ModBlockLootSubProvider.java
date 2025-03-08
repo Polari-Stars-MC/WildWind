@@ -66,5 +66,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.BAOBAB_LEAVES.get(), this.createLeavesDrops(ModBlocks.BAOBAB_LEAVES.get(), ModBlocks.BAOBAB_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.dropSelf(ModBlocks.PALM_SAPLING.get());
         this.dropSelf(ModBlocks.BAOBAB_SAPLING.get());
+        this.dropSelf(ModBlocks.QUICK_SAND.get());
     }
 }

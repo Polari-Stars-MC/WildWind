@@ -43,6 +43,15 @@ public class ModBlocks {
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
 
+    @I18n(en_us = "Quick Sand", zh_cn = "流沙", zh_tw = "流沙")
+    public static final DeferredBlock<Block> QUICK_SAND =
+                   register("quick_sand",
+                           BlockBehaviour.Properties.of()
+                                   .strength(0.5f)
+                                   .sound(SoundType.SAND));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> QUICK_SAND_ITEM = register("quick_sand", QUICK_SAND);
+
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
     @BasicItem
