@@ -15,7 +15,7 @@ tasks.named('wrapper', Wrapper).configure {
 
 LocalDateTime time = LocalDateTime.now()
 
-version = mod_version + "-" + time.year + 'Y' + time.month + 'M' + time.hour + 'H' + time.minute + "M" + time.second + "S"
+version = mod_version + "-" + time.year + 'Y' + time.month + 'M' + time.hour + 'H' + time.minute + "M"
 group = mod_group_id
 
 def mvns = new ArrayList<Mvn>()
