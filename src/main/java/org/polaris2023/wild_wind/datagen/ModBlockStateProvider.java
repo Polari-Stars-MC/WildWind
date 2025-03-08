@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.datagen;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.polaris2023.wild_wind.WildWindMod;
@@ -40,9 +41,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
     };
     public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
             Helpers.location("block/glazed_terracotta")
-    };
-    public static final ResourceLocation[] POLISHED_STONE = new ResourceLocation[] {
-            Helpers.location("block/polished_stone")
     };
 
     @Override
@@ -82,17 +80,21 @@ public class ModBlockStateProvider extends BlockStateProvider {
             }
         }
 
-        // Wood
-        BlockModelBuilder woodModel = models().cubeAll("wood", WOOD[0]);
-        simpleBlock(ModBlocks.WOOD.get(), woodModel);
+        // Logs
+        simpleBlock(ModBlocks.PALM_CROWN.get(), models().cubeAll("palm_crown", Helpers.location("block/palm_crown")));
+        simpleBlock(ModBlocks.PALM_LEAVES.get(), models().cubeAll("palm_leaves", Helpers.location("block/palm_leaves")).renderType("cutout_mipped"));
+        simpleBlock(ModBlocks.BAOBAB_LEAVES.get(), models().cubeAll("baobab_leaves", Helpers.location("block/baobab_leaves")).renderType("cutout_mipped"));
+        simpleBlock(ModBlocks.PALM_SAPLING.get(), models().cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
+        simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), models().cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
 
-        //Carpet
-        BlockModelBuilder carpetModel = models().carpet("carpet", WOOD[0]);
-        simpleBlock(ModBlocks.CARPET.get(), carpetModel);
+        // Wool
+        simpleBlock(ModBlocks.WOOL.get(), models().cubeAll("wool", Helpers.location("block/wool")));
 
-        //Concrete
-        BlockModelBuilder concreteModel = models().cubeAll("concrete", CONCRETE[0]);
-        simpleBlock(ModBlocks.CONCRETE.get(), concreteModel);
+        // Carpet
+        simpleBlock(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
+
+        // Concrete
+        simpleBlock(ModBlocks.CONCRETE.get(), models().cubeAll("concrete", Helpers.location("block/concrete")));
 
         // Glazed Terracotta
         VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());
@@ -100,17 +102,12 @@ public class ModBlockStateProvider extends BlockStateProvider {
             int yRotation = switch (facing) {
                 case EAST -> 270;
                 case NORTH -> 180;
-                case SOUTH -> 0;
-                case WEST -> 90;
+				case WEST -> 90;
                 default -> 0;
             };
-            glazedTerracottaStates.partialState().with(net.minecraft.world.level.block.state.properties.BlockStateProperties.HORIZONTAL_FACING, facing)
-                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", GLAZED_TERRACOTTA[0]), 0, yRotation, false));
+            glazedTerracottaStates.partialState().with(BlockStateProperties.HORIZONTAL_FACING, facing)
+                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
         }
-
-        // polished_stone
-        BlockModelBuilder polishedStoneModel = models().cubeAll("polished_stone", POLISHED_STONE[0]);
-        simpleBlock(ModBlocks.POLISHED_STONE.get(), polishedStoneModel);
 
         //glistering_melon
         BlockModelBuilder glisteringMelonModel = models().cubeBottomTop(
@@ -137,6 +134,41 @@ public class ModBlockStateProvider extends BlockStateProvider {
         brittleIceStates.addModels(
                 brittleIceStates.partialState().with(BrittleIceBlock.AGE, age).with(BrittleIceBlock.UNSTABLE, unstable),
                 new ConfiguredModel(models().getExistingFile(BRITTLE_ICES[age]))
+        );
+    }
+
+    private void logModel(VariantBlockStateBuilder woodStates, String name) {
+        ResourceLocation side = Helpers.location("block/" + name + "_log");
+        ResourceLocation top = Helpers.location("block/" + name + "_log_top");
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
+                new ConfiguredModel(models().cubeColumn(name + "_log", side, top))
+        );
+        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_log_horizontal", side, top);
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
+        );
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
+        );
+    }
+
+    private void woodModel(VariantBlockStateBuilder woodStates, String name) {
+        ResourceLocation side = Helpers.location("block/" + name + "_log");
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
+                new ConfiguredModel(models().cubeColumn(name + "_wood", side, side))
+        );
+        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_wood_horizontal", side, side);
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
+        );
+        woodStates.addModels(
+                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
+                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
         );
     }
 }

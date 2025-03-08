@@ -14,14 +14,11 @@ import net.minecraft.world.entity.npc.VillagerProfession;
 import net.minecraft.world.entity.npc.VillagerType;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Instrument;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.Fluid;
@@ -31,6 +28,10 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
+import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
 import java.util.Collection;
 import java.util.List;
@@ -84,7 +85,7 @@ public class ModInitializer {
         init(bus, ModBlocks.class, BLOCKS);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, ModItems.class, ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ITEMS);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
@@ -96,6 +97,17 @@ public class ModInitializer {
     public static void init(IEventBus bus, Class<?> clazz, DeferredRegister<?>... registers) {
         try {
             Class.forName(clazz.getName());
+        } catch (ClassNotFoundException ignored) {}
+        for (DeferredRegister<?> register : registers) {
+            register.register(bus);
+        }
+    }
+
+    public static void init(IEventBus bus, Class<?>[] classes, DeferredRegister<?>... registers) {
+        try {
+            for (Class<?> clazz : classes) {
+                Class.forName(clazz.getName());
+            }
         } catch (ClassNotFoundException ignored) {}
         for (DeferredRegister<?> register : registers) {
             register.register(bus);
@@ -170,26 +182,39 @@ public class ModInitializer {
         return ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
     }
 
-    static DeferredItem<Item> simpleItem(String name) {
+    static <SST extends StandingSignBlock, WST extends WallSignBlock> DeferredItem<SignItem> registerSign(String name,
+                                                                                                          DeferredBlock<SST> standing,
+                                                                                                          DeferredBlock<WST> wall) {
+        return ITEMS.registerItem(name, properties -> new SignItem(properties.stacksTo(16), standing.get(), wall.get()));
+    }
+
+    static <SST extends CeilingHangingSignBlock, WST extends WallHangingSignBlock> DeferredItem<HangingSignItem> registerHangingSign(String name,
+                                                                                                                                     DeferredBlock<SST> standing,
+                                                                                                                                     DeferredBlock<WST> wall) {
+        return ITEMS.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
+    }
+
+    public static DeferredItem<Item> simpleItem(String name) {
+
         return ITEMS.registerSimpleItem(name);
     }
 
-    static DeferredItem<Item> item(String name, Function<Item.Properties, Item> toItemFunction) {
+    public static DeferredItem<Item> item(String name, Function<Item.Properties, Item> toItemFunction) {
         return ITEMS.registerItem(name, toItemFunction);
     }
 
-    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
+    public static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
         return item(name, properties -> {
             consumer.accept(properties);
             return new Item(properties);
         });
     }
 
-    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
+    public static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
         return simpleItem(name, properties -> properties.food(food.get()));
     }
 
-    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
+    public static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
         return simpleItem(name, properties -> consumer.accept(properties.food(food.get())));
     }
 
@@ -197,11 +222,11 @@ public class ModInitializer {
         return ITEMS.registerItem(name, item);
     }
 
-    static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
+    public static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
         return ITEMS.register(name, item);
     }
 
-    static DeferredItem<DeferredSpawnEggItem> register(String name,
+    public static DeferredItem<DeferredSpawnEggItem> register(String name,
                                                        Supplier<? extends EntityType<? extends Mob>> type,
                                                        int backgroundColor,
                                                        int highlightColor,
@@ -212,7 +237,7 @@ public class ModInitializer {
         });
     }
 
-    static DeferredItem<DeferredSpawnEggItem> register(String name,
+    public static DeferredItem<DeferredSpawnEggItem> register(String name,
                                                        Supplier<? extends EntityType<? extends Mob>> type,
                                                        int backgroundColor,
                                                        int highlightColor) {

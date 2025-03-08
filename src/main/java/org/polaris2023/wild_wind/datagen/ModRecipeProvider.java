@@ -18,6 +18,8 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -60,12 +62,12 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addSmeltingRecipes() {
-        smeltingSmokingAndCampfire(ModItems.RAW_TROUT, RecipeCategory.FOOD, ModItems.COOKED_TROUT, 0.35F);
-        smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.BAKED_LIVING_TUBER, 0.35F);
-        smeltingSmokingAndCampfire(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
-        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F);
-        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F);
-        smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
+        smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
+        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModBaseFoods.BAKED_CARROT.get(), 0.35F);
+        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModBaseFoods.BAKED_BEETROOT.get(), 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModBaseFoods.COOKED_EGG.get(), 0.35F);
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -113,26 +115,27 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('C', ItemTags.COALS);
         }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.WOOD.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.WOOL.get(), 1,
                 builder -> {
             unlockedBy(builder, Items.STRING);
             builder
                     .pattern("SS ")
                     .pattern("SS ")
                     .pattern("   ")
-                    .group("wood")
+                    .group("wool")
                     .define('S', Items.STRING);
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 1,
                 builder -> {
-            unlockedBy(builder, ModBlocks.WOOD.get());
+            unlockedBy(builder, ModBlocks.WOOL.get());
             builder
                     .pattern("SS ")
                     .pattern("   ")
                     .pattern("   ")
                     .group("carpet")
-                    .define('S', ModBlocks.WOOD.get());
+                    .define('S', ModBlocks.WOOL.get());
                 }));
+
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
@@ -163,13 +166,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapelessRecipe() {
 
-        add(shapeless(RecipeCategory.FOOD, ModItems.FISH_CHOWDER, 1, fish_chowder -> {
-            unlockedBy(fish_chowder, ModItems.RAW_TROUT, Items.COD, Items.SALMON);
+        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
+            unlockedBy(fish_chowder, ModBaseFoods.RAW_TROUT.get(), Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             unlockedBy(fish_chowder, Items.KELP);
             unlockedBy(fish_chowder, Items.BOWL);
             fish_chowder
-                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModItems.RAW_TROUT))
+                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModBaseFoods.RAW_TROUT.get()))
                     .requires(Items.KELP)
                     .requires(Ingredient.of(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM))
                     .requires(Items.BOWL);
@@ -196,7 +199,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(ModItems.CHEESE)
                     .requires(Items.BOWL);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModItems.CHEESE_PUMPKIN_SOUP, 1, cheese_pumpkin_soup -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.CHEESE_PUMPKIN_SOUP.get(), 1, cheese_pumpkin_soup -> {
             unlockedBy(cheese_pumpkin_soup, ModItems.CHEESE);
             unlockedBy(cheese_pumpkin_soup, Items.PUMPKIN);
             unlockedBy(cheese_pumpkin_soup, Items.BOWL);
@@ -205,19 +208,19 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.BOWL)
                     .requires(ModItems.CHEESE);
         }));
-        add(shapeless(RecipeCategory.MISC, ModItems.FLOUR, 1, flour -> {
+        add(shapeless(RecipeCategory.MISC, ModBaseFoods.FLOUR, 1, flour -> {
             unlockedBy(flour, Items.WHEAT);
             flour
                     .requires(Items.WHEAT);
         }));
-        add(shapeless(RecipeCategory.MISC, ModItems.DOUGH, 1, dough -> {
-            unlockedBy(dough, ModItems.FLOUR);
+        add(shapeless(RecipeCategory.MISC, ModBaseFoods.DOUGH.get(), 1, dough -> {
+            unlockedBy(dough, ModBaseFoods.FLOUR);
             unlockedBy(dough, Items.WATER_BUCKET);
             dough
-                    .requires(ModItems.FLOUR, 3)
+                    .requires(ModBaseFoods.FLOUR, 3)
                     .requires(Items.WATER_BUCKET);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModItems.CANDY, 1, candy -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.CANDY.get(), 1, candy -> {
             unlockedBy(candy, Items.SUGAR);
             unlockedBy(candy, Items.HONEY_BOTTLE);
             unlockedBy(candy, Items.GLOW_BERRIES, Items.APPLE, Items.SWEET_BERRIES);
@@ -230,7 +233,7 @@ public class ModRecipeProvider extends RecipeProvider {
                                     new ItemStack(Items.APPLE),
                                     new ItemStack(Items.SWEET_BERRIES, 2)));
         }));
-        add(shapeless(RecipeCategory.FOOD, ModItems.BERRY_CAKE, 1, berry_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.BERRY_CAKE.get(), 1, berry_cake -> {
             unlockedBy(berry_cake, Items.SWEET_BERRIES);
             unlockedBy(berry_cake, Items.GLOW_BERRIES);
             unlockedBy(berry_cake, Items.SUGAR);
@@ -241,7 +244,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModItems.APPLE_CAKE, 1, apple_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.APPLE_CAKE.get(), 1, apple_cake -> {
             unlockedBy(apple_cake, Items.APPLE);
             unlockedBy(apple_cake, Items.SUGAR);
             unlockedBy(apple_cake, Items.EGG);
@@ -256,13 +259,18 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(ItemTags.WOOL);
         }));
         add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK_ITEM, 1, salt_block -> {
-            unlockedBy(salt_block, ModItems.SALT);
-            salt_block.requires(ModItems.SALT, 9);
+            unlockedBy(salt_block, ModBaseItems.SALT);
+            salt_block.requires(ModBaseItems.SALT, 9);
         }));
-        add(shapeless(RecipeCategory.MISC, ModItems.SALT, 9, salt -> {
+        add(shapeless(RecipeCategory.MISC, ModBaseItems.SALT, 9, salt -> {
             unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
             salt.requires(ModBlocks.SALT_BLOCK_ITEM);
         }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 1, azalea_planks -> {
+            unlockedBy(azalea_planks, ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG);
+            azalea_planks.requires(Ingredient.of(ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG));
+        }));
+
     }
 
     public static ShapedRecipeBuilder shaped(

@@ -12,6 +12,7 @@ import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
 import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 
@@ -19,8 +20,16 @@ import org.polaris2023.wild_wind.common.init.ModEntities;
 public class WildWindClientEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerSlimeColor(RegisterColorHandlersEvent.Item event) {
+
         event.register((stack, tintIndex) ->
                 FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.SLIME_COLOR, 0)), Items.SLIME_BALL);
+        event.register((stack, tintIndex) ->
+                FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL_ITEM);
+    }
+
+    @SubscribeEvent
+    public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
+
     }
 
     @SubscribeEvent

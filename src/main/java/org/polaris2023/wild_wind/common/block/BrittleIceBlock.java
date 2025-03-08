@@ -9,10 +9,14 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.vehicle.VehicleEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
@@ -26,7 +30,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.entity.EntityTypeTest;
 import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.wild_wind.util.EnchantmentHelper;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -47,9 +53,13 @@ public class BrittleIceBlock extends IceBlock {
 		return CODEC;
 	}
 
+	protected boolean canCrash(Entity entity, ServerLevel serverLevel) {
+		return (entity instanceof LivingEntity livingEntity && !hasFrostWalker(serverLevel, livingEntity)) || entity instanceof VehicleEntity || entity instanceof Projectile;
+	}
+
 	@Override
 	public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
-		if(level instanceof ServerLevel serverLevel && entity instanceof LivingEntity && fallDistance > 0.75F) {
+		if(level instanceof ServerLevel serverLevel && this.canCrash(entity, serverLevel) && fallDistance > 0.75F) {
 			this.crash(serverLevel, pos, entity);
 		}
 		super.fallOn(level, state, pos, entity, fallDistance);
@@ -59,8 +69,16 @@ public class BrittleIceBlock extends IceBlock {
 	public void stepOn(Level level, BlockPos pos, BlockState state, Entity entity) {
 		super.stepOn(level, pos, state, entity);
 
-		if (!level.isClientSide() && !level.getBlockTicks().willTickThisTick(pos, this) && !entity.isSteppingCarefully()) {
+		if (level instanceof ServerLevel serverLevel && !level.getBlockTicks().willTickThisTick(pos, this) &&
+				!entity.isSteppingCarefully() && this.canCrash(entity, serverLevel)) {
 			level.scheduleTick(pos, this, 10);
+		}
+	}
+
+	@Override
+	protected void onProjectileHit(Level level, BlockState state, BlockHitResult hit, Projectile projectile) {
+		if(level instanceof ServerLevel serverLevel && this.canCrash(projectile, serverLevel)) {
+			this.crash(serverLevel, hit.getBlockPos(), projectile);
 		}
 	}
 
@@ -73,8 +91,8 @@ public class BrittleIceBlock extends IceBlock {
 			this.crash(level, blockPos, null);
 			return;
 		}
-		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos) && !entity.isSteppingCarefully();
-		List<? extends Entity> entitiesOnBlock = level.getEntities(EntityTypeTest.forClass(LivingEntity.class), entityPredicate);
+		Predicate<Entity> entityPredicate = entity -> entity.onGround() && entity.getOnPosLegacy().equals(blockPos) && !entity.isSteppingCarefully() && this.canCrash(entity, level);
+		List<? extends Entity> entitiesOnBlock = level.getEntities(EntityTypeTest.forClass(Entity.class), entityPredicate);
 		if(entitiesOnBlock.isEmpty()) {
 			if(age > 0) {
 				if(random.nextInt(100 / age / age) < 10) {
@@ -91,19 +109,34 @@ public class BrittleIceBlock extends IceBlock {
 		}
 	}
 
+	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
+	private static boolean hasFrostWalker(ServerLevel level, LivingEntity livingEntity) {
+		return EnchantmentHelper.hasEnchantment(level, livingEntity.getItemBySlot(EquipmentSlot.FEET), Enchantments.FROST_WALKER);
+	}
+
 	private void crash(ServerLevel level, BlockPos blockPos, @Nullable Entity entity) {
 		level.destroyBlock(blockPos, false, entity);
-		//this.tryChainReactAt(level, blockPos.south());
-		//this.tryChainReactAt(level, blockPos.east());
-		//this.tryChainReactAt(level, blockPos.above());
-		//this.tryChainReactAt(level, blockPos.north());
-		//this.tryChainReactAt(level, blockPos.west());
-		this.tryChainReactAt(level, blockPos.below());
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.south());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.east());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.north());
+		}
+		if(level.random.nextInt(5) < 2) {
+			this.tryChainReactAt(level, blockPos.west());
+		}
+		if(level.random.nextInt(5) < 3) {
+			this.tryChainReactAt(level, blockPos.below());
+		}
 	}
 
 	private void tryChainReactAt(ServerLevel level, BlockPos blockPos) {
 		BlockState blockState = level.getBlockState(blockPos);
-		if(blockState.is(this)) {
+		BlockState above = level.getBlockState(blockPos.above());
+		if(blockState.is(this) && !above.is(this)) {
 			level.setBlock(blockPos, blockState.setValue(UNSTABLE, true), Block.UPDATE_ALL);
 			if(!level.getBlockTicks().willTickThisTick(blockPos, this)) {
 				level.scheduleTick(blockPos, this, 2);

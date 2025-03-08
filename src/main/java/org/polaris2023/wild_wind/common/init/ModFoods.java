@@ -55,7 +55,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
             of(() -> new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 600, 3), 1F),
             of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 600, 0), 1F),
             of(() -> new MobEffectInstance(MobEffects.BLINDNESS, 600, 0), 1F)),
-    COOKED_LIVING_TUBER(8, 0.6F,
+    BAKED_LIVING_TUBER(8, 0.6F,
             of(() -> new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600, 6), 1F),
             of(() -> new MobEffectInstance(MobEffects.DIG_SLOWDOWN, 600, 3), 1F),
             of(() -> new MobEffectInstance(MobEffects.WEAKNESS, 600, 0), 1F),

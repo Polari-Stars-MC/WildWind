@@ -6,7 +6,12 @@
   "mixins": [
     "AnimalMixin",
     "CowMixin",
-    "GoatMixin"
+    "DyeColorMixin",
+    "EggMixin",
+    "GoatMixin",
+    "HalfTransparentBlockMixin",
+    "IceBlockMixin",
+    "accessor.BlockEntityTypeAccess"
   ],
   "minVersion": "0.8",
   "client": [

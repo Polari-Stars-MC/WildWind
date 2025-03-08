@@ -1,21 +1,19 @@
 package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
-import org.polaris2023.annotation.modelgen.block.Button;
-import org.polaris2023.annotation.modelgen.block.CubeAll;
-import org.polaris2023.annotation.modelgen.block.Slab;
-import org.polaris2023.annotation.modelgen.block.Stairs;
-import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
-import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.annotation.modelgen.item.ParentItem;
-import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
+import org.polaris2023.annotation.modelgen.block.*;
+import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.modelgen.other.*;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import java.lang.Override;
+import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 public class ModelProcessor extends ClassProcessor {
@@ -32,88 +30,72 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
+    private final List<Annotation> annotations = new ArrayList<>();
+
+    private <T extends Annotation> T register(T t) {
+        annotations.add(t);
+        return t;
+    }
+
+    private boolean isAnnotation() {
+        for (Annotation annotation : annotations) {
+            if (annotation != null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void checkAppend(TypeElement typeElement, VariableElement variableElement, String methodName,Object... appends) {
+        check();
+        MODEL.append("\n\t\t.")
+                .append(methodName)
+                .append("(")
+                .append(typeElement.getQualifiedName())
+                .append(".")
+                .append(variableElement.getSimpleName());
+        for (Object append : appends) {
+            if (append instanceof String) {
+                MODEL
+                        .append(",")
+                        .append("\"")
+                        .append(append)
+                        .append("\"");
+            } else {
+                MODEL
+                        .append(",")
+                        .append(append);
+            }
+        }
+        MODEL.append(")");
+    }
+
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
-        BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
-        if (basicItem != null && basicItem.used()) {
-            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-        }
-        BasicBlockItem basicBlockItem = variableElement.getAnnotation(BasicBlockItem.class);
-        if (basicBlockItem != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".basicBlockItem(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(")");
-        }
-        CubeAll cube = variableElement.getAnnotation(CubeAll.class);
-        if (cube != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".cubeAll(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(")");
-        }
-        Stairs stairs = variableElement.getAnnotation(Stairs.class);
-        if (stairs != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".stairsBlock(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(", \"")
-                    .append(stairs.bottom())
-                    .append(", \"")
-                    .append(stairs.side())
-                    .append(", \"")
-                    .append(stairs.top())
-                    .append("\")");
-        }
-        Slab slab = variableElement.getAnnotation(Slab.class);
-        if (slab != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".slabBlock(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(", \"")
-                    .append(slab.bottom())
-                    .append(", \"")
-                    .append(slab.side())
-                    .append(", \"")
-                    .append(slab.top())
-                    .append(")");
-        }
-        Button button = variableElement.getAnnotation(Button.class);
-        if (button != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".buttonBlock(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(", \"")
-                    .append(button.texture())
-                    .append("\")");
-        }
-        SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
+        BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
+        BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
+        BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
+        BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
+        CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
+        CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
+        Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
+        Slab slab = register(variableElement.getAnnotation(Slab.class));
+        Log log = register(variableElement.getAnnotation(Log.class));
+        Wood wood = register(variableElement.getAnnotation(Wood.class));
+        Button button = register(variableElement.getAnnotation(Button.class));
+        SpawnEggItem spawnEggItem = register(variableElement.getAnnotation(SpawnEggItem.class));
+        ParentItem parentItem = register(variableElement.getAnnotation(ParentItem.class));
+        Fence fence = register(variableElement.getAnnotation(Fence.class));
+        FenceGate fenceGate = register(variableElement.getAnnotation(FenceGate.class));
+        PressurePlate pressurePlate = register(variableElement.getAnnotation(PressurePlate.class));
+        AllWood allWood = register(variableElement.getAnnotation(AllWood.class));
+        AllSign allSign = register(variableElement.getAnnotation(AllSign.class));
+        AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
+        //item model gen
         if (spawnEggItem != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".spawnEggItem(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(")");
+            checkAppend(typeElement, variableElement, "spawnEggItem");
         }
-        ParentItem parentItem = variableElement.getAnnotation(ParentItem.class);
-        if (parentItem != null) {
+        else if (parentItem != null) {
             check();
             MODEL.append("\n\t\t")
                     .append(".parentItem(")
@@ -132,6 +114,82 @@ public class ModelProcessor extends ClassProcessor {
             }
             MODEL.append(")");
         }
+        else if (basicBlockItem != null) {
+            if (basicBlockItem.suffix().isEmpty()) {
+                checkAppend(typeElement, variableElement,"basicBlockItem");
+            } else {
+                checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItem.suffix());
+            }
+        }
+        else if (basicBlockLocatedItem != null) {
+            checkAppend(typeElement, variableElement,"basicBlockLocatedItem");
+        }
+        else if (basicItem != null && basicItem.used()) {
+            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
+        }
+        else if (typeBasicItem != null &&
+                typeBasicItem.used() &&
+                variableElement.getModifiers().contains(Modifier.STATIC)) {
+            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
+        }
+        //block model gen
+        if (cube != null) {
+            checkAppend(typeElement, variableElement,"cubeAll", cube.texture(), cube.render_type(), cube.item());
+        }
+        else if (cubeColumn != null) {
+            checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
+        }
+        else if (log != null) {
+            checkAppend(typeElement, variableElement, "logBlock", log.item());
+        }
+        else if (wood != null) {
+            checkAppend(typeElement, variableElement, "woodBlock", wood.item());
+        }
+        else if (button != null) {
+            checkAppend(typeElement, variableElement, "buttonBlock", button.texture());
+        }
+        else if(fence != null) {
+            checkAppend(typeElement, variableElement, "fenceBlock", fence.texture(), fence.item());
+        }
+        else if (fenceGate != null) {
+            checkAppend(typeElement, variableElement, "fenceGateBlock", fenceGate.texture(), fenceGate.item());
+        }
+        else if (stairs != null) {
+            String all = stairs.all();
+            checkAppend(typeElement, variableElement, "stairsBlock",
+                    all.isEmpty() ? stairs.bottom() : all,
+                    all.isEmpty() ? stairs.side() : all,
+                    all.isEmpty() ? stairs.top() : all,
+                    stairs.item()
+            );
+        }
+        else if (slab != null) {
+            String all = slab.all();
+            checkAppend(typeElement, variableElement, "slabBlock",
+                    all.isEmpty() ? slab.bottom() : all,
+                    all.isEmpty() ? slab.side() : all,
+                    all.isEmpty() ? slab.top() : all,
+                    slab.item()
+            );
+        }
+        else if (pressurePlate != null) {
+            checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
+        }
+        else if (allSign != null) {
+            checkAppend(typeElement, variableElement, "allSignBlock");
+        }
+        else if (allDoor != null) {
+            checkAppend(typeElement, variableElement, "allDoorBlock");
+        }
+        else if (allWood != null) {
+            checkAppend(typeElement, variableElement, "allWoodBlock");
+        }
+
+
+
+
+
+
     }
 
     private static void basicSet(String name, BasicItem basicItem, Addition addition, boolean first, String prefix) {

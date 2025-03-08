@@ -11,6 +11,7 @@ public @interface I18n {
     String en_us();
     String zh_cn();
     String zh_tw();
+    String descriptionId() default "";
     Other[] other() default {};
     @interface Other {
         String value();

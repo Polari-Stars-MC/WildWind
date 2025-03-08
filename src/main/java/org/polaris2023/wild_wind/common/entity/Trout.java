@@ -10,13 +10,12 @@ import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 
 public class Trout extends AbstractSchoolingFish {
 
     public final AnimationState swim = new AnimationState();
-    public final AnimationState struggle = new AnimationState();
-    public final AnimationState attack = new AnimationState();
+    public final AnimationState jump = new AnimationState();
 
     public Trout(EntityType<? extends AbstractSchoolingFish> entityType, Level level) {
         super(entityType, level);
@@ -28,12 +27,22 @@ public class Trout extends AbstractSchoolingFish {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        if (!this.moveControl.hasWanted()) {
+            swim.ifStarted(AnimationState::stop);
+        } else {
+            swim.startIfStopped(tickCount);
+        }
+    }
+
+    @Override
     protected SoundEvent getFlopSound() {
         return SoundEvents.COD_FLOP;
     }
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ModItems.TROUT_BUCKET.toStack();
+        return ModMobBuckets.TROUT_BUCKET.entry.toStack();
     }
 }
