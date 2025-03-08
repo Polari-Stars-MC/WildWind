@@ -112,6 +112,7 @@ public class ModBlocks {
             register("brittle_ice", BRITTLE_ICE);
   
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
+    @CubeAll
     public static final DeferredBlock<Block> WOOL = register("wool", BlockBehaviour.Properties.of()
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
@@ -127,6 +128,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
 
     @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
+    @CubeAll
     public static final DeferredBlock<Block> CONCRETE =
             register("concrete", BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.STONE).ignitedByLava());
     @BasicBlockItem
@@ -355,6 +357,7 @@ public class ModBlocks {
             registerHangingSign("palm_hanging_sign", PALM_HANGING_SIGN, PALM_WALL_HANGING_SIGN);
 
     @I18n(en_us = "Palm Crown", zh_cn = "棕榈树冠", zh_tw = "棕櫚樹冠")
+    @CubeAll
     public static final DeferredBlock<Block> PALM_CROWN =
             register("palm_crown", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD));
     @BasicBlockItem
@@ -445,12 +448,14 @@ public class ModBlocks {
             registerHangingSign("baobab_hanging_sign", BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN);
 
     @I18n(en_us = "Palm Leaves", zh_cn = "棕榈树叶", zh_tw = "棕櫚樹葉")
+    @CubeAll(render_type = "cutout_mipped")
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES =
             register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
     @BasicBlockItem
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM =
             register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
+    @CubeAll(render_type = "cutout_mipped")
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES =
             register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
     @BasicBlockItem

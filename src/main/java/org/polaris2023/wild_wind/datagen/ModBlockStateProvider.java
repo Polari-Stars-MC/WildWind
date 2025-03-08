@@ -31,16 +31,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
             Helpers.location("block/brittle_ice_0"),
             Helpers.location("block/brittle_ice_1"),
             Helpers.location("block/brittle_ice_2"),
-            Helpers.location("block/brittle_ice_3")
-    };
-    public static final ResourceLocation[] WOOD = new ResourceLocation[] {
-            Helpers.location("block/wood")
-    };
-    public static final ResourceLocation[] CONCRETE = new ResourceLocation[] {
-            Helpers.location("block/concrete")
-    };
-    public static final ResourceLocation[] GLAZED_TERRACOTTA = new ResourceLocation[] {
-            Helpers.location("block/glazed_terracotta")
+            Helpers.location("block/brittle_ice_3"),
     };
 
     @Override
@@ -81,20 +72,11 @@ public class ModBlockStateProvider extends BlockStateProvider {
         }
 
         // Logs
-        simpleBlock(ModBlocks.PALM_CROWN.get(), models().cubeAll("palm_crown", Helpers.location("block/palm_crown")));
-        simpleBlock(ModBlocks.PALM_LEAVES.get(), models().cubeAll("palm_leaves", Helpers.location("block/palm_leaves")).renderType("cutout_mipped"));
-        simpleBlock(ModBlocks.BAOBAB_LEAVES.get(), models().cubeAll("baobab_leaves", Helpers.location("block/baobab_leaves")).renderType("cutout_mipped"));
         simpleBlock(ModBlocks.PALM_SAPLING.get(), models().cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
         simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), models().cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
 
-        // Wool
-        simpleBlock(ModBlocks.WOOL.get(), models().cubeAll("wool", Helpers.location("block/wool")));
-
         // Carpet
         simpleBlock(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
-
-        // Concrete
-        simpleBlock(ModBlocks.CONCRETE.get(), models().cubeAll("concrete", Helpers.location("block/concrete")));
 
         // Glazed Terracotta
         VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());
@@ -134,41 +116,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         brittleIceStates.addModels(
                 brittleIceStates.partialState().with(BrittleIceBlock.AGE, age).with(BrittleIceBlock.UNSTABLE, unstable),
                 new ConfiguredModel(models().getExistingFile(BRITTLE_ICES[age]))
-        );
-    }
-
-    private void logModel(VariantBlockStateBuilder woodStates, String name) {
-        ResourceLocation side = Helpers.location("block/" + name + "_log");
-        ResourceLocation top = Helpers.location("block/" + name + "_log_top");
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
-                new ConfiguredModel(models().cubeColumn(name + "_log", side, top))
-        );
-        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_log_horizontal", side, top);
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
-                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
-        );
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
-                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
-        );
-    }
-
-    private void woodModel(VariantBlockStateBuilder woodStates, String name) {
-        ResourceLocation side = Helpers.location("block/" + name + "_log");
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Y),
-                new ConfiguredModel(models().cubeColumn(name + "_wood", side, side))
-        );
-        BlockModelBuilder azaleaLogHorizontal = models().cubeColumnHorizontal(name + "_wood_horizontal", side, side);
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.X),
-                new ConfiguredModel(azaleaLogHorizontal, 90, 90, false)
-        );
-        woodStates.addModels(
-                woodStates.partialState().with(BlockStateProperties.AXIS, Direction.Axis.Z),
-                new ConfiguredModel(azaleaLogHorizontal, 90, 0, false)
         );
     }
 }

@@ -55,6 +55,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
         this.dropSelf(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
+        this.dropSelf(ModBlocks.GLISTERING_MELON.get());
         ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
         ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf);
         ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf);
