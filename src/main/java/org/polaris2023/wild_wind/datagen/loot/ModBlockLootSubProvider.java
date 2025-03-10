@@ -2,11 +2,19 @@ package org.polaris2023.wild_wind.datagen.loot;
 
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
@@ -40,8 +48,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CONCRETE.get());
         this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
-        this.dropOther(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get());
-        this.dropOther(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get());
+        this.add(ModBlocks.SALT_ORE.get(), this.createSaltOreDrops(ModBlocks.SALT_ORE.get()));
+        this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createSaltOreDrops(ModBlocks.DEEPSLATE_SALT_ORE.get()));
         this.dropSelf(ModBlocks.AZALEA_LOG.get());
         this.dropSelf(ModBlocks.STRIPPED_AZALEA_LOG.get());
         this.dropSelf(ModBlocks.AZALEA_WOOD.get());
@@ -69,5 +77,18 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.BAOBAB_LEAVES.get(), this.createLeavesDrops(ModBlocks.BAOBAB_LEAVES.get(), ModBlocks.BAOBAB_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.dropSelf(ModBlocks.PALM_SAPLING.get());
         this.dropSelf(ModBlocks.BAOBAB_SAPLING.get());
+    }
+
+    protected LootTable.Builder createSaltOreDrops(Block block) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(
+                block,
+				this.applyExplosionDecay(
+						block,
+						LootItem.lootTableItem(ModBaseItems.SALT)
+								.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 9.0F)))
+								.apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+				)
+        );
     }
 }

@@ -410,10 +410,10 @@ public class ModBlocks {
     @I18n(en_us = "Baobab Wall Sign", zh_cn = "墙上的猴面包木告示牌", zh_tw = "牆上的猴麵包木告示牌", descriptionId = "block.wild_wind.baobab_wall_sign")
     public static final DeferredBlock<WallSignBlock> BAOBAB_WALL_SIGN =
             register("baobab_wall_sign", props -> new WallSignBlock(ModWoodSettings.BAOBAB.woodType, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_WALL_SIGN).lootFrom(BAOBAB_SIGN));
-    @I18n(en_us = "Baobab Hanging Sign", zh_cn = "猴面包木悬挂式告示牌", zh_tw = "猴麵包木懸挂式告示牌")
+    @I18n(en_us = "Baobab Hanging Sign", zh_cn = "悬挂式猴面包木告示牌", zh_tw = "懸挂式猴麵包木告示牌")
     public static final DeferredBlock<CeilingHangingSignBlock> BAOBAB_HANGING_SIGN =
             register("baobab_hanging_sign", props -> new CeilingHangingSignBlock(ModWoodSettings.BAOBAB.woodType, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_HANGING_SIGN));
-    @I18n(en_us = "Baobab Wall Hanging Sign", zh_cn = "墙上的猴面包木悬挂式告示牌", zh_tw = "牆上的猴麵包木懸挂式告示牌", descriptionId = "block.wild_wind.baobab_wall_hanging_sign")
+    @I18n(en_us = "Baobab Wall Hanging Sign", zh_cn = "墙上的悬挂式猴面包木告示牌", zh_tw = "牆上的懸挂式猴麵包木告示牌", descriptionId = "block.wild_wind.baobab_wall_hanging_sign")
     public static final DeferredBlock<WallHangingSignBlock> BAOBAB_WALL_HANGING_SIGN =
             register("baobab_wall_hanging_sign", props -> new WallHangingSignBlock(ModWoodSettings.BAOBAB.woodType, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_WALL_HANGING_SIGN).lootFrom(BAOBAB_HANGING_SIGN));
     public static final DeferredItem<BlockItem> BAOBAB_LOG_ITEM =
