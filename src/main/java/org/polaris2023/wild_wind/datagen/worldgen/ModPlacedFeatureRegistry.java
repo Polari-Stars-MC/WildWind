@@ -14,8 +14,12 @@ import org.polaris2023.wild_wind.util.Helpers;
 import java.util.List;
 
 public class ModPlacedFeatureRegistry {
-	public static final ResourceKey<PlacedFeature> BRITTLE_ICE = ResourceKey.create(Registries.PLACED_FEATURE, Helpers.location("brittle_ice"));
-	public static final ResourceKey<PlacedFeature> DISK_BRITTLE_ICE = ResourceKey.create(Registries.PLACED_FEATURE, Helpers.location("disk_brittle_ice"));
+	public static final ResourceKey<PlacedFeature> BRITTLE_ICE = create("brittle_ice");
+	public static final ResourceKey<PlacedFeature> DISK_BRITTLE_ICE = create("disk_brittle_ice");
+
+	//Ore
+	public static final ResourceKey<PlacedFeature> ORE_SALT = create("ore_salt");
+	public static final ResourceKey<PlacedFeature> ORE_SALT_BURIED = create("ore_salt_buried");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -27,9 +31,21 @@ public class ModPlacedFeatureRegistry {
 				context, DISK_BRITTLE_ICE, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.DISK_BRITTLE_ICE),
 				orePlacement(CountPlacement.of(6), HeightmapPlacement.onHeightmap(Heightmap.Types.OCEAN_FLOOR_WG))
 		);
+		PlacementUtils.register(
+				context, ORE_SALT, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.ORE_SALT),
+				orePlacement(CountPlacement.of(2), HeightRangePlacement.triangle(VerticalAnchor.absolute(-32), VerticalAnchor.absolute(32)))
+		);
+		PlacementUtils.register(
+				context, ORE_SALT_BURIED, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.ORE_SALT_BURIED),
+				orePlacement(CountPlacement.of(2), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64)))
+		);
 	}
 
 	private static List<PlacementModifier> orePlacement(PlacementModifier countPlacement, PlacementModifier heightRange) {
 		return List.of(countPlacement, InSquarePlacement.spread(), heightRange, BiomeFilter.biome());
+	}
+
+	private static ResourceKey<PlacedFeature> create(String name) {
+		return ResourceKey.create(Registries.PLACED_FEATURE, Helpers.location(name));
 	}
 }
