@@ -62,7 +62,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_BAOBAB_LOG.get());
         this.dropSelf(ModBlocks.BAOBAB_WOOD.get());
         this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
-        this.dropSelf(ModBlocks.SCULK_JAW.get());
+        this.dropWhenSilkTouch(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
         this.dropSelf(ModBlocks.GLISTERING_MELON.get());
         this.dropSelf(ModBlocks.POLISHED_STONE.get());
