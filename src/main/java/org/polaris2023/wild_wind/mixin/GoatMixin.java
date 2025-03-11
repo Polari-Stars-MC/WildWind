@@ -57,6 +57,6 @@ public abstract class GoatMixin extends Animal {
 
     @Inject(method = "<clinit>", at = @At(value = "TAIL"))
     private static void defineEntityDataAccessors(CallbackInfo ci) {
-        ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT = SynchedEntityData.defineId(Goat.class, EntityDataSerializers.INT);
+        ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT = SynchedEntityData.defineId(GoatMixin.class, EntityDataSerializers.INT);
     }
 }
