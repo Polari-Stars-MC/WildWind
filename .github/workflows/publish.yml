@@ -9,6 +9,7 @@ env:
   ## set env
   git_sha: ${{github.sha}}
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -54,3 +55,20 @@ jobs:
           modrinth-id: HToE46NN
           modrinth-featured: true
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          loaders: |
+            neoforge
+          game-versions: |
+            [1.21.1,)
+          java: |
+            21
+          files: |
+            build/libs/wild_wind-${{steps.version.outputs.value}}.jar
+          name: Wild-Wind ${{steps.version.outputs.value}} for Minecraft 1.21.X
+          version: ${{steps.version.outputs.value}}
+          version-type: release
+          changelog-file: CHANGELOG.*
+          game-version-filter: none
+          dependencies: |
+          retry-attempts: 2
+          retry-delay: 10000
+          fail-mode: fail

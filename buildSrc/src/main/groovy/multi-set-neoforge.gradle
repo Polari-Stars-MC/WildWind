@@ -15,7 +15,7 @@ tasks.named('wrapper', Wrapper).configure {
 
 
 
-version = mod_version + "-" + System.getenv("git_sha")
+version = mod_version
 group = mod_group_id
 
 def mvns = new ArrayList<Mvn>()
