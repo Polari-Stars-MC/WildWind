@@ -107,7 +107,6 @@ public class ModBlocks {
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE =
             register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
   
@@ -118,21 +117,23 @@ public class ModBlocks {
             .strength(0.8F)
             .sound(SoundType.WOOL)
             .ignitedByLava());
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> WOOL_ITEM = register("wool", WOOL);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
     public static final DeferredBlock<CarpetBlock> CARPET =
             register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
 
     @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
     @CubeAll
     public static final DeferredBlock<Block> CONCRETE =
             register("concrete", BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.STONE).ignitedByLava());
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", CONCRETE);
+    @I18n(en_us = "Concrete Powder", zh_cn = "混凝土粉末", zh_tw = "混凝土粉末")
+    @CubeAll
+    public static final DeferredBlock<Block> CONCRETE_POWDER =
+            register("concrete_powder", properties -> new ConcretePowderBlock(CONCRETE.get(), properties), BlockBehaviour.Properties.of().sound(SoundType.STONE).ignitedByLava());
+    public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
             register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
@@ -181,14 +182,39 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
             register("glistering_melon", GLISTERING_MELON);
 
+    @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")
+    public static final DeferredBlock<WallBlock> STONE_WALL =
+            register("stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
+
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> STONE_WALL_ITEM =
+            register("stone_wall", STONE_WALL);
+
     @I18n(en_us = "Polished Stone",zh_cn = "磨制石头",zh_tw = "磨製石頭")
     @CubeAll
     public static final DeferredBlock<Block> POLISHED_STONE =
             register("polished_stone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM =
             register("polished_stone", POLISHED_STONE);
+    @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
+    public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL =
+            register("polished_stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get()));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
+            register("polished_stone_wall", POLISHED_STONE_WALL);
+    @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制楼梯",zh_tw = "磨製石樓梯")
+    public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS =
+            register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM =
+            register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
+    @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
+    public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB =
+            register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM =
+            register("polished_stone_slab", POLISHED_STONE_SLAB);
 
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
@@ -360,7 +386,6 @@ public class ModBlocks {
     @CubeAll
     public static final DeferredBlock<Block> PALM_CROWN =
             register("palm_crown", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> PALM_CROWN_ITEM =
             register("palm_crown", PALM_CROWN);
 
@@ -451,14 +476,12 @@ public class ModBlocks {
     @CubeAll(render_type = "cutout_mipped")
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES =
             register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM =
             register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
     @CubeAll(render_type = "cutout_mipped")
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES =
             register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
-    @BasicBlockItem
     public static final DeferredItem<BlockItem> BAOBAB_LEAVES_ITEM =
             register("baobab_leaves", BAOBAB_LEAVES);
 
