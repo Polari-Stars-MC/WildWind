@@ -33,6 +33,7 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
 public class ModBlocks {
+    public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
     @BasicItem
@@ -198,7 +199,9 @@ public class ModBlocks {
             register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL =
-            register("polished_stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get()));
+            register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
+
+
     @BasicBlockItem
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
             register("polished_stone_wall", POLISHED_STONE_WALL);
