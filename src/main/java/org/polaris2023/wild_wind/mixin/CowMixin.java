@@ -38,8 +38,9 @@ public abstract class CowMixin extends Animal {
         entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, 6000);
     }
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Inject(method = "<clinit>", at = @At(value = "TAIL"))
     private static void defineEntityDataAccessors(CallbackInfo ci) {
-        ModEntityDataAccess.MILKING_INTERVALS_BY_COW = SynchedEntityData.defineId(CowMixin.class, EntityDataSerializers.INT);
+        ModEntityDataAccess.MILKING_INTERVALS_BY_COW = SynchedEntityData.defineId(Cow.class, EntityDataSerializers.INT);
     }
 }
