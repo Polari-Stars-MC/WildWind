@@ -55,6 +55,7 @@ public abstract class GoatMixin extends Animal {
         entityData.set(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT, 6000);
     }
 
+    @SuppressWarnings("WrongEntityDataParameterClass")
     @Inject(method = "<clinit>", at = @At(value = "TAIL"))
     private static void defineEntityDataAccessors(CallbackInfo ci) {
         ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT = SynchedEntityData.defineId(Goat.class, EntityDataSerializers.INT);
