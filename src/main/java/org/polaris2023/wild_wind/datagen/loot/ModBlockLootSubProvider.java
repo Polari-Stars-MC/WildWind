@@ -46,6 +46,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
+        this.dropSelf(ModBlocks.CONCRETE_POWDER.get());
         this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
         this.add(ModBlocks.SALT_ORE.get(), this.createSaltOreDrops(ModBlocks.SALT_ORE.get()));
@@ -65,7 +66,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
         this.dropSelf(ModBlocks.GLISTERING_MELON.get());
+        this.dropSelf(ModBlocks.STONE_WALL.get());
         this.dropSelf(ModBlocks.POLISHED_STONE.get());
+        this.dropSelf(ModBlocks.POLISHED_STONE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_STONE_SLAB.get());
+        this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
         ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
         ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf);
         ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf);
