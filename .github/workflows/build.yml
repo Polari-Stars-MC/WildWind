@@ -50,5 +50,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: wild_wind-${{steps.version.outputs.value}}-${{github.sha}}.jar
-          path: build/libs/wild_wind-${{steps.version.outputs.value}}-${{github.sha}}.jar
+          path: build/libs/wild_wind-${{steps.version.outputs.value}}.jar
           repo-token:  ${{ secrets.ACTION_TOKEN }}
