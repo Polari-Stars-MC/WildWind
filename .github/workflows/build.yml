@@ -5,6 +5,10 @@ name: Build Release
 
 on : [push, pull_request]
 
+env:
+  ## set env
+  git_sha: ${{github.sha}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,6 +49,6 @@ jobs:
       - name: Upload binaries to release
         uses: actions/upload-artifact@v4
         with:
-          name: wild_wind-${{steps.version.outputs.value}}.jar
+          name: wild_wind-${{steps.version.outputs.value}}-${{github.sha}}.jar
           path: build/libs/wild_wind-${{steps.version.outputs.value}}.jar
           repo-token:  ${{ secrets.ACTION_TOKEN }}
