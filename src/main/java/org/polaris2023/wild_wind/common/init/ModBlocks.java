@@ -199,13 +199,14 @@ public class ModBlocks {
             register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL =
-            register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
 
+            register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
 
     @BasicBlockItem
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
             register("polished_stone_wall", POLISHED_STONE_WALL);
-    @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制楼梯",zh_tw = "磨製石樓梯")
+
+    @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS =
             register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
     @BasicBlockItem
