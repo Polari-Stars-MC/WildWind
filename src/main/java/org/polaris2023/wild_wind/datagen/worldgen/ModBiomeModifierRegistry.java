@@ -15,9 +15,8 @@ import net.neoforged.neoforge.registries.NeoForgeRegistries;
 import org.polaris2023.wild_wind.util.Helpers;
 
 public class ModBiomeModifierRegistry {
-	public static final ResourceKey<BiomeModifier> BRITTLE_ICE = ResourceKey.create(
-			NeoForgeRegistries.Keys.BIOME_MODIFIERS, Helpers.location("brittle_ice")
-	);
+	public static final ResourceKey<BiomeModifier> BRITTLE_ICE = create("brittle_ice");
+	public static final ResourceKey<BiomeModifier> SALT_ORE = create("salt_ore");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
 		HolderGetter<Biome> biomesLookup = context.lookup(Registries.BIOME);
@@ -25,7 +24,16 @@ public class ModBiomeModifierRegistry {
 		context.register(BRITTLE_ICE, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_COLD_OVERWORLD),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.BRITTLE_ICE), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.DISK_BRITTLE_ICE)),
-				GenerationStep.Decoration.TOP_LAYER_MODIFICATION)
-		);
+				GenerationStep.Decoration.TOP_LAYER_MODIFICATION
+		));
+		context.register(SALT_ORE, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_OVERWORLD),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.ORE_SALT), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.ORE_SALT_BURIED)),
+				GenerationStep.Decoration.UNDERGROUND_ORES
+		));
+	}
+
+	private static ResourceKey<BiomeModifier> create(String name) {
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, Helpers.location(name));
 	}
 }
