@@ -72,7 +72,7 @@ public class ModRecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
 
-
+        smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE_ITEM.get(), ModBlocks.DEEPSLATE_SALT_ORE_ITEM.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
     }
 
     public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
@@ -162,10 +162,7 @@ public class ModRecipeProvider extends RecipeProvider {
         t.unlockedBy(("has" + "_" + tag.location()).toLowerCase(Locale.ROOT), has(tag));
     }
 
-
-
     protected void addShapelessRecipe() {
-
         add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
             unlockedBy(fish_chowder, ModBaseFoods.RAW_TROUT.get(), Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
@@ -302,6 +299,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
     }
 
+    public static SimpleCookingRecipeBuilder blasting(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp, int cookingTime
+    ) {
+        ItemStack[] items = input.getItems();
+        Item item = items[0].getItem();
+        return SimpleCookingRecipeBuilder.blasting(input, category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
+    }
+
     public static SimpleCookingRecipeBuilder smoking(
             Ingredient input, RecipeCategory category, ItemLike result, float exp, int cookingTime
     ) {
@@ -346,10 +352,21 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
     }
 
+    public static SimpleCookingRecipeBuilder blasting(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp, int cookingTime) {
+        return SimpleCookingRecipeBuilder.blasting(Ingredient.of(input), category, result, exp, cookingTime)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
+    }
+
     public static SimpleCookingRecipeBuilder smoking(
             ItemLike input, RecipeCategory category, ItemLike result, float exp, int cookingTime) {
         return SimpleCookingRecipeBuilder.smoking(Ingredient.of(input), category, result, exp, cookingTime)
                 .unlockedBy(BuiltInRegistries.ITEM.getKey(input.asItem()).toString(), has(input));
+    }
+
+    public void smeltingAndBlasting(Ingredient input, RecipeCategory category, ItemLike result, float exp) {
+        add(smelting(input, category, result, exp));
+        add(blasting(input, category, result, exp), "blasting/");
     }
 
     public void smeltingAndSmoking(Ingredient input, RecipeCategory category, ItemLike result, float exp) {
@@ -377,11 +394,24 @@ public class ModRecipeProvider extends RecipeProvider {
         return  smoking(input, category, result, exp, 200);
     }
 
+    public static SimpleCookingRecipeBuilder blasting(
+            Ingredient input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return  blasting(input, category, result, exp, 200);
+    }
+
     public void smeltingAndSmoking(
             ItemLike input, RecipeCategory category, ItemLike result, float exp
     ) {
         add(smelting(input, category, result, exp));
         add(smoking(input, category, result, exp), "smoking/");
+    }
+
+    public void smeltingAndBlasting(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        add(smelting(input, category, result, exp));
+        add(blasting(input, category, result, exp), "blasting/");
     }
 
     public void smeltingSmokingAndCampfire(ItemLike input, RecipeCategory category, ItemLike result, float exp) {
@@ -400,6 +430,12 @@ public class ModRecipeProvider extends RecipeProvider {
             ItemLike input, RecipeCategory category, ItemLike result, float exp
     ) {
         return smoking(input, category, result, exp, 200);
+    }
+
+    public static SimpleCookingRecipeBuilder blasting(
+            ItemLike input, RecipeCategory category, ItemLike result, float exp
+    ) {
+        return blasting(input, category, result, exp, 200);
     }
 
     public void add(RecipeBuilder builder) {
