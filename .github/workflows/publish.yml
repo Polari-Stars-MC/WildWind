@@ -53,5 +53,4 @@ jobs:
           curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
           modrinth-id: HToE46NN
           modrinth-featured: true
-          modrinth-unfeature-mode: true
           modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
