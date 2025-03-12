@@ -5,6 +5,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -32,6 +33,20 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		provider.stairsBlock(this.stair, planks);//replace
 		provider.doorBlock(this.door, Helpers.location("block/" + name + "_door_bottom"), Helpers.location("block/" + name + "_door_top"));//replace
 		provider.trapdoorBlock(this.trapdoor, Helpers.location("block/" + name + "_trapdoor"), true);//replace
+	}
+
+	public void addCreativeTab(CreativeModeTab.Output output) {
+		output.accept(baseBlock);
+		output.accept(stair);
+		output.accept(slab);
+		output.accept(fence);
+		output.accept(fenceGate);
+		output.accept(door);
+		output.accept(trapdoor);
+		output.accept(pressurePlate);
+		output.accept(button);
+		output.accept(standingSign);
+		output.accept(ceilingHangingSign);
 	}
 
 	public void generateBlockLoot(Consumer<Block> dropSelf) {
