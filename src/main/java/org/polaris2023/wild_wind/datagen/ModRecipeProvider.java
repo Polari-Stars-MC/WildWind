@@ -243,14 +243,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.AZALEA_HANGING_SIGN.get(), 6,
                 builder -> {
-            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, ModBlocks.STRIPPED_AZALEA_LOG.get());
             unlockedBy(builder, Blocks.CHAIN);
             builder
                     .pattern(("I I"))
                     .pattern(("SSS"))
                     .pattern(("SSS"))
                     .group("hanging_sign")
-                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('S', ModBlocks.STRIPPED_AZALEA_LOG.get())
                     .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.AZALEA_BOAT.get(), 1,
@@ -362,14 +362,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.PALM_HANGING_SIGN.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, ModBlocks.STRIPPED_PALM_LOG.get());
                     unlockedBy(builder, Blocks.CHAIN);
                     builder
                             .pattern(("I I"))
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .group("hanging_sign")
-                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('S', ModBlocks.STRIPPED_PALM_LOG.get())
                             .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.PALM_BOAT.get(), 1,
@@ -481,14 +481,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.BAOBAB_HANGING_SIGN.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, ModBlocks.STRIPPED_BAOBAB_LOG.get());
                     unlockedBy(builder, Blocks.CHAIN);
                     builder
                             .pattern(("I I"))
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .group("hanging_sign")
-                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('S', ModBlocks.STRIPPED_BAOBAB_LOG.get())
                             .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.BAOBAB_BOAT.get(), 1,
