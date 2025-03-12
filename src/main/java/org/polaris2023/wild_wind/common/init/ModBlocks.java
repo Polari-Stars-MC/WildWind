@@ -141,12 +141,12 @@ public class ModBlocks {
     @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
     @CubeAll
     public static final DeferredBlock<Block> CONCRETE =
-            register("concrete", BlockBehaviour.Properties.of().strength(0.8F).sound(SoundType.STONE).ignitedByLava());
+            register("concrete", BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE).strength(0.8F).ignitedByLava());
     public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", CONCRETE);
     @I18n(en_us = "Concrete Powder", zh_cn = "混凝土粉末", zh_tw = "混凝土粉末")
     @CubeAll
     public static final DeferredBlock<Block> CONCRETE_POWDER =
-            register("concrete_powder", properties -> new ConcretePowderBlock(CONCRETE.get(), properties), BlockBehaviour.Properties.of().sound(SoundType.STONE).ignitedByLava());
+            register("concrete_powder", properties -> new ConcretePowderBlock(CONCRETE.get(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE_POWDER).ignitedByLava());
     public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
