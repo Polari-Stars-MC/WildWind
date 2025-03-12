@@ -10,6 +10,7 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModFoods;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
@@ -78,6 +80,8 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
                 RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.RAW_FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F));
 
@@ -149,6 +153,21 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("   ")
                     .group("carpet")
                     .define('S', ModBlocks.WOOL.get());
+                }));
+
+        add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS.get(), 1,
+                builder -> {
+            unlockedBy(builder, ModBaseItems.GLOW_POWDER.get());
+            unlockedBy(builder, ModBaseItems.ASH_DUST.get());
+            unlockedBy(builder, Items.SLIME_BALL);
+            builder
+                    .pattern("IWI")
+                    .pattern("WSW")
+                    .pattern("IWI")
+                    .group("glow_mucus")
+                    .define('I', ModBaseItems.ASH_DUST.get())
+                    .define('W', ModBaseItems.GLOW_POWDER.get())
+                    .define('S', Items.SLIME_BALL);
                 }));
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_SLAB.get(), 6,
@@ -644,6 +663,23 @@ public class ModRecipeProvider extends RecipeProvider {
             pumpkin_seeds.requires(ModBaseFoods.PUMPKIN_SLICE);
         }));
 
+        add(shapeless(RecipeCategory.MISC, Items.GLOWSTONE_DUST, 1, glowstone_dust -> {
+            unlockedBy(glowstone_dust, ModBaseItems.GLOW_POWDER);
+            unlockedBy(glowstone_dust, ModBaseItems.ASH_DUST);
+            glowstone_dust
+                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(ModBaseItems.ASH_DUST);
+        }));
+
+        add(shapeless(RecipeCategory.MISC, Items.GLOW_INK_SAC, 1, glow_ink_sac -> {
+            unlockedBy(glow_ink_sac, Items.INK_SAC);
+            unlockedBy(glow_ink_sac, ModBaseItems.GLOW_POWDER);
+            glow_ink_sac
+                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(Items.INK_SAC);
+
+        }));
+
         add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 4, azalea_planks -> {
             unlockedBy(azalea_planks, ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG);
             azalea_planks.requires(Ingredient.of(ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG));
@@ -656,7 +692,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBoats.AZALEA_CHEST_BOAT, 1, azalea_chest_boat -> {
             unlockedBy(azalea_chest_boat, ModBoats.AZALEA_BOAT);
             unlockedBy(azalea_chest_boat, Blocks.CHEST);
-            azalea_chest_boat.requires(Ingredient.of(ModBoats.AZALEA_BOAT, Blocks.CHEST))
+            azalea_chest_boat
+                    .requires(Blocks.CHEST)
                     .requires(ModBoats.AZALEA_BOAT)
                     .group("chest_boat");
         }));
@@ -673,7 +710,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBoats.PALM_CHEST_BOAT, 1, palm_boat -> {
             unlockedBy(palm_boat, ModBoats.PALM_BOAT);
             unlockedBy(palm_boat, Blocks.CHEST);
-            palm_boat.requires(Ingredient.of(ModBoats.PALM_BOAT, Blocks.CHEST))
+            palm_boat.requires(ModBoats.PALM_BOAT)
+                    .requires(Blocks.CHEST)
                     .group("chest_boat");
         }));
 
@@ -689,7 +727,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBoats.BAOBAB_CHEST_BOAT, 1, baobab_chest_boat -> {
             unlockedBy(baobab_chest_boat, ModBoats.BAOBAB_BOAT);
             unlockedBy(baobab_chest_boat, Blocks.CHEST);
-            baobab_chest_boat.requires(Ingredient.of(ModBoats.BAOBAB_BOAT, Blocks.CHEST))
+            baobab_chest_boat.requires(ModBoats.BAOBAB_BOAT)
+                    .requires(Blocks.CHEST)
                     .group("chest_boat");
         }));
     }
@@ -803,8 +842,6 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smoking(input, category, result, exp), "smoking/");
         add(campfire(input, category, result, exp), "campfire/");
     }
-
-
 
     public static SimpleCookingRecipeBuilder smelting(
             Ingredient input, RecipeCategory category, ItemLike result, float exp
