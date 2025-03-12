@@ -54,6 +54,7 @@ public class ModDataGenerator {
             gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(pack));
         }
         gen.addProvider(event.includeClient(), new ModBlockStateProvider(pack, helper));
+        gen.addProvider(event.includeClient(), new ModItemModelProvider(pack, helper));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(pack, provider, helper));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(pack, provider, helper);
