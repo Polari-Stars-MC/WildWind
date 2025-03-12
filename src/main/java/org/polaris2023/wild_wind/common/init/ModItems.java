@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.SnowballItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -38,7 +39,7 @@ public class ModItems {
             register("magic_flute", MagicFluteItem::stackTo1);
 
     @BasicItem
-    @I18n(en_us = "Cheese", zh_tw = "起司", zh_cn = "奶酪")
+    @I18n(en_us = "Cheese", zh_cn = "奶酪", zh_tw = "起司")
     public static final DeferredItem<CheeseItem> CHEESE =
             register("cheese", p -> new CheeseItem(p.stacksTo(16).food(ModFoods.CHEESE.get())));
     @BasicItem

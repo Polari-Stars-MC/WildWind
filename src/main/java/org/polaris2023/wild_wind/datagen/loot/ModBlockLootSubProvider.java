@@ -43,6 +43,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CATTAILS.get());
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
+        this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
+        this.add(ModBlocks.ASH_BLOCK.get(), this.createAshBlockDrops(ModBlocks.ASH_BLOCK.get()));
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
@@ -94,6 +96,19 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 								.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 9.0F)))
 								.apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
 				)
+        );
+    }
+
+    protected LootTable.Builder createAshBlockDrops(Block block) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(
+                block,
+                this.applyExplosionDecay(
+                        block,
+                        LootItem.lootTableItem(ModBaseItems.ASH_DUST)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                                .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                )
         );
     }
 }
