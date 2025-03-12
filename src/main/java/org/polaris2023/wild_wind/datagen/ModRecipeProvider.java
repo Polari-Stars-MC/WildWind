@@ -76,6 +76,13 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.PUMPKIN_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_PUMPKIN_SLICE.get(), 0.35F);
         smeltingSmokingAndCampfire(Items.MELON_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_MELON_SLICE.get(), 0.35F);
         smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
+                RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
+
+        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F));
+
+        // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
+        // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -655,8 +662,8 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
 
         add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_PLANKS, 4, palm_planks -> {
-            unlockedBy(palm_planks, ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG);
-            palm_planks.requires(Ingredient.of(ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG));
+            unlockedBy(palm_planks, ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG, ModBlocks.PALM_CROWN);
+            palm_planks.requires(Ingredient.of(ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG, ModBlocks.PALM_CROWN));
         }));
         add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_BUTTON, 1, palm_button -> {
             unlockedBy(palm_button, ModBlocks.PALM_PLANKS);
