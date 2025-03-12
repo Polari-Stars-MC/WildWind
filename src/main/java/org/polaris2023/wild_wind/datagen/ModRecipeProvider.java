@@ -14,9 +14,13 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.PotionBrewing;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModFoods;
@@ -168,6 +172,16 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('I', ModBaseItems.ASH_DUST.get())
                     .define('W', ModBaseItems.GLOW_POWDER.get())
                     .define('S', Items.SLIME_BALL);
+                }));
+
+        add(shaped(RecipeCategory.MISC, ModBlocks.ASH_BLOCK.get(), 1,
+                        builder -> {
+            unlockedBy(builder, ModBaseItems.ASH_DUST.get());
+            builder
+                    .pattern("AA")
+                    .pattern("AA")
+                    .group("ash_block")
+                    .define('A', ModBaseItems.ASH_DUST.get());
                 }));
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_SLAB.get(), 6,
