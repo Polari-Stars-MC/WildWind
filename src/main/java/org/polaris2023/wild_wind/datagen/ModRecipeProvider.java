@@ -70,6 +70,12 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModBaseFoods.BAKED_CARROT.get(), 0.35F);
         smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModBaseFoods.BAKED_BEETROOT.get(), 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModBaseFoods.COOKED_EGG.get(), 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS, Items.BEETROOT_SEEDS,
+                Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD, ModBlocks.GLAREFLOWER_SEEDS), RecipeCategory.FOOD, ModBaseFoods.BAKED_SEEDS.get(), 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.SWEET_BERRIES, Items.GLOW_BERRIES), RecipeCategory.FOOD, ModBaseFoods.BAKED_BERRIES.get(), 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.PUMPKIN_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_PUMPKIN_SLICE.get(), 0.35F);
+        smeltingSmokingAndCampfire(Items.MELON_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_MELON_SLICE.get(), 0.35F);
+        smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -620,6 +626,15 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBaseItems.SALT, 9, salt -> {
             unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
             salt.requires(ModBlocks.SALT_BLOCK_ITEM);
+        }));
+
+        add(shapeless(RecipeCategory.MISC, Blocks.PUMPKIN, 1, pumpkin -> {
+            unlockedBy(pumpkin, ModBaseFoods.PUMPKIN_SLICE);
+            pumpkin.requires(ModBaseFoods.PUMPKIN_SLICE, 9);
+        }));
+        add(shapeless(RecipeCategory.MISC, Items.PUMPKIN_SEEDS, 1, pumpkin_seeds -> {
+            unlockedBy(pumpkin_seeds, ModBaseFoods.PUMPKIN_SLICE);
+            pumpkin_seeds.requires(ModBaseFoods.PUMPKIN_SLICE);
         }));
 
         add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 4, azalea_planks -> {
