@@ -15,10 +15,12 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -136,6 +138,362 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('S', ModBlocks.WOOL.get());
                 }));
 
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_SLAB.get(), 6,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("SSS"))
+                    .group("wooden_slab")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.AZALEA_PRESSURE_PLATE.get(), 1,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("SS"))
+                    .group("wooden_pressure_plate")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STRIPPED_AZALEA_WOOD.get(), 3,
+                builder -> {
+            unlockedBy(builder, ModBlocks.STRIPPED_AZALEA_LOG.get());
+            builder
+                    .pattern(("SS"))
+                    .pattern(("SS"))
+                    .group("bark")
+                    .define('S', ModBlocks.STRIPPED_AZALEA_LOG.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_WOOD.get(), 3,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_LOG.get());
+            builder
+                    .pattern(("SS"))
+                    .pattern(("SS"))
+                    .group("bark")
+                    .define('S', ModBlocks.AZALEA_LOG.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.AZALEA_FENCE_GATE.get(), 1,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, Items.STICK);
+            builder
+                    .pattern(("PSP"))
+                    .pattern(("PSP"))
+                    .group("wooden_fence_gate")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.AZALEA_FENCE.get(), 3,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, Items.STICK);
+            builder
+                    .pattern(("SPS"))
+                    .pattern(("SPS"))
+                    .group("wooden_fence")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.AZALEA_DOOR.get(), 3,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("SS"))
+                    .pattern(("SS"))
+                    .pattern(("SS"))
+                    .group("wooden_door")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.AZALEA_TRAPDOOR.get(), 2,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("SSS"))
+                    .pattern(("SSS"))
+                    .group("wooden_trapdoor")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.AZALEA_SIGN.get(), 3,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, Items.STICK);
+            builder
+                    .pattern(("SSS"))
+                    .pattern(("SSS"))
+                    .pattern((" P "))
+                    .group("wooden_sign")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_STAIRS.get(), 4,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("S  "))
+                    .pattern(("SS "))
+                    .pattern(("SSS"))
+                    .group("wooden_stairs")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.AZALEA_HANGING_SIGN.get(), 6,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, Blocks.CHAIN);
+            builder
+                    .pattern(("I I"))
+                    .pattern(("SSS"))
+                    .pattern(("SSS"))
+                    .group("hanging_sign")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('I', Blocks.CHAIN);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBoats.AZALEA_BOAT.get(), 1,
+                builder -> {
+            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            builder
+                    .pattern(("S S"))
+                    .pattern(("SSS"))
+                    .group("boat")
+                    .define('S', ModBlocks.AZALEA_PLANKS.get());
+                }));
+
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PALM_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .group("wooden_slab")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.PALM_PRESSURE_PLATE.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("SS"))
+                            .group("wooden_pressure_plate")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STRIPPED_PALM_WOOD.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.STRIPPED_PALM_LOG.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("bark")
+                            .define('S', ModBlocks.STRIPPED_PALM_LOG.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PALM_WOOD.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_LOG.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("bark")
+                            .define('S', ModBlocks.PALM_LOG.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.PALM_FENCE_GATE.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("PSP"))
+                            .pattern(("PSP"))
+                            .group("wooden_fence_gate")
+                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.PALM_FENCE.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("SPS"))
+                            .pattern(("SPS"))
+                            .group("wooden_fence")
+                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.PALM_DOOR.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("wooden_door")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.PALM_TRAPDOOR.get(), 2,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .group("wooden_trapdoor")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.PALM_SIGN.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .pattern((" P "))
+                            .group("wooden_sign")
+                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.PALM_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .group("wooden_stairs")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.PALM_HANGING_SIGN.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, Blocks.CHAIN);
+                    builder
+                            .pattern(("I I"))
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .group("hanging_sign")
+                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('I', Blocks.CHAIN);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBoats.PALM_BOAT.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    builder
+                            .pattern(("S S"))
+                            .pattern(("SSS"))
+                            .group("boat")
+                            .define('S', ModBlocks.PALM_PLANKS.get());
+                }));
+
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BAOBAB_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .group("wooden_slab")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.BAOBAB_PRESSURE_PLATE.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("SS"))
+                            .group("wooden_pressure_plate")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STRIPPED_BAOBAB_WOOD.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.STRIPPED_BAOBAB_LOG.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("bark")
+                            .define('S', ModBlocks.STRIPPED_BAOBAB_LOG.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BAOBAB_WOOD.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_LOG.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("bark")
+                            .define('S', ModBlocks.BAOBAB_LOG.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.BAOBAB_FENCE_GATE.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("PSP"))
+                            .pattern(("PSP"))
+                            .group("wooden_fence_gate")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.BAOBAB_FENCE.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("SPS"))
+                            .pattern(("SPS"))
+                            .group("wooden_fence")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.BAOBAB_DOOR.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .group("wooden_door")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.REDSTONE, ModBlocks.BAOBAB_TRAPDOOR.get(), 2,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .group("wooden_trapdoor")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.BAOBAB_SIGN.get(), 3,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, Items.STICK);
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .pattern((" P "))
+                            .group("wooden_sign")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('P', Items.STICK);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BAOBAB_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .group("wooden_stairs")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
+        add(shaped(RecipeCategory.MISC, ModBlocks.BAOBAB_HANGING_SIGN.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, Blocks.CHAIN);
+                    builder
+                            .pattern(("I I"))
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .group("hanging_sign")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('I', Blocks.CHAIN);
+                }));
+        add(shaped(RecipeCategory.MISC, ModBoats.BAOBAB_BOAT.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    builder
+                            .pattern(("S S"))
+                            .pattern(("SSS"))
+                            .group("boat")
+                            .define('S', ModBlocks.BAOBAB_PLANKS.get());
+                }));
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
@@ -263,11 +621,55 @@ public class ModRecipeProvider extends RecipeProvider {
             unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
             salt.requires(ModBlocks.SALT_BLOCK_ITEM);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 1, azalea_planks -> {
+
+        add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_PLANKS, 4, azalea_planks -> {
             unlockedBy(azalea_planks, ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG);
             azalea_planks.requires(Ingredient.of(ModBlocks.AZALEA_WOOD, ModBlocks.AZALEA_LOG, ModBlocks.STRIPPED_AZALEA_WOOD, ModBlocks.STRIPPED_AZALEA_LOG));
         }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.AZALEA_BUTTON, 1, azalea_button -> {
+            unlockedBy(azalea_button, ModBlocks.AZALEA_PLANKS);
+            azalea_button.requires(Ingredient.of(ModBlocks.AZALEA_PLANKS))
+                    .group("wooden_button");
+        }));
+        add(shapeless(RecipeCategory.MISC, ModBoats.AZALEA_CHEST_BOAT, 1, azalea_chest_boat -> {
+            unlockedBy(azalea_chest_boat, ModBoats.AZALEA_BOAT);
+            unlockedBy(azalea_chest_boat, Blocks.CHEST);
+            azalea_chest_boat.requires(Ingredient.of(ModBoats.AZALEA_BOAT, Blocks.CHEST))
+                    .requires(ModBoats.AZALEA_BOAT)
+                    .group("chest_boat");
+        }));
 
+        add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_PLANKS, 4, palm_planks -> {
+            unlockedBy(palm_planks, ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG);
+            palm_planks.requires(Ingredient.of(ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG));
+        }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_BUTTON, 1, palm_button -> {
+            unlockedBy(palm_button, ModBlocks.PALM_PLANKS);
+            palm_button.requires(Ingredient.of(ModBlocks.PALM_PLANKS))
+                    .group("wooden_button");
+        }));
+        add(shapeless(RecipeCategory.MISC, ModBoats.PALM_CHEST_BOAT, 1, palm_boat -> {
+            unlockedBy(palm_boat, ModBoats.PALM_BOAT);
+            unlockedBy(palm_boat, Blocks.CHEST);
+            palm_boat.requires(Ingredient.of(ModBoats.PALM_BOAT, Blocks.CHEST))
+                    .group("chest_boat");
+        }));
+
+        add(shapeless(RecipeCategory.MISC, ModBlocks.BAOBAB_PLANKS, 4, baobab_planks -> {
+            unlockedBy(baobab_planks, ModBlocks.BAOBAB_WOOD, ModBlocks.BAOBAB_LOG, ModBlocks.STRIPPED_BAOBAB_WOOD, ModBlocks.STRIPPED_BAOBAB_LOG);
+            baobab_planks.requires(Ingredient.of(ModBlocks.BAOBAB_WOOD, ModBlocks.BAOBAB_LOG, ModBlocks.STRIPPED_BAOBAB_WOOD, ModBlocks.STRIPPED_BAOBAB_LOG));
+        }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.BAOBAB_BUTTON, 1, baobab_button -> {
+            unlockedBy(baobab_button, ModBlocks.BAOBAB_PLANKS);
+            baobab_button.requires(Ingredient.of(ModBlocks.BAOBAB_PLANKS))
+                    .group("wooden_button");
+        }));
+        add(shapeless(RecipeCategory.MISC, ModBoats.BAOBAB_CHEST_BOAT, 1, baobab_chest_boat -> {
+            unlockedBy(baobab_chest_boat, ModBoats.BAOBAB_BOAT);
+            unlockedBy(baobab_chest_boat, Blocks.CHEST);
+            baobab_chest_boat.requires(Ingredient.of(ModBoats.BAOBAB_BOAT, Blocks.CHEST))
+                    .group("chest_boat");
+        }));
     }
 
     public static ShapedRecipeBuilder shaped(
