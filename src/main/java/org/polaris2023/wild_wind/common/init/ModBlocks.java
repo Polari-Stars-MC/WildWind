@@ -110,6 +110,19 @@ public class ModBlocks {
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM =
             register("brittle_ice", BRITTLE_ICE);
+
+    @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
+    @CubeAll
+    public static final DeferredBlock<Block> ASH_BLOCK =
+            register("ash_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
+    public static final DeferredItem<BlockItem> ASH_BLOCK_ITEM =
+            register("ash_block", ASH_BLOCK);
+
+    /*
+    @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
+    public static final DeferredBlock<AshLayerBlock> ASH =
+            register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
+    */
   
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     @CubeAll

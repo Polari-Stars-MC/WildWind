@@ -76,6 +76,13 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.PUMPKIN_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_PUMPKIN_SLICE.get(), 0.35F);
         smeltingSmokingAndCampfire(Items.MELON_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_MELON_SLICE.get(), 0.35F);
         smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
+                RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
+
+        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F));
+
+        // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
+        // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -243,14 +250,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.AZALEA_HANGING_SIGN.get(), 6,
                 builder -> {
-            unlockedBy(builder, ModBlocks.AZALEA_PLANKS.get());
+            unlockedBy(builder, ModBlocks.STRIPPED_AZALEA_LOG.get());
             unlockedBy(builder, Blocks.CHAIN);
             builder
                     .pattern(("I I"))
                     .pattern(("SSS"))
                     .pattern(("SSS"))
                     .group("hanging_sign")
-                    .define('S', ModBlocks.AZALEA_PLANKS.get())
+                    .define('S', ModBlocks.STRIPPED_AZALEA_LOG.get())
                     .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.AZALEA_BOAT.get(), 1,
@@ -362,14 +369,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.PALM_HANGING_SIGN.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.PALM_PLANKS.get());
+                    unlockedBy(builder, ModBlocks.STRIPPED_PALM_LOG.get());
                     unlockedBy(builder, Blocks.CHAIN);
                     builder
                             .pattern(("I I"))
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .group("hanging_sign")
-                            .define('S', ModBlocks.PALM_PLANKS.get())
+                            .define('S', ModBlocks.STRIPPED_PALM_LOG.get())
                             .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.PALM_BOAT.get(), 1,
@@ -481,14 +488,14 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
         add(shaped(RecipeCategory.MISC, ModBlocks.BAOBAB_HANGING_SIGN.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.BAOBAB_PLANKS.get());
+                    unlockedBy(builder, ModBlocks.STRIPPED_BAOBAB_LOG.get());
                     unlockedBy(builder, Blocks.CHAIN);
                     builder
                             .pattern(("I I"))
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .group("hanging_sign")
-                            .define('S', ModBlocks.BAOBAB_PLANKS.get())
+                            .define('S', ModBlocks.STRIPPED_BAOBAB_LOG.get())
                             .define('I', Blocks.CHAIN);
                 }));
         add(shaped(RecipeCategory.MISC, ModBoats.BAOBAB_BOAT.get(), 1,
@@ -655,8 +662,8 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
 
         add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_PLANKS, 4, palm_planks -> {
-            unlockedBy(palm_planks, ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG);
-            palm_planks.requires(Ingredient.of(ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG));
+            unlockedBy(palm_planks, ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG, ModBlocks.PALM_CROWN);
+            palm_planks.requires(Ingredient.of(ModBlocks.PALM_WOOD, ModBlocks.PALM_LOG, ModBlocks.STRIPPED_PALM_WOOD, ModBlocks.STRIPPED_PALM_LOG, ModBlocks.PALM_CROWN));
         }));
         add(shapeless(RecipeCategory.MISC, ModBlocks.PALM_BUTTON, 1, palm_button -> {
             unlockedBy(palm_button, ModBlocks.PALM_PLANKS);
