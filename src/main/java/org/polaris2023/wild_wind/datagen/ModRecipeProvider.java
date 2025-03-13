@@ -150,7 +150,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .group("wool")
                     .define('S', Items.STRING);
                 }));
-        add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 3,
                 builder -> {
             unlockedBy(builder, ModBlocks.WOOL.get());
             builder
@@ -689,7 +689,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.MISC, Items.STRING, 1, wool ->{
+        add(shapeless(RecipeCategory.MISC, Items.STRING, 4, wool ->{
             unlockedBy(wool, ItemTags.WOOL);
             wool
                     .requires(ItemTags.WOOL);

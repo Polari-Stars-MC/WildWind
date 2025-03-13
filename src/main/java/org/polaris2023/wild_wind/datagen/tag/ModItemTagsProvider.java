@@ -82,6 +82,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.TROPICAL_FISH, Items.PUFFERFISH,
                 Items.ROTTEN_FLESH
         );
+        add(tag(ItemTags.WOOL), ModBlocks.WOOL);
+        add(tag(ItemTags.WOOL_CARPETS), ModBlocks.CARPET);
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
