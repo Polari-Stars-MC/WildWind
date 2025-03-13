@@ -724,8 +724,9 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBoats.PALM_CHEST_BOAT, 1, palm_boat -> {
             unlockedBy(palm_boat, ModBoats.PALM_BOAT);
             unlockedBy(palm_boat, Blocks.CHEST);
-            palm_boat.requires(ModBoats.PALM_BOAT)
+            palm_boat
                     .requires(Blocks.CHEST)
+                    .requires(ModBoats.PALM_BOAT)
                     .group("chest_boat");
         }));
 
@@ -741,8 +742,9 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shapeless(RecipeCategory.MISC, ModBoats.BAOBAB_CHEST_BOAT, 1, baobab_chest_boat -> {
             unlockedBy(baobab_chest_boat, ModBoats.BAOBAB_BOAT);
             unlockedBy(baobab_chest_boat, Blocks.CHEST);
-            baobab_chest_boat.requires(ModBoats.BAOBAB_BOAT)
+            baobab_chest_boat
                     .requires(Blocks.CHEST)
+                    .requires(ModBoats.BAOBAB_BOAT)
                     .group("chest_boat");
         }));
     }
