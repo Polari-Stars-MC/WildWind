@@ -90,14 +90,17 @@ public class ModBlockStateProvider extends BlockStateProvider {
             ashModel(ashStates, layer);
         }
 
-        // Logs
+        // Sapling
         simpleBlock(ModBlocks.PALM_SAPLING.get(), models().cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
         simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), models().cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
+
+        // Tiny Cactus
+        simpleBlock(ModBlocks.TINY_CACTUS.get(), models().cross("tiny_cactus", Helpers.location("block/tiny_cactus")).renderType("cutout"));
 
         // Carpet
         simpleBlockWithItem(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
 
-        // STONE & POLISHED STONE
+        // Stone & Polished Stone
         wallBlock(ModBlocks.STONE_WALL.get(), blockTexture(Blocks.STONE));
         simpleBlockWithItem(ModBlocks.POLISHED_STONE.get(), models().cubeAll("polished_stone", Helpers.location("block/polished_stone")));
         wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
