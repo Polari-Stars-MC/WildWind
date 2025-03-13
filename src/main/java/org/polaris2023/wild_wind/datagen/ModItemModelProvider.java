@@ -19,6 +19,7 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        basicItem(ModBlocks.DUCKWEED_ITEM.get());
         stoneWallItem(ModBlocks.STONE_WALL);
         wallItem(ModBlocks.POLISHED_STONE_WALL, ModBlocks.POLISHED_STONE);
 
