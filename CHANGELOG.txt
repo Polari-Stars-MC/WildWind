@@ -2,3 +2,11 @@
     Sort for the creative item tabs.
     Register Concrete Powder.
     Register Polished Stone [default block, wall, stairs, slab]
+2025/3/12
+	Add wooden blocks to synthesize recipes.
+	Improve the baking recipe and add pumpkin slice recipe.
+	Fix the translated name of roasted pumpkin slices.
+	Register Ash Blocks and Ash Powder.
+	Fix the formula error of the hanging billboard.
+	Improve the firing synthesis recipes.
+	Fix some models, correct concrete sound effects.
