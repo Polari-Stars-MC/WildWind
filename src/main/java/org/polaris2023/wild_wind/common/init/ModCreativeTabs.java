@@ -61,6 +61,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
     NATURAL_BLOCKS(ModBlocks.SALT_BLOCK_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.BRITTLE_ICE_ITEM);
+        output.accept(ModBlocks.ASH_BLOCK_ITEM);
         output.accept(ModBlocks.SALT_ORE);
         output.accept(ModBlocks.DEEPSLATE_SALT_ORE);
         output.accept(ModBlocks.AZALEA_LOG);
@@ -112,6 +113,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     INGREDIENTS(ModBlocks.GLOW_MUCUS_ITEM::toStack, () -> (__, output) -> {
         output.accept(ModBaseFoods.DOUGH);
         output.accept(ModBaseItems.GLOW_POWDER.get());
+        output.accept(ModBaseItems.ASH_DUST.get());
         output.accept(ModBaseItems.SALT);
     }),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")

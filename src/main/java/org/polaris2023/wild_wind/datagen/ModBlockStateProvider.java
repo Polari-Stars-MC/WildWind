@@ -3,9 +3,12 @@ package org.polaris2023.wild_wind.datagen;
 import net.minecraft.core.Direction;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.registries.DeferredBlock;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
@@ -76,7 +79,13 @@ public class ModBlockStateProvider extends BlockStateProvider {
         simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), models().cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
 
         // Carpet
-        simpleBlock(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
+        simpleBlockWithItem(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
+
+        wallBlock(ModBlocks.STONE_WALL.get(), blockTexture(Blocks.STONE));
+        simpleBlockWithItem(ModBlocks.POLISHED_STONE.get(), models().cubeAll("polished_stone", Helpers.location("block/polished_stone")));
+        wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+        stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+        slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), blockTexture(ModBlocks.POLISHED_STONE.get()), blockTexture(ModBlocks.POLISHED_STONE.get()));
 
         // Glazed Terracotta
         VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());

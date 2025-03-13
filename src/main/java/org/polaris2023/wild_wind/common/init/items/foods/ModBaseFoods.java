@@ -63,7 +63,7 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     FISH_CHOWDER(STACK_TO_1),
     @I18n(en_us = "Pumpkin Slice", zh_cn = "南瓜片", zh_tw = "南瓜片")
     PUMPKIN_SLICE(p -> p.component(ModComponents.VEGETABLE_VALUE, 0.5F)),
-    @I18n(en_us = "Baked Pumpkin Slice", zh_cn = "南瓜片", zh_tw = "南瓜片")
+    @I18n(en_us = "Baked Pumpkin Slice", zh_cn = "烤南瓜片", zh_tw = "烤南瓜片")
     BAKED_PUMPKIN_SLICE(p -> p.component(ModComponents.VEGETABLE_VALUE, 0.5F)),
     @I18n(en_us = "Baked Apple", zh_cn = "烤苹果", zh_tw = "烤蘋果")
     BAKED_APPLE(p -> p.component(ModComponents.FRUIT_VALUE, 1F)),
