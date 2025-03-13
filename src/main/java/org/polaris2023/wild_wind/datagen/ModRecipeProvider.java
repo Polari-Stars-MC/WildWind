@@ -10,20 +10,14 @@ import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionBrewing;
-import net.minecraft.world.item.alchemy.Potions;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModFoods;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
@@ -46,6 +40,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
+        addStonecuttingRecipes();
         addSmeltingRecipes();
         addShapedRecipe();
         addShapelessRecipe();
@@ -67,6 +62,13 @@ public class ModRecipeProvider extends RecipeProvider {
                 "cooking_pot/",
                 cooking
                         .stack(stack));
+    }
+
+    protected void addStonecuttingRecipes() {
+        add(stonecutting(Ingredient.of(Items.STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.STONE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 2), "stonecutting/");
     }
 
     protected void addSmeltingRecipes() {
@@ -540,6 +542,39 @@ public class ModRecipeProvider extends RecipeProvider {
                             .group("boat")
                             .define('S', ModBlocks.BAOBAB_PLANKS.get());
                 }));
+
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_STONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_STONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_STONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, Blocks.STONE);
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', Blocks.STONE);
+                }));
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
@@ -767,6 +802,15 @@ public class ModRecipeProvider extends RecipeProvider {
         ShapelessRecipeBuilder shapeless = ShapelessRecipeBuilder.shapeless(category, result, count);
         consumer.accept(shapeless);
         return shapeless;
+    }
+
+    public static SingleItemRecipeBuilder stonecutting(
+            Ingredient input, RecipeCategory category, ItemLike result, int count
+    ) {
+        ItemStack[] items = input.getItems();
+        Item item = items[0].getItem();
+        return SingleItemRecipeBuilder.stonecutting(input, category, result, count)
+                .unlockedBy(BuiltInRegistries.ITEM.getKey(item).toString(), has(item));
     }
 
     public static SimpleCookingRecipeBuilder smelting(
