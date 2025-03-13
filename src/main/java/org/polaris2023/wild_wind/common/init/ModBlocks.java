@@ -118,11 +118,11 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> ASH_BLOCK_ITEM =
             register("ash_block", ASH_BLOCK);
 
-    /*
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
     public static final DeferredBlock<AshLayerBlock> ASH =
             register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
-    */
+    public static final DeferredItem<BlockItem> ASH_ITEM =
+            register("ash", ASH);
   
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     @CubeAll
