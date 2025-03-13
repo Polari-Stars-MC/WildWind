@@ -100,10 +100,12 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", TINY_CACTUS);
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
+    @CubeAll
     public static final DeferredBlock<Block> QUICKSAND = register("quicksand", BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredItem<BlockItem> QUICKSAND_ITEM = register("quicksand", QUICKSAND);
 
     @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
+    @CubeAll
     public static final DeferredBlock<Block> RED_QUICKSAND = register("red_quicksand", BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredItem<BlockItem> RED_QUICKSAND_ITEM = register("red_quicksand", RED_QUICKSAND);
 
