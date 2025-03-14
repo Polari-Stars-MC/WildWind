@@ -29,6 +29,8 @@ import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
+import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
+import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 
 import java.util.Arrays;
 
@@ -80,14 +82,16 @@ public class ModBlocks {
             register("cattails", CATTAILS);
 
     @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
-    public static final DeferredBlock<Block> PRESENT = register("present", BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<BlockItem> PRESENT_ITEM = register("present", PRESENT);
+    public static final DeferredBlock<PresentBlock> PRESENT =
+            register("present", PresentBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<PresentBlockItem> PRESENT_ITEM =
+            register("present", p -> new PresentBlockItem(PRESENT.get(), p));
 
     @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
-    public static final DeferredBlock<Block> TRAPPED_PRESENT =
-            register("trapped_present", BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<BlockItem> TRAPPED_PRESENT_ITEM =
-            register("trapped_present", TRAPPED_PRESENT);
+    public static final DeferredBlock<TrappedPresentBlock> TRAPPED_PRESENT =
+            register("trapped_present", TrappedPresentBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<TrappedPresentBlockItem> TRAPPED_PRESENT_ITEM =
+            register("trapped_present", p -> new TrappedPresentBlockItem(TRAPPED_PRESENT.get(), p));
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll

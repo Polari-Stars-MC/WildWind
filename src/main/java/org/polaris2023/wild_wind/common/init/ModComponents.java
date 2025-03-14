@@ -36,6 +36,11 @@ public class ModComponents {
             register("sweet", Codec.FLOAT, ByteBufCodecs.FLOAT);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> LOCATIONS =
             register("locations", LOCATIONS_CODEC, LOCATIONS_STREAM_CODEC);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> PRESENT_BOX =
+            register("present_box", Codec.STRING, ByteBufCodecs.STRING_UTF8);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<String>> PRESENT_RIBBON =
+            register("present_ribbon", Codec.STRING, ByteBufCodecs.STRING_UTF8);
+
 
 
 
