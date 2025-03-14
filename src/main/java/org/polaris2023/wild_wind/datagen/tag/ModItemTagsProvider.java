@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
@@ -94,6 +95,11 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
+        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.RAW_FROG_LEG.get(),
+                ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
+        tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
+        tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
+        tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
