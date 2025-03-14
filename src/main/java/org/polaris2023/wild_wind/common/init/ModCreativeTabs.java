@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
+import org.polaris2023.wild_wind.common.init.blocks.ModPresents;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
@@ -113,8 +114,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.PALM_HANGING_SIGN);
         output.accept(ModBlocks.BAOBAB_SIGN);
         output.accept(ModBlocks.BAOBAB_HANGING_SIGN);
-        output.accept(ModBlocks.PRESENT);
-        output.accept(ModBlocks.TRAPPED_PRESENT);
+        output.accept(ModPresents.DEFAULT.present);
+        output.accept(ModPresents.DEFAULT.trapped_present);
         output.accept(ModBlocks.FIREFLY_JAR);
         output.accept(ModBlocks.GLOW_MUCUS);
         output.accept(ModMobBuckets.TROUT_BUCKET);

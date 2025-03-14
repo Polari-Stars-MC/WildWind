@@ -3,13 +3,11 @@ package org.polaris2023.wild_wind.common.init;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -29,6 +27,7 @@ import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
+import org.polaris2023.wild_wind.common.init.blocks.ModPresents;
 
 import java.util.Arrays;
 
@@ -79,15 +78,21 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> CATTAILS_ITEM =
             register("cattails", CATTAILS);
 
-    @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
-    public static final DeferredBlock<Block> PRESENT = register("present", BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<BlockItem> PRESENT_ITEM = register("present", PRESENT);
+//    @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
+//    public static final DeferredBlock<Block> PRESENT = register("present", BlockBehaviour.Properties.of().noLootTable());
+//    public static final DeferredItem<BlockItem> PRESENT_ITEM = register("present", PRESENT);
+//
+//    @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
+//    public static final DeferredBlock<Block> TRAPPED_PRESENT =
+//            register("trapped_present", BlockBehaviour.Properties.of().noLootTable());
+//    public static final DeferredItem<BlockItem> TRAPPED_PRESENT_ITEM =
+//            register("trapped_present", TRAPPED_PRESENT);
 
-    @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
-    public static final DeferredBlock<Block> TRAPPED_PRESENT =
-            register("trapped_present", BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<BlockItem> TRAPPED_PRESENT_ITEM =
-            register("trapped_present", TRAPPED_PRESENT);
+    static {
+        try {
+            Class.forName(ModPresents.class.getName());
+        } catch (ClassNotFoundException ignored) {}
+    }
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll

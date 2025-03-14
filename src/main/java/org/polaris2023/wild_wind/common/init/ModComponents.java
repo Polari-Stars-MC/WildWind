@@ -6,6 +6,7 @@ import net.minecraft.core.component.DataComponentType;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeColor;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.recipe.CookingPotRecipe;
 
@@ -36,6 +37,11 @@ public class ModComponents {
             register("sweet", Codec.FLOAT, ByteBufCodecs.FLOAT);
     public static final DeferredHolder<DataComponentType<?>, DataComponentType<List<ResourceLocation>>> LOCATIONS =
             register("locations", LOCATIONS_CODEC, LOCATIONS_STREAM_CODEC);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PRESENT_BOX_COLOR =
+            register("present_box_color", Codec.INT, ByteBufCodecs.INT);
+    public static final DeferredHolder<DataComponentType<?>, DataComponentType<Integer>> PRESENT_RIBBON_COLOR =
+            register("present_ribbon_color", Codec.INT, ByteBufCodecs.INT);
+
 
 
 

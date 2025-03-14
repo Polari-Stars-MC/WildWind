@@ -2,9 +2,7 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.BoatItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SnowballItem;
+import net.minecraft.world.item.*;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -56,4 +54,5 @@ public class ModItems {
     public static final DeferredItem<NetherMushroomStewItem> NETHER_MUSHROOM_STEW =
             register("nether_mushroom_stew", properties -> 
                     new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
+
 }

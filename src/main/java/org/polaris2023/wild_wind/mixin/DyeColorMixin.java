@@ -32,9 +32,8 @@ public class DyeColorMixin {
         int length = $VALUES.length;
         $VALUES = Arrays.copyOf($VALUES, length + size);
         for (ModDyeColor value : ModDyeColor.values()) {
-            value.dyeColor = init(value.name(), length, value.color, value.name, value.color, value.mapColor, value.color, value.color);
             value.id = length;
-            $VALUES[length] = value.dyeColor;
+            $VALUES[length] = init(value.name(), length, value.color, value.name, value.color, value.mapColor, value.color, value.color);
             length++;
         }
     }

@@ -1,24 +1,9 @@
-2025/3/11
-    Sort for the creative item tabs.
-    Register Concrete Powder.
-    Register Polished Stone [default block, wall, stairs, slab]
-2025/3/12
-	Add wooden blocks to synthesize recipes.
-	Improve the baking recipe and add pumpkin slice recipe.
-	Fix the translated name of roasted pumpkin slices.
-	Register Ash Blocks and Ash Powder.
-	Fix the formula error of the hanging billboard.
-	Improve the firing synthesis recipes.
-	Fix some models, correct concrete sound effects.
-2025/3/13
-	Fix chest boat recipes, Perfecting the cooking recipe.
-	Add ash blocks recipe, ash dust brewing recipe.
-	Optimized the display of chest boat recipes.
-	Add stone block recipe.
-	Fix wool recipes.
-	Rewrite creative mob tabs icon.
-	Registry some block and block item.
-	Supplemental textures.
-	Sort for creative mob tabs.
-	Fix creative mob tabs icon.
-	Update textures.
+2025/3/14:
+    Fix wool carpet properties.
+    Add the glowing potion.
+    Food is added to compost.
+    Added food Properties for animals.
+    Composting properties of dough flour.
+    Dyeing Recipes.
+    Salt stacking changes.
+    Salt Ore drop number modified.

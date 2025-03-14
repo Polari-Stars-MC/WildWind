@@ -170,11 +170,11 @@ public class ModInitializer {
         return BLOCKS.registerBlock(name, function, properties);
     }
 
-    static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
+    public static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
         return BLOCKS.registerSimpleBlock(name, properties);
     }
 
-    static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
+    public static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
         return ITEMS.registerSimpleBlockItem(name, block);
     }
 
