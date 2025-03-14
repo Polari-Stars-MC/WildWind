@@ -1,17 +1,11 @@
 package org.polaris2023.wild_wind.common.init;
 
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SnowballItem;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
-import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
-import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
+import org.polaris2023.wild_wind.common.item.MagicWandToolItem;
+import org.polaris2023.wild_wind.common.item.GlowPowderItem;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
@@ -32,6 +26,16 @@ public class ModItems {
                     .component(ModComponents.MEAT_VALUE, 1F)
                     .component(ModComponents.MONSTER_VALUE, 1F)
                     .food(ModFoods.LIVING_TUBER.get())));
+
+    @BasicItem
+    @I18n(en_us = "Magic Wand Tool", zh_cn = "魔棒工具", zh_tw = "魔棒工具")
+    public static final DeferredItem<MagicWandToolItem> MAGIC_WAND_TOOL_ITEM =
+            register("magic_wand_tool", p -> new MagicWandToolItem(p.stacksTo(1)));
+
+    @BasicItem
+    @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
+    public static final DeferredItem<GlowPowderItem> GLOW_POWDER =
+            register("glow_powder", p -> new GlowPowderItem(p.stacksTo(64)));
 
     @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")

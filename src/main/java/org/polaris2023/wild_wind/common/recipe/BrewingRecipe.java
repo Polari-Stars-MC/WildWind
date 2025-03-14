@@ -9,6 +9,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.ModPotions;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 
@@ -26,7 +27,7 @@ public class BrewingRecipe {
 
         builder.addMix(
             Potions.AWKWARD,
-            ModBaseItems.GLOW_POWDER.get(),
+            ModItems.GLOW_POWDER.get(),
             ModPotions.GLOWING_POTION
         );
     }
