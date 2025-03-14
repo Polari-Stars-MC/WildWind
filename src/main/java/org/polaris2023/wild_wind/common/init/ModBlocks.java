@@ -3,10 +3,13 @@ package org.polaris2023.wild_wind.common.init;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -42,6 +45,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> FIREFLY_JAR_ITEM = register("firefly_jar", FIREFLY_JAR);
 
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
@@ -55,11 +59,12 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM =
             register("glareflower_seeds", GLAREFLOWER_SEEDS, ModFoods.GLAREFLOWER_SEEDS);
 
-    @I18n(en_us = "Spider Egg", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
+    @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
     public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg", BlockBehaviour.Properties.of().noLootTable());
 
-    @I18n(en_us = "Spider Attachments", zh_cn = "蛛丝附层", zh_tw = "蛛絲附層")
-    public static final DeferredBlock<Block> SPIDER_ATTACHMENTS = register("spider_attachments", BlockBehaviour.Properties.of().noLootTable());
+    @I18n(en_us = "Spider Attachments", zh_cn = "蛛丝覆层", zh_tw = "蛛絲覆層")
+    public static final DeferredBlock<Block> SPIDER_COVER = register("spider_cover", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> SPIDER_COVER_ITEM = register("spider_cover", SPIDER_COVER);
     @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa", BlockBehaviour.Properties.of().noLootTable());
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
@@ -76,10 +81,33 @@ public class ModBlocks {
 
     @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
     public static final DeferredBlock<Block> PRESENT = register("present", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> PRESENT_ITEM = register("present", PRESENT);
 
     @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
     public static final DeferredBlock<Block> TRAPPED_PRESENT =
             register("trapped_present", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> TRAPPED_PRESENT_ITEM =
+            register("trapped_present", TRAPPED_PRESENT);
+
+    @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
+    @CubeAll
+    public static final DeferredBlock<Block> SILT = register("silt", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
+
+    @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
+    public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", props -> new FlowerBlock(MobEffects.LUCK, 0, props), BlockBehaviour.Properties.of().noLootTable());
+    @BasicBlockLocatedItem
+    public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", TINY_CACTUS);
+
+    @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
+    @CubeAll
+    public static final DeferredBlock<Block> QUICKSAND = register("quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> QUICKSAND_ITEM = register("quicksand", QUICKSAND);
+
+    @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
+    @CubeAll
+    public static final DeferredBlock<Block> RED_QUICKSAND = register("red_quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> RED_QUICKSAND_ITEM = register("red_quicksand", RED_QUICKSAND);
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
     public static final DeferredBlock<CookingPotBlock> COOKING_POT =
@@ -118,11 +146,11 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> ASH_BLOCK_ITEM =
             register("ash_block", ASH_BLOCK);
 
-    /*
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
     public static final DeferredBlock<AshLayerBlock> ASH =
             register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
-    */
+    public static final DeferredItem<BlockItem> ASH_ITEM =
+            register("ash", ASH);
   
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     @CubeAll

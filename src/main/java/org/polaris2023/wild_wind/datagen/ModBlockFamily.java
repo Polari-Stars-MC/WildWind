@@ -45,8 +45,6 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		output.accept(trapdoor);
 		output.accept(pressurePlate);
 		output.accept(button);
-		output.accept(standingSign);
-		output.accept(ceilingHangingSign);
 	}
 
 	public void generateBlockLoot(Consumer<Block> dropSelf) {

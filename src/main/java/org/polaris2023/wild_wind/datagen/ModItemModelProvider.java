@@ -19,11 +19,14 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        stoneWallItem(ModBlocks.STONE_WALL, Blocks.STONE);
+        basicItem(ModBlocks.DUCKWEED_ITEM.get());
+        stoneWallItem(ModBlocks.STONE_WALL);
         wallItem(ModBlocks.POLISHED_STONE_WALL, ModBlocks.POLISHED_STONE);
+
+        withExistingParent(ModBlocks.ASH.getId().getPath(), modLoc("block/ash_1"));
     }
 
-    public void stoneWallItem(DeferredBlock<?> block, Block baseBlock) {
+    public void stoneWallItem(DeferredBlock<?> block) {
         this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
                 .texture("wall",  ResourceLocation.fromNamespaceAndPath("minecraft",
                         "block/stone"));
