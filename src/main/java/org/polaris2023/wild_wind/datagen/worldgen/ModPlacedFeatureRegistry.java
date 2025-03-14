@@ -21,6 +21,10 @@ public class ModPlacedFeatureRegistry {
 	public static final ResourceKey<PlacedFeature> ORE_SALT = create("ore_salt");
 	public static final ResourceKey<PlacedFeature> ORE_SALT_BURIED = create("ore_salt_buried");
 
+	//Quicksand
+	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
+	public static final ResourceKey<PlacedFeature> RED_QUICKSAND = create("red_quicksand");
+
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
 		PlacementUtils.register(
@@ -38,6 +42,20 @@ public class ModPlacedFeatureRegistry {
 		PlacementUtils.register(
 				context, ORE_SALT_BURIED, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.ORE_SALT_BURIED),
 				orePlacement(CountPlacement.of(2), HeightRangePlacement.uniform(VerticalAnchor.absolute(-64), VerticalAnchor.absolute(64)))
+		);
+		PlacementUtils.register(
+				context, QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.QUICKSAND),
+				RarityFilter.onAverageOnceEvery(40),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, RED_QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.RED_QUICKSAND),
+				RarityFilter.onAverageOnceEvery(40),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
 		);
 	}
 
