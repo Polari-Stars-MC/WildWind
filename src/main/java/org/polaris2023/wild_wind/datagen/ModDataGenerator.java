@@ -62,6 +62,7 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(pack, provider, blockTagsProvider.contentsGetter(), helper));
         gen.addProvider(event.includeServer(), new ModLootTableProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(pack, provider, helper));
+        gen.addProvider(event.includeServer(), new CompostMapProvider(pack, provider));
 
         // datapack registry
         gen.<DatapackBuiltinEntriesProvider>addProvider(

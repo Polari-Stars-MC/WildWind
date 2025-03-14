@@ -24,3 +24,4 @@
 	Update textures.
 2025/3/14
     Repair wool and carpet tags, add glowing potion and recipe (lack of translation)
+    Add food composting properties
