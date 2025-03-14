@@ -2,6 +2,7 @@ package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import org.polaris2023.annotation.language.I18n;
+import org.polaris2023.annotation.language.PotionI18n;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
 import javax.lang.model.element.Element;
@@ -26,10 +27,10 @@ public class I18nProcessor extends ClassProcessor {
     @Override
     public void classDef(TypeElement typeElement) {
         for (Element element : typeElement.getEnclosedElements()) {
-
             if (element.getKind().isField()) {
                 VariableElement variableElement = (VariableElement) element;
                 I18n i18n = variableElement.getAnnotation(I18n.class);
+                PotionI18n potionI18n = variableElement.getAnnotation(PotionI18n.class);
                 if (i18n != null) {
                     String name;
                     if(i18n.descriptionId().isEmpty()) {
@@ -43,6 +44,12 @@ public class I18nProcessor extends ClassProcessor {
                     for (I18n.Other other : i18n.other()) {
                         add(other.value(), ".add(%s, \"%s\")".formatted(name, other.translate()));
                     }
+                } else if(potionI18n != null) {
+                    String name;
+                    name = typeElement.getQualifiedName() + "." + variableElement.getSimpleName();
+                    add("en_us", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.en_us(), PotionI18n.PREFIX_SPLASH_EN_US, PotionI18n.PREFIX_LINGERING_EN_US, PotionI18n.SUFFIX_EN_US));
+                    add("zh_cn", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.zh_cn(), PotionI18n.PREFIX_SPLASH_ZH_CN, PotionI18n.PREFIX_LINGERING_ZH_CN, PotionI18n.SUFFIX_ZH_CN));
+                    add("zh_tw", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.zh_tw(), PotionI18n.PREFIX_SPLASH_ZH_TW, PotionI18n.PREFIX_LINGERING_ZH_TW, PotionI18n.SUFFIX_ZH_TW));
                 }
             }
         }

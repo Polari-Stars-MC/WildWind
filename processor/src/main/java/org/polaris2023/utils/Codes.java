@@ -715,10 +715,12 @@ public enum Codes {
             import net.neoforged.neoforge.registries.DeferredHolder;
             import java.util.function.Supplier;
             import net.minecraft.world.item.Item;
+            import net.minecraft.world.item.Items;
             import net.minecraft.world.level.block.Block;
             import net.minecraft.world.entity.EntityType;
             import net.minecraft.network.chat.contents.TranslatableContents;
             import net.minecraft.world.effect.MobEffect;
+            import net.minecraft.world.item.alchemy.Potion;
             import net.minecraft.world.item.CreativeModeTab;
             import net.minecraft.world.item.ItemStack;
             import net.minecraft.sounds.SoundEvent;
@@ -790,6 +792,14 @@ public enum Codes {
                         case ItemStack stack -> add(stack.getDescriptionId(), value);
                         default -> throw new IllegalStateException("Unexpected value: " + r);
                     };
+                }
+            
+                public %%classname%% addPotion(DeferredHolder<Potion, Potion> r, String value, String splashPrefix, String lingeringPrefix, String suffix) {
+                    String name = r.getKey().location().getPath();
+                    add(Items.POTION.getDescriptionId() + ".effect." + name, value + suffix);
+                    add(Items.SPLASH_POTION.getDescriptionId() + ".effect." + name, splashPrefix + value + suffix);
+                    add(Items.LINGERING_POTION.getDescriptionId() + ".effect." + name, lingeringPrefix + value + suffix);
+                    return this;
                 }
             
                 public %%classname%% setModid(String modid) {
