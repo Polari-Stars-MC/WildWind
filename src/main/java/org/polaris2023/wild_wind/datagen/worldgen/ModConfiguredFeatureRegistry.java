@@ -10,9 +10,11 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
+import net.minecraft.world.level.levelgen.feature.LakeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
 import net.minecraft.world.level.levelgen.structure.templatesystem.TagMatchTest;
@@ -33,6 +35,11 @@ public class ModConfiguredFeatureRegistry {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SALT = create("ore_salt");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ORE_SALT_BURIED = create("ore_salt_buried");
 
+	//Quicksand
+	public static final ResourceKey<ConfiguredFeature<?, ?>> QUICKSAND = create("quicksand");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> RED_QUICKSAND = create("red_quicksand");
+
+	@SuppressWarnings("deprecation")
 	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
 		FeatureUtils.register(context, BRITTLE_ICE, ModFeatures.BRITTLE_ICE, NoneFeatureConfiguration.NONE);
 		FeatureUtils.register(context, DISK_BRITTLE_ICE, Feature.DISK, new DiskConfiguration(
@@ -48,6 +55,12 @@ public class ModConfiguredFeatureRegistry {
 				OreConfiguration.target(STONE_ORE_REPLACEABLES, ModBlocks.SALT_ORE.get().defaultBlockState()),
 				OreConfiguration.target(DEEPSLATE_ORE_REPLACEABLES, ModBlocks.DEEPSLATE_SALT_ORE.get().defaultBlockState())
 		), 7, 1.0F));
+		FeatureUtils.register(context, QUICKSAND, ModFeatures.QUICKSAND_LAKE, new LakeFeature.Configuration(
+				BlockStateProvider.simple(ModBlocks.QUICKSAND.get()), BlockStateProvider.simple(Blocks.SAND)
+		));
+		FeatureUtils.register(context, RED_QUICKSAND, ModFeatures.QUICKSAND_LAKE, new LakeFeature.Configuration(
+				BlockStateProvider.simple(ModBlocks.RED_QUICKSAND.get()), BlockStateProvider.simple(Blocks.RED_SAND)
+		));
 	}
 
 	private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {
