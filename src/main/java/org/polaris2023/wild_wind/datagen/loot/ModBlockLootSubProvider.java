@@ -44,7 +44,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
-        this.add(ModBlocks.ASH_BLOCK.get(), this.createAshBlockDrops(ModBlocks.ASH_BLOCK.get()));
+        this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModBaseItems.ASH_DUST.get(), 2.0F, 4.0F));
         this.dropSelf(ModBlocks.ASH.get());
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
@@ -52,8 +52,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CONCRETE_POWDER.get());
         this.dropSelf(ModBlocks.GLAZED_TERRACOTTA.get());
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
-        this.add(ModBlocks.SALT_ORE.get(), this.createSaltOreDrops(ModBlocks.SALT_ORE.get()));
-        this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createSaltOreDrops(ModBlocks.DEEPSLATE_SALT_ORE.get()));
+        this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
+        this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
         this.dropSelf(ModBlocks.AZALEA_LOG.get());
         this.dropSelf(ModBlocks.STRIPPED_AZALEA_LOG.get());
         this.dropSelf(ModBlocks.AZALEA_WOOD.get());
@@ -87,27 +87,14 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.BAOBAB_SAPLING.get());
     }
 
-    protected LootTable.Builder createSaltOreDrops(Block block) {
-        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
-        return this.createSilkTouchDispatchTable(
-                block,
-				this.applyExplosionDecay(
-						block,
-						LootItem.lootTableItem(ModBaseItems.SALT)
-								.apply(SetItemCountFunction.setCount(UniformGenerator.between(4.0F, 9.0F)))
-								.apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
-				)
-        );
-    }
-
-    protected LootTable.Builder createAshBlockDrops(Block block) {
+    protected LootTable.Builder createFortunateDrops(Block block, Item item, float miniDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(
                 block,
                 this.applyExplosionDecay(
                         block,
-                        LootItem.lootTableItem(ModBaseItems.ASH_DUST)
-                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                        LootItem.lootTableItem(item)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(miniDrops, maxDrops)))
                                 .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
