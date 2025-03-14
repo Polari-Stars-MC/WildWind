@@ -32,3 +32,5 @@
     Add Magic Wand Tool
     Add Glow Powder entity interaction(unfinished)
     Add Ash Dust effect
+    Repair ash model
+    Add sound and particle effect when invisible frame is generated
