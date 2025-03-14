@@ -21,9 +21,9 @@ import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_SNOW;
  * {@code @Date : 2025/02/12 20:19:42}
  */
 @BasicItem
-public enum  ModBaseItems implements Supplier<Item>, ItemLike {
-    @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
-    GLOW_POWDER,
+public enum ModBaseItems implements Supplier<Item>, ItemLike {
+    // @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
+    // GLOW_POWDER,
     @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
     ASH_DUST,
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
@@ -39,7 +39,7 @@ public enum  ModBaseItems implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     SPIDER_MUCOSA,
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
-    SALT(STACK_TO_SNOW)
+    SALT
     ;
     public final DeferredItem<Item> entry;
     ModBaseItems() {

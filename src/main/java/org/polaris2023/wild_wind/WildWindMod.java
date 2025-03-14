@@ -20,6 +20,7 @@ import org.polaris2023.wild_wind.common.WildWindEventHandler;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModFoods;
+import org.polaris2023.wild_wind.common.init.ModPotions;
 import org.polaris2023.wild_wind.mixin.accessor.BlockEntityTypeAccess;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
@@ -38,6 +39,7 @@ public class WildWindMod {
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
+        ModPotions.register(modEventBus);
         modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);

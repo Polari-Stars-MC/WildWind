@@ -15,6 +15,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
@@ -40,6 +41,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
+        addDyedRecipe();
         addStonecuttingRecipes();
         addSmeltingRecipes();
         addShapedRecipe();
@@ -62,6 +64,156 @@ public class ModRecipeProvider extends RecipeProvider {
                 "cooking_pot/",
                 cooking
                         .stack(stack));
+    }
+
+    public static final Block[] GLAZED_TERRACOTTA_BLOCK = {
+            Blocks.BLACK_GLAZED_TERRACOTTA,
+            Blocks.BLUE_GLAZED_TERRACOTTA,
+            Blocks.BROWN_GLAZED_TERRACOTTA,
+            Blocks.GRAY_GLAZED_TERRACOTTA,
+            Blocks.GREEN_GLAZED_TERRACOTTA,
+            Blocks.CYAN_GLAZED_TERRACOTTA,
+            Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA,
+            Blocks.LIGHT_GRAY_GLAZED_TERRACOTTA,
+            Blocks.LIME_GLAZED_TERRACOTTA,
+            Blocks.MAGENTA_GLAZED_TERRACOTTA,
+            Blocks.ORANGE_GLAZED_TERRACOTTA,
+            Blocks.PINK_GLAZED_TERRACOTTA,
+            Blocks.PURPLE_GLAZED_TERRACOTTA,
+            Blocks.RED_GLAZED_TERRACOTTA,
+            Blocks.WHITE_GLAZED_TERRACOTTA,
+            Blocks.YELLOW_GLAZED_TERRACOTTA
+    };
+
+    public static final Block[] CARPET_BLOCK = {
+            Blocks.BLACK_CARPET,
+            Blocks.BLUE_CARPET,
+            Blocks.BROWN_CARPET,
+            Blocks.GRAY_CARPET,
+            Blocks.GREEN_CARPET,
+            Blocks.CYAN_CARPET,
+            Blocks.LIGHT_BLUE_CARPET,
+            Blocks.LIGHT_GRAY_CARPET,
+            Blocks.LIME_CARPET,
+            Blocks.MAGENTA_CARPET,
+            Blocks.ORANGE_CARPET,
+            Blocks.PINK_CARPET,
+            Blocks.PURPLE_CARPET,
+            Blocks.RED_CARPET,
+            Blocks.WHITE_CARPET,
+            Blocks.YELLOW_CARPET
+    };
+
+    public static Block[] WOOL_BLOCK = {
+            Blocks.BLACK_WOOL,
+            Blocks.BLUE_WOOL,
+            Blocks.BROWN_WOOL,
+            Blocks.GRAY_WOOL,
+            Blocks.GREEN_WOOL,
+            Blocks.CYAN_WOOL,
+            Blocks.LIGHT_BLUE_WOOL,
+            Blocks.LIGHT_GRAY_WOOL,
+            Blocks.LIME_WOOL,
+            Blocks.MAGENTA_WOOL,
+            Blocks.ORANGE_WOOL,
+            Blocks.PINK_WOOL,
+            Blocks.PURPLE_WOOL,
+            Blocks.RED_WOOL,
+            Blocks.WHITE_WOOL,
+            Blocks.YELLOW_WOOL
+    };
+
+    public static final Block[] CONCRETE_BLOCK = {
+            Blocks.BLACK_CONCRETE,
+            Blocks.BLUE_CONCRETE,
+            Blocks.BROWN_CONCRETE,
+            Blocks.GRAY_CONCRETE,
+            Blocks.GREEN_CONCRETE,
+            Blocks.CYAN_CONCRETE,
+            Blocks.LIGHT_BLUE_CONCRETE,
+            Blocks.LIGHT_GRAY_CONCRETE,
+            Blocks.LIME_CONCRETE,
+            Blocks.MAGENTA_CONCRETE,
+            Blocks.ORANGE_CONCRETE,
+            Blocks.PINK_CONCRETE,
+            Blocks.PURPLE_CONCRETE,
+            Blocks.RED_CONCRETE,
+            Blocks.WHITE_CONCRETE,
+            Blocks.YELLOW_CONCRETE
+    };
+
+    public static final Block[] CONCRETE_POWDER_BLOCK = {
+            Blocks.BLACK_CONCRETE_POWDER,
+            Blocks.BLUE_CONCRETE_POWDER,
+            Blocks.BROWN_CONCRETE_POWDER,
+            Blocks.GRAY_CONCRETE_POWDER,
+            Blocks.GREEN_CONCRETE_POWDER,
+            Blocks.CYAN_CONCRETE_POWDER,
+            Blocks.LIGHT_BLUE_CONCRETE_POWDER,
+            Blocks.LIGHT_GRAY_CONCRETE_POWDER,
+            Blocks.LIME_CONCRETE_POWDER,
+            Blocks.MAGENTA_CONCRETE_POWDER,
+            Blocks.ORANGE_CONCRETE_POWDER,
+            Blocks.PINK_CONCRETE_POWDER,
+            Blocks.PURPLE_CONCRETE_POWDER,
+            Blocks.RED_CONCRETE_POWDER,
+            Blocks.WHITE_CONCRETE_POWDER,
+            Blocks.YELLOW_CONCRETE_POWDER
+    };
+
+    public static final Item[] DYE = {
+            Items.BLACK_DYE,
+            Items.BLUE_DYE,
+            Items.BROWN_DYE,
+            Items.GRAY_DYE,
+            Items.GREEN_DYE,
+            Items.CYAN_DYE,
+            Items.LIGHT_BLUE_DYE,
+            Items.LIGHT_GRAY_DYE,
+            Items.LIME_DYE,
+            Items.MAGENTA_DYE,
+            Items.ORANGE_DYE,
+            Items.PINK_DYE,
+            Items.PURPLE_DYE,
+            Items.RED_DYE,
+            Items.WHITE_DYE,
+            Items.YELLOW_DYE
+    };
+
+    public void addDyedRecipe() {
+        for(int i = 0; i < DYE.length; i++) {
+            int finalI = i;
+            add(shapeless(RecipeCategory.BUILDING_BLOCKS, GLAZED_TERRACOTTA_BLOCK[i], 1, glazed_terracotta -> {
+                unlockedBy(glazed_terracotta, ModBlocks.GLAZED_TERRACOTTA, DYE[finalI]);
+                glazed_terracotta
+                        .requires(ModBlocks.GLAZED_TERRACOTTA)
+                        .requires(DYE[finalI]);
+            }));
+            add(shapeless(RecipeCategory.MISC, CARPET_BLOCK[i], 1, carpet -> {
+                unlockedBy(carpet, ModBlocks.CARPET, DYE[finalI]);
+                carpet
+                        .requires(DYE[finalI])
+                        .requires(ModBlocks.CARPET);
+            }));
+            add(shapeless(RecipeCategory.MISC, WOOL_BLOCK[i], 1, wool -> {
+                unlockedBy(wool, ModBlocks.WOOL, DYE[finalI]);
+                wool
+                        .requires(DYE[finalI])
+                        .requires(ModBlocks.WOOL);
+            }));
+            add(shapeless(RecipeCategory.MISC, CONCRETE_BLOCK[i], 1, concrete -> {
+                unlockedBy(concrete, ModBlocks.CONCRETE, DYE[finalI]);
+                concrete
+                        .requires(DYE[finalI])
+                        .requires(ModBlocks.CONCRETE);
+            }));
+            add(shapeless(RecipeCategory.MISC, CONCRETE_POWDER_BLOCK[i], 1, concrete_powder -> {
+                unlockedBy(concrete_powder, ModBlocks.CONCRETE_POWDER, DYE[finalI]);
+                concrete_powder
+                        .requires(DYE[finalI])
+                        .requires(ModBlocks.CONCRETE_POWDER);
+            }));
+        }
     }
 
     protected void addStonecuttingRecipes() {
@@ -163,7 +315,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS.get(), 1,
                 builder -> {
-            unlockedBy(builder, ModBaseItems.GLOW_POWDER.get());
+            unlockedBy(builder, ModItems.GLOW_POWDER);
             unlockedBy(builder, ModBaseItems.ASH_DUST.get());
             unlockedBy(builder, Items.SLIME_BALL);
             builder
@@ -172,7 +324,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("IWI")
                     .group("glow_mucus")
                     .define('I', ModBaseItems.ASH_DUST.get())
-                    .define('W', ModBaseItems.GLOW_POWDER.get())
+                    .define('W', ModItems.GLOW_POWDER)
                     .define('S', Items.SLIME_BALL);
                 }));
 
@@ -713,18 +865,18 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOWSTONE_DUST, 1, glowstone_dust -> {
-            unlockedBy(glowstone_dust, ModBaseItems.GLOW_POWDER);
+            unlockedBy(glowstone_dust, ModItems.GLOW_POWDER);
             unlockedBy(glowstone_dust, ModBaseItems.ASH_DUST);
             glowstone_dust
-                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(ModItems.GLOW_POWDER)
                     .requires(ModBaseItems.ASH_DUST);
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOW_INK_SAC, 1, glow_ink_sac -> {
             unlockedBy(glow_ink_sac, Items.INK_SAC);
-            unlockedBy(glow_ink_sac, ModBaseItems.GLOW_POWDER);
+            unlockedBy(glow_ink_sac, ModItems.GLOW_POWDER);
             glow_ink_sac
-                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(ModItems.GLOW_POWDER)
                     .requires(Items.INK_SAC);
 
         }));
@@ -781,6 +933,13 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Blocks.CHEST)
                     .requires(ModBoats.BAOBAB_BOAT)
                     .group("chest_boat");
+        }));
+        add(shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CONCRETE_POWDER, 8, concrete_powder -> {
+            unlockedBy(concrete_powder, Blocks.SAND);
+            unlockedBy(concrete_powder, Blocks.GRAVEL);
+            concrete_powder
+                    .requires(Blocks.SAND, 4)
+                    .requires(Blocks.GRAVEL, 4);
         }));
     }
 

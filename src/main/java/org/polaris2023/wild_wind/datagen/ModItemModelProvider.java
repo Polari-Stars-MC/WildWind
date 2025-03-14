@@ -9,6 +9,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModItems;
 
 import javax.swing.*;
 
@@ -20,6 +21,8 @@ public class ModItemModelProvider extends ItemModelProvider {
     @Override
     protected void registerModels() {
         basicItem(ModBlocks.DUCKWEED_ITEM.get());
+        withExistingParent(ModItems.MAGIC_WAND_TOOL_ITEM.getId().getPath(), ResourceLocation.fromNamespaceAndPath("minecraft", "item/stick"))
+                .texture("layer0", ResourceLocation.fromNamespaceAndPath("minecraft", "item/stick"));
         stoneWallItem(ModBlocks.STONE_WALL);
         wallItem(ModBlocks.POLISHED_STONE_WALL, ModBlocks.POLISHED_STONE);
 
