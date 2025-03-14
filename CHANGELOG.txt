@@ -22,3 +22,5 @@
 	Sort for creative mob tabs.
 	Fix creative mob tabs icon.
 	Update textures.
+2025/3/14
+    Repair wool and carpet tags, add glowing potion and recipe (lack of translation)

@@ -53,6 +53,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.WALLS).add(ModBlocks.STONE_WALL.get(), ModBlocks.POLISHED_STONE_WALL.get());
 
+        tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
+        tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
+
         ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateBlockTags(this::tag);
         ModBlockFamilies.BAOBAB_PLANKS.generateBlockTags(this::tag);
