@@ -20,7 +20,7 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
 public enum ModPresents {
     @I18nEnum(en_us = "", zh_cn = "", zh_tw = "")
     DEFAULT,
-    @I18nEnum(en_us = "Red Ribbon Red ", zh_cn = "红丝带红", zh_tw = "紅絲帶紅")
+    @I18nEnum(en_us = "Red Ribbon Red ", zh_cn = "红丝带红色", zh_tw = "紅絲帶紅色")
     RED_RED,
     ;
     @I18nEnum.InnerI18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")

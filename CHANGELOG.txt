@@ -7,3 +7,4 @@
     Dyeing Recipes.
     Salt stacking changes.
     Salt Ore drop number modified.
+    Present registry all (WIP.).
