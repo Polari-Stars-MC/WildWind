@@ -39,7 +39,7 @@ public enum  ModBaseItems implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     SPIDER_MUCOSA,
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
-    SALT(STACK_TO_SNOW)
+    SALT
     ;
     public final DeferredItem<Item> entry;
     ModBaseItems() {
