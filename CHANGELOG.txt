@@ -10,3 +10,15 @@
 	Fix the formula error of the hanging billboard.
 	Improve the firing synthesis recipes.
 	Fix some models, correct concrete sound effects.
+2025/3/13
+	Fix chest boat recipes, Perfecting the cooking recipe.
+	Add ash blocks recipe, ash dust brewing recipe.
+	Optimized the display of chest boat recipes.
+	Add stone block recipe.
+	Fix wool recipes.
+	Rewrite creative mob tabs icon.
+	Registry some block and block item.
+	Supplemental textures.
+	Sort for creative mob tabs.
+	Fix creative mob tabs icon.
+	Update textures.
