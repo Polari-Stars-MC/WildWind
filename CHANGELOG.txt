@@ -29,3 +29,5 @@
     Add dyed recipes
     Maximum stack of salt changed from 16 to 64
     Number of salt drops from (deepslate) salt ores changed to 2-5 salt
+    Add Magic Wand Tool
+    Add Glow Powder Entity Interaction(unfinished)

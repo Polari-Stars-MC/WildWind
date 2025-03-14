@@ -15,6 +15,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
@@ -37,7 +38,7 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
         add(ModEntities.FIREFLY.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
-                        .add(LootItem.lootTableItem(ModBaseItems.GLOW_POWDER.get()))
+                        .add(LootItem.lootTableItem(ModItems.GLOW_POWDER))
                         .apply(SetItemCountFunction
                                 .setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(EnchantedCountIncreaseFunction

@@ -315,7 +315,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
         add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS.get(), 1,
                 builder -> {
-            unlockedBy(builder, ModBaseItems.GLOW_POWDER.get());
+            unlockedBy(builder, ModItems.GLOW_POWDER);
             unlockedBy(builder, ModBaseItems.ASH_DUST.get());
             unlockedBy(builder, Items.SLIME_BALL);
             builder
@@ -324,7 +324,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .pattern("IWI")
                     .group("glow_mucus")
                     .define('I', ModBaseItems.ASH_DUST.get())
-                    .define('W', ModBaseItems.GLOW_POWDER.get())
+                    .define('W', ModItems.GLOW_POWDER)
                     .define('S', Items.SLIME_BALL);
                 }));
 
@@ -865,18 +865,18 @@ public class ModRecipeProvider extends RecipeProvider {
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOWSTONE_DUST, 1, glowstone_dust -> {
-            unlockedBy(glowstone_dust, ModBaseItems.GLOW_POWDER);
+            unlockedBy(glowstone_dust, ModItems.GLOW_POWDER);
             unlockedBy(glowstone_dust, ModBaseItems.ASH_DUST);
             glowstone_dust
-                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(ModItems.GLOW_POWDER)
                     .requires(ModBaseItems.ASH_DUST);
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOW_INK_SAC, 1, glow_ink_sac -> {
             unlockedBy(glow_ink_sac, Items.INK_SAC);
-            unlockedBy(glow_ink_sac, ModBaseItems.GLOW_POWDER);
+            unlockedBy(glow_ink_sac, ModItems.GLOW_POWDER);
             glow_ink_sac
-                    .requires(ModBaseItems.GLOW_POWDER)
+                    .requires(ModItems.GLOW_POWDER)
                     .requires(Items.INK_SAC);
 
         }));
