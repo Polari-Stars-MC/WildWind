@@ -1,7 +1,10 @@
 package org.polaris2023.wild_wind.datagen.tag;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
@@ -55,6 +58,10 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
         tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
+
+        tag(BlockTags.create(ResourceLocation.parse("c:glazed_terracottas"))).add(ModBlocks.GLAZED_TERRACOTTA.get());
+        tag(BlockTags.create(ResourceLocation.parse("c:concretes"))).add(ModBlocks.CONCRETE.get());
+        tag(BlockTags.create(ResourceLocation.parse("c:concrete_powders"))).add(ModBlocks.CONCRETE_POWDER.get());
 
         ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateBlockTags(this::tag);

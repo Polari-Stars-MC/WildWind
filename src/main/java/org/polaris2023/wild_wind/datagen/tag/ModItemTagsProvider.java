@@ -99,7 +99,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get());
+        tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
