@@ -316,26 +316,26 @@ public class ModRecipeProvider extends RecipeProvider {
         add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS.get(), 1,
                 builder -> {
             unlockedBy(builder, ModItems.GLOW_POWDER);
-            unlockedBy(builder, ModBaseItems.ASH_DUST.get());
+            unlockedBy(builder, ModItems.ASH_DUST);
             unlockedBy(builder, Items.SLIME_BALL);
             builder
                     .pattern("IWI")
                     .pattern("WSW")
                     .pattern("IWI")
                     .group("glow_mucus")
-                    .define('I', ModBaseItems.ASH_DUST.get())
+                    .define('I', ModItems.ASH_DUST)
                     .define('W', ModItems.GLOW_POWDER)
                     .define('S', Items.SLIME_BALL);
                 }));
 
         add(shaped(RecipeCategory.MISC, ModBlocks.ASH_BLOCK.get(), 1,
                         builder -> {
-            unlockedBy(builder, ModBaseItems.ASH_DUST.get());
+            unlockedBy(builder, ModItems.ASH_DUST);
             builder
                     .pattern("AA")
                     .pattern("AA")
                     .group("ash_block")
-                    .define('A', ModBaseItems.ASH_DUST.get());
+                    .define('A', ModItems.ASH_DUST);
                 }));
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.AZALEA_SLAB.get(), 6,
@@ -866,10 +866,10 @@ public class ModRecipeProvider extends RecipeProvider {
 
         add(shapeless(RecipeCategory.MISC, Items.GLOWSTONE_DUST, 1, glowstone_dust -> {
             unlockedBy(glowstone_dust, ModItems.GLOW_POWDER);
-            unlockedBy(glowstone_dust, ModBaseItems.ASH_DUST);
+            unlockedBy(glowstone_dust, ModItems.ASH_DUST);
             glowstone_dust
                     .requires(ModItems.GLOW_POWDER)
-                    .requires(ModBaseItems.ASH_DUST);
+                    .requires(ModItems.ASH_DUST);
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOW_INK_SAC, 1, glow_ink_sac -> {

@@ -17,12 +17,14 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
+import org.polaris2023.wild_wind.common.event_handler.InvisibleItemFrameEventHandler;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModFoods;
 import org.polaris2023.wild_wind.common.init.ModPotions;
 import org.polaris2023.wild_wind.mixin.accessor.BlockEntityTypeAccess;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
+import org.polaris2023.wild_wind.common.event.InvisibleItemFrameEvent;
 
 import java.util.ServiceLoader;
 import java.util.Set;
