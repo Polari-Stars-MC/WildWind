@@ -11,4 +11,6 @@
     Repair ash model
     Add sound and particle effect when invisible frame is generated
     Add worldgen for quicksand and red quicksand
+    Add block flammable properties, add ash loot
 2025/3/15
+    Add worldgen for silt
