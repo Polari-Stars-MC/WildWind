@@ -150,7 +150,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(item)
-                        .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
                         .when(this.doesNotHaveSilkTouch())
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, maxDrops)))

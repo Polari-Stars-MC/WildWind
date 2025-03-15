@@ -132,13 +132,6 @@ public class WildWindMod {
         for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
             iConfig.register(modContainer);
         }
-
-        addRegistrars();
-    }
-
-    private static void addRegistrars() {
-        var regHelper = RegistryHelper.create();
-        regHelper.addRegistrar(Registries.ITEM, ModVanillaCompat::setup);
     }
 
     private static void food(Item item, Supplier<FoodProperties> food) {
