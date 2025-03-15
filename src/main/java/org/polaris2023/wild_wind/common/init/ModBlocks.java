@@ -132,6 +132,7 @@ public class ModBlocks {
             register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
             register("duckweed", DUCKWEED);
 

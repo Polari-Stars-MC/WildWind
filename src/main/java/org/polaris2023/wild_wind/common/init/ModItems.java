@@ -4,6 +4,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
+import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.wild_wind.common.item.MagicWandToolItem;
 import org.polaris2023.wild_wind.common.item.GlowPowderItem;
 import org.polaris2023.wild_wind.common.item.LivingTuberItem;
@@ -27,8 +28,9 @@ public class ModItems {
                     .component(ModComponents.MONSTER_VALUE, 1F)
                     .food(ModFoods.LIVING_TUBER.get())));
 
-    @BasicItem
+
     @I18n(en_us = "Magic Wand Tool", zh_cn = "魔棒工具", zh_tw = "魔棒工具")
+    @ParentItem(parent = "minecraft:item/stick")
     public static final DeferredItem<MagicWandToolItem> MAGIC_WAND_TOOL_ITEM =
             register("magic_wand_tool", p -> new MagicWandToolItem(p.stacksTo(1)));
 
