@@ -2,17 +2,22 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SignItem;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -33,6 +38,8 @@ import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 
 import java.util.Arrays;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
@@ -268,7 +275,7 @@ public class ModBlocks {
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
     public static final DeferredBlock<Block> AZALEA_PLANKS =
-            register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+            register("azalea_planks", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃原木", zh_tw = "杜鵑原木")
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =
             register("azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));

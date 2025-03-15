@@ -34,7 +34,7 @@ public class MagicWandToolItem extends Item {
                 "熔岩可燃性: " + clickedBlock.defaultBlockState().ignitedByLava(),
                 "窒息生物: " + clickedBlock.defaultBlockState().isSuffocating(level, context.getClickedPos()),
                 "红石导体: " + clickedBlock.defaultBlockState().isRedstoneConductor(level, context.getClickedPos()),
-                "固体方块: " + clickedBlock.defaultBlockState().isSolidRender(level, context.getClickedPos()),
+                "固体方块: " + clickedBlock.defaultBlockState().isSolid(),
                 "活塞推动行为: " + clickedBlock.defaultBlockState().getPistonPushReaction(),
                 "亮度: " + clickedBlock.getLightEmission(clickedBlock.defaultBlockState(), level, context.getClickedPos())
         };

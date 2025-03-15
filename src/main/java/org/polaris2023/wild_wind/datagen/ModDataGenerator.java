@@ -4,7 +4,6 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
@@ -21,7 +20,6 @@ import org.polaris2023.wild_wind.datagen.tag.ModItemTagsProvider;
 import org.polaris2023.wild_wind.datagen.worldgen.ModBiomeModifierRegistry;
 import org.polaris2023.wild_wind.datagen.worldgen.ModConfiguredFeatureRegistry;
 import org.polaris2023.wild_wind.datagen.worldgen.ModPlacedFeatureRegistry;
-import org.polaris2023.wild_wind.util.interfaces.IData;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
 import org.polaris2023.wild_wind.util.interfaces.IModel;
 
@@ -62,7 +60,7 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(pack, provider, blockTagsProvider.contentsGetter(), helper));
         gen.addProvider(event.includeServer(), new ModLootTableProvider(pack, provider));
         gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(pack, provider, helper));
-        gen.addProvider(event.includeServer(), new CompostMapProvider(pack, provider));
+        gen.addProvider(event.includeServer(), new ModCompostMapProvider(pack, provider));
 
         // datapack registry
         gen.<DatapackBuiltinEntriesProvider>addProvider(
