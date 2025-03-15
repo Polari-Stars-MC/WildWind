@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.datagen.loot;
 
 import com.google.common.collect.ImmutableSet;
+import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
@@ -10,11 +11,21 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
+import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
@@ -46,7 +57,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
         this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.dropSelf(ModBlocks.ASH.get());
+        this.add(ModBlocks.ASH.get(), this.createFortunateLayerDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get()));
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
@@ -99,5 +110,51 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                                 .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
                 )
         );
+    }
+
+    protected LootTable.Builder createFortunateLayerDrops(Block block, Item item) {
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                                .add(LootItem.lootTableItem(block))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
+                                .when(hasSilkTouch())
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 1, 1.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 2, 2.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 3, 3.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 4, 4.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 5, 5.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 6, 6.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 7, 7.0F)
+                )
+                .withPool(
+                        layerPoolWithoutSilkTouch(item, 8, 8.0F)
+                );
+    }
+
+    protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float maxDrops) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(item)
+                        .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
+                        .when(this.doesNotHaveSilkTouch())
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, maxDrops)))
+                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                );
     }
 }
