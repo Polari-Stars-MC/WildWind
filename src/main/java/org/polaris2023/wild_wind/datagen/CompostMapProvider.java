@@ -29,6 +29,8 @@ public class CompostMapProvider extends DataMapProvider {
                 .add(ModBaseFoods.PUMPKIN_SLICE.entry, new Compostable(0.5f), false)
                 .add(ModBaseFoods.BAKED_APPLE.entry, new Compostable(0.85f), false)
                 .add(ModBaseFoods.DOUGH.entry, new Compostable(0.85f), false)
-                .add(ModBaseFoods.FLOUR.entry, new Compostable(0.65f), false);
+                .add(ModBaseFoods.FLOUR.entry, new Compostable(0.65f), false)
+                .add(ModBaseFoods.FAILED_CUISINE.entry, new Compostable(0.85f), false);
+
     }
 }

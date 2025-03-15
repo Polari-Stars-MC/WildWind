@@ -86,6 +86,12 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
                             .component(ModComponents.MEAT_VALUE, 0.5F)
                             .component(ModComponents.MONSTER_VALUE, 1F)),
 
+    @I18n(en_us = "Charred Cuisine", zh_cn = "焦糊料理", zh_tw = "焦糊料理")
+     CHARRED_CUISINE,
+    @I18n(en_us = "Failed Cuisine", zh_cn = "失败料理", zh_tw = "失败料理")
+    FAILED_CUISINE,
+
+
     ;
 
     public final DeferredItem<Item> entry;
