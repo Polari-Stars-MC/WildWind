@@ -11,6 +11,7 @@
     "GoatMixin",
     "HalfTransparentBlockMixin",
     "IceBlockMixin",
+    "InvisibleItemFrame",
     "accessor.BlockEntityTypeAccess"
   ],
   "minVersion": "0.8",

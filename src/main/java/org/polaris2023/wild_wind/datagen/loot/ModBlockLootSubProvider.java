@@ -17,6 +17,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
@@ -44,7 +45,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
-        this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModBaseItems.ASH_DUST.get(), 2.0F, 4.0F));
+        this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
         this.dropSelf(ModBlocks.ASH.get());
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());

@@ -5,6 +5,7 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.language.I18nEnum;
 import org.polaris2023.annotation.language.I18nEnumInner;
 import org.polaris2023.annotation.language.Other18n;
+import org.polaris2023.annotation.language.PotionI18n;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
 import javax.lang.model.element.Element;
@@ -30,11 +31,11 @@ public class I18nProcessor extends ClassProcessor {
     @Override
     public void classDef(TypeElement typeElement) {
         for (Element element : typeElement.getEnclosedElements()) {
-
             if (element.getKind().isField()) {
                 VariableElement variableElement = (VariableElement) element;
                 I18n i18n = variableElement.getAnnotation(I18n.class);
                 I18nEnum i18nE = variableElement.getAnnotation(I18nEnum.class);
+              PotionI18n potionI18n = variableElement.getAnnotation(PotionI18n.class);
                 if (i18nE != null) {
                     for (Element element1 : typeElement.getEnclosedElements()) {
                         I18nEnumInner i18nEI = element1.getAnnotation(I18nEnumInner.class);
@@ -68,6 +69,12 @@ public class I18nProcessor extends ClassProcessor {
                     for (Other18n other18n : i18n.other()) {
                         add(other18n.value(), ".add(%s, \"%s\")".formatted(name, other18n.translate()));
                     }
+                } else if(potionI18n != null) {
+                    String name;
+                    name = typeElement.getQualifiedName() + "." + variableElement.getSimpleName();
+                    add("en_us", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.en_us(), PotionI18n.PREFIX_SPLASH_EN_US, PotionI18n.PREFIX_LINGERING_EN_US, PotionI18n.SUFFIX_EN_US));
+                    add("zh_cn", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.zh_cn(), PotionI18n.PREFIX_SPLASH_ZH_CN, PotionI18n.PREFIX_LINGERING_ZH_CN, PotionI18n.SUFFIX_ZH_CN));
+                    add("zh_tw", ".addPotion(%s, \"%s\", \"%s\", \"%s\", \"%s\")".formatted(name, potionI18n.zh_tw(), PotionI18n.PREFIX_SPLASH_ZH_TW, PotionI18n.PREFIX_LINGERING_ZH_TW, PotionI18n.SUFFIX_ZH_TW));
                 }
             }
         }

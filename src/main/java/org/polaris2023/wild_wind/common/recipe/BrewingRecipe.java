@@ -21,7 +21,7 @@ public class BrewingRecipe {
 
         builder.addMix(
             Potions.AWKWARD,
-            ModBaseItems.ASH_DUST.get(),
+            ModItems.ASH_DUST.get(),
             Potions.INVISIBILITY
         );
 

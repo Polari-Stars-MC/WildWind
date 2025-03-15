@@ -17,6 +17,8 @@ import org.polaris2023.wild_wind.util.Helpers;
 public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> BRITTLE_ICE = create("brittle_ice");
 	public static final ResourceKey<BiomeModifier> SALT_ORE = create("salt_ore");
+	public static final ResourceKey<BiomeModifier> QUICKSAND = create("quicksand");
+	public static final ResourceKey<BiomeModifier> RED_QUICKSAND = create("red_quicksand");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
 		HolderGetter<Biome> biomesLookup = context.lookup(Registries.BIOME);
@@ -30,6 +32,16 @@ public class ModBiomeModifierRegistry {
 				biomesLookup.getOrThrow(Tags.Biomes.IS_OVERWORLD),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.ORE_SALT), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.ORE_SALT_BURIED)),
 				GenerationStep.Decoration.UNDERGROUND_ORES
+		));
+		context.register(QUICKSAND, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_DESERT),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.QUICKSAND)),
+				GenerationStep.Decoration.LAKES
+		));
+		context.register(RED_QUICKSAND, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_BADLANDS),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.RED_QUICKSAND)),
+				GenerationStep.Decoration.LAKES
 		));
 	}
 

@@ -4,13 +4,9 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.annotation.modelgen.item.ParentItem;
-import org.polaris2023.wild_wind.common.item.MagicWandToolItem;
-import org.polaris2023.wild_wind.common.item.GlowPowderItem;
-import org.polaris2023.wild_wind.common.item.LivingTuberItem;
+import org.polaris2023.wild_wind.common.item.*;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
-import org.polaris2023.wild_wind.common.item.MagicFluteItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
@@ -38,6 +34,11 @@ public class ModItems {
     @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
     public static final DeferredItem<GlowPowderItem> GLOW_POWDER =
             register("glow_powder", p -> new GlowPowderItem(p.stacksTo(64)));
+
+    @BasicItem
+    @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
+    public static final DeferredItem<AshDustItem> ASH_DUST =
+            register("ash_dust", p -> new AshDustItem(p.stacksTo(64)));
 
     @BasicItem(used = false)// don't run datagen by this
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")

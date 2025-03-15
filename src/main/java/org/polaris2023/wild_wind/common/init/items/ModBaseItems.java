@@ -24,8 +24,8 @@ import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_SNOW;
 public enum ModBaseItems implements Supplier<Item>, ItemLike {
     // @I18n(en_us = "Glow Powder", zh_cn = "萤光粉末", zh_tw = "螢光粉末")
     // GLOW_POWDER,
-    @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
-    ASH_DUST,
+    // @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
+    // ASH_DUST,
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
     APPLE_CAKE,
     @I18n(en_us = "Berry Cake", zh_cn = "浆果派", zh_tw = "漿果派")
