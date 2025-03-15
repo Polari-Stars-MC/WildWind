@@ -14,6 +14,8 @@ import org.polaris2023.wild_wind.util.Helpers;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import static glitchcore.util.BlockHelper.registerFlammable;
+
 public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fence, FenceGateBlock fenceGate,
 							 PressurePlateBlock pressurePlate, StandingSignBlock standingSign, WallSignBlock wallSign,
 							 CeilingHangingSignBlock ceilingHangingSign, WallHangingSignBlock wallHangingSign,
@@ -87,5 +89,13 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		tag.apply(ItemTags.WOODEN_STAIRS).add(this.stair.asItem());
 		tag.apply(ItemTags.WOODEN_DOORS).add(this.door.asItem());
 		tag.apply(ItemTags.WOODEN_TRAPDOORS).add(this.trapdoor.asItem());
+	}
+
+	public void generateFlammable() {
+		registerFlammable(this.baseBlock, 5, 20);
+		registerFlammable(this.slab, 5, 20);
+		registerFlammable(this.stair, 5, 20);
+		registerFlammable(this.fence, 5, 20);
+		registerFlammable(this.fenceGate, 5, 20);
 	}
 }
