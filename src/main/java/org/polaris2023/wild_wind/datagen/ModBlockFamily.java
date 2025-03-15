@@ -14,8 +14,6 @@ import org.polaris2023.wild_wind.util.Helpers;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static glitchcore.util.BlockHelper.registerFlammable;
-
 public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fence, FenceGateBlock fenceGate,
 							 PressurePlateBlock pressurePlate, StandingSignBlock standingSign, WallSignBlock wallSign,
 							 CeilingHangingSignBlock ceilingHangingSign, WallHangingSignBlock wallHangingSign,
@@ -97,5 +95,10 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		registerFlammable(this.stair, 5, 20);
 		registerFlammable(this.fence, 5, 20);
 		registerFlammable(this.fenceGate, 5, 20);
+	}
+
+	public static void registerFlammable(Block block, int encouragement, int flammability) {
+		FireBlock fireblock = (FireBlock) Blocks.FIRE;
+		fireblock.setFlammable(block, encouragement, flammability);
 	}
 }

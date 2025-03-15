@@ -10,3 +10,4 @@
     Add Ash Dust effect
     Repair ash model
     Add sound and particle effect when invisible frame is generated
+    Add block flammable properties, add ash loot

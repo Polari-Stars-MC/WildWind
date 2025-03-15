@@ -14,6 +14,7 @@ import org.polaris2023.wild_wind.common.entity.Trout;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModFeatures;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModVanillaCompat;
 
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class WildWindEventHandler {
@@ -28,6 +29,7 @@ public class WildWindEventHandler {
     @SubscribeEvent
     public static void register(RegisterEvent event) {
         event.register(Registries.FEATURE, helper -> ModFeatures.init(helper::register));
+        event.register(Registries.ITEM, helper -> ModVanillaCompat.setup());
     }
 
     public static void modConstruction(IEventBus bus) {

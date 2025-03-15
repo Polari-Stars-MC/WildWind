@@ -1,11 +1,9 @@
 package org.polaris2023.wild_wind;
 
-import glitchcore.util.RegistryHelper;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -132,13 +130,6 @@ public class WildWindMod {
         for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
             iConfig.register(modContainer);
         }
-
-        addRegistrars();
-    }
-
-    private static void addRegistrars() {
-        var regHelper = RegistryHelper.create();
-        regHelper.addRegistrar(Registries.ITEM, ModVanillaCompat::setup);
     }
 
     private static void food(Item item, Supplier<FoodProperties> food) {
