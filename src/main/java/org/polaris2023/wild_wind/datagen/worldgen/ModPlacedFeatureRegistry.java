@@ -45,14 +45,14 @@ public class ModPlacedFeatureRegistry {
 		);
 		PlacementUtils.register(
 				context, QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.QUICKSAND),
-				RarityFilter.onAverageOnceEvery(40),
+				RarityFilter.onAverageOnceEvery(24),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, RED_QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.RED_QUICKSAND),
-				RarityFilter.onAverageOnceEvery(40),
+				RarityFilter.onAverageOnceEvery(24),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
