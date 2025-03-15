@@ -24,6 +24,8 @@ public class ModPlacedFeatureRegistry {
 	//Quicksand
 	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
 	public static final ResourceKey<PlacedFeature> RED_QUICKSAND = create("red_quicksand");
+	public static final ResourceKey<PlacedFeature> SILT = create("silt");
+	public static final ResourceKey<PlacedFeature> SILT_DISK = create("silt_disk");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -55,6 +57,20 @@ public class ModPlacedFeatureRegistry {
 				RarityFilter.onAverageOnceEvery(24),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, SILT, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.SILT),
+				RarityFilter.onAverageOnceEvery(24),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, SILT_DISK, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.SILT_DISK),
+				RarityFilter.onAverageOnceEvery(16),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
 		);
 	}

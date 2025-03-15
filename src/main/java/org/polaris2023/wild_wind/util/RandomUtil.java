@@ -47,8 +47,8 @@ public final class RandomUtil {
 				double bound = Math.pow(sig1 * sig2, 0.5D);
 				addGaussian(
 						pdf, length,
-						random.nextDouble() * length * 0.75D + length * 0.125D,
-						random.nextDouble() * length * 0.75D + length * 0.125D,
+						random.nextDouble() * length * 0.6D + length * 0.2D,
+						random.nextDouble() * length * 0.6D + length * 0.2D,
 						sig1, sig2, (random.nextDouble() * MAX_R * 2.0D - MAX_R) * bound
 				);
 			}

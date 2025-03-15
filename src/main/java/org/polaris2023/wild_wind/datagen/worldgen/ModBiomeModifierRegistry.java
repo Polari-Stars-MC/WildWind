@@ -19,6 +19,7 @@ public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> SALT_ORE = create("salt_ore");
 	public static final ResourceKey<BiomeModifier> QUICKSAND = create("quicksand");
 	public static final ResourceKey<BiomeModifier> RED_QUICKSAND = create("red_quicksand");
+	public static final ResourceKey<BiomeModifier> SILT = create("silt");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
 		HolderGetter<Biome> biomesLookup = context.lookup(Registries.BIOME);
@@ -42,6 +43,11 @@ public class ModBiomeModifierRegistry {
 				biomesLookup.getOrThrow(Tags.Biomes.IS_BADLANDS),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.RED_QUICKSAND)),
 				GenerationStep.Decoration.LAKES
+		));
+		context.register(SILT, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.SILT), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.SILT_DISK)),
+				GenerationStep.Decoration.FLUID_SPRINGS
 		));
 	}
 
