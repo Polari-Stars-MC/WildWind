@@ -24,8 +24,9 @@ public class ModItems {
                     .component(ModComponents.MONSTER_VALUE, 1F)
                     .food(ModFoods.LIVING_TUBER.get())));
 
-    @BasicItem
+
     @I18n(en_us = "Magic Wand Tool", zh_cn = "魔棒工具", zh_tw = "魔棒工具")
+    @ParentItem(parent = "minecraft:item/stick")
     public static final DeferredItem<MagicWandToolItem> MAGIC_WAND_TOOL_ITEM =
             register("magic_wand_tool", p -> new MagicWandToolItem(p.stacksTo(1)));
 
