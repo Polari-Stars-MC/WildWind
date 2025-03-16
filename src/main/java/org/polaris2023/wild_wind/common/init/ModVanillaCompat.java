@@ -47,15 +47,6 @@ public class ModVanillaCompat{
         registerFlammable(ModBlocks.STRIPPED_BAOBAB_LOG.get(), 5, 5);
         registerFlammable(ModBlocks.STRIPPED_PALM_LOG.get(), 5, 5);
 
-        /*registerStrippable(ModBlocks.AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_LOG.get());
-        registerStrippable(ModBlocks.BAOBAB_LOG.get(), ModBlocks.STRIPPED_BAOBAB_LOG.get());
-        registerStrippable(ModBlocks.PALM_LOG.get(), ModBlocks.STRIPPED_PALM_LOG.get());
-        registerStrippable(ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get());
-        registerStrippable(ModBlocks.BAOBAB_WOOD.get(), ModBlocks.STRIPPED_BAOBAB_WOOD.get());
-        registerStrippable(ModBlocks.PALM_WOOD.get(), ModBlocks.STRIPPED_PALM_WOOD.get());
-
-         */
-
         registerCompostable(0.85F, ModBaseFoods.BAKED_BEETROOT.entry);
         registerCompostable(0.85F, ModBaseFoods.BAKED_CARROT.entry);
         registerCompostable(0.85F, ModBaseFoods.BAKED_MUSHROOM.entry);

@@ -82,7 +82,7 @@ public class ModPlacedFeatureRegistry {
 		PlacementUtils.register(
 				context, ASH,
 				configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.ASH),
-				CountPlacement.of(30),
+				CountPlacement.of(60),
 				InSquarePlacement.spread(),
 				HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.top()),
 				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
