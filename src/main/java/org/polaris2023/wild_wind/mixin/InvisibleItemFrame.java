@@ -22,14 +22,12 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
         super(entityType, level);
     }
 
-    //add invisible if holding item
     @Inject(method = "setItem(Lnet/minecraft/world/item/ItemStack;Z)V", at = @At("TAIL"))
     private void setHeldItem(ItemStack value, boolean update, CallbackInfo ci) {
         if (this.isInvisible)
             ((ItemFrame) (Object) this).setInvisible(true);
     }
 
-    //remove invisible if no item holding
     @Inject(method = "removeFramedMap", at = @At("TAIL"))
     private void removeFromFrameMixin(ItemStack stack, CallbackInfo ci) {
         if (this.isInvisible)
@@ -57,5 +55,4 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     public void wild_wind$setIsInvisible(boolean isInvisible) {
         this.isInvisible = isInvisible;
     }
-
 }
