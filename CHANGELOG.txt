@@ -16,3 +16,5 @@
     Add worldgen for silt
 2025/3/16
     Add stripping function, modify silt collision shape
+    Add worldgen for ash
+    Magic Wand tool translation and optimisation

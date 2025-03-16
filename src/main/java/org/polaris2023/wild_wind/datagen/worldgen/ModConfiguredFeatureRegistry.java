@@ -11,6 +11,7 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
+import net.minecraft.world.level.levelgen.feature.SnowAndFreezeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
@@ -38,6 +39,8 @@ public class ModConfiguredFeatureRegistry {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> RED_QUICKSAND = create("red_quicksand");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT = create("silt");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT_DISK = create("silt_disk");
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
 	@SuppressWarnings("deprecation")
 	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -67,6 +70,7 @@ public class ModConfiguredFeatureRegistry {
 				BlockPredicate.matchesBlocks(List.of(Blocks.MUD)),
 				UniformInt.of(4, 7), 1
 		));
+		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}
 
 	private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {

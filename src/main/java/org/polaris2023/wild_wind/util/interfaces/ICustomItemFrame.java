@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.common.inter;
+package org.polaris2023.wild_wind.util.interfaces;
 
 public interface ICustomItemFrame {
     boolean wild_wind$getIsInvisible();

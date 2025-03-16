@@ -1,9 +1,6 @@
 package org.polaris2023.wild_wind.common.event;
 
-import net.minecraft.client.particle.AshParticle;
-import net.minecraft.client.particle.FallingDustParticle;
 import net.minecraft.core.particles.BlockParticleOption;
-import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +14,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.phys.HitResult;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.inter.ICustomItemFrame;
+import org.polaris2023.wild_wind.util.interfaces.ICustomItemFrame;
 
 public class InvisibleItemFrameEvent {
     public static InteractionResult run(Level world, Player player, InteractionHand hand, Entity entity, HitResult hitResult) {
