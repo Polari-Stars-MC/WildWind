@@ -19,5 +19,6 @@
     Add worldgen for ash
     Magic Wand tool translation and optimisation
     Addition of Cattail model and attributes, increase the probability of ash generation
+    Fix leaves from not being affected by picture quality
 2025/3/17
     
