@@ -61,6 +61,7 @@ public class ModVanillaCompat{
         registerCompostable(0.85F, ModBaseFoods.BAKED_MUSHROOM.entry);
         registerCompostable(0.85F, ModBaseFoods.BAKED_APPLE.entry);
         registerCompostable(0.85F, ModBaseFoods.DOUGH.entry);
+        registerCompostable(0.85F, ModBaseFoods.FAILED_CUISINE.entry);
 
         registerCompostable(0.65F, ModBaseFoods.BAKED_PUMPKIN_SLICE.entry);
         registerCompostable(0.65F, ModBaseFoods.BAKED_MELON_SLICE.entry);
