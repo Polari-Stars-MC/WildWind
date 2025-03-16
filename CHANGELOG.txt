@@ -18,3 +18,6 @@
     Add stripping function, modify silt collision shape
     Add worldgen for ash
     Magic Wand tool translation and optimisation
+    Addition of Cattail model and attributes, increase the probability of ash generation
+2025/3/17
+    

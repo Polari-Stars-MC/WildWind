@@ -2,6 +2,7 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.client.particle.BreakingItemParticle;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -74,7 +75,7 @@ public class ModBlocks {
             register("reeds", REEDS);
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
-    public static final DeferredBlock<Block> CATTAILS = register("cattails");
+    public static final DeferredBlock<Block> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
     @BasicItem
     public static final DeferredItem<BlockItem> CATTAILS_ITEM =
             register("cattails", CATTAILS);
