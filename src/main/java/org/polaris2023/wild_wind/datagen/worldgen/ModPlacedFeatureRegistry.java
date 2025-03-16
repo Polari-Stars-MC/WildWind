@@ -1,12 +1,16 @@
 package org.polaris2023.wild_wind.datagen.worldgen;
 
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.util.valueproviders.ConstantInt;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.VerticalAnchor;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -26,6 +30,8 @@ public class ModPlacedFeatureRegistry {
 	public static final ResourceKey<PlacedFeature> RED_QUICKSAND = create("red_quicksand");
 	public static final ResourceKey<PlacedFeature> SILT = create("silt");
 	public static final ResourceKey<PlacedFeature> SILT_DISK = create("silt_disk");
+
+	public static final ResourceKey<PlacedFeature> ASH = create("ash");
 
 	public static void bootstrap(BootstrapContext<PlacedFeature> context) {
 		HolderGetter<ConfiguredFeature<?, ?>> configuredFeaturesLookup = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -71,6 +77,16 @@ public class ModPlacedFeatureRegistry {
 				RarityFilter.onAverageOnceEvery(16),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, ASH,
+				configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.ASH),
+				CountPlacement.of(30),
+				InSquarePlacement.spread(),
+				HeightRangePlacement.uniform(VerticalAnchor.absolute(32), VerticalAnchor.top()),
+				EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.hasSturdyFace(Direction.UP), BlockPredicate.ONLY_IN_AIR_PREDICATE, 12),
+				RandomOffsetPlacement.vertical(ConstantInt.of(1)),
 				BiomeFilter.biome()
 		);
 	}
