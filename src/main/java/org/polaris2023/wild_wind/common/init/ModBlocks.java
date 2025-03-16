@@ -522,13 +522,13 @@ public class ModBlocks {
             registerHangingSign("baobab_hanging_sign", BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN);
 
     @I18n(en_us = "Palm Leaves", zh_cn = "棕榈树叶", zh_tw = "棕櫚樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES =
             register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM =
             register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES =
             register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
     public static final DeferredItem<BlockItem> BAOBAB_LEAVES_ITEM =
