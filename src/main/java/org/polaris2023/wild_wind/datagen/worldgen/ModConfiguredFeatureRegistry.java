@@ -11,9 +11,8 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
-import net.minecraft.world.level.levelgen.feature.configurations.DiskConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
-import net.minecraft.world.level.levelgen.feature.configurations.OreConfiguration;
+import net.minecraft.world.level.levelgen.feature.SnowAndFreezeFeature;
+import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
 import net.minecraft.world.level.levelgen.structure.templatesystem.RuleTest;
@@ -38,6 +37,10 @@ public class ModConfiguredFeatureRegistry {
 	//Quicksand
 	public static final ResourceKey<ConfiguredFeature<?, ?>> QUICKSAND = create("quicksand");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> RED_QUICKSAND = create("red_quicksand");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT = create("silt");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT_DISK = create("silt_disk");
+
+	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
 	@SuppressWarnings("deprecation")
 	public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
@@ -61,6 +64,13 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, RED_QUICKSAND, ModFeatures.QUICKSAND_LAKE, new LakeFeature.Configuration(
 				BlockStateProvider.simple(ModBlocks.RED_QUICKSAND.get()), BlockStateProvider.simple(Blocks.RED_SAND)
 		));
+		FeatureUtils.register(context, SILT, ModFeatures.SILT, FeatureConfiguration.NONE);
+		FeatureUtils.register(context, SILT_DISK, Feature.DISK, new DiskConfiguration(
+				RuleBasedBlockStateProvider.simple(ModBlocks.SILT.get()),
+				BlockPredicate.matchesBlocks(List.of(Blocks.MUD)),
+				UniformInt.of(4, 7), 1
+		));
+		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}
 
 	private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {

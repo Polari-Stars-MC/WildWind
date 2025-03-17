@@ -10,3 +10,15 @@
     Add Ash Dust effect
     Repair ash model
     Add sound and particle effect when invisible frame is generated
+    Add worldgen for quicksand and red quicksand
+2025/3/15
+    Add block flammable properties, add ash loot
+    Add worldgen for silt
+2025/3/16
+    Add stripping function, modify silt collision shape
+    Add worldgen for ash
+    Magic Wand tool translation and optimisation
+    Addition of Cattail model and attributes, increase the probability of ash generation
+    Fix leaves from not being affected by picture quality
+2025/3/17
+    

@@ -88,4 +88,17 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		tag.apply(ItemTags.WOODEN_DOORS).add(this.door.asItem());
 		tag.apply(ItemTags.WOODEN_TRAPDOORS).add(this.trapdoor.asItem());
 	}
+
+	public void generateFlammable() {
+		registerFlammable(this.baseBlock, 5, 20);
+		registerFlammable(this.slab, 5, 20);
+		registerFlammable(this.stair, 5, 20);
+		registerFlammable(this.fence, 5, 20);
+		registerFlammable(this.fenceGate, 5, 20);
+	}
+
+	public static void registerFlammable(Block block, int encouragement, int flammability) {
+		FireBlock fireblock = (FireBlock) Blocks.FIRE;
+		fireblock.setFlammable(block, encouragement, flammability);
+	}
 }

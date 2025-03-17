@@ -6,6 +6,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 import net.neoforged.neoforge.common.Tags;
@@ -19,6 +20,8 @@ public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> SALT_ORE = create("salt_ore");
 	public static final ResourceKey<BiomeModifier> QUICKSAND = create("quicksand");
 	public static final ResourceKey<BiomeModifier> RED_QUICKSAND = create("red_quicksand");
+	public static final ResourceKey<BiomeModifier> SILT = create("silt");
+	public static final ResourceKey<BiomeModifier> ASH = create("ash");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
 		HolderGetter<Biome> biomesLookup = context.lookup(Registries.BIOME);
@@ -42,6 +45,16 @@ public class ModBiomeModifierRegistry {
 				biomesLookup.getOrThrow(Tags.Biomes.IS_BADLANDS),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.RED_QUICKSAND)),
 				GenerationStep.Decoration.LAKES
+		));
+		context.register(SILT, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.SILT), placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.SILT_DISK)),
+				GenerationStep.Decoration.FLUID_SPRINGS
+		));
+		context.register(ASH, new BiomeModifiers.AddFeaturesBiomeModifier(
+                HolderSet.direct(biomesLookup.getOrThrow(Biomes.BASALT_DELTAS)),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.ASH)),
+				GenerationStep.Decoration.UNDERGROUND_DECORATION
 		));
 	}
 

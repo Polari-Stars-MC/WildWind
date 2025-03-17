@@ -14,17 +14,13 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
-import org.polaris2023.wild_wind.common.event_handler.InvisibleItemFrameEventHandler;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModComponents;
-import org.polaris2023.wild_wind.common.init.ModFoods;
-import org.polaris2023.wild_wind.common.init.ModPotions;
+import org.polaris2023.wild_wind.common.init.*;
 import org.polaris2023.wild_wind.mixin.accessor.BlockEntityTypeAccess;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
-import org.polaris2023.wild_wind.common.event.InvisibleItemFrameEvent;
 
 import java.util.ServiceLoader;
 import java.util.Set;
@@ -42,6 +38,7 @@ public class WildWindMod {
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
         WildWindEventHandler.modConstruction(modEventBus);
         ModPotions.register(modEventBus);
+        ModVanillaCompat.register(NeoForge.EVENT_BUS);
         modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);

@@ -2,14 +2,13 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.client.particle.BreakingItemParticle;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -76,7 +75,7 @@ public class ModBlocks {
             register("reeds", REEDS);
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
-    public static final DeferredBlock<Block> CATTAILS = register("cattails");
+    public static final DeferredBlock<Block> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
     @BasicItem
     public static final DeferredItem<BlockItem> CATTAILS_ITEM =
             register("cattails", CATTAILS);
@@ -95,7 +94,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll
-    public static final DeferredBlock<Block> SILT = register("silt", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new, BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
@@ -269,16 +268,16 @@ public class ModBlocks {
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
     public static final DeferredBlock<Block> AZALEA_PLANKS =
-            register("azalea_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
+            register("azalea_planks", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_PLANKS));
     @I18n(en_us = "Azalea Log", zh_cn = "杜鹃原木", zh_tw = "杜鵑原木")
-    public static final DeferredBlock<RotatedPillarBlock> AZALEA_LOG =
-            register("azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
+    public static final DeferredBlock<StrippableLog> AZALEA_LOG =
+            register("azalea_log", p -> new StrippableLog(p, ModBlocks.STRIPPED_AZALEA_LOG), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_LOG));
     @I18n(en_us = "Stripped Azalea Log", zh_cn = "去皮杜鹃原木", zh_tw = "剝皮杜鵑原木")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_LOG =
             register("stripped_azalea_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_LOG));
     @I18n(en_us = "Azalea Wood", zh_cn = "杜鹃木", zh_tw = "杜鵑木塊")
     public static final DeferredBlock<RotatedPillarBlock> AZALEA_WOOD =
-            register("azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
+            register("azalea_wood", p -> new StrippableLog(p, ModBlocks.STRIPPED_AZALEA_WOOD), BlockBehaviour.Properties.ofFullCopy(Blocks.MANGROVE_WOOD));
     @I18n(en_us = "Stripped Azalea Wood", zh_cn = "去皮杜鹃木", zh_tw = "剝皮杜鵑木塊")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_AZALEA_WOOD =
             register("stripped_azalea_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_MANGROVE_WOOD));
@@ -355,13 +354,13 @@ public class ModBlocks {
             register("palm_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_PLANKS));
     @I18n(en_us = "Palm Log", zh_cn = "棕榈原木", zh_tw = "棕櫚原木")
     public static final DeferredBlock<RotatedPillarBlock> PALM_LOG =
-            register("palm_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LOG));
+            register("palm_log", p -> new StrippableLog(p, ModBlocks.STRIPPED_PALM_LOG), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LOG));
     @I18n(en_us = "Stripped Palm Log", zh_cn = "去皮棕榈原木", zh_tw = "剝皮棕櫚原木")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_PALM_LOG =
             register("stripped_palm_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_LOG));
     @I18n(en_us = "Palm Wood", zh_cn = "棕榈木", zh_tw = "棕櫚木塊")
     public static final DeferredBlock<RotatedPillarBlock> PALM_WOOD =
-            register("palm_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_WOOD));
+            register("palm_wood", p -> new StrippableLog(p, ModBlocks.STRIPPED_PALM_WOOD), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_WOOD));
     @I18n(en_us = "Stripped Palm Wood", zh_cn = "去皮棕榈木", zh_tw = "剝皮棕櫚木塊")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_PALM_WOOD =
             register("stripped_palm_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD));
@@ -445,13 +444,13 @@ public class ModBlocks {
             register("baobab_planks", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_PLANKS));
     @I18n(en_us = "Baobab Log", zh_cn = "猴面包原木", zh_tw = "猴麵包原木")
     public static final DeferredBlock<RotatedPillarBlock> BAOBAB_LOG =
-            register("baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LOG));
+            register("baobab_log", p -> new StrippableLog(p, ModBlocks.STRIPPED_BAOBAB_LOG), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LOG));
     @I18n(en_us = "Stripped Baobab Log", zh_cn = "去皮猴面包原木", zh_tw = "剝皮猴麵包原木")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_BAOBAB_LOG =
             register("stripped_baobab_log", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_ACACIA_LOG));
     @I18n(en_us = "Baobab Wood", zh_cn = "猴面包木", zh_tw = "猴麵包木塊")
     public static final DeferredBlock<RotatedPillarBlock> BAOBAB_WOOD =
-            register("baobab_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_WOOD));
+            register("baobab_wood", p -> new StrippableLog(p, ModBlocks.STRIPPED_BAOBAB_WOOD), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_WOOD));
     @I18n(en_us = "Stripped Baobab Wood", zh_cn = "去皮猴面包木", zh_tw = "剝皮猴麵包木塊")
     public static final DeferredBlock<RotatedPillarBlock> STRIPPED_BAOBAB_WOOD =
             register("stripped_baobab_wood", RotatedPillarBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_ACACIA_WOOD));
@@ -523,13 +522,13 @@ public class ModBlocks {
             registerHangingSign("baobab_hanging_sign", BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN);
 
     @I18n(en_us = "Palm Leaves", zh_cn = "棕榈树叶", zh_tw = "棕櫚樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES =
             register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM =
             register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES =
             register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
     public static final DeferredItem<BlockItem> BAOBAB_LEAVES_ITEM =

@@ -1,5 +1,6 @@
 {
 	"parent": "block/block",
+	"render_type": "cutout_mipped",
 	"textures": {
 		"particle": "wild_wind:block/sculk_catalyst_side",
 		"tendril": "wild_wind:block/sculk_jaw_tendril_inactive",
