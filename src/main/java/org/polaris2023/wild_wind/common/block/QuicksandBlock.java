@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.common.block;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -23,19 +25,22 @@ import org.polaris2023.wild_wind.common.init.ModDamageType;
 import javax.annotation.Nullable;
 
 public class QuicksandBlock extends PowderSnowBlock {
-    public QuicksandBlock(Properties properties) {
+    private final BlockState blockState;
+
+    public QuicksandBlock(Properties properties, BlockState blockState) {
         super(properties);
+        this.blockState = blockState;
     }
 
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!(entity instanceof LivingEntity) || entity.getInBlockState().is(this)) {
-            entity.makeStuckInBlock(state, new Vec3((double)0.9F, (double)1.5F, (double)0.9F));
+            entity.makeStuckInBlock(state, new Vec3((double)0.9F, (double)0.75F, (double)0.9F));
             if (level.isClientSide) {
                 RandomSource randomsource = level.getRandom();
                 boolean flag = entity.xOld != entity.getX() || entity.zOld != entity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, state), entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState), entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
                 }
             } else {
                 if (!entity.isSpectator()) {
@@ -48,7 +53,7 @@ public class QuicksandBlock extends PowderSnowBlock {
         }
         if (!level.isClientSide) {
             if (entity.isOnFire() && (level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || entity instanceof Player) && entity.mayInteract(level, pos)) {
-                level.destroyBlock(pos, false);
+                entity.clearFire();
             }
 
             entity.setSharedFlagOnFire(false);
