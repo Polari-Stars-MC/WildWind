@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.datagen;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -19,7 +20,7 @@ public class ModCompostMapProvider extends DataMapProvider {
     }
 
     @Override
-    protected void gather() {
+    protected void gather(HolderLookup.Provider provider) {
         ModVanillaCompat.compostables.forEach(this::addCompostable);
     }
 
