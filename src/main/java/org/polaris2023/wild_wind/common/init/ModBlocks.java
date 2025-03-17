@@ -24,6 +24,7 @@ import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
+import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
@@ -153,6 +154,7 @@ public class ModBlocks {
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
     public static final DeferredBlock<AshLayerBlock> ASH =
             register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
+    @ParentItem(parent = "wild_wind:block/ash_1")
     public static final DeferredItem<BlockItem> ASH_ITEM =
             register("ash", ASH);
   
