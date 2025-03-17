@@ -25,3 +25,4 @@
     Update Neoforge version to 21.1.133
     Fix some problems with invisible item frames, add wool washing in cauldron
     Change ash loottable
+    Addition of silt and quicksand partial properties

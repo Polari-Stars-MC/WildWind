@@ -95,7 +95,10 @@ public class ModBlocks {
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll
-    public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
@@ -105,12 +108,19 @@ public class ModBlocks {
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
     @CubeAll
-    public static final DeferredBlock<Block> QUICKSAND = register("quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", QuicksandBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> QUICKSAND_ITEM = register("quicksand", QUICKSAND);
 
     @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
     @CubeAll
-    public static final DeferredBlock<Block> RED_QUICKSAND = register("red_quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<QuicksandBlock> RED_QUICKSAND = register("red_quicksand", QuicksandBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .sound(SoundType.SAND)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> RED_QUICKSAND_ITEM = register("red_quicksand", RED_QUICKSAND);
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
