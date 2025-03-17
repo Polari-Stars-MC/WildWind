@@ -1,10 +1,12 @@
 package org.polaris2023.wild_wind.datagen.loot;
 
 import com.google.common.collect.ImmutableSet;
+import com.mojang.blaze3d.shaders.Uniform;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -57,7 +59,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
         this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.add(ModBlocks.ASH.get(), this.createFortunateLayerDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get()));
+        this.add(ModBlocks.ASH.get(), this.createLayerDrops(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
@@ -112,7 +114,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         );
     }
 
-    protected LootTable.Builder createFortunateLayerDrops(Block block, Item item) {
+    protected LootTable.Builder createLayerDrops(Block block, Item itemWithSilkTouch, Item item) {
         return LootTable.lootTable()
                 .withPool(
                         LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
@@ -120,40 +122,39 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                                 .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
                                 .when(hasSilkTouch())
                 )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 1, 1.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 2, 2.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 3, 3.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 4, 4.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 5, 5.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 6, 6.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 7, 7.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 8, 8.0F)
-                );
+                .withPool(layerPoolWithoutSilkTouch(item, 1, 1.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 2, 2.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 3, 3.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 4, 4.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 5, 5.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 6, 6.0F))
+                .withPool(layerPoolWithoutSilkTouch(item, 7, 7.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 1, 1.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 2, 2.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 3, 3.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 4, 4.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 5, 5.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 6, 6.0F))
+                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 7, 7.0F));
     }
 
-    protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float maxDrops) {
+    protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float drops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(item)
                         .when(this.doesNotHaveSilkTouch())
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, maxDrops)))
-                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(drops)))
+                );
+    }
+
+    protected final LootPool.Builder layerPoolWithSilkTouch(Item item, int layer, float drops) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(item)
+                        .when(this.hasSilkTouch())
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(drops)))
                 );
     }
 }
