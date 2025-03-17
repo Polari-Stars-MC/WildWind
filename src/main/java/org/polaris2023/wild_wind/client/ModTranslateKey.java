@@ -75,6 +75,10 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     COMPOSTING_CHANCE("composting", "chance"),
     @I18n(en_us = "Burn Time: ", zh_tw = "燃烧时间：", zh_cn = "燃烧时间：")
     BURN_TIME("burn", "time"),
+    @I18n(en_us = "%s suffocated in quicksand", zh_tw = "%s在流沙里窒息而亡", zh_cn = "%s在流沙里窒息而亡")
+    QUICKSAND_DEATH("death", "attack", "wild_wind", "quicksand_damage"),
+    @I18n(en_us = "%s suffocated in silt", zh_tw = "%s在淤泥里窒息而亡", zh_cn = "%s在淤泥里窒息而亡")
+    SILT_DEATH("death", "attack", "wild_wind", "silt_damage"),
 
     ;
 

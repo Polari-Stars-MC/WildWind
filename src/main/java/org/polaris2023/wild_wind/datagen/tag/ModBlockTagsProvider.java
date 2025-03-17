@@ -59,6 +59,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
         tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
 
+        tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
+        tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
+
         tag(BlockTags.create(ResourceLocation.parse("c:glazed_terracottas"))).add(ModBlocks.GLAZED_TERRACOTTA.get());
         tag(BlockTags.create(ResourceLocation.parse("c:concretes"))).add(ModBlocks.CONCRETE.get());
         tag(BlockTags.create(ResourceLocation.parse("c:concrete_powders"))).add(ModBlocks.CONCRETE_POWDER.get());
