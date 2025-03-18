@@ -29,3 +29,4 @@
 2025/3/18
     Repair some properties of quicksand and silt
     Add glistering melon properties
+    Add glow squid conversion function

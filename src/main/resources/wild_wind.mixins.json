@@ -13,9 +13,11 @@
     "IceBlockMixin",
     "InvisibleItemFrame",
     "MelonMixin",
+    "SquidMixin",
     "accessor.BlockEntityTypeAccess"
   ],
   "minVersion": "0.8",
   "client": [
+    "SquidRendererMixin"
   ]
 }
