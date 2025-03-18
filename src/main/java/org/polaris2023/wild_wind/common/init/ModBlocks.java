@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
-import net.minecraft.client.particle.BreakingItemParticle;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
@@ -21,7 +20,6 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
-import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
@@ -145,7 +143,7 @@ public class ModBlocks {
             register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
             register("duckweed", DUCKWEED);
 
@@ -198,7 +196,7 @@ public class ModBlocks {
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
             register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
@@ -238,8 +236,9 @@ public class ModBlocks {
 
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON =
-            register("glistering_melon", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MELON).mapColor(MapColor.GOLD));
-    @BasicBlockItem
+            register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
+
+
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
             register("glistering_melon", GLISTERING_MELON);
 
@@ -247,7 +246,7 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> STONE_WALL =
             register("stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> STONE_WALL_ITEM =
             register("stone_wall", STONE_WALL);
 
@@ -262,21 +261,21 @@ public class ModBlocks {
 
             register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
 
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
             register("polished_stone_wall", POLISHED_STONE_WALL);
 
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS =
             register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM =
             register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
     @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB =
             register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM =
             register("polished_stone_slab", POLISHED_STONE_SLAB);
 
