@@ -42,21 +42,21 @@ public class SiltBlock extends PowderSnowBlock  {
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (!(entity instanceof LivingEntity) || entity.getInBlockState().is(this)) {
-            entity.makeStuckInBlock(state, new Vec3((double)0.9F, (double)0.75F, (double)0.9F));
+            entity.makeStuckInBlock(state, new Vec3((double)0.9F, (double)0.38F, (double)0.9F));
             if (level.isClientSide) {
                 RandomSource randomsource = level.getRandom();
                 boolean flag = entity.xOld != entity.getX() || entity.zOld != entity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, ModBlocks.SILT.get().defaultBlockState()), entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    level.addParticle(ParticleTypes.SMOKE, entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
                 }
-            } else {
+            } /* else {
                 if (!entity.isSpectator()) {
                     BlockState blockState = level.getBlockState(new BlockPos(entity.getBlockX(), (int) (entity.getEyeY() - 0.11111111F), entity.getBlockZ()));
                     if (entity instanceof LivingEntity && (blockState.is(ModBlocks.QUICKSAND) || blockState.is(ModBlocks.RED_QUICKSAND))) {
                         entity.hurt(ModDamageType.causeQuicksandDamage((LivingEntity) entity), 1.0F);
                     }
                 }
-            }
+            } */
         }
         if (!level.isClientSide) {
             if (entity.isOnFire() && (level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || entity instanceof Player) && entity.mayInteract(level, pos)) {

@@ -11,10 +11,12 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -77,7 +79,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
         this.dropWhenSilkTouch(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
-        this.dropSelf(ModBlocks.GLISTERING_MELON.get());
+        this.dropWhenSilkTouch(ModBlocks.GLISTERING_MELON.get());
+        this.add(ModBlocks.GLISTERING_MELON.get(), this.createFortunateDrops(ModBlocks.GLISTERING_MELON.get(), Items.GLISTERING_MELON_SLICE, 3.0F, 7.0F, 9));
         this.dropSelf(ModBlocks.STONE_WALL.get());
         this.dropSelf(ModBlocks.POLISHED_STONE.get());
         this.dropSelf(ModBlocks.POLISHED_STONE_WALL.get());
@@ -105,6 +108,20 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                         LootItem.lootTableItem(item)
                                 .apply(SetItemCountFunction.setCount(UniformGenerator.between(miniDrops, maxDrops)))
                                 .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                )
+        );
+    }
+
+    protected LootTable.Builder createFortunateDrops(Block block, Item item, float miniDrops, float maxDrops, int limitCount) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(
+                block,
+                this.applyExplosionDecay(
+                        block,
+                        LootItem.lootTableItem(item)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(miniDrops, maxDrops)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE), 1))
+                                .apply(LimitCount.limitCount(IntRange.upperBound(limitCount)))
                 )
         );
     }
