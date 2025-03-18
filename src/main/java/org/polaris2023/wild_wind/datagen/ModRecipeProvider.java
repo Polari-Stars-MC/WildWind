@@ -859,6 +859,11 @@ public class ModRecipeProvider extends RecipeProvider {
             unlockedBy(pumpkin, ModBaseFoods.PUMPKIN_SLICE);
             pumpkin.requires(ModBaseFoods.PUMPKIN_SLICE, 9);
         }));
+        add(shapeless(RecipeCategory.MISC, ModBlocks.GLISTERING_MELON, 1, glistering_melon -> {
+            unlockedBy(glistering_melon, Items.GLISTERING_MELON_SLICE);
+            glistering_melon
+                    .requires(Items.GLISTERING_MELON_SLICE, 9);
+        }));
         add(shapeless(RecipeCategory.MISC, Items.PUMPKIN_SEEDS, 1, pumpkin_seeds -> {
             unlockedBy(pumpkin_seeds, ModBaseFoods.PUMPKIN_SLICE);
             pumpkin_seeds.requires(ModBaseFoods.PUMPKIN_SLICE);

@@ -12,6 +12,7 @@
     "HalfTransparentBlockMixin",
     "IceBlockMixin",
     "InvisibleItemFrame",
+    "MelonMixin",
     "accessor.BlockEntityTypeAccess"
   ],
   "minVersion": "0.8",

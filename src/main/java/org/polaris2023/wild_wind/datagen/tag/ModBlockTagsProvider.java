@@ -42,8 +42,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(ModBlocks.BRITTLE_ICE.get());
 
         //Mineable
+        tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get());
-        tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get());
+        tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get(), ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get(),
                 ModBlocks.SILT.get(), ModBlocks.QUICKSAND.get(), ModBlocks.RED_QUICKSAND.get());
 
@@ -62,6 +63,12 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
         tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
+
+        tag(BlockTags.ENDERMAN_HOLDABLE).add(ModBlocks.GLISTERING_MELON.get());
+        tag(BlockTags.AZALEA_GROWS_ON).add(ModBlocks.SILT.get());
+        tag(BlockTags.AZALEA_ROOT_REPLACEABLE).add(ModBlocks.SILT.get());
+
+        tag(BlockTags.REPLACEABLE).add(ModBlocks.ASH.get());
 
         tag(BlockTags.create(ResourceLocation.parse("c:glazed_terracottas"))).add(ModBlocks.GLAZED_TERRACOTTA.get());
         tag(BlockTags.create(ResourceLocation.parse("c:concretes"))).add(ModBlocks.CONCRETE.get());
