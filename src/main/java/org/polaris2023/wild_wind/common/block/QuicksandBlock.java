@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 public class QuicksandBlock extends PowderSnowBlock implements Fallable {
     private final BlockState blockState;
     private final SoundEvent brushSound = SoundEvents.BRUSH_SAND;
-    private final SoundEvent brushCompletedSound = SoundEvents.BRUSH_SAND_COMPLETED;
+    private final SoundEvent brushCompletedSound = SoundEvents.SAND_BREAK;
 
     public QuicksandBlock(Properties properties, BlockState blockState) {
         super(properties);

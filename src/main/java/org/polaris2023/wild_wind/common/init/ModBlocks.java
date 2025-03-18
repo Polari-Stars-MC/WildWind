@@ -236,9 +236,9 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
-    @I18n(en_us = "Glistering Melon", zh_cn = "金西瓜", zh_tw = "金西瓜")
+    @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON =
-            register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
+            register("glistering_melon", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.MELON).mapColor(MapColor.GOLD));
     @BasicBlockItem
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
             register("glistering_melon", GLISTERING_MELON);
