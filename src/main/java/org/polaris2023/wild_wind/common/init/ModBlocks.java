@@ -97,7 +97,7 @@ public class ModBlocks {
     @CubeAll
     public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
-                    .sound(SoundType.SAND)
+                    .sound(SoundType.MUD)
                     .isSuffocating((state, level, pos) -> true)
                     .pushReaction(PushReaction.DESTROY)
                     .randomTicks());
