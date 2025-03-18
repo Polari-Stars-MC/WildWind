@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.datagen.worldgen;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -53,14 +52,14 @@ public class ModPlacedFeatureRegistry {
 		);
 		PlacementUtils.register(
 				context, QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.QUICKSAND),
-				RarityFilter.onAverageOnceEvery(24),
+				RarityFilter.onAverageOnceEvery(16),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, RED_QUICKSAND, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.RED_QUICKSAND),
-				RarityFilter.onAverageOnceEvery(24),
+				RarityFilter.onAverageOnceEvery(16),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_WORLD_SURFACE,
 				BiomeFilter.biome()
@@ -74,7 +73,7 @@ public class ModPlacedFeatureRegistry {
 		);
 		PlacementUtils.register(
 				context, SILT_DISK, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.SILT_DISK),
-				RarityFilter.onAverageOnceEvery(16),
+				RarityFilter.onAverageOnceEvery(10),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				BiomeFilter.biome()
