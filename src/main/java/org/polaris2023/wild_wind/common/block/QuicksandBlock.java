@@ -1,10 +1,8 @@
 package org.polaris2023.wild_wind.common.block;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
@@ -15,28 +13,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
-import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.PowderSnowBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.fml.common.Mod;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModDamageType;
 
 import javax.annotation.Nullable;
 
-public class SiltBlock extends PowderSnowBlock  {
-    public SiltBlock(BlockBehaviour.Properties properties) {
-        super(properties);
-    }
+public class QuicksandBlock extends PowderSnowBlock {
+    private final BlockState blockState;
 
-    @Override
-    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP)
-        && level.getBlockState(pos.below(2)).is(Blocks.POINTED_DRIPSTONE)
-        && random.nextFloat() < 0.17578125F) {
-            level.setBlockAndUpdate(pos, Blocks.MUD.defaultBlockState());
-        }
+    public QuicksandBlock(Properties properties, BlockState blockState) {
+        super(properties);
+        this.blockState = blockState;
     }
 
     @Override
@@ -47,7 +40,7 @@ public class SiltBlock extends PowderSnowBlock  {
                 RandomSource randomsource = level.getRandom();
                 boolean flag = entity.xOld != entity.getX() || entity.zOld != entity.getZ();
                 if (flag && randomsource.nextBoolean()) {
-                    level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, ModBlocks.SILT.get().defaultBlockState()), entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                    level.addParticle(new BlockParticleOption(ParticleTypes.FALLING_DUST, blockState), entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
                 }
             } else {
                 if (!entity.isSpectator()) {

@@ -44,7 +44,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         //Mineable
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get());
-        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get());
+        tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get(),
+                ModBlocks.SILT.get(), ModBlocks.QUICKSAND.get(), ModBlocks.RED_QUICKSAND.get());
 
         tag(ModBlockTags.AZALEA_LOGS).add(ModBlocks.AZALEA_LOG.get(), ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get());
         tag(ModBlockTags.PALM_LOGS).add(ModBlocks.PALM_LOG.get(), ModBlocks.PALM_WOOD.get(), ModBlocks.STRIPPED_PALM_LOG.get(), ModBlocks.STRIPPED_PALM_WOOD.get());
@@ -58,6 +59,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
         tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
+
+        tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
+        tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
 
         tag(BlockTags.create(ResourceLocation.parse("c:glazed_terracottas"))).add(ModBlocks.GLAZED_TERRACOTTA.get());
         tag(BlockTags.create(ResourceLocation.parse("c:concretes"))).add(ModBlocks.CONCRETE.get());
