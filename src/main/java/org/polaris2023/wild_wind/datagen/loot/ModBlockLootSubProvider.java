@@ -12,13 +12,17 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.IntRange;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
@@ -56,7 +60,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(ModBlocks.RED_QUICKSAND.get());
         this.dropWhenSilkTouch(ModBlocks.SILT.get());
         this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.add(ModBlocks.ASH.get(), this.createLayerDrops(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
+        this.add(ModBlocks.ASH.get(), (block) -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.asItem(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
@@ -126,28 +130,31 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         );
     }
 
-    protected LootTable.Builder createLayerDrops(Block block, Item itemWithSilkTouch, Item item) {
+    protected LootTable.Builder createLayerDrops(Block block, Item blockItem, Item itemWithSilkTouch, Item item) {
         return LootTable.lootTable()
-                .withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                                .add(LootItem.lootTableItem(block))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
-                                .when(hasSilkTouch())
-                )
-                .withPool(layerPoolWithoutSilkTouch(item, 1, 1.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 2, 2.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 3, 3.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 4, 4.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 5, 5.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 6, 6.0F))
-                .withPool(layerPoolWithoutSilkTouch(item, 7, 7.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 1, 1.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 2, 2.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 3, 3.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 4, 4.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 5, 5.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 6, 6.0F))
-                .withPool(layerPoolWithSilkTouch(itemWithSilkTouch, 7, 7.0F));
+                .withPool(LootPool.lootPool()
+                        .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(
+                                        AshLayerBlock.LAYERS.getPossibleValues(), (i) ->
+                                                i != 8 ? LootItem.lootTableItem(item)
+                                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, i)))
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i))) :
+                                                        LootItem.lootTableItem(item)
+                                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
+                                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0)))
+                                ).when(this.doesNotHaveSilkTouch()),
+                                AlternativesEntry.alternatives(
+                                        AshLayerBlock.LAYERS.getPossibleValues(), (i) ->
+                                                i != 8 ? LootItem.lootTableItem(itemWithSilkTouch)
+                                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, i)))
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i))) :
+                                                        LootItem.lootTableItem(blockItem)
+                                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
+                                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                )
+                        ))
+                );
     }
 
     protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float drops) {
