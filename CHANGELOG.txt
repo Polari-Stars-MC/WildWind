@@ -32,3 +32,6 @@
     Add glow squid conversion function
     Fix Auto smelting bug
     Fix Ash loot table
+2025/3/19
+    Fixed models and bugs, added glazed terracotta washing
+    Refinement of Codes.java
