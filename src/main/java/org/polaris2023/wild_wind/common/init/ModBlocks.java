@@ -563,6 +563,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BAOBAB_SAPLING_ITEM =
             register("baobab_sapling", BAOBAB_SAPLING);
 
+    /*
     @I18n(en_us = "Andesite Bricks", zh_cn = "安山岩砖", zh_tw = "安山岩磚")
     @CubeAll
     public static final DeferredBlock<Block> ANDESITE_BRICKS =
@@ -641,6 +642,8 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> GRANITE_BRICK_WALL =
             register("granite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DIRT));
 
+
+     */
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
              Type<?> type,
