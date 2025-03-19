@@ -17,7 +17,6 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -88,11 +87,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STONE_WALL.get());
         this.dropSelf(ModBlocks.POLISHED_STONE.get());
         this.dropSelf(ModBlocks.POLISHED_STONE_WALL.get());
-        this.dropSelf(ModBlocks.POLISHED_STONE_SLAB.get());
+        this.add(ModBlocks.POLISHED_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_STONE_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
-        ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf);
-        ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf);
-        ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf);
+        ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
+        ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
+        ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
         this.add(ModBlocks.AZALEA_DOOR.get(), this.createDoorTable(ModBlocks.AZALEA_DOOR.get()));
         this.add(ModBlocks.PALM_DOOR.get(), this.createDoorTable(ModBlocks.PALM_DOOR.get()));
         this.add(ModBlocks.BAOBAB_DOOR.get(), this.createDoorTable(ModBlocks.BAOBAB_DOOR.get()));
@@ -101,6 +100,21 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.BAOBAB_LEAVES.get(), this.createLeavesDrops(ModBlocks.BAOBAB_LEAVES.get(), ModBlocks.BAOBAB_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
         this.dropSelf(ModBlocks.PALM_SAPLING.get());
         this.dropSelf(ModBlocks.BAOBAB_SAPLING.get());
+        this.dropSelf(ModBlocks.ANDESITE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_ANDESITE_BRICKS.get());
+        this.dropSelf(ModBlocks.ANDESITE_BRICK_STAIRS.get());
+        this.add(ModBlocks.ANDESITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.ANDESITE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.ANDESITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.DIORITE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_DIORITE_BRICKS.get());
+        this.dropSelf(ModBlocks.DIORITE_BRICK_STAIRS.get());
+        this.add(ModBlocks.DIORITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.DIORITE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.DIORITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.GRANITE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_GRANITE_BRICKS.get());
+        this.dropSelf(ModBlocks.GRANITE_BRICK_STAIRS.get());
+        this.add(ModBlocks.GRANITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.GRANITE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.GRANITE_BRICK_WALL.get());
     }
 
     protected LootTable.Builder createFortunateDrops(Block block, Item item, float miniDrops, float maxDrops) {

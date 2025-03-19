@@ -4,7 +4,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
-public @interface Wall{
+public @interface Wall {
     boolean item() default true;
     String wall() default  "";
 }

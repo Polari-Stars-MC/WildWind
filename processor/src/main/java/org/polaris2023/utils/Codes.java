@@ -575,6 +575,83 @@ public enum Codes {
                     return this;
                 }
             
+                private <T extends Block> %%classname%% wallBlock(Supplier<T> block, String wall, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation inventoryRl = blockKey.withSuffix("_inventory");
+                    ResourceLocation postRl = blockKey.withSuffix("_post");
+                    ResourceLocation sideRl = blockKey.withSuffix("_side");
+                    ResourceLocation sideTallRl = blockKey.withSuffix("_side_tall");
+                    MODELS.put(postRl, Map.of(
+                        "parent", "minecraft:block/template_wall_post",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? planks.toString() : wall
+                        )
+                    ));
+                    MODELS.put(sideRl, Map.of(
+                        "parent", "minecraft:block/template_wall_side",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? planks.toString() : wall
+                        )
+                    ));
+                    MODELS.put(sideTallRl, Map.of(
+                        "parent", "minecraft:block/template_wall_side_tall",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? planks.toString() : wall
+                        )
+                    ));
+                    MODELS.put(inventoryRl, Map.of(
+                        "parent", "minecraft:block/wall_inventory",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? planks.toString() : wall
+                        )
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                            "multipart", List.of(
+                                Map.of(
+                                    "apply", model(postRl, null, null, null, false),
+                                    "when", Map.of("up", "true")
+                                ),
+                                Map.of(
+                                    "apply", model(sideRl, null, null, null, true),
+                                    "when", Map.of("north", "low")
+                                ),
+                                Map.of(
+                                    "apply", model(sideRl, null, 90, null, true),
+                                    "when", Map.of("east", "low")
+                                ),
+                                Map.of(
+                                    "apply", model(sideRl, null, 180, null, true),
+                                    "when", Map.of("south", "low")
+                                ),
+                                Map.of(
+                                    "apply", model(sideRl, null, 270, null, true),
+                                    "when", Map.of("west", "low")
+                                ),
+                                Map.of(
+                                    "apply", model(sideTallRl, null, null, null, true),
+                                    "when", Map.of("north", "tall")
+                                ),
+                                Map.of(
+                                    "apply", model(sideTallRl, null, 90, null, true),
+                                    "when", Map.of("east", "tall")
+                                ),
+                                Map.of(
+                                    "apply", model(sideTallRl, null, 180, null, true),
+                                    "when", Map.of("south", "tall")
+                                ),
+                                Map.of(
+                                    "apply", model(sideTallRl, null, 270, null, true),
+                                    "when", Map.of("west", "tall")
+                                )
+                            )
+                    ));
+                    if(isItem)
+                        basicBlockItemWithSuffix((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem(), "_inventory");
+                    return this;
+                }
+            
                 private <T extends Block> %%classname%% logBlock(Supplier<T> block, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
