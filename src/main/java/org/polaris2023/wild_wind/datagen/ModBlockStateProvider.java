@@ -128,7 +128,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 Helpers.location("block/glistering_melon_top")
         );
         simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
-
     }
 
     private void glowMucusModel(VariantBlockStateBuilder glowMucusStates, Direction facing, int layers, Function<Integer, ConfiguredModel> function) {
