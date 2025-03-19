@@ -44,7 +44,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         //Mineable
         tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get(),
-                ModBlocks.CONCRETE.get());
+                ModBlocks.CONCRETE.get(), ModBlocks.GLAZED_TERRACOTTA.get());
         tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get(), ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get(),
                 ModBlocks.SILT.get(), ModBlocks.QUICKSAND.get(), ModBlocks.RED_QUICKSAND.get(),

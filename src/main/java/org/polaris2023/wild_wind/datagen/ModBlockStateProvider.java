@@ -100,13 +100,6 @@ public class ModBlockStateProvider extends BlockStateProvider {
         // Carpet
         simpleBlockWithItem(ModBlocks.CARPET.get(), models().carpet("carpet", Helpers.location("block/wool")));
 
-        // Stone & Polished Stone
-        wallBlock(ModBlocks.STONE_WALL.get(), blockTexture(Blocks.STONE));
-        simpleBlockWithItem(ModBlocks.POLISHED_STONE.get(), models().cubeAll("polished_stone", Helpers.location("block/polished_stone")));
-        wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
-        stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
-        slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), blockTexture(ModBlocks.POLISHED_STONE.get()), blockTexture(ModBlocks.POLISHED_STONE.get()));
-
         // Glazed Terracotta
         VariantBlockStateBuilder glazedTerracottaStates = getVariantBuilder(ModBlocks.GLAZED_TERRACOTTA.get());
         for (Direction facing : Direction.Plane.HORIZONTAL) {
@@ -117,7 +110,8 @@ public class ModBlockStateProvider extends BlockStateProvider {
                 default -> 0;
             };
             glazedTerracottaStates.partialState().with(BlockStateProperties.HORIZONTAL_FACING, facing)
-                    .addModels(new ConfiguredModel(models().cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
+                    .addModels(new ConfiguredModel(models().singleTexture("glazed_terracotta", ResourceLocation.withDefaultNamespace("block/template_glazed_terracotta"),
+                            "pattern", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
         }
 
         //glistering_melon
