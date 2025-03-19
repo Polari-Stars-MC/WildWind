@@ -47,6 +47,38 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     PRESENT_COLOR_TOOLTIP_RIBBON("present", "color", "tooltip", "ribbon"),
     @I18n(en_us = "Color: ", zh_tw = "本色：", zh_cn = "本色：")
     PRESENT_COLOR_TOOLTIP_BOX("present", "color", "tooltip", "box"),
+    @I18n(en_us = "Max Stack Size: ", zh_tw = "最大堆叠：", zh_cn = "最大堆叠：")
+    MAX_STACK_SIZE("max", "stack", "size"),
+    @I18n(en_us = "ID: ", zh_tw = "ID：", zh_cn = "ID：")
+    BLOCK_ID("block", "id"),
+    @I18n(en_us = "Hardness: ", zh_tw = "硬度：", zh_cn = "硬度：")
+    HARDNESS("hardness"),
+    @I18n(en_us = "Blast Resistance: ", zh_tw = "爆炸抗性：", zh_cn = "爆炸抗性：")
+    BLAST_RESISTANCE("blast", "resistance"),
+    @I18n(en_us = "Flame Odds: ", zh_tw = "引燃几率：", zh_cn = "引燃几率：")
+    FLAME_ODDS("flame", "odds"),
+    @I18n(en_us = "Burn Odds: ", zh_tw = "烧毁几率：", zh_cn = "烧毁几率：")
+    BURN_ODDS("burn", "odds"),
+    @I18n(en_us = "Lava Flammable: ", zh_tw = "熔巖可燃性：", zh_cn = "熔岩可燃性：")
+    LAVA_FLAMMABLE("lava", "flammable"),
+    @I18n(en_us = "Suffocating Block: ", zh_tw = "窒息生物：", zh_cn = "窒息生物：")
+    SUFFOCATING_BLOCK("suffocating", "block"),
+    @I18n(en_us = "Redstone Conducting: ", zh_tw = "红石导体：", zh_cn = "红石导体：")
+    REDSTONE_CONDUCTING("redstone", "conducting"),
+    @I18n(en_us = "Solid: ", zh_tw = "固体方块：", zh_cn = "固体方块：")
+    SOLID("solid"),
+    @I18n(en_us = "Push Reaction: ", zh_tw = "活塞推動行為：", zh_cn = "活塞推动行为：")
+    PUSH_REACTION("push", "reaction"),
+    @I18n(en_us = "Block Light:  ", zh_tw = "方块光照：", zh_cn = "方块光照：")
+    BLOCK_LIGHT("block", "light"),
+    @I18n(en_us = "Composting Chance: ", zh_tw = "堆肥几率：", zh_cn = "堆肥几率：")
+    COMPOSTING_CHANCE("composting", "chance"),
+    @I18n(en_us = "Burn Time: ", zh_tw = "燃烧时间：", zh_cn = "燃烧时间：")
+    BURN_TIME("burn", "time"),
+    @I18n(en_us = "%s suffocated in quicksand", zh_tw = "%s在流沙里窒息而亡", zh_cn = "%s在流沙里窒息而亡")
+    QUICKSAND_DEATH("death", "attack", "wild_wind", "quicksand_damage"),
+    @I18n(en_us = "%s suffocated in silt", zh_tw = "%s在淤泥里窒息而亡", zh_cn = "%s在淤泥里窒息而亡")
+    SILT_DEATH("death", "attack", "wild_wind", "silt_damage"),
 
     ;
 

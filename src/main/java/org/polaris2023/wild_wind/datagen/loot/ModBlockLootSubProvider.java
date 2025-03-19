@@ -11,19 +11,19 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.AlternativesEntry;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
+import net.minecraft.world.level.storage.loot.entries.LootPoolEntries;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProvider;
-import net.minecraft.world.level.storage.loot.providers.number.NumberProviders;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
@@ -56,8 +56,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
+        this.dropWhenSilkTouch(ModBlocks.QUICKSAND.get());
+        this.dropWhenSilkTouch(ModBlocks.RED_QUICKSAND.get());
+        this.dropWhenSilkTouch(ModBlocks.SILT.get());
         this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.add(ModBlocks.ASH.get(), this.createFortunateLayerDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get()));
+        this.add(ModBlocks.ASH.get(), (block) -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.asItem(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
         this.dropSelf(ModBlocks.CONCRETE.get());
@@ -80,7 +83,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
         this.dropWhenSilkTouch(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
-        this.dropSelf(ModBlocks.GLISTERING_MELON.get());
+        this.dropWhenSilkTouch(ModBlocks.GLISTERING_MELON.get());
+        this.add(ModBlocks.GLISTERING_MELON.get(), this.createFortunateDrops(ModBlocks.GLISTERING_MELON.get(), Items.GLISTERING_MELON_SLICE, 3.0F, 7.0F, 9));
         this.dropSelf(ModBlocks.STONE_WALL.get());
         this.dropSelf(ModBlocks.POLISHED_STONE.get());
         this.dropSelf(ModBlocks.POLISHED_STONE_WALL.get());
@@ -112,48 +116,64 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         );
     }
 
-    protected LootTable.Builder createFortunateLayerDrops(Block block, Item item) {
+    protected LootTable.Builder createFortunateDrops(Block block, Item item, float miniDrops, float maxDrops, int limitCount) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(
+                block,
+                this.applyExplosionDecay(
+                        block,
+                        LootItem.lootTableItem(item)
+                                .apply(SetItemCountFunction.setCount(UniformGenerator.between(miniDrops, maxDrops)))
+                                .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE), 1))
+                                .apply(LimitCount.limitCount(IntRange.upperBound(limitCount)))
+                )
+        );
+    }
+
+    protected LootTable.Builder createLayerDrops(Block block, Item blockItem, Item itemWithSilkTouch, Item item) {
         return LootTable.lootTable()
-                .withPool(
-                        LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-                                .add(LootItem.lootTableItem(block))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
-                                .when(hasSilkTouch())
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 1, 1.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 2, 2.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 3, 3.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 4, 4.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 5, 5.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 6, 6.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 7, 7.0F)
-                )
-                .withPool(
-                        layerPoolWithoutSilkTouch(item, 8, 8.0F)
+                .withPool(LootPool.lootPool()
+                        .when(LootItemEntityPropertyCondition.entityPresent(LootContext.EntityTarget.THIS))
+                        .add(AlternativesEntry.alternatives(
+                                AlternativesEntry.alternatives(
+                                        AshLayerBlock.LAYERS.getPossibleValues(), (i) ->
+                                                i != 8 ? LootItem.lootTableItem(item)
+                                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, i)))
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i))) :
+                                                        LootItem.lootTableItem(item)
+                                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
+                                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0)))
+                                ).when(this.doesNotHaveSilkTouch()),
+                                AlternativesEntry.alternatives(
+                                        AshLayerBlock.LAYERS.getPossibleValues(), (i) ->
+                                                i != 8 ? LootItem.lootTableItem(itemWithSilkTouch)
+                                                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, i)))
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i))) :
+                                                        LootItem.lootTableItem(blockItem)
+                                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
+                                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                                )
+                        ))
                 );
     }
 
-    protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float maxDrops) {
+    protected final LootPool.Builder layerPoolWithoutSilkTouch(Item item, int layer, float drops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
                 .add(LootItem.lootTableItem(item)
                         .when(this.doesNotHaveSilkTouch())
                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
-                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, maxDrops)))
-                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(drops)))
+                );
+    }
+
+    protected final LootPool.Builder layerPoolWithSilkTouch(Item item, int layer, float drops) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(item)
+                        .when(this.hasSilkTouch())
+                        .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(ModBlocks.ASH.get()).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, layer)))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(drops)))
                 );
     }
 }

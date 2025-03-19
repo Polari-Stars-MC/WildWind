@@ -84,6 +84,7 @@ public class ModBlockStateProvider extends BlockStateProvider {
             }
         }
 
+        // Ash
         VariantBlockStateBuilder ashStates = getVariantBuilder(ModBlocks.ASH.get());
         for(int layer : AshLayerBlock.LAYERS.getPossibleValues()) {
             ashModel(ashStates, layer);

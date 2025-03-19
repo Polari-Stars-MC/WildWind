@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -20,9 +21,9 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
-import org.polaris2023.annotation.modelgen.item.BasicBlockItem;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
+import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
@@ -74,7 +75,7 @@ public class ModBlocks {
             register("reeds", REEDS);
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
-    public static final DeferredBlock<Block> CATTAILS = register("cattails");
+    public static final DeferredBlock<Block> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
     @BasicItem
     public static final DeferredItem<BlockItem> CATTAILS_ITEM =
             register("cattails", CATTAILS);
@@ -93,7 +94,12 @@ public class ModBlocks {
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll
-    public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new,
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .sound(SoundType.MUD)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY)
+                    .randomTicks());
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
@@ -103,12 +109,20 @@ public class ModBlocks {
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
     @CubeAll
-    public static final DeferredBlock<Block> QUICKSAND = register("quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .sound(SoundType.SAND)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> QUICKSAND_ITEM = register("quicksand", QUICKSAND);
 
     @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
     @CubeAll
-    public static final DeferredBlock<Block> RED_QUICKSAND = register("red_quicksand", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<QuicksandBlock> RED_QUICKSAND = register("red_quicksand", p -> new QuicksandBlock(p, Blocks.RED_SAND.defaultBlockState()),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
+                    .sound(SoundType.SAND)
+                    .isSuffocating((state, level, pos) -> true)
+                    .pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> RED_QUICKSAND_ITEM = register("red_quicksand", RED_QUICKSAND);
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
@@ -130,7 +144,7 @@ public class ModBlocks {
             register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
             register("duckweed", DUCKWEED);
 
@@ -152,6 +166,7 @@ public class ModBlocks {
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
     public static final DeferredBlock<AshLayerBlock> ASH =
             register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
+    @ParentItem(parent = "wild_wind:block/ash_1")
     public static final DeferredItem<BlockItem> ASH_ITEM =
             register("ash", ASH);
   
@@ -182,7 +197,7 @@ public class ModBlocks {
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
             register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
@@ -220,10 +235,11 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> DEEPSLATE_SALT_ORE_ITEM =
             register("deepslate_salt_ore", DEEPSLATE_SALT_ORE);
 
-    @I18n(en_us = "Glistering Melon", zh_cn = "金西瓜", zh_tw = "金西瓜")
+    @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON =
             register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
-    @BasicBlockItem
+
+
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
             register("glistering_melon", GLISTERING_MELON);
 
@@ -231,7 +247,7 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> STONE_WALL =
             register("stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
 
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> STONE_WALL_ITEM =
             register("stone_wall", STONE_WALL);
 
@@ -246,21 +262,21 @@ public class ModBlocks {
 
             register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
 
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
             register("polished_stone_wall", POLISHED_STONE_WALL);
 
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS =
             register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM =
             register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
     @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB =
             register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM =
             register("polished_stone_slab", POLISHED_STONE_SLAB);
 
@@ -521,13 +537,13 @@ public class ModBlocks {
             registerHangingSign("baobab_hanging_sign", BAOBAB_HANGING_SIGN, BAOBAB_WALL_HANGING_SIGN);
 
     @I18n(en_us = "Palm Leaves", zh_cn = "棕榈树叶", zh_tw = "棕櫚樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES =
             register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM =
             register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
-    @CubeAll(render_type = "cutout_mipped")
+    @CubeAll
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES =
             register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
     public static final DeferredItem<BlockItem> BAOBAB_LEAVES_ITEM =
@@ -547,6 +563,87 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BAOBAB_SAPLING_ITEM =
             register("baobab_sapling", BAOBAB_SAPLING);
 
+    /*
+    @I18n(en_us = "Andesite Bricks", zh_cn = "安山岩砖", zh_tw = "安山岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> ANDESITE_BRICKS =
+            register("andesite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Cracked Andesite Bricks", zh_cn = "裂纹安山岩砖", zh_tw = "裂紋安山岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> CRACKED_ANDESITE_BRICKS =
+            register("cracked_andesite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Stairs", zh_cn = "安山岩砖楼梯", zh_tw = "安山岩磚樓梯")
+    public static final DeferredBlock<StairBlock> ANDESITE_BRICK_STAIRS =
+            register("andesite_brick_stairs", props -> new StairBlock(ANDESITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Slab", zh_cn = "安山岩砖台阶", zh_tw = "安山岩磚臺階")
+    public static final DeferredBlock<SlabBlock> ANDESITE_BRICK_SLAB =
+            register("andesite_brick_slab", props -> new SlabBlock(
+                    props.isSuffocating(
+                            (state, level, pos) -> ANDESITE_BRICKS.get().defaultBlockState().isSuffocating(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    ).isRedstoneConductor(
+                            (state, level, pos) -> ANDESITE_BRICKS.get().defaultBlockState().isRedstoneConductor(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    )
+            ), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Wall", zh_cn = "安山岩砖墙", zh_tw = "安山岩磚墻")
+    public static final DeferredBlock<WallBlock> ANDESITE_BRICK_WALL =
+            register("andesite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.STONE));
+
+    @I18n(en_us = "Diorite Bricks", zh_cn = "闪长岩砖", zh_tw = "閃長岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> DIORITE_BRICKS =
+            register("diorite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Cracked Diorite Bricks", zh_cn = "裂纹闪长岩砖", zh_tw = "裂紋閃長岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> CRACKED_DIORITE_BRICKS =
+            register("cracked_diorite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Stairs", zh_cn = "闪长岩砖楼梯", zh_tw = "閃長岩磚樓梯")
+    public static final DeferredBlock<StairBlock> DIORITE_BRICK_STAIRS =
+            register("diorite_brick_stairs", props -> new StairBlock(DIORITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Slab", zh_cn = "闪长岩砖台阶", zh_tw = "閃長岩磚臺階")
+    public static final DeferredBlock<SlabBlock> DIORITE_BRICK_SLAB =
+            register("diorite_brick_slab", props -> new SlabBlock(
+                    props.isSuffocating(
+                            (state, level, pos) -> DIORITE_BRICKS.get().defaultBlockState().isSuffocating(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    ).isRedstoneConductor(
+                            (state, level, pos) -> DIORITE_BRICKS.get().defaultBlockState().isRedstoneConductor(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    )
+            ), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Wall", zh_cn = "闪长岩砖墙", zh_tw = "閃長岩磚墻")
+    public static final DeferredBlock<WallBlock> DIORITE_BRICK_WALL =
+            register("diorite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.QUARTZ));
+
+    @I18n(en_us = "Granite Bricks", zh_cn = "花岗岩砖", zh_tw = "花崗岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> GRANITE_BRICKS =
+            register("granite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Cracked Granite Bricks", zh_cn = "裂纹花岗岩砖", zh_tw = "裂紋花崗岩磚")
+    @CubeAll
+    public static final DeferredBlock<Block> CRACKED_GRANITE_BRICKS =
+            register("cracked_granite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Stairs", zh_cn = "花岗岩砖楼梯", zh_tw = "花崗岩磚樓梯")
+    public static final DeferredBlock<StairBlock> GRANITE_BRICK_STAIRS =
+            register("granite_brick_stairs", props -> new StairBlock(GRANITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Slab", zh_cn = "花岗岩砖台阶", zh_tw = "花崗岩磚臺階")
+    public static final DeferredBlock<SlabBlock> GRANITE_BRICK_SLAB =
+            register("granite_brick_slab", props -> new SlabBlock(
+                    props.isSuffocating(
+                            (state, level, pos) -> GRANITE_BRICKS.get().defaultBlockState().isSuffocating(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    ).isRedstoneConductor(
+                            (state, level, pos) -> GRANITE_BRICKS.get().defaultBlockState().isRedstoneConductor(level, pos) &&
+                                    state.getValue(SlabBlock.TYPE) == SlabType.DOUBLE
+                    )
+            ), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Wall", zh_cn = "花岗岩砖墙", zh_tw = "花崗岩磚墻")
+    public static final DeferredBlock<WallBlock> GRANITE_BRICK_WALL =
+            register("granite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DIRT));
+
+
+     */
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
              Type<?> type,

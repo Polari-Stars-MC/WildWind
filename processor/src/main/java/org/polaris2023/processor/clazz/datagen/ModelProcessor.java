@@ -1,9 +1,11 @@
 package org.polaris2023.processor.clazz.datagen;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
+import org.polaris2023.annotation.KV;
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.modelgen.other.*;
+import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
 import javax.lang.model.element.Modifier;
@@ -12,9 +14,7 @@ import javax.lang.model.element.VariableElement;
 import java.lang.Override;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ModelProcessor extends ClassProcessor {
 
@@ -70,8 +70,14 @@ public class ModelProcessor extends ClassProcessor {
         MODEL.append(")");
     }
 
+    public static String merge(String code, TypeElement typeElement, VariableElement element) {
+        return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get());";
+    }
+
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
+
+
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
         BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
@@ -93,33 +99,29 @@ public class ModelProcessor extends ClassProcessor {
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
         //item model gen
         if (spawnEggItem != null) {
-            checkAppend(typeElement, variableElement, "spawnEggItem");
+            InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
         }
         else if (parentItem != null) {
-            check();
-            MODEL.append("\n\t\t")
-                    .append(".parentItem(")
+            StringBuilder sb = new StringBuilder();
+            sb
+                    .append("itemModelProvider.withExistingParent(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
                     .append(typeElement.getQualifiedName())
                     .append(".")
                     .append(variableElement.getSimpleName())
+                    .append(".get()).toString()")
                     .append(", \"")
                     .append(parentItem.parent())
-                    .append("\"");
-            if (parentItem.textures().length > 0) {
-                MODEL.append(",")
-                        .append(Arrays
-                                .stream(parentItem.textures())
-                                .map(kv -> "\"" + kv.key() + "\"" + ", \"" + kv.value() + "\"")
-                                .collect(Collectors.joining(",")));
+                    .append("\")");
+            for (KV texture : parentItem.textures()) {
+                sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
             }
-            MODEL.append(")");
+            sb.append(";");
+            System.out.println(sb);
+            InitProcessor.modelGen(context, sb.toString());
+
         }
         else if (basicBlockItem != null) {
-            if (basicBlockItem.suffix().isEmpty()) {
-                checkAppend(typeElement, variableElement,"basicBlockItem");
-            } else {
-                checkAppend(typeElement, variableElement, "basicBlockItemWithSuffix", basicBlockItem.suffix());
-            }
+            blockItem(variableElement, typeElement, basicBlockItem);
         }
         else if (basicBlockLocatedItem != null) {
             checkAppend(typeElement, variableElement,"basicBlockLocatedItem");
@@ -190,6 +192,31 @@ public class ModelProcessor extends ClassProcessor {
 
 
 
+    }
+
+    private void blockItem(VariableElement variableElement, TypeElement typeElement, BasicBlockItem basicBlockItem) {
+        StringBuilder sb = new StringBuilder();
+        sb
+                .append("itemModelProvider.simpleBlockItem(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
+                .append(typeElement.getQualifiedName())
+                .append(".")
+                .append(variableElement.getSimpleName())
+                .append(".get())");
+
+        if (!basicBlockItem.suffix().isEmpty()) {
+            sb
+                    .append(".withSuffix(\"")
+                    .append(basicBlockItem.suffix())
+                    .append("\")");
+        }
+        if (!basicBlockItem.prefix().isEmpty()) {
+            sb
+                    .append(".withPrefix(\"")
+                    .append(basicBlockItem.prefix())
+                    .append("\")");
+        }
+        sb.append(");");
+        InitProcessor.modelGen(context, sb.toString());
     }
 
     private static void basicSet(String name, BasicItem basicItem, Addition addition, boolean first, String prefix) {

@@ -1,32 +1,74 @@
 package org.polaris2023.wild_wind.common.block;
 
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.SoulSandBlock;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.GameRules;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.phys.Vec3;
+import net.neoforged.fml.common.Mod;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModDamageType;
 
-public class SiltBlock extends Block{
-    protected static final VoxelShape SHAPE = Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)14.0F, (double)16.0F);
+import javax.annotation.Nullable;
 
+public class SiltBlock extends PowderSnowBlock  {
     public SiltBlock(BlockBehaviour.Properties properties) {
         super(properties);
     }
 
-    protected VoxelShape getCollisionShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+    @Override
+    public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
+        if (level.getBlockState(pos.below()).isFaceSturdy(level, pos, Direction.UP)
+        && level.getBlockState(pos.below(2)).is(Blocks.POINTED_DRIPSTONE)
+        && random.nextFloat() < 0.17578125F) {
+            level.setBlockAndUpdate(pos, Blocks.MUD.defaultBlockState());
+        }
     }
 
-    protected VoxelShape getBlockSupportShape(BlockState state, BlockGetter reader, BlockPos pos) {
-        return Shapes.block();
+    @Override
+    protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
+        if (!(entity instanceof LivingEntity) || entity.getInBlockState().is(this)) {
+            entity.makeStuckInBlock(state, new Vec3((double)0.9F, (double)0.38F, (double)0.9F));
+            if (level.isClientSide) {
+                RandomSource randomsource = level.getRandom();
+                boolean flag = entity.xOld != entity.getX() || entity.zOld != entity.getZ();
+                if (flag && randomsource.nextBoolean()) {
+                    level.addParticle(ParticleTypes.SMOKE, entity.getX(), (double)(pos.getY() + 1), entity.getZ(), (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F), (double)0.05F, (double)(Mth.randomBetween(randomsource, -1.0F, 1.0F) * 0.083333336F));
+                }
+            } /* else {
+                if (!entity.isSpectator()) {
+                    BlockState blockState = level.getBlockState(new BlockPos(entity.getBlockX(), (int) (entity.getEyeY() - 0.11111111F), entity.getBlockZ()));
+                    if (entity instanceof LivingEntity && (blockState.is(ModBlocks.QUICKSAND) || blockState.is(ModBlocks.RED_QUICKSAND))) {
+                        entity.hurt(ModDamageType.causeQuicksandDamage((LivingEntity) entity), 1.0F);
+                    }
+                }
+            } */
+        }
+        if (!level.isClientSide) {
+            if (entity.isOnFire() && (level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING) || entity instanceof Player) && entity.mayInteract(level, pos)) {
+                entity.clearFire();
+            }
+
+            entity.setSharedFlagOnFire(false);
+        }
     }
 
-    protected VoxelShape getVisualShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
-        return Shapes.block();
+    @Override
+    public ItemStack pickupBlock(@Nullable Player player, LevelAccessor level, BlockPos pos, BlockState state) {
+        return ItemStack.EMPTY;
     }
 }

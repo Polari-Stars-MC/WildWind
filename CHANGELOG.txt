@@ -1,3 +1,4 @@
+1.0.3 change log:
 2025/3/14
     Repair wool and carpet tags, add glowing potion and recipe (lack of translation)
     Add food composting properties
@@ -16,3 +17,18 @@
     Add worldgen for silt
 2025/3/16
     Add stripping function, modify silt collision shape
+    Add worldgen for ash
+    Magic Wand tool translation and optimisation
+    Addition of Cattail model and attributes, increase the probability of ash generation
+    Fix leaves from not being affected by picture quality
+2025/3/17
+    Update Neoforge version to 21.1.133
+    Fix some problems with invisible item frames, add wool washing in cauldron
+    Change ash loottable
+    Addition of silt and quicksand partial properties
+2025/3/18
+    Repair some properties of quicksand and silt
+    Add glistering melon properties
+    Add glow squid conversion function
+    Fix Auto smelting bug
+    Fix Ash loot table

@@ -1,20 +1,33 @@
 package org.polaris2023.wild_wind.mixin;
 
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.HangingEntity;
 import net.minecraft.world.entity.decoration.ItemFrame;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.polaris2023.wild_wind.common.inter.ICustomItemFrame;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.util.interfaces.ICustomItemFrame;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ItemFrame.class)
 public abstract class InvisibleItemFrame extends HangingEntity implements ICustomItemFrame {
+    @Shadow public abstract ItemStack getItem();
+
+    @Shadow public abstract void setItem(ItemStack stack);
+
     @Unique
     private boolean isInvisible;
 
@@ -54,5 +67,8 @@ public abstract class InvisibleItemFrame extends HangingEntity implements ICusto
     @Override
     public void wild_wind$setIsInvisible(boolean isInvisible) {
         this.isInvisible = isInvisible;
+        if(!this.getItem().isEmpty()) {
+            setItem(this.getItem());
+        }
     }
 }
