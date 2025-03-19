@@ -1,7 +1,11 @@
 package org.polaris2023.wild_wind.common.event;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.LayeredCauldronBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
@@ -16,24 +20,23 @@ public class CauldronEvent {
     @SubscribeEvent
     public static void run(PlayerInteractEvent.RightClickBlock event) {
         ItemStack stack = event.getItemStack();
-        if(stack.is(ItemTags.WOOL) && !stack.is(ModBlocks.WOOL.asItem())) {
-            BlockState blockstate = event.getLevel().getBlockState(event.getPos());
-            FluidState fluidstate = event.getLevel().getFluidState(event.getPos());
-            int level;
-            try {
-                level = blockstate.getValue(LayeredCauldronBlock.LEVEL);
-            } catch (Exception e) {
-                event.setCanceled(true);
-                return;
-            }
+        BlockState blockstate = event.getLevel().getBlockState(event.getPos());
+        if(blockstate.is(Blocks.WATER_CAULDRON)) {
+            washingDyedItem(stack, blockstate, event, ItemTags.WOOL, ModBlocks.WOOL.get().asItem());
+            washingDyedItem(stack, blockstate, event, ItemTags.create(ResourceLocation.parse("c:glazed_terracottas")), ModBlocks.GLAZED_TERRACOTTA.get().asItem());
+        }
+    }
+
+    static void washingDyedItem(ItemStack stack, BlockState blockstate, PlayerInteractEvent.RightClickBlock event, TagKey<Item> tag, Item item) {
+        if(stack.is(tag) && !stack.is(item)) {
+            int level = blockstate.getValue(LayeredCauldronBlock.LEVEL);
             if (blockstate.getBlock() instanceof LayeredCauldronBlock && level > 0) {
                 LayeredCauldronBlock.lowerFillLevel(blockstate, event.getLevel(), event.getPos());
                 event.getItemStack().consume(1, event.getEntity());
-                event.getEntity().addItem(new ItemStack(ModBlocks.WOOL));
                 if (event.getEntity().getInventory().getFreeSlot() == -1) {
-                    event.getEntity().drop(new ItemStack(ModBlocks.WOOL), false);
+                    event.getEntity().drop(new ItemStack(item), false);
                 } else {
-                    event.getEntity().addItem(new ItemStack(ModBlocks.WOOL));
+                    event.getEntity().addItem(new ItemStack(item));
                 }
                 event.setCanceled(true);
             }

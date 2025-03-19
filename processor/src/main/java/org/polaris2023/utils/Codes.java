@@ -49,6 +49,8 @@ public enum Codes {
                 private Path assetsDir;
                 private final ConcurrentHashMap<ResourceLocation, Object> MODELS =
                     new ConcurrentHashMap<>();// object is Bean or map， by gson
+                private final ConcurrentHashMap<ResourceLocation, Object> ITEMS =
+                    new ConcurrentHashMap<>();// object is Bean or map， by gson
                 private final ConcurrentHashMap<ResourceLocation, Object> BLOCKSTATES =
                     new ConcurrentHashMap<>();
             
@@ -289,7 +291,7 @@ public enum Codes {
                     buttonBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "button")), "");
                     fenceBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence")), "", true);
                     fenceGateBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence_gate")), "", true);
-                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "slab")), "", "", "", true);
+                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "slab")), "", "", "", true, true);
                     logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log")), true);
                     logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log").withPrefix("stripped_")), true);
                     woodBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "wood")), true);
@@ -482,39 +484,94 @@ public enum Codes {
                     path = path.replace(key, "planks");
                     return blockKey.withPath(path);
                 }
+                private ResourceLocation stones(ResourceLocation blockKey) {
+                    String path = blockKey.getPath();
+                    path = path.substring(0, path.lastIndexOf("_"));
+                    return blockKey.withPath(path);
+                }
                 private ResourceLocation replace(ResourceLocation blockKey, String tPath) {
                     String path = blockKey.getPath();
                     path = path.substring(0, path.lastIndexOf("_") + 1) + tPath;
                     return blockKey.withPath(path);
                 }
             
-                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem) {
+                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem, boolean isWooden) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
-                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation textures = isWooden ? planks(blockKey) : stones(blockKey);
                     ResourceLocation topRl = blockKey.withSuffix("_top");
                     MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/slab",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
-                            "side", side.isEmpty() ? planks.toString() : side,
-                            "top", top.isEmpty() ? planks.toString() : top
+                            "bottom", bottom.isEmpty() ? textures.toString() : bottom,
+                            "side", side.isEmpty() ? textures.toString() : side,
+                            "top", top.isEmpty() ? textures.toString() : top
                     )));
                     MODELS.put(topRl, Map.of(
                         "parent", "minecraft:block/slab_top",
                         "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
-                            "side", side.isEmpty() ? planks.toString() : side,
-                            "top", top.isEmpty() ? planks.toString() : top
+                            "bottom", bottom.isEmpty() ? textures.toString() : bottom,
+                            "side", side.isEmpty() ? textures.toString() : side,
+                            "top", top.isEmpty() ? textures.toString() : top
                         )));
                         BLOCKSTATES.put(key, Map.of(
                             "variants", Map.of(
                                 "type=bottom", model(blockKey, null, null, null, false),
-                                "type=double", model(planks, null, null, null, false),
+                                "type=double", model(textures, null, null, null, false),
                                 "type=top", model(topRl, null, null, null, false)
                             )));
                       if(isItem)
                         basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+                
+                private <T extends Block> %%classname%% wallBlock(Supplier<T> block, String wall, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    ResourceLocation itemKey = key.withPrefix("item/");
+                    ResourceLocation textures = stones(blockKey);
+                    ResourceLocation postRl = blockKey.withSuffix("_post");
+                    ResourceLocation sideRl = blockKey.withSuffix("_side");
+                    ResourceLocation sideTallRl = blockKey.withSuffix("_side_tall");
+                    ResourceLocation inventoryRl = blockKey.withSuffix("_inventory");
+                    MODELS.put(postRl, Map.of(
+                        "parent", "minecraft:block/template_wall_post",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? textures.toString() : wall
+                        )
+                    ));
+                    MODELS.put(sideRl, Map.of(
+                        "parent", "minecraft:block/template_wall_side",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? textures.toString() : wall
+                        )
+                    ));
+                    MODELS.put(sideTallRl, Map.of(
+                        "parent", "minecraft:block/template_wall_side_tall",
+                        "textures", Map.of(
+                            "wall", wall.isEmpty() ? textures.toString() : wall
+                        )
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "multipart", List.of(
+                             Map.of("apply", model(postRl, null, null, null, false), "when", Map.of("up", "true")),
+                             Map.of("apply", model(sideRl, null, 90, null, true), "when", Map.of("east", "low")),
+                             Map.of("apply", model(sideTallRl, null, 90, null, true), "when", Map.of("east", "tall")),
+                             Map.of("apply", model(sideRl, null, 0, null, true), "when", Map.of("north", "low")),
+                             Map.of("apply", model(sideTallRl, null, 0, null, true), "when", Map.of("north", "tall")),
+                             Map.of("apply", model(sideRl, null, 180, null, true), "when", Map.of("south", "low")),
+                             Map.of("apply", model(sideTallRl, null, 180, null, true), "when", Map.of("south", "tall")),
+                             Map.of("apply", model(sideRl, null, 270, null, true), "when", Map.of("west", "low")),
+                             Map.of("apply", model(sideTallRl, null, 270, null, true), "when", Map.of("west", "tall"))
+                        )
+                    ));
+                    if(isItem)
+                        MODELS.put(itemKey, Map.of(
+                            "parent", "minecraft:block/wall_inventory",
+                            "textures", Map.of(
+                                "wall", wall.isEmpty() ? textures.toString() : wall
+                            )
+                        ));
                     return this;
                 }
             
@@ -532,8 +589,6 @@ public enum Codes {
                             "axis=z", model(horizontal, 90, null, null, false)
                         )
                     ));
-                    if(isItem)
-                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
                 private <T extends Block> %%classname%% woodBlock(Supplier<T> block, boolean isItem) {
@@ -663,7 +718,7 @@ public enum Codes {
                 @Override
                 public CompletableFuture<?> run(CachedOutput output) {
                     init();
-                    CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size() + BLOCKSTATES.size()];
+                    CompletableFuture<?>[] futures = new CompletableFuture[MODELS.size() + BLOCKSTATES.size() + ITEMS.size()];
                     int i = 0;
                     for (Map.Entry<ResourceLocation, Object> entry : MODELS.entrySet()) {
                         ResourceLocation key = entry.getKey();
@@ -673,13 +728,21 @@ public enum Codes {
                         futures[i] = DataProvider.saveStable(output, jsonTree, itemModel);
                         i++;
                     }
+                    for (Map.Entry<ResourceLocation, Object> entry : ITEMS.entrySet()) {
+                        ResourceLocation key = entry.getKey();
+                        Object object = entry.getValue();
+                        Path itemModel = assetsDir.resolve(key.getNamespace()).resolve("items").resolve(key.getPath() + ".json");
+                        JsonElement jsonTree = GSON.toJsonTree(object);
+                        futures[i] = DataProvider.saveStable(output, jsonTree, itemModel);
+                        i++;
+                    }
                     for(Map.Entry<ResourceLocation, Object> entry : BLOCKSTATES.entrySet()) {
                         ResourceLocation key = entry.getKey();
                         Object object = entry.getValue();
                         Path states = assetsDir.resolve(key.getNamespace()).resolve("blockstates").resolve(key.getPath() + ".json");
-                         JsonElement jsonTree = GSON.toJsonTree(object);
-                         futures[i] = DataProvider.saveStable(output, jsonTree, states);
-                         i++;
+                        JsonElement jsonTree = GSON.toJsonTree(object);
+                        futures[i] = DataProvider.saveStable(output, jsonTree, states);
+                        i++;
                     }
                     return CompletableFuture.allOf(futures);
                 }

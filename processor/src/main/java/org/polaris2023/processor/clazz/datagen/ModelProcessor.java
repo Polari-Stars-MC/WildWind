@@ -86,6 +86,7 @@ public class ModelProcessor extends ClassProcessor {
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
         Slab slab = register(variableElement.getAnnotation(Slab.class));
+        Wall wall = register(variableElement.getAnnotation(Wall.class));
         Log log = register(variableElement.getAnnotation(Log.class));
         Wood wood = register(variableElement.getAnnotation(Wood.class));
         Button button = register(variableElement.getAnnotation(Button.class));
@@ -171,8 +172,12 @@ public class ModelProcessor extends ClassProcessor {
                     all.isEmpty() ? slab.bottom() : all,
                     all.isEmpty() ? slab.side() : all,
                     all.isEmpty() ? slab.top() : all,
-                    slab.item()
+                    slab.item(),
+                    slab.wooden()
             );
+        }
+        else if(wall != null) {
+            checkAppend(typeElement, variableElement, "wallBlock", wall.wall(), wall.item());
         }
         else if (pressurePlate != null) {
             checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
