@@ -13,7 +13,6 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import org.polaris2023.wild_wind.datagen.custom.WildWindClientProvider;
 import org.polaris2023.wild_wind.datagen.tag.*;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
 import org.polaris2023.wild_wind.util.interfaces.IModel;

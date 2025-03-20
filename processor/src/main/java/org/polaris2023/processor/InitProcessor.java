@@ -106,7 +106,7 @@ public class InitProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
         if (ONLY_ONCE.get()) {
-            Symbol.ClassSymbol typeElement1 = environment.getElementUtils().getTypeElement("org.polaris2023.wild_wind.datagen.custom.WildWindClientProvider");
+            Symbol.ClassSymbol typeElement1 = environment.getElementUtils().getTypeElement("org.polaris2023.wild_wind.datagen.WildWindClientProvider");
             ClassTree classTree = trees.getTree(typeElement1);
             modelInit =
                     ((Stream<? extends MethodTree>) classTree
