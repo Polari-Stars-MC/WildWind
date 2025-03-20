@@ -20,13 +20,8 @@ public class ModItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-//        withExistingParent(ModItems.MAGIC_WAND_TOOL_ITEM.getId().getPath(), ResourceLocation.fromNamespaceAndPath("minecraft", "item/stick"))
-//                .texture("layer0", ResourceLocation.fromNamespaceAndPath("minecraft", "item/stick"));
-        wallItem(ModBlocks.STONE_WALL, DeferredBlock.create(Registries.BLOCK, ResourceLocation.withDefaultNamespace("stone")));
-        wallItem(ModBlocks.POLISHED_STONE_WALL, ModBlocks.POLISHED_STONE);
-        wallItem(ModBlocks.ANDESITE_BRICK_WALL, ModBlocks.ANDESITE_BRICKS);
-        wallItem(ModBlocks.DIORITE_BRICK_WALL, ModBlocks.DIORITE_BRICKS);
-        wallItem(ModBlocks.GRANITE_BRICK_WALL, ModBlocks.GRANITE_BRICKS);
+        simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
+        simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
     }
 
     public void wallItem(DeferredHolder<Block, ?> block, DeferredHolder<Block, Block> baseBlock) {

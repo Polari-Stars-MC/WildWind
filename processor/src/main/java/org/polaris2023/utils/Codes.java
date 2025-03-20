@@ -291,44 +291,68 @@ public enum Codes {
                     buttonBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "button")), "");
                     fenceBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence")), "", true);
                     fenceGateBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "fence_gate")), "", true);
-                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "slab")), "", "", "", true, true);
+                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "slab")), "", "", "", true, "planks");
                     logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log")), true);
                     logBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "log").withPrefix("stripped_")), true);
                     woodBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "wood")), true);
                     woodBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "wood").withPrefix("stripped_")), true);
-                    stairsBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "stairs")), "", "", "", true);
+                    stairsBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "stairs")), "", "", "", true, "planks");
                     pressurePlateBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "pressure_plate")), "", true);
                     allSignBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "sign")));
                     allDoorBlock(() -> BuiltInRegistries.BLOCK.get(replace(finalKey1, "door")));
                     return this;
                 }
             
-                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem) {
+                private <T extends Block> %%classname%% allBrickBlock(Supplier<T> block) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation finalKey1 = key;
+                    cubeAll(block, "", "", true);
+                    cubeAll(() -> BuiltInRegistries.BLOCK.get(prefix(key, "cracked")), "", "", true);
+                    slabBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "slab")), "", "", "", true, "bricks");
+                    stairsBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "stairs")), "", "", "", true, "bricks");
+                    wallBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "wall")), "", true, true);
+                    return this;
+                }
+            
+                private <T extends Block> %%classname%% stairsBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem, String type) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation inner =  blockKey.withSuffix("_inner");
                     ResourceLocation outer = blockKey.withSuffix("_outer");
-                    ResourceLocation planks = planks(blockKey);
+                    ResourceLocation textures;
+                    switch(type) {
+                        case "stone":
+                            textures = stone(blockKey);
+                            break;
+                        case "bricks":
+                            textures = bricks(blockKey);
+                            break;
+                        case "planks":
+                            textures = planks(blockKey);
+                            break;
+                        default:
+                            textures = planks(blockKey);
+                    }
                     MODELS.put(blockKey, Map.of(
-                        "parent", "minecraft:block/stairs",
-                        "textures", Map.of(
-                            "bottom", bottom.isEmpty() ?  planks.toString() : bottom,
-                            "side", side.isEmpty() ? planks.toString() : side,
-                            "top", top.isEmpty() ? planks.toString() : top
-                    )));
+                       "parent", "minecraft:block/stairs",
+                       "textures", Map.of(
+                           "bottom", bottom.isEmpty() ?  textures.toString() : bottom,
+                           "side", side.isEmpty() ? textures.toString() : side,
+                           "top", top.isEmpty() ? textures.toString() : top
+                       )));
                     MODELS.put(inner, Map.of(
-                        "parent", "minecraft:block/inner_stairs",
-                        "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
-                            "side", side.isEmpty() ? planks.toString() : side,
-                            "top", top.isEmpty() ? planks.toString() : top
+                       "parent", "minecraft:block/inner_stairs",
+                       "textures", Map.of(
+                           "bottom", bottom.isEmpty() ? textures.toString() : bottom,
+                           "side", side.isEmpty() ? textures.toString() : side,
+                           "top", top.isEmpty() ? textures.toString() : top
                     )));
                     MODELS.put(outer, Map.of(
-                        "parent", "minecraft:block/outer_stairs",
-                        "textures", Map.of(
-                            "bottom", bottom.isEmpty() ? planks.toString() : bottom,
-                            "side", side.isEmpty() ? planks.toString() : side,
-                            "top", top.isEmpty() ? planks.toString() : top
+                       "parent", "minecraft:block/outer_stairs",
+                       "textures", Map.of(
+                           "bottom", bottom.isEmpty() ? textures.toString() : bottom,
+                           "side", side.isEmpty() ? textures.toString() : side,
+                           "top", top.isEmpty() ? textures.toString() : top
                     )));
                     Map tMap = new HashMap<>();
                     tMap.putAll(Map.of(
@@ -484,9 +508,19 @@ public enum Codes {
                     path = path.replace(key, "planks");
                     return blockKey.withPath(path);
                 }
-                private ResourceLocation stones(ResourceLocation blockKey) {
+                private ResourceLocation stone(ResourceLocation blockKey) {
                     String path = blockKey.getPath();
                     path = path.substring(0, path.lastIndexOf("_"));
+                    return blockKey.withPath(path);
+                }
+                private ResourceLocation bricks(ResourceLocation blockKey) {
+                    String path = blockKey.getPath();
+                    path = path.substring(0, path.lastIndexOf("_")) + "s";
+                    return blockKey.withPath(path);
+                }
+                private ResourceLocation replaceBricks(ResourceLocation blockKey, String tPath) {
+                    String path = blockKey.getPath();
+                    path = path.substring(0, path.length() - 1) + "_" + tPath;
                     return blockKey.withPath(path);
                 }
                 private ResourceLocation replace(ResourceLocation blockKey, String tPath) {
@@ -494,11 +528,29 @@ public enum Codes {
                     path = path.substring(0, path.lastIndexOf("_") + 1) + tPath;
                     return blockKey.withPath(path);
                 }
+                private ResourceLocation prefix(ResourceLocation blockKey, String tPath) {
+                    String path = blockKey.getPath();
+                    path = tPath + "_" + path;
+                    return blockKey.withPath(path);
+                }
             
-                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem, boolean isWooden) {
+                private <T extends Block> %%classname%% slabBlock(Supplier<T> block, String bottom, String side, String top, boolean isItem, String type) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
-                    ResourceLocation textures = isWooden ? planks(blockKey) : stones(blockKey);
+                    ResourceLocation textures;
+                    switch(type) {
+                        case "stone":
+                            textures = stone(blockKey);
+                            break;
+                        case "bricks":
+                            textures = bricks(blockKey);
+                            break;
+                        case "planks":
+                            textures = planks(blockKey);
+                            break;
+                        default:
+                            textures = planks(blockKey);
+                    }
                     ResourceLocation topRl = blockKey.withSuffix("_top");
                     MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/slab",
@@ -524,12 +576,12 @@ public enum Codes {
                         basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
-                
-                private <T extends Block> %%classname%% wallBlock(Supplier<T> block, String wall, boolean isItem) {
+            
+                private <T extends Block> %%classname%% wallBlock(Supplier<T> block, String wall, boolean isItem, boolean isBricks) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation itemKey = key.withPrefix("item/");
-                    ResourceLocation textures = stones(blockKey);
+                    ResourceLocation textures = isBricks ? bricks(blockKey) : stone(blockKey);
                     ResourceLocation postRl = blockKey.withSuffix("_post");
                     ResourceLocation sideRl = blockKey.withSuffix("_side");
                     ResourceLocation sideTallRl = blockKey.withSuffix("_side_tall");
@@ -572,83 +624,6 @@ public enum Codes {
                                 "wall", wall.isEmpty() ? textures.toString() : wall
                             )
                         ));
-                    return this;
-                }
-            
-                private <T extends Block> %%classname%% wallBlock(Supplier<T> block, String wall, boolean isItem) {
-                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
-                    ResourceLocation blockKey = key.withPrefix("block/");
-                    ResourceLocation planks = planks(blockKey);
-                    ResourceLocation inventoryRl = blockKey.withSuffix("_inventory");
-                    ResourceLocation postRl = blockKey.withSuffix("_post");
-                    ResourceLocation sideRl = blockKey.withSuffix("_side");
-                    ResourceLocation sideTallRl = blockKey.withSuffix("_side_tall");
-                    MODELS.put(postRl, Map.of(
-                        "parent", "minecraft:block/template_wall_post",
-                        "textures", Map.of(
-                            "wall", wall.isEmpty() ? planks.toString() : wall
-                        )
-                    ));
-                    MODELS.put(sideRl, Map.of(
-                        "parent", "minecraft:block/template_wall_side",
-                        "textures", Map.of(
-                            "wall", wall.isEmpty() ? planks.toString() : wall
-                        )
-                    ));
-                    MODELS.put(sideTallRl, Map.of(
-                        "parent", "minecraft:block/template_wall_side_tall",
-                        "textures", Map.of(
-                            "wall", wall.isEmpty() ? planks.toString() : wall
-                        )
-                    ));
-                    MODELS.put(inventoryRl, Map.of(
-                        "parent", "minecraft:block/wall_inventory",
-                        "textures", Map.of(
-                            "wall", wall.isEmpty() ? planks.toString() : wall
-                        )
-                    ));
-                    BLOCKSTATES.put(key, Map.of(
-                            "multipart", List.of(
-                                Map.of(
-                                    "apply", model(postRl, null, null, null, false),
-                                    "when", Map.of("up", "true")
-                                ),
-                                Map.of(
-                                    "apply", model(sideRl, null, null, null, true),
-                                    "when", Map.of("north", "low")
-                                ),
-                                Map.of(
-                                    "apply", model(sideRl, null, 90, null, true),
-                                    "when", Map.of("east", "low")
-                                ),
-                                Map.of(
-                                    "apply", model(sideRl, null, 180, null, true),
-                                    "when", Map.of("south", "low")
-                                ),
-                                Map.of(
-                                    "apply", model(sideRl, null, 270, null, true),
-                                    "when", Map.of("west", "low")
-                                ),
-                                Map.of(
-                                    "apply", model(sideTallRl, null, null, null, true),
-                                    "when", Map.of("north", "tall")
-                                ),
-                                Map.of(
-                                    "apply", model(sideTallRl, null, 90, null, true),
-                                    "when", Map.of("east", "tall")
-                                ),
-                                Map.of(
-                                    "apply", model(sideTallRl, null, 180, null, true),
-                                    "when", Map.of("south", "tall")
-                                ),
-                                Map.of(
-                                    "apply", model(sideTallRl, null, 270, null, true),
-                                    "when", Map.of("west", "tall")
-                                )
-                            )
-                    ));
-                    if(isItem)
-                        basicBlockItemWithSuffix((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem(), "_inventory");
                     return this;
                 }
             
