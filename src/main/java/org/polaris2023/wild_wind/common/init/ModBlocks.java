@@ -103,7 +103,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
-    public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", props -> new FlowerBlock(MobEffects.LUCK, 0, props), BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());;
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", TINY_CACTUS);
 
