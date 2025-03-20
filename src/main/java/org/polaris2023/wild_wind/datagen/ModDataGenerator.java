@@ -13,7 +13,6 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-import org.polaris2023.wild_wind.datagen.custom.WildWindClientProvider;
 import org.polaris2023.wild_wind.datagen.tag.*;
 import org.polaris2023.wild_wind.util.interfaces.ILanguage;
 import org.polaris2023.wild_wind.util.interfaces.IModel;
@@ -46,8 +45,6 @@ public class ModDataGenerator {
             gen.addProvider(event.includeClient(), model.setModid(MOD_ID).setOutput(output));
         }
         gen.addProvider(event.includeClient(), new WildWindClientProvider(output, MOD_ID, helper));
-//        gen.addProvider(event.includeClient(), new ModBlockStateProvider(output, helper));
-        gen.addProvider(event.includeClient(), new ModItemModelProvider(output, helper));
         gen.addProvider(event.includeServer(), new ModRecipeProvider(output, provider));
         gen.addProvider(event.includeServer(), new ModEntityTypeTagsProvider(output, provider, helper));
         ModBlockTagsProvider blockTagsProvider = new ModBlockTagsProvider(output, provider, helper);

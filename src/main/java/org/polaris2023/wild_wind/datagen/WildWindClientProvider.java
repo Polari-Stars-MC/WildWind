@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.datagen.custom;
+package org.polaris2023.wild_wind.datagen;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -126,7 +126,8 @@ public class WildWindClientProvider implements DataProvider {
     } // 手写模型生成塞这块
 
     public void item() {
-
+        itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
+        itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
     }
 
     public void init() {
