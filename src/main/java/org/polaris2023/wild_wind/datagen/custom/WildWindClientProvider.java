@@ -126,7 +126,8 @@ public class WildWindClientProvider implements DataProvider {
     } // 手写模型生成塞这块
 
     public void item() {
-
+        itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
+        itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
     }
 
     public void init() {
