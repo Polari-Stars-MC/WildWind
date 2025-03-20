@@ -33,6 +33,7 @@ public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem>, ItemLike {
     @I18n(en_us = "Piranha Spawn Egg", zh_cn = "食人鱼刷怪蛋", zh_tw = "食人魚生怪蛋")
     PIRANHA_SPAWN_EGG(ModEntities.PIRANHA, 0x564943, 0x82200B),
     ;
+
     public final DeferredItem<DeferredSpawnEggItem> entry;
     <E extends Mob> ModSpawnEggs(DeferredHolder<EntityType<?>, EntityType<E>> type, int backgroundColor, int highlightColor) {
         entry = ModInitializer.register(name().toLowerCase(Locale.ROOT), type, backgroundColor, highlightColor);

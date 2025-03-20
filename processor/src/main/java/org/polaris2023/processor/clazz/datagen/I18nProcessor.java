@@ -35,7 +35,7 @@ public class I18nProcessor extends ClassProcessor {
                 VariableElement variableElement = (VariableElement) element;
                 I18n i18n = variableElement.getAnnotation(I18n.class);
                 I18nEnum i18nE = variableElement.getAnnotation(I18nEnum.class);
-              PotionI18n potionI18n = variableElement.getAnnotation(PotionI18n.class);
+                PotionI18n potionI18n = variableElement.getAnnotation(PotionI18n.class);
                 if (i18nE != null) {
                     for (Element element1 : typeElement.getEnclosedElements()) {
                         I18nEnumInner i18nEI = element1.getAnnotation(I18nEnumInner.class);
