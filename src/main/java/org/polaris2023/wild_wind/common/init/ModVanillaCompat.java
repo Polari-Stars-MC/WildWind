@@ -5,6 +5,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -69,6 +70,7 @@ public class ModVanillaCompat{
     }
 
     private static void registerCompostable(float chance, ItemLike item) {
+        ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
         compostables.put(item, chance);
     }
 

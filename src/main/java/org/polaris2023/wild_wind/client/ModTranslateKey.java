@@ -47,38 +47,46 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     PRESENT_COLOR_TOOLTIP_RIBBON("present", "color", "tooltip", "ribbon"),
     @I18n(en_us = "Color: ", zh_tw = "本色：", zh_cn = "本色：")
     PRESENT_COLOR_TOOLTIP_BOX("present", "color", "tooltip", "box"),
+
     @I18n(en_us = "Max Stack Size: ", zh_tw = "最大堆叠：", zh_cn = "最大堆叠：")
-    MAX_STACK_SIZE("max", "stack", "size"),
+    MAX_STACK_SIZE("item", "magic_wand_tool", "max_stack_size"),
     @I18n(en_us = "ID: ", zh_tw = "ID：", zh_cn = "ID：")
-    BLOCK_ID("block", "id"),
+    BLOCK_ID("item", "magic_wand_tool", "block_id"),
     @I18n(en_us = "Hardness: ", zh_tw = "硬度：", zh_cn = "硬度：")
-    HARDNESS("hardness"),
+    HARDNESS("item", "magic_wand_tool", "hardness"),
     @I18n(en_us = "Blast Resistance: ", zh_tw = "爆炸抗性：", zh_cn = "爆炸抗性：")
-    BLAST_RESISTANCE("blast", "resistance"),
+    BLAST_RESISTANCE("item", "magic_wand_tool", "blast_resistance"),
     @I18n(en_us = "Flame Odds: ", zh_tw = "引燃几率：", zh_cn = "引燃几率：")
-    FLAME_ODDS("flame", "odds"),
+    FLAME_ODDS("item", "magic_wand_tool", "flame_odds"),
     @I18n(en_us = "Burn Odds: ", zh_tw = "烧毁几率：", zh_cn = "烧毁几率：")
-    BURN_ODDS("burn", "odds"),
+    BURN_ODDS("item", "magic_wand_tool", "burn_odds"),
     @I18n(en_us = "Lava Flammable: ", zh_tw = "熔巖可燃性：", zh_cn = "熔岩可燃性：")
-    LAVA_FLAMMABLE("lava", "flammable"),
+    LAVA_FLAMMABLE("item", "magic_wand_tool", "lava_flammable"),
     @I18n(en_us = "Suffocating Block: ", zh_tw = "窒息生物：", zh_cn = "窒息生物：")
-    SUFFOCATING_BLOCK("suffocating", "block"),
+    SUFFOCATING_BLOCK("item", "magic_wand_tool", "suffocating_block"),
     @I18n(en_us = "Redstone Conducting: ", zh_tw = "红石导体：", zh_cn = "红石导体：")
-    REDSTONE_CONDUCTING("redstone", "conducting"),
+    REDSTONE_CONDUCTING("item", "magic_wand_tool", "redstone_conducting"),
     @I18n(en_us = "Solid: ", zh_tw = "固体方块：", zh_cn = "固体方块：")
-    SOLID("solid"),
+    SOLID("item", "magic_wand_tool", "solid"),
     @I18n(en_us = "Push Reaction: ", zh_tw = "活塞推動行為：", zh_cn = "活塞推动行为：")
-    PUSH_REACTION("push", "reaction"),
+    PUSH_REACTION("item", "magic_wand_tool", "push_reaction"),
     @I18n(en_us = "Block Light:  ", zh_tw = "方块光照：", zh_cn = "方块光照：")
-    BLOCK_LIGHT("block", "light"),
+    BLOCK_LIGHT("item", "magic_wand_tool", "block_light"),
     @I18n(en_us = "Composting Chance: ", zh_tw = "堆肥几率：", zh_cn = "堆肥几率：")
-    COMPOSTING_CHANCE("composting", "chance"),
+    COMPOSTING_CHANCE("item", "magic_wand_tool", "composting_chance"),
     @I18n(en_us = "Burn Time: ", zh_tw = "燃烧时间：", zh_cn = "燃烧时间：")
-    BURN_TIME("burn", "time"),
+    BURN_TIME("item", "magic_wand_tool", "burn_time"),
+
     @I18n(en_us = "%s suffocated in quicksand", zh_tw = "%s在流沙里窒息而亡", zh_cn = "%s在流沙里窒息而亡")
-    QUICKSAND_DEATH("death", "attack", "wild_wind", "quicksand_damage"),
+    QUICKSAND_DEATH("death", "attack", WildWindMod.MOD_ID, "quicksand_damage"),
     @I18n(en_us = "%s suffocated in silt", zh_tw = "%s在淤泥里窒息而亡", zh_cn = "%s在淤泥里窒息而亡")
-    SILT_DEATH("death", "attack", "wild_wind", "silt_damage"),
+    SILT_DEATH("death", "attack", WildWindMod.MOD_ID, "silt_damage"),
+
+    @I18n(en_us = "Sneak right-click on the item frame to make it invisible", zh_tw = "潛行右鍵物品展示框使其隱形", zh_cn = "潜行右键物品展示框使其隐形")
+    ASH_DUST("item", WildWindMod.MOD_ID, "ash_dust", "desc"),
+    @I18n(en_us = "Right click on the squid to turn it into a glowing squid after 15s", zh_tw = "右鍵魷魚使其在15s後轉化為發光魷魚", zh_cn = "右键鱿鱼使其在15s后转化为发光鱿鱼")
+    GLOW_POWDER("item", WildWindMod.MOD_ID, "glow_powder", "desc"),
+
 
     ;
 
