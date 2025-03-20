@@ -48,10 +48,20 @@ public class InitProcessor extends AbstractProcessor {
     public Trees trees;
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static Optional<? extends MethodTree> modelInit;
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public static Optional<? extends MethodTree> languageInit;
 
     public static void modelGen(Context context,String code) {
+        gen(modelInit, context, code);
+    }
 
-        modelInit.ifPresent(tree -> {
+    public static void languageGen(Context context,String code) {
+        gen(languageInit, context, code);
+    }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public static void gen(Optional<? extends MethodTree> optional, Context context, String code) {
+        optional.ifPresent(tree -> {
             var jcMethodDecl = (JCTree.JCMethodDecl) tree;
 
             ParserFactory parserFactory = ParserFactory.instance(context);
@@ -104,6 +114,12 @@ public class InitProcessor extends AbstractProcessor {
                             .stream()
                             .filter(tree -> tree.getKind().equals(Tree.Kind.METHOD)))
                             .filter(method -> method.getName().toString().equals("init")).findFirst();
+            languageInit =
+                    ((Stream<? extends MethodTree>) classTree
+                        .getMembers()
+                        .stream()
+                        .filter(tree -> tree.getKind().equals(Tree.Kind.METHOD)))
+                        .filter(method -> method.getName().toString().equals("language")).findFirst();
             for (ClassProcessor classProcessor : classProcessors) {
                 classProcessor.process(annotations, roundEnv);
             }

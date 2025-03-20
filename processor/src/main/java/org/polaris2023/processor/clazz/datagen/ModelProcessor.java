@@ -15,6 +15,7 @@ import java.lang.Override;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class ModelProcessor extends ClassProcessor {
 
@@ -74,12 +75,21 @@ public class ModelProcessor extends ClassProcessor {
         return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get());";
     }
 
+    public void spawnEggItem(TypeElement typeElement, VariableElement variableElement) {
+        SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
+        if (spawnEggItem == null) return;
+        InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
+    }
+
+    public final List<BiConsumer<TypeElement, VariableElement>> runs = List.of(
+            this::spawnEggItem,
+            this::parentItem
+    );
+
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
-
-
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
-        BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
+        BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
         BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
         CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
@@ -90,8 +100,6 @@ public class ModelProcessor extends ClassProcessor {
         Log log = register(variableElement.getAnnotation(Log.class));
         Wood wood = register(variableElement.getAnnotation(Wood.class));
         Button button = register(variableElement.getAnnotation(Button.class));
-        SpawnEggItem spawnEggItem = register(variableElement.getAnnotation(SpawnEggItem.class));
-        ParentItem parentItem = register(variableElement.getAnnotation(ParentItem.class));
         Fence fence = register(variableElement.getAnnotation(Fence.class));
         FenceGate fenceGate = register(variableElement.getAnnotation(FenceGate.class));
         PressurePlate pressurePlate = register(variableElement.getAnnotation(PressurePlate.class));
@@ -100,29 +108,9 @@ public class ModelProcessor extends ClassProcessor {
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
         AllBrick allBrick = register(variableElement.getAnnotation(AllBrick.class));
         //item model gen
-        if (spawnEggItem != null) {
-            InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
-        }
-        else if (parentItem != null) {
-            StringBuilder sb = new StringBuilder();
-            sb
-                    .append("itemModelProvider.withExistingParent(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(".get()).toString()")
-                    .append(", \"")
-                    .append(parentItem.parent())
-                    .append("\")");
-            for (KV texture : parentItem.textures()) {
-                sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
-            }
-            sb.append(";");
-            System.out.println(sb);
-            InitProcessor.modelGen(context, sb.toString());
+        runs.forEach(run -> run.accept(typeElement, variableElement));
 
-        }
-        else if (basicBlockItem != null) {
+        if (basicBlockItem != null) {
             blockItem(variableElement, typeElement, basicBlockItem);
         }
         else if (basicBlockLocatedItem != null) {
@@ -130,10 +118,7 @@ public class ModelProcessor extends ClassProcessor {
         }
         else if (basicItem != null && basicItem.used()) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-        }
-        else if (typeBasicItem != null &&
-                typeBasicItem.used() &&
-                variableElement.getModifiers().contains(Modifier.STATIC)) {
+        } else if (typeBasicItem != null && typeBasicItem.used() && variableElement.getModifiers().contains(Modifier.STATIC)) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
         }
         //block model gen
@@ -202,6 +187,29 @@ public class ModelProcessor extends ClassProcessor {
 
 
 
+    }
+
+    private void parentItem(TypeElement typeElement, VariableElement variableElement) {
+        ParentItem parentItem = variableElement.getAnnotation(ParentItem.class);
+        if (parentItem != null) {
+            StringBuilder sb = new StringBuilder();
+            sb
+                    .append("itemModelProvider.withExistingParent(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(".get()).toString()")
+                    .append(", \"")
+                    .append(parentItem.parent())
+                    .append("\")");
+            for (KV texture : parentItem.textures()) {
+                sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
+            }
+            sb.append(";");
+            System.out.println(sb);
+            InitProcessor.modelGen(context, sb.toString());
+
+        }
     }
 
     private void blockItem(VariableElement variableElement, TypeElement typeElement, BasicBlockItem basicBlockItem) {
