@@ -3,7 +3,6 @@ package org.polaris2023.wild_wind.common.init;
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.HangingSignItem;
 import net.minecraft.world.item.SignItem;
@@ -12,6 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
@@ -20,9 +20,7 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
-import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
-import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.annotation.modelgen.item.ParentItem;
+import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
@@ -102,7 +100,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
-    public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", props -> new FlowerBlock(MobEffects.LUCK, 0, props), BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());;
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", TINY_CACTUS);
 
@@ -143,7 +141,7 @@ public class ModBlocks {
             register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
-
+    @BasicItem
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM =
             register("duckweed", DUCKWEED);
 
@@ -195,8 +193,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA =
-            register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.of().strength(1.25F).sound(SoundType.STONE).ignitedByLava());
-
+            register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_GLAZED_TERRACOTTA));
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
@@ -237,16 +234,13 @@ public class ModBlocks {
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON =
             register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
-
-
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM =
             register("glistering_melon", GLISTERING_MELON);
 
     @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")
+    @Wall(wall = "minecraft:block/stone")
     public static final DeferredBlock<WallBlock> STONE_WALL =
             register("stone_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE));
-
-
     public static final DeferredItem<BlockItem> STONE_WALL_ITEM =
             register("stone_wall", STONE_WALL);
 
@@ -257,25 +251,22 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM =
             register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
+    @Wall
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL =
-
             register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
-
-
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM =
             register("polished_stone_wall", POLISHED_STONE_WALL);
-
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
+    @Stairs(type = "stone")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS =
             register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
-
     public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM =
             register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
     @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
+    @Slab(type = "stone")
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB =
             register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
-
     public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM =
             register("polished_stone_slab", POLISHED_STONE_SLAB);
 
@@ -561,6 +552,73 @@ public class ModBlocks {
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> BAOBAB_SAPLING_ITEM =
             register("baobab_sapling", BAOBAB_SAPLING);
+
+    @AllBrick
+    @I18n(en_us = "Andesite Bricks", zh_cn = "安山岩砖", zh_tw = "安山岩磚")
+    public static final DeferredBlock<Block> ANDESITE_BRICKS =
+            register("andesite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Cracked Andesite Bricks", zh_cn = "裂纹安山岩砖", zh_tw = "裂紋安山岩磚")
+    public static final DeferredBlock<Block> CRACKED_ANDESITE_BRICKS =
+            register("cracked_andesite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Stairs", zh_cn = "安山岩砖楼梯", zh_tw = "安山岩磚樓梯")
+    public static final DeferredBlock<StairBlock> ANDESITE_BRICK_STAIRS =
+            register("andesite_brick_stairs", props -> new StairBlock(ANDESITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Slab", zh_cn = "安山岩砖台阶", zh_tw = "安山岩磚臺階")
+    public static final DeferredBlock<SlabBlock> ANDESITE_BRICK_SLAB =
+            register("andesite_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.STONE));
+    @I18n(en_us = "Andesite Brick Wall", zh_cn = "安山岩砖墙", zh_tw = "安山岩磚墻")
+    public static final DeferredBlock<WallBlock> ANDESITE_BRICK_WALL =
+            register("andesite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.STONE));
+    public static final DeferredItem<BlockItem> ANDESITE_BRICKS_ITEM = register("andesite_bricks", ANDESITE_BRICKS);
+    public static final DeferredItem<BlockItem> CRACKED_ANDESITE_BRICKS_ITEM = register("cracked_andesite_bricks", CRACKED_ANDESITE_BRICKS);
+    public static final DeferredItem<BlockItem> ANDESITE_BRICK_STAIRS_ITEM = register("andesite_brick_stairs", ANDESITE_BRICK_STAIRS);
+    public static final DeferredItem<BlockItem> ANDESITE_BRICK_SLAB_ITEM = register("andesite_brick_slab", ANDESITE_BRICK_SLAB);
+    public static final DeferredItem<BlockItem> ANDESITE_BRICK_WALL_ITEM = register("andesite_brick_wall", ANDESITE_BRICK_WALL);
+
+    @AllBrick
+    @I18n(en_us = "Diorite Bricks", zh_cn = "闪长岩砖", zh_tw = "閃長岩磚")
+    public static final DeferredBlock<Block> DIORITE_BRICKS =
+            register("diorite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Cracked Diorite Bricks", zh_cn = "裂纹闪长岩砖", zh_tw = "裂紋閃長岩磚")
+    public static final DeferredBlock<Block> CRACKED_DIORITE_BRICKS =
+            register("cracked_diorite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Stairs", zh_cn = "闪长岩砖楼梯", zh_tw = "閃長岩磚樓梯")
+    public static final DeferredBlock<StairBlock> DIORITE_BRICK_STAIRS =
+            register("diorite_brick_stairs", props -> new StairBlock(DIORITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Slab", zh_cn = "闪长岩砖台阶", zh_tw = "閃長岩磚臺階")
+    public static final DeferredBlock<SlabBlock> DIORITE_BRICK_SLAB =
+            register("diorite_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Diorite Brick Wall", zh_cn = "闪长岩砖墙", zh_tw = "閃長岩磚墻")
+    public static final DeferredBlock<WallBlock> DIORITE_BRICK_WALL =
+            register("diorite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.QUARTZ));
+    public static final DeferredItem<BlockItem> DIORITE_BRICKS_ITEM = register("diorite_bricks", DIORITE_BRICKS);
+    public static final DeferredItem<BlockItem> CRACKED_DIORITE_BRICKS_ITEM = register("cracked_diorite_bricks", CRACKED_DIORITE_BRICKS);
+    public static final DeferredItem<BlockItem> DIORITE_BRICK_STAIRS_ITEM = register("diorite_brick_stairs", DIORITE_BRICK_STAIRS);
+    public static final DeferredItem<BlockItem> DIORITE_BRICK_SLAB_ITEM = register("diorite_brick_slab", DIORITE_BRICK_SLAB);
+    public static final DeferredItem<BlockItem> DIORITE_BRICK_WALL_ITEM = register("diorite_brick_wall", DIORITE_BRICK_WALL);
+
+    @AllBrick
+    @I18n(en_us = "Granite Bricks", zh_cn = "花岗岩砖", zh_tw = "花崗岩磚")
+    public static final DeferredBlock<Block> GRANITE_BRICKS =
+            register("granite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Cracked Granite Bricks", zh_cn = "裂纹花岗岩砖", zh_tw = "裂紋花崗岩磚")
+    public static final DeferredBlock<Block> CRACKED_GRANITE_BRICKS =
+            register("cracked_granite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Stairs", zh_cn = "花岗岩砖楼梯", zh_tw = "花崗岩磚樓梯")
+    public static final DeferredBlock<StairBlock> GRANITE_BRICK_STAIRS =
+            register("granite_brick_stairs", props -> new StairBlock(GRANITE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Slab", zh_cn = "花岗岩砖台阶", zh_tw = "花崗岩磚臺階")
+    public static final DeferredBlock<SlabBlock> GRANITE_BRICK_SLAB =
+            register("granite_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Granite Brick Wall", zh_cn = "花岗岩砖墙", zh_tw = "花崗岩磚墻")
+    public static final DeferredBlock<WallBlock> GRANITE_BRICK_WALL =
+            register("granite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DIRT));
+    public static final DeferredItem<BlockItem> GRANITE_BRICKS_ITEM = register("granite_bricks", GRANITE_BRICKS);
+    public static final DeferredItem<BlockItem> CRACKED_GRANITE_BRICKS_ITEM = register("cracked_granite_bricks", CRACKED_GRANITE_BRICKS);
+    public static final DeferredItem<BlockItem> GRANITE_BRICK_STAIRS_ITEM = register("granite_brick_stairs", GRANITE_BRICK_STAIRS);
+    public static final DeferredItem<BlockItem> GRANITE_BRICK_SLAB_ITEM = register("granite_brick_slab", GRANITE_BRICK_SLAB);
+    public static final DeferredItem<BlockItem> GRANITE_BRICK_WALL_ITEM = register("granite_brick_wall", GRANITE_BRICK_WALL);
+
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

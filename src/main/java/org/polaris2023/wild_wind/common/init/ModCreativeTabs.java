@@ -145,6 +145,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.DOUGH);
                 output.accept(ModBaseFoods.COOKED_EGG);
                 output.accept(ModItems.CHEESE);
+                output.accept(ModBaseFoods.FAILED_CUISINE);
+                output.accept(ModBaseFoods.CHARRED_CUISINE);
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {

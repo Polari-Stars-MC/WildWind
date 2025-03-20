@@ -4,11 +4,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 @Retention(RetentionPolicy.SOURCE)
-public @interface Slab {
-    String type() default "";
+public @interface Wall {
+    boolean bricks() default false;
     boolean item() default true;
-    String all() default  "";
-    String bottom() default "";
-    String side() default "";
-    String top() default "";
+    String wall() default  "";
 }

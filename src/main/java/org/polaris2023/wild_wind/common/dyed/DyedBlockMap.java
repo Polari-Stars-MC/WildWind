@@ -231,7 +231,7 @@ public class DyedBlockMap {//使用id存储内存量更小更准确
         dyedBlockMap.put("BANNER", bannerBlock);
 
     }
-    public Map<Integer,Block> getDyedBlock(String type){
+    public static Map<Integer,Block> getDyedBlock(String type){
         return dyedBlockMap.get(type);
     }
 

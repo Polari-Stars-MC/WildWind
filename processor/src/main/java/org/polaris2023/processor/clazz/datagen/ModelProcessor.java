@@ -96,6 +96,7 @@ public class ModelProcessor extends ClassProcessor {
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
         Slab slab = register(variableElement.getAnnotation(Slab.class));
+        Wall wall = register(variableElement.getAnnotation(Wall.class));
         Log log = register(variableElement.getAnnotation(Log.class));
         Wood wood = register(variableElement.getAnnotation(Wood.class));
         Button button = register(variableElement.getAnnotation(Button.class));
@@ -105,6 +106,7 @@ public class ModelProcessor extends ClassProcessor {
         AllWood allWood = register(variableElement.getAnnotation(AllWood.class));
         AllSign allSign = register(variableElement.getAnnotation(AllSign.class));
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
+        AllBrick allBrick = register(variableElement.getAnnotation(AllBrick.class));
         //item model gen
         runs.forEach(run -> run.accept(typeElement, variableElement));
 
@@ -147,7 +149,8 @@ public class ModelProcessor extends ClassProcessor {
                     all.isEmpty() ? stairs.bottom() : all,
                     all.isEmpty() ? stairs.side() : all,
                     all.isEmpty() ? stairs.top() : all,
-                    stairs.item()
+                    stairs.item(),
+                    stairs.type()
             );
         }
         else if (slab != null) {
@@ -156,8 +159,12 @@ public class ModelProcessor extends ClassProcessor {
                     all.isEmpty() ? slab.bottom() : all,
                     all.isEmpty() ? slab.side() : all,
                     all.isEmpty() ? slab.top() : all,
-                    slab.item()
+                    slab.item(),
+                    slab.type()
             );
+        }
+        else if(wall != null) {
+            checkAppend(typeElement, variableElement, "wallBlock", wall.wall(), wall.item(), wall.bricks());
         }
         else if (pressurePlate != null) {
             checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
@@ -170,6 +177,9 @@ public class ModelProcessor extends ClassProcessor {
         }
         else if (allWood != null) {
             checkAppend(typeElement, variableElement, "allWoodBlock");
+        }
+        else if(allBrick != null) {
+            checkAppend(typeElement, variableElement, "allBrickBlock");
         }
 
 

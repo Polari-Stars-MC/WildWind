@@ -47,7 +47,7 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		output.accept(button);
 	}
 
-	public void generateBlockLoot(Consumer<Block> dropSelf) {
+	public void generateBlockLoot(Consumer<Block> dropSelf, Consumer<SlabBlock> dropSlab) {
 		dropSelf.accept(this.baseBlock);
 		dropSelf.accept(this.button);
 		dropSelf.accept(this.fence);
@@ -57,7 +57,7 @@ public record ModBlockFamily(Block baseBlock, ButtonBlock button, FenceBlock fen
 		dropSelf.accept(this.wallSign);
 		dropSelf.accept(this.ceilingHangingSign);
 		dropSelf.accept(this.wallHangingSign);
-		dropSelf.accept(this.slab);
+		dropSlab.accept(this.slab);
 		dropSelf.accept(this.stair);
 		dropSelf.accept(this.trapdoor);
 	}
