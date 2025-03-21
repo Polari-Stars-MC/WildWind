@@ -1,7 +1,7 @@
 package org.polaris2023.wild_wind.client;
 
-import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
@@ -13,7 +13,7 @@ import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
 import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
-import org.polaris2023.wild_wind.client.renderer.DDBannerRenderer;
+import org.polaris2023.wild_wind.client.renderer.ModBannerRenderer;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 import org.polaris2023.wild_wind.common.init.ModBlockEntityType;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
@@ -47,7 +47,7 @@ public class WildWindClientEventHandler {
                 new ModMobRenderer<>("trout", context, TroutModel::new, TroutModel.LAYER_LOCATION, 1));
         event.registerEntityRenderer(ModEntities.PIRANHA.get(), context ->
                 new ModMobRenderer<>("piranha", context, PiranhaModel::new, PiranhaModel.LAYER_LOCATION, 1));
-        event.registerBlockEntityRenderer(ModBlockEntityType.BANNER.get(), DDBannerRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntityType.BANNER.get(), ModBannerRenderer::new);
     }
 
     @SubscribeEvent
@@ -55,6 +55,6 @@ public class WildWindClientEventHandler {
         event.registerLayerDefinition(FireflyModel.LAYER_LOCATION, FireflyModel::createBodyLayer);
         event.registerLayerDefinition(TroutModel.LAYER_LOCATION, TroutModel::createBodyLayer);
         event.registerLayerDefinition(PiranhaModel.LAYER_LOCATION, PiranhaModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.BANNER, DDBannerRenderer::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.BANNER, ModBannerRenderer::createBodyLayer);
     }
 }
