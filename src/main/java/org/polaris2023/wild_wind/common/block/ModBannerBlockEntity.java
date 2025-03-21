@@ -1,34 +1,24 @@
 package org.polaris2023.wild_wind.common.block;
 
-import com.mojang.datafixers.util.Pair;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.NbtOps;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Nameable;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.block.AbstractBannerBlock;
-import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
 import org.polaris2023.wild_wind.common.init.ModBlockEntityType;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
-import java.util.List;
 
-public class DDBannerBlockEntity extends BlockEntity implements Nameable {
+public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     private static final Logger LOGGER = LogUtils.getLogger();
     @Nullable
     private Component name;
@@ -36,7 +26,7 @@ public class DDBannerBlockEntity extends BlockEntity implements Nameable {
     public static final int DEFAULT_COLOR = 12030298;
     public int color;
 
-    public DDBannerBlockEntity(BlockPos pos, BlockState blockState) {
+    public ModBannerBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlockEntityType.BANNER.get(), pos, blockState);
     }
 

@@ -2,9 +2,7 @@ package org.polaris2023.wild_wind.client.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Axis;
-import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
@@ -14,29 +12,22 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.level.block.BannerBlock;
-import net.minecraft.world.level.block.WallBannerBlock;
-import net.minecraft.world.level.block.entity.BannerBlockEntity;
-import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
-import org.polaris2023.wild_wind.common.block.DDBannerBlock;
-import org.polaris2023.wild_wind.common.block.DDBannerBlockEntity;
-import org.polaris2023.wild_wind.common.block.DDWallBannerBlock;
+import org.polaris2023.wild_wind.common.block.ModBannerBlock;
+import org.polaris2023.wild_wind.common.block.ModBannerBlockEntity;
+import org.polaris2023.wild_wind.common.block.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 
-public class DDBannerRenderer implements BlockEntityRenderer<DDBannerBlockEntity> {
+public class DDBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntity> {
     private final ModelPart flag;
     private final ModelPart pole;
     private final ModelPart bar;
@@ -58,7 +49,7 @@ public class DDBannerRenderer implements BlockEntityRenderer<DDBannerBlockEntity
     }
 
     @Override
-    public void render(DDBannerBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+    public void render(ModBannerBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
         float f = 0.6666667F;
         boolean flag = blockEntity.getLevel() == null;
         poseStack.pushPose();
@@ -70,14 +61,14 @@ public class DDBannerRenderer implements BlockEntityRenderer<DDBannerBlockEntity
         } else {
             i = blockEntity.getLevel().getGameTime();
             BlockState blockstate = blockEntity.getBlockState();
-            if (blockstate.getBlock() instanceof DDBannerBlock) {
+            if (blockstate.getBlock() instanceof ModBannerBlock) {
                 poseStack.translate(0.5F, 0.5F, 0.5F);
-                float f1 = -RotationSegment.convertToDegrees((Integer)blockstate.getValue(DDBannerBlock.ROTATION));
+                float f1 = -RotationSegment.convertToDegrees((Integer)blockstate.getValue(ModBannerBlock.ROTATION));
                 poseStack.mulPose(Axis.YP.rotationDegrees(f1));
                 this.pole.visible = true;
             } else {
                 poseStack.translate(0.5F, -0.16666667F, 0.5F);
-                float f3 = -((Direction)blockstate.getValue(DDWallBannerBlock.FACING)).toYRot();
+                float f3 = -((Direction)blockstate.getValue(ModWallBannerBlock.FACING)).toYRot();
                 poseStack.mulPose(Axis.YP.rotationDegrees(f3));
                 poseStack.translate(0.0F, -0.3125F, -0.4375F);
                 this.pole.visible = false;

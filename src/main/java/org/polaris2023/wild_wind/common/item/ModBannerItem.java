@@ -5,16 +5,12 @@ import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import org.polaris2023.wild_wind.common.block.DDBannerBlockEntity;
+import org.polaris2023.wild_wind.common.block.ModBannerBlockEntity;
 
-import java.util.List;
-import java.util.Properties;
-
-public class DyeableBannerItem extends BannerItem {
+public class ModBannerItem extends BannerItem {
     public static final int DEFAULT_COLOR = 12030298;
 
-    public DyeableBannerItem(Block bannerBlock, Block wallBannerBlock, Properties settings) {
+    public ModBannerItem(Block bannerBlock, Block wallBannerBlock, Properties settings) {
         super(bannerBlock, wallBannerBlock, settings);
     }
 
@@ -23,7 +19,7 @@ public class DyeableBannerItem extends BannerItem {
         InteractionResult result = super.place(context);
         BlockEntity blockEntity = context.getLevel().getBlockEntity(context.getClickedPos());
         if(result.indicateItemUse()) {
-            if (blockEntity instanceof DDBannerBlockEntity dyeableBannerBlockEntity) {
+            if (blockEntity instanceof ModBannerBlockEntity dyeableBannerBlockEntity) {
                 dyeableBannerBlockEntity.color = DEFAULT_COLOR;
             }
         }
