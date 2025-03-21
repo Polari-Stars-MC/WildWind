@@ -27,7 +27,7 @@ import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
-import org.polaris2023.wild_wind.common.item.DyeableBannerItem;
+import org.polaris2023.wild_wind.common.item.ModBannerItem;
 
 import java.util.Arrays;
 
@@ -103,9 +103,9 @@ public class ModBlocks {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
 
     @I18n(en_us = "Banner", zh_cn = "旗帜", zh_tw = "旗幟")
-    public static final DeferredBlock<DDBannerBlock> BANNER = register("banner", DDBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredBlock<DDWallBannerBlock> WALL_BANNER = register("wall_banner", DDWallBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<DyeableBannerItem> BANNER_ITEM = register("banner", p -> new DyeableBannerItem(BANNER.get(), WALL_BANNER.get(), p));
+    public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", ModBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", ModWallBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(BANNER.get(), WALL_BANNER.get(), p));
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll
