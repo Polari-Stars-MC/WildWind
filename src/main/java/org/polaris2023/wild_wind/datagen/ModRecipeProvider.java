@@ -8,8 +8,10 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -18,6 +20,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
@@ -29,6 +32,7 @@ import org.polaris2023.wild_wind.util.Helpers;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
+import java.util.stream.IntStream;
 
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -41,7 +45,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
-        addDyedRecipe();
+        addDyedRecipe(recipeOutput);
         addStonecuttingRecipes();
         addSmeltingRecipes();
         addShapedRecipe();
@@ -82,7 +86,8 @@ public class ModRecipeProvider extends RecipeProvider {
             Blocks.PURPLE_GLAZED_TERRACOTTA,
             Blocks.RED_GLAZED_TERRACOTTA,
             Blocks.WHITE_GLAZED_TERRACOTTA,
-            Blocks.YELLOW_GLAZED_TERRACOTTA
+            Blocks.YELLOW_GLAZED_TERRACOTTA,
+            ModBlocks.GLAZED_TERRACOTTA.get()
     };
 
     public static final Block[] CARPET_BLOCK = {
@@ -101,10 +106,11 @@ public class ModRecipeProvider extends RecipeProvider {
             Blocks.PURPLE_CARPET,
             Blocks.RED_CARPET,
             Blocks.WHITE_CARPET,
-            Blocks.YELLOW_CARPET
+            Blocks.YELLOW_CARPET,
+            ModBlocks.CARPET.get()
     };
 
-    public static Block[] WOOL_BLOCK = {
+    public static final Block[] WOOL_BLOCK = {
             Blocks.BLACK_WOOL,
             Blocks.BLUE_WOOL,
             Blocks.BROWN_WOOL,
@@ -120,7 +126,8 @@ public class ModRecipeProvider extends RecipeProvider {
             Blocks.PURPLE_WOOL,
             Blocks.RED_WOOL,
             Blocks.WHITE_WOOL,
-            Blocks.YELLOW_WOOL
+            Blocks.YELLOW_WOOL,
+            ModBlocks.WOOL.get()
     };
 
     public static final Block[] CONCRETE_BLOCK = {
@@ -139,7 +146,8 @@ public class ModRecipeProvider extends RecipeProvider {
             Blocks.PURPLE_CONCRETE,
             Blocks.RED_CONCRETE,
             Blocks.WHITE_CONCRETE,
-            Blocks.YELLOW_CONCRETE
+            Blocks.YELLOW_CONCRETE,
+            ModBlocks.CONCRETE.get()
     };
 
     public static final Block[] CONCRETE_POWDER_BLOCK = {
@@ -158,7 +166,8 @@ public class ModRecipeProvider extends RecipeProvider {
             Blocks.PURPLE_CONCRETE_POWDER,
             Blocks.RED_CONCRETE_POWDER,
             Blocks.WHITE_CONCRETE_POWDER,
-            Blocks.YELLOW_CONCRETE_POWDER
+            Blocks.YELLOW_CONCRETE_POWDER,
+            ModBlocks.CONCRETE_POWDER.get()
     };
 
     public static final Item[] DYE = {
@@ -180,7 +189,7 @@ public class ModRecipeProvider extends RecipeProvider {
             Items.YELLOW_DYE
     };
 
-    public void addDyedRecipe() {
+    public void addDyedRecipe(RecipeOutput recipeOutput) {
         for(int i = 0; i < DYE.length; i++) {
             int finalI = i;
             add(shapeless(RecipeCategory.BUILDING_BLOCKS, GLAZED_TERRACOTTA_BLOCK[i], 1, glazed_terracotta -> {
@@ -195,12 +204,17 @@ public class ModRecipeProvider extends RecipeProvider {
                         .requires(DYE[finalI])
                         .requires(ModBlocks.CARPET);
             }));
-            add(shapeless(RecipeCategory.MISC, WOOL_BLOCK[i], 1, wool -> {
+            Block[] ingredientArray = new Block[WOOL_BLOCK.length - 1];
+            System.arraycopy(WOOL_BLOCK, 0, ingredientArray, 0, i);
+            System.arraycopy(WOOL_BLOCK, i + 1, ingredientArray, i, WOOL_BLOCK.length - i - 1);
+            String name = WOOL_BLOCK[finalI].builtInRegistryHolder().getRegisteredName();
+            shapeless(RecipeCategory.MISC, WOOL_BLOCK[i], 1, wool -> {
                 unlockedBy(wool, ModBlocks.WOOL, DYE[finalI]);
                 wool
                         .requires(DYE[finalI])
-                        .requires(ModBlocks.WOOL);
-            }));
+                        .requires(Ingredient.of(ingredientArray))
+                        .save(recipeOutput, ResourceLocation.withDefaultNamespace("dye_" + name.substring(name.indexOf(':') + 1)));
+            });
             add(shapeless(RecipeCategory.MISC, CONCRETE_BLOCK[i], 1, concrete -> {
                 unlockedBy(concrete, ModBlocks.CONCRETE, DYE[finalI]);
                 concrete
