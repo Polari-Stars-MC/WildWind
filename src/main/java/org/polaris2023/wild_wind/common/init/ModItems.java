@@ -1,7 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.BannerDuplicateRecipe;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -10,14 +12,11 @@ import org.polaris2023.wild_wind.common.item.*;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 
-import java.util.function.BiConsumer;
-
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
 
 
 public class ModItems {
-
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
     public static final DeferredItem<LivingTuberItem> LIVING_TUBER =

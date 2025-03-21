@@ -2,31 +2,32 @@ package org.polaris2023.wild_wind.common.init;
 
 import com.mojang.datafixers.DSL;
 import com.mojang.datafixers.types.Type;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.HangingSignItem;
-import net.minecraft.world.item.SignItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
-import net.minecraft.world.level.block.state.properties.SlabType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
+import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
+import org.polaris2023.wild_wind.common.item.DyeableBannerItem;
 
 import java.util.Arrays;
 
@@ -88,6 +89,23 @@ public class ModBlocks {
             register("trapped_present", TrappedPresentBlock::new, BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredItem<TrappedPresentBlockItem> TRAPPED_PRESENT_ITEM =
             register("trapped_present", p -> new TrappedPresentBlockItem(TRAPPED_PRESENT.get(), p));
+
+    @I18n(en_us = "Bed", zh_cn = "床", zh_tw = "床")
+    public static final DeferredBlock<NeoBedBlock> BED = register("bed", NeoBedBlock::new, BlockBehaviour.Properties.of()
+            .strength(0.2F, 0.2F)
+            .ignitedByLava()
+            .isSuffocating((state, level, pos) -> false)
+            .isRedstoneConductor((state, level, pos) -> false)
+            .pushReaction(PushReaction.DESTROY)
+            .instrument(NoteBlockInstrument.HARP));
+    public static final DeferredItem<BlockItem> BED_ITEM = register("bed", BED);
+
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
+
+    @I18n(en_us = "Banner", zh_cn = "旗帜", zh_tw = "旗幟")
+    public static final DeferredBlock<DDBannerBlock> BANNER = register("banner", DDBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<DDWallBannerBlock> WALL_BANNER = register("wall_banner", DDWallBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<DyeableBannerItem> BANNER_ITEM = register("banner", p -> new DyeableBannerItem(BANNER.get(), WALL_BANNER.get(), p));
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll

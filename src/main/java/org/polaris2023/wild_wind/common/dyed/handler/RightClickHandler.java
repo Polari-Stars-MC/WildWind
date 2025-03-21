@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
+import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 
 import java.util.*;
 
@@ -200,7 +201,7 @@ public class RightClickHandler {
         if (blockState.is(BlockTags.WOOL)){
             return "WOOL";
         }
-        if (carpetBlock.contains(blockState.getBlock())){
+        if (blockState.is(BlockTags.WOOL_CARPETS)){
             return "CARPET";
         }
         if (blockState.getBlock() instanceof BedBlock){
@@ -209,10 +210,10 @@ public class RightClickHandler {
         if (blockState.is(BlockTags.TERRACOTTA)){
             return "TERRACOTTA";
         }
-        if (concreteBlock.contains(blockState.getBlock())){
+        if (blockState.is(Tags.Blocks.CONCRETES)){
             return "CONCRETE";
         }
-        if (concrete_powderBlock.contains(blockState.getBlock())){
+        if (blockState.is(ModBlockTagsProvider.CONCRETE_POWDERS)){
             return "CONCRETE_POWDER";
         }
         if (blockState.is(Tags.Blocks.GLAZED_TERRACOTTAS)){

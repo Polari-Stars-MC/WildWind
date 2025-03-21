@@ -23,9 +23,4 @@ public class ModItemModelProvider extends ItemModelProvider {
         simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
         simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
     }
-
-    public void wallItem(DeferredHolder<Block, ?> block, DeferredHolder<Block, Block> baseBlock) {
-        this.withExistingParent(block.getId().getPath(), mcLoc("block/wall_inventory"))
-                .texture("wall",  ResourceLocation.fromNamespaceAndPath(baseBlock.getId().getNamespace(), "block/" + baseBlock.getId().getPath()));
-    }
 }

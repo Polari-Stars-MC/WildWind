@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.client;
 
+import net.minecraft.client.renderer.blockentity.BlockEntityRenderDispatcher;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
@@ -12,6 +13,9 @@ import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
 import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
+import org.polaris2023.wild_wind.client.renderer.DDBannerRenderer;
+import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityType;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModEntities;
@@ -25,14 +29,17 @@ public class WildWindClientEventHandler {
                 FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.SLIME_COLOR, 0)), Items.SLIME_BALL);
         event.register((stack, tintIndex) ->
                 FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL_ITEM);
+        event.register((stack, tintIndex) ->
+                FastColor.ARGB32.opaque(12030298), ModBlocks.BANNER.asItem(), ModBlocks.WALL_BANNER.asItem());
     }
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
-
+        event.register((state, world, pos, tintIndex) -> {
+            return FastColor.ARGB32.opaque(12030298);
+        }, ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
     }
 
-    @SubscribeEvent
     public static void registerRender(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.FIREFLY.get(), context ->
                 new ModMobRenderer<>("firefly", context, FireflyModel::new, FireflyModel.LAYER_LOCATION, 1));
@@ -40,6 +47,7 @@ public class WildWindClientEventHandler {
                 new ModMobRenderer<>("trout", context, TroutModel::new, TroutModel.LAYER_LOCATION, 1));
         event.registerEntityRenderer(ModEntities.PIRANHA.get(), context ->
                 new ModMobRenderer<>("piranha", context, PiranhaModel::new, PiranhaModel.LAYER_LOCATION, 1));
+        event.registerBlockEntityRenderer(ModBlockEntityType.BANNER.get(), DDBannerRenderer::new);
     }
 
     @SubscribeEvent
@@ -47,5 +55,6 @@ public class WildWindClientEventHandler {
         event.registerLayerDefinition(FireflyModel.LAYER_LOCATION, FireflyModel::createBodyLayer);
         event.registerLayerDefinition(TroutModel.LAYER_LOCATION, TroutModel::createBodyLayer);
         event.registerLayerDefinition(PiranhaModel.LAYER_LOCATION, PiranhaModel::createBodyLayer);
+        event.registerLayerDefinition(ModModelLayers.BANNER, DDBannerRenderer::createBodyLayer);
     }
 }
