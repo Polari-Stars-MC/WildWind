@@ -27,12 +27,12 @@ import org.polaris2023.wild_wind.common.block.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.block.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 
-public class DDBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntity> {
+public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntity> {
     private final ModelPart flag;
     private final ModelPart pole;
     private final ModelPart bar;
 
-    public DDBannerRenderer(BlockEntityRendererProvider.Context context) {
+    public ModBannerRenderer(BlockEntityRendererProvider.Context context) {
         ModelPart modelPart = context.bakeLayer(ModModelLayers.BANNER);
         this.flag = modelPart.getChild("flag");
         this.pole = modelPart.getChild("pole");
@@ -84,13 +84,13 @@ public class DDBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntit
         float f2 = ((float)Math.floorMod((long)(blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + i, 100L) + partialTick) / 100.0F;
         this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(((float)Math.PI * 2F) * f2)) * (float)Math.PI;
         this.flag.y = -32.0F;
-        DDBannerRenderer.renderPatterns(poseStack, bufferSource, packedLight, packedOverlay, this.flag, ModelBakery.BANNER_BASE, true, 12030298, blockEntity.getPatterns());
+        ModBannerRenderer.renderPatterns(poseStack, bufferSource, packedLight, packedOverlay, this.flag, ModelBakery.BANNER_BASE, true, blockEntity.color, blockEntity.getPatterns());
         poseStack.popPose();
         poseStack.popPose();
     }
 
     public static void renderPatterns(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, ModelPart flagPart, Material flagMaterial, boolean banner, int baseColor, BannerPatternLayers patterns) {
-        DDBannerRenderer.renderPatterns(poseStack, buffer, packedLight, packedOverlay, flagPart, flagMaterial, banner, baseColor, patterns, false);
+        ModBannerRenderer.renderPatterns(poseStack, buffer, packedLight, packedOverlay, flagPart, flagMaterial, banner, baseColor, patterns, false);
     }
 
     public static void renderPatterns(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, ModelPart flagPart, Material flagMaterial, boolean banner, int baseColor, BannerPatternLayers patterns, boolean glint) {
@@ -100,7 +100,7 @@ public class DDBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntit
         for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
             BannerPatternLayers.Layer bannerpatternlayers$layer = (BannerPatternLayers.Layer)patterns.layers().get(i);
             Material material = banner ? Sheets.getBannerMaterial(bannerpatternlayers$layer.pattern()) : Sheets.getShieldMaterial(bannerpatternlayers$layer.pattern());
-            renderPatternLayer(poseStack, buffer, packedLight, packedOverlay, flagPart, material, bannerpatternlayers$layer.color().getTextureDiffuseColor());
+            ModBannerRenderer.renderPatternLayer(poseStack, buffer, packedLight, packedOverlay, flagPart, material, bannerpatternlayers$layer.color().getTextureDiffuseColor());
         }
 
     }

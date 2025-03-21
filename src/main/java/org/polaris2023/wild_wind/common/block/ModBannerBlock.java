@@ -16,13 +16,13 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class ModBannerBlock extends BannerBlock {
+public class ModBannerBlock extends ModAbstractBannerBlock {
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
 
     public ModBannerBlock(Properties properties) {
-        super(DyeColor.CYAN , properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(ROTATION, 0));
+        super(DyeColor.BLACK , properties);
+        this.registerDefaultState((BlockState)((BlockState)this.stateDefinition.any()).setValue(ROTATION, 0));
     }
 
     @Override
