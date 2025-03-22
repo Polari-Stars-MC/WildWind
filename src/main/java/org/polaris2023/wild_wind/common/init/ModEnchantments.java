@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 public enum ModEnchantments implements Supplier<ResourceKey<Enchantment>> {
-    SMELTING((location, hg, hg1, hg2, hg3) -> Enchantment.enchantment(
+    AUTO_SMELTING((location, hg, hg1, hg2, hg3) -> Enchantment.enchantment(
             Enchantment.definition(
                     hg2.getOrThrow(ItemTags.MINING_ENCHANTABLE),
                     1,//权重比时运低，优先触发时运

@@ -154,6 +154,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModItems.GLOW_POWDER);
         output.accept(ModItems.ASH_DUST);
         output.accept(ModBaseItems.SALT);
+
     }, FOOD_AND_DRINK),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT_ITEM::toStack,

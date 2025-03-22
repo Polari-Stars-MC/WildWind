@@ -13,6 +13,9 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -37,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
@@ -216,21 +220,39 @@ public class WildWindGameEventHandler {
         if (event.getLevel() instanceof  ServerLevel serverLevel) {
 
             ItemStack mainHandItem = player.getMainHandItem();
-            if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.SMELTING.get())) {
-                BlockPos pos = event.getPos();
 
-                //获取掉落物
-                List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
-                for (ItemStack drop : drops) {
-                    serverLevel
-                            .getRecipeManager()
-                            .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
-                                Block.popResource(serverLevel, pos, h.value().getResultItem(serverLevel.registryAccess()));
-                            }, () -> {
-                                Block.popResource(serverLevel, pos, drop);
-                            });
-                }
+            if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.AUTO_SMELTING.get())) {
+                BlockPos pos = event.getPos();
+                autoSmelting(serverLevel, pos);
+//                if (
+//                        isTool(mainHandItem, ItemTags.PICKAXES, BlockTags.MINEABLE_WITH_PICKAXE, serverLevel, pos)
+//                        || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
+//                        || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
+//                        || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
+//                ) {
+//                    //获取掉落物
+//
+//                }
+
+
             }
+        }
+    }
+
+    private static boolean isTool(ItemStack stack, TagKey<Item> itemTag, TagKey<Block> blockTag, ServerLevel serverLevel, BlockPos pos) {
+        return stack.is(itemTag) && serverLevel.getBlockState(pos).is(blockTag);
+    }
+
+    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos) {
+        List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
+        for (ItemStack drop : drops) {
+            serverLevel
+                    .getRecipeManager()
+                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
+                        Block.popResource(serverLevel, pos, h.value().getResultItem(serverLevel.registryAccess()));
+                    }, () -> {
+                        Block.popResource(serverLevel, pos, drop);
+                    });
         }
     }
 
