@@ -103,6 +103,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
         tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
+        tag(ItemTags.BANNERS).add(ModBlocks.BANNER_ITEM.get());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {

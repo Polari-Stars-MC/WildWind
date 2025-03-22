@@ -7,13 +7,13 @@ import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtOps;
-import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Nameable;
-import net.minecraft.world.level.Level;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
+import org.polaris2023.wild_wind.common.block.ModAbstractBannerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.slf4j.Logger;
 
@@ -29,6 +29,19 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
 
     public ModBannerBlockEntity(BlockPos pos, BlockState blockState) {
         super(ModBlocks.BANNER_BE.get(), pos, blockState);
+        this.patterns = BannerPatternLayers.EMPTY;
+        this.color = ((ModAbstractBannerBlock)blockState.getBlock()).getIntColor();
+    }
+
+    public void fromItem(ItemStack stack, int color) {
+        this.color = color;
+        this.applyComponentsFromItemStack(stack);
+    }
+
+    public ItemStack getItem() {
+        ItemStack itemstack = new ItemStack(ModBlocks.BANNER_ITEM.get());
+        itemstack.applyComponents(this.collectComponents());
+        return itemstack;
     }
 
     @Override
@@ -40,7 +53,7 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
 
     @Override
     public Component getName() {
-        return (Component)(this.name != null ? this.name : Component.translatable("block.wild_wind.banner"));
+        return this.name != null ? this.name : Component.translatable("block.wild_wind.banner");
     }
 
     @Nullable
@@ -55,7 +68,7 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.saveAdditional(tag, registries);
         if (!this.patterns.equals(BannerPatternLayers.EMPTY)) {
-            tag.put("patterns", (Tag)BannerPatternLayers.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), this.patterns).getOrThrow());
+            tag.put("patterns", BannerPatternLayers.CODEC.encodeStart(registries.createSerializationContext(NbtOps.INSTANCE), this.patterns).getOrThrow());
         }
 
         if (this.name != null) {
@@ -102,8 +115,8 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     @Override
     protected void applyImplicitComponents(DataComponentInput componentInput) {
         super.applyImplicitComponents(componentInput);
-        this.patterns = (BannerPatternLayers)componentInput.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY);
-        this.name = (Component)componentInput.get(DataComponents.CUSTOM_NAME);
+        this.patterns = componentInput.getOrDefault(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY);
+        this.name = componentInput.get(DataComponents.CUSTOM_NAME);
     }
 
     @Override
@@ -118,12 +131,5 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
         tag.remove("patterns");
         tag.remove("CustomName");
         tag.remove("color");
-    }
-
-    public static void serverTick(Level level,
-                                  BlockPos pos,
-                                  BlockState blockState,
-                                  ModBannerBlockEntity tile) {
-
     }
 }
