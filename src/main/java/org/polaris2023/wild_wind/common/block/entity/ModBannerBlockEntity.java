@@ -1,7 +1,6 @@
-package org.polaris2023.wild_wind.common.block;
+package org.polaris2023.wild_wind.common.block.entity;
 
 import com.mojang.logging.LogUtils;
-import lombok.Getter;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentMap;
@@ -12,16 +11,13 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.Nameable;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.fml.common.Mod;
-import org.polaris2023.wild_wind.common.init.ModBlockEntityType;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.slf4j.Logger;
 
 import javax.annotation.Nullable;
-import javax.swing.text.html.BlockView;
 
 public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     private static final Logger LOGGER = LogUtils.getLogger();
@@ -32,7 +28,7 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     public int color;
 
     public ModBannerBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlockEntityType.BANNER.get(), pos, blockState);
+        super(ModBlocks.BANNER_BE.get(), pos, blockState);
     }
 
     @Override
@@ -122,5 +118,12 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
         tag.remove("patterns");
         tag.remove("CustomName");
         tag.remove("color");
+    }
+
+    public static void serverTick(Level level,
+                                  BlockPos pos,
+                                  BlockState blockState,
+                                  ModBannerBlockEntity tile) {
+
     }
 }
