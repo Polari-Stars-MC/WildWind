@@ -8,10 +8,9 @@ import java.util.Locale;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.Helpers.ctags;
-import static org.polaris2023.wild_wind.util.Helpers.tags;
 
 public enum ModEntityTypeTags implements Supplier<TagKey<EntityType<?>>> {
-    ;
+    WILD_WIND_INVISIBLE;
     final TagKey<EntityType<?>> tag;
     ModEntityTypeTags() {
         tag = ctags(Registries.ENTITY_TYPE, name().toLowerCase(Locale.ROOT));

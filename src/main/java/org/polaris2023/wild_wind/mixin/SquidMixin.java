@@ -14,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
 import org.polaris2023.wild_wind.util.interfaces.ISquid;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -22,8 +21,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Squid.class)
 public class SquidMixin extends WaterAnimal implements ISquid {
-    @Shadow public float tentacleAngle;
-    @Shadow public float tentacleMovement;
     @Unique
     private static final EntityDataAccessor<Boolean> DATA_SQUID_CONVERSION_ID;
 

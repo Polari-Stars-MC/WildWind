@@ -93,6 +93,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.PLANKS).add(ModBlocks.AZALEA_PLANKS_ITEM.get(), ModBlocks.PALM_PLANKS_ITEM.get(), ModBlocks.BAOBAB_PLANKS_ITEM.get());
         tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
         tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
+        tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
         ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
         ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
