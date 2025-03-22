@@ -5,7 +5,7 @@ import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import org.polaris2023.wild_wind.common.block.ModBannerBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 
 public class ModBannerItem extends BannerItem {
     public static final int DEFAULT_COLOR = 12030298;

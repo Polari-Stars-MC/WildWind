@@ -25,6 +25,7 @@ import org.polaris2023.wild_wind.common.block.*;
 
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.ModBannerItem;
@@ -106,6 +107,8 @@ public class ModBlocks {
     public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", ModBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", ModWallBannerBlock::new, BlockBehaviour.Properties.of().noLootTable());
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(BANNER.get(), WALL_BANNER.get(), p));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ModBannerBlockEntity>> BANNER_BE =
+            entity("banner", DSL.remainderType(), ModBannerBlockEntity::new, BANNER, WALL_BANNER);
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @CubeAll

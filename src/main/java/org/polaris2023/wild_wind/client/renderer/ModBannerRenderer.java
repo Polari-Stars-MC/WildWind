@@ -12,6 +12,7 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
+import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
@@ -22,11 +23,14 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.polaris2023.wild_wind.common.block.ModBannerBlock;
-import org.polaris2023.wild_wind.common.block.ModBannerBlockEntity;
+import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.block.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
+import net.neoforged.api.distmarker.Dist;
 
+@OnlyIn(Dist.CLIENT)
 public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntity> {
     private final ModelPart flag;
     private final ModelPart pole;
