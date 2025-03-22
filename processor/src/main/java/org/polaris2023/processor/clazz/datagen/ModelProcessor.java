@@ -5,6 +5,7 @@ import org.polaris2023.annotation.KV;
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.modelgen.other.*;
+import org.polaris2023.annotation.register.ResourceLocation;
 import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
@@ -74,6 +75,9 @@ public class ModelProcessor extends ClassProcessor {
     public static String merge(String code, TypeElement typeElement, VariableElement element) {
         return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get());";
     }
+    public static String mergeNext(String code, TypeElement typeElement, VariableElement element) {
+        return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get())";
+    }
 
     public void spawnEggItem(TypeElement typeElement, VariableElement variableElement) {
         SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
@@ -83,6 +87,8 @@ public class ModelProcessor extends ClassProcessor {
 
     public final List<BiConsumer<TypeElement, VariableElement>> runs = List.of(
             this::spawnEggItem,
+            this::basicBlock,
+            this::cubeBottomTop,
             this::parentItem
     );
 
@@ -123,7 +129,7 @@ public class ModelProcessor extends ClassProcessor {
         }
         //block model gen
         if (cube != null) {
-            checkAppend(typeElement, variableElement,"cubeAll", cube.texture(), cube.render_type(), cube.item());
+            checkAppend(typeElement, variableElement,"cubeAll", cube.all(), cube.render_type(), cube.item());
         }
         else if (cubeColumn != null) {
             checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
@@ -181,12 +187,36 @@ public class ModelProcessor extends ClassProcessor {
         else if(allBrick != null) {
             checkAppend(typeElement, variableElement, "allBrickBlock");
         }
+    }
 
+    private String location(ResourceLocation location) {
+        return "ResourceLocation.fromNamespaceAndPath(\"" + location.namespace() + "\", \"" + location.path() + "\")";
+    }
 
+    private void cubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
+        CubeBottomTop cubeBottomTop = variableElement.getAnnotation(CubeBottomTop.class);
+        if (cubeBottomTop != null) {
+            
+        }
+    }
 
-
-
-
+    private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
+        BasicBlock basicBlock = variableElement.getAnnotation(BasicBlock.class);
+        if (basicBlock != null) {
+            StringBuilder sb = new StringBuilder(mergeNext("stateProvider.simpleBlock", typeElement, variableElement));
+            if (!basicBlock.render_type().isEmpty())
+                sb.append(".renderType(\"").append(basicBlock.render_type()).append("\")");
+            sb.append(";");
+            if (basicBlock.item()) {
+                sb
+                        .append("itemModelProvider.simpleBlockItem(")
+                        .append(typeElement.getQualifiedName())
+                        .append(".")
+                        .append(variableElement.getSimpleName())
+                        .append(".get().asItem());");
+            }
+            InitProcessor.modelGen(context, sb.toString());
+        }
     }
 
     private void parentItem(TypeElement typeElement, VariableElement variableElement) {
@@ -206,7 +236,6 @@ public class ModelProcessor extends ClassProcessor {
                 sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
             }
             sb.append(";");
-            System.out.println(sb);
             InitProcessor.modelGen(context, sb.toString());
 
         }

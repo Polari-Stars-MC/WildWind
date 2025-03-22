@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
@@ -48,11 +49,9 @@ public class WildWindClientProvider implements DataProvider {
         stateProvider.wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
         stateProvider.stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
         stateProvider.slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-
         // Sapling
         stateProvider.simpleBlock(ModBlocks.PALM_SAPLING.get(), blockModelProvider.cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
         stateProvider.simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), blockModelProvider.cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
-
 
         VariantBlockStateBuilder glowMucusStates = stateProvider.getVariantBuilder(ModBlocks.GLOW_MUCUS.get());
         for (Direction facing : Direction.values()) {
@@ -122,6 +121,7 @@ public class WildWindClientProvider implements DataProvider {
                 Helpers.location("block/glistering_melon_side"),
                 Helpers.location("block/glistering_melon_top")
         );
+
         stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
     } // 手写模型生成塞这块
 
