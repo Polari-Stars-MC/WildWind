@@ -47,6 +47,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+        this.dropSelf(ModBlocks.BED.get());
         this.dropSelf(ModBlocks.GLOW_MUCUS.get());
         this.dropSelf(ModBlocks.GLAREFLOWER.get());
         this.dropSelf(ModBlocks.GLAREFLOWER_SEEDS.get());

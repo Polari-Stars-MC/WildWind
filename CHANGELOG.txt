@@ -38,3 +38,4 @@
 2025/3/20
     Add @AllBrick and fix Codes.java
     Add EMI washing world interaction recipes compatibility, add two kinds of powder Tooltip
+    Add bed and banner(unfinished)

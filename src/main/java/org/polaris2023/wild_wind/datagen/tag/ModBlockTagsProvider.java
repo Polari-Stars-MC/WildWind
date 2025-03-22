@@ -9,10 +9,12 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
+import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
@@ -25,6 +27,8 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     public ModBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
     }
+
+    public static final TagKey<Block> CONCRETE_POWDERS = create("concrete_powders");
 
 
     protected IntrinsicTagAppender<Block> tag(Supplier<TagKey<Block>> tag) {
@@ -74,15 +78,20 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         tag(BlockTags.REPLACEABLE).add(ModBlocks.ASH.get());
 
-        tag(BlockTags.create(ResourceLocation.parse("c:glazed_terracottas"))).add(ModBlocks.GLAZED_TERRACOTTA.get());
-        tag(BlockTags.create(ResourceLocation.parse("c:concretes"))).add(ModBlocks.CONCRETE.get());
-        tag(BlockTags.create(ResourceLocation.parse("c:concrete_powders"))).add(ModBlocks.CONCRETE_POWDER.get());
+        tag(Tags.Blocks.GLAZED_TERRACOTTAS).add(ModBlocks.GLAZED_TERRACOTTA.get());
+        tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
+        tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
+        tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+        DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(CONCRETE_POWDERS).add(block));
 
         ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
         ModBlockFamilies.PALM_PLANKS.generateBlockTags(this::tag);
         ModBlockFamilies.BAOBAB_PLANKS.generateBlockTags(this::tag);
     }
 
+    public static TagKey<Block> create(String tagName) {
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
+    }
 
     @SafeVarargs
     public final <T extends Block> void add(TagKey<Block> tag, T... blocks) {
