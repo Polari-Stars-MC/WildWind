@@ -19,7 +19,8 @@ public enum ModItemTags implements Supplier<TagKey<Item>> {
     MONSTER_FOOD,
     AZALEA_LOGS,
     PALM_LOGS,
-    BAOBAB_LOGS
+    BAOBAB_LOGS,
+    WILD_WIND_INVISIBLE,
     ;
     final TagKey<Item> tag;
     ModItemTags() {
