@@ -42,7 +42,7 @@ public class WildWindClientEventHandler {
 
     @SubscribeEvent
     public static void registerRender(final EntityRenderersEvent.RegisterRenderers event) {
-        // event.registerBlockEntityRenderer(ModBlocks.BANNER_BE.get(), ModBannerRenderer::new);
+         event.registerBlockEntityRenderer(ModBlocks.BANNER_BE.get(), ModBannerRenderer::new);
         event.registerEntityRenderer(ModEntities.FIREFLY.get(), context ->
                 new ModMobRenderer<>("firefly", context, FireflyModel::new, FireflyModel.LAYER_LOCATION, 1));
         event.registerEntityRenderer(ModEntities.TROUT.get(), context ->

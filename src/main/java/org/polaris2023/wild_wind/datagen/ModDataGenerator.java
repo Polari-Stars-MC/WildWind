@@ -36,6 +36,7 @@ public class ModDataGenerator {
 
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
+        gen.addProvider(event.includeServer(), new ModEnchantTagsProvider(output, lookupProvider, helper));
         for (ILanguage<?> language : ServiceLoader.load(ILanguage.class)) {
             gen.addProvider(event.includeClient(), language.setModid(MOD_ID).setOutput(output));
         }
@@ -51,6 +52,7 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), blockTagsProvider);
         gen.addProvider(event.includeServer(), new ModItemTagsProvider(output, provider, blockTagsProvider.contentsGetter(), helper));
         gen.addProvider(event.includeServer(), new ModLootTableProvider(output, provider));
+
         gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(output, provider, helper));
         gen.addProvider(event.includeServer(), new ModCompostMapProvider(output, provider));
         gen.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(output, lookupProvider, helper));

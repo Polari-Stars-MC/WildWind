@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.common.block;
 
 import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.DyeColor;
@@ -26,6 +27,10 @@ import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 
 public class ModBannerBlock extends ModAbstractBannerBlock {
+    public static final MapCodec<ModBannerBlock> CODEC = RecordCodecBuilder.mapCodec(
+            p_308800_ -> p_308800_.group(propertiesCodec())
+                    .apply(p_308800_, ModBannerBlock::new)
+    );
     public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_16;
     private static final VoxelShape SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
 
@@ -74,7 +79,7 @@ public class ModBannerBlock extends ModAbstractBannerBlock {
 
     @Override
     protected MapCodec<? extends AbstractBannerBlock> codec() {
-        return null;
+        return CODEC;
     }
 
 

@@ -82,10 +82,11 @@ public class ModInitializer {
         init(bus, ModSounds.class, SOUNDS);
         init(bus, ModEntities.class, ENTITIES);
         init(bus, ModFluids.class, FLUIDS);
-        init(bus, ModBlocks.class, BLOCKS);
+        init(bus, ModBlocks.class, BLOCKS, TILES);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class},
+                ITEMS);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
