@@ -43,6 +43,8 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
     COW_INTOLERANCE("cow", "intolerance"),
     @I18n(en_us = "Goat intolerance", zh_tw = "山羊不耐受", zh_cn = "山羊不耐受")
     GOAT_INTOLERANCE("cow", "intolerance"),
+    @I18n(en_us = "Mooshroom intolerance", zh_tw = "哞菇不耐受", zh_cn = "哞菇不耐受")
+    MOOSHROOM_COW_INTOLERANCE("mooshroom", "cow", "intolerance"),
     @I18n(en_us = "Ribbon Color: ", zh_tw = "丝带色：", zh_cn = "絲帶色：")
     PRESENT_COLOR_TOOLTIP_RIBBON("present", "color", "tooltip", "ribbon"),
     @I18n(en_us = "Color: ", zh_tw = "本色：", zh_cn = "本色：")
