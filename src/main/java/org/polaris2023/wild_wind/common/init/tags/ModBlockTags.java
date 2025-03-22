@@ -14,7 +14,8 @@ public enum ModBlockTags implements Supplier<TagKey<Block>> {
     FIREFLY_ROOST_BLOCK,
     AZALEA_LOGS,
     PALM_LOGS,
-    BAOBAB_LOGS
+    BAOBAB_LOGS,
+    ICE_SKIP,
     ;
     final TagKey<Block> tag;
     ModBlockTags() {
