@@ -63,7 +63,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.PLANKS).add(ModBlocks.AZALEA_PLANKS.get(), ModBlocks.PALM_PLANKS.get(), ModBlocks.BAOBAB_PLANKS.get());
         tag(BlockTags.LEAVES).add(ModBlocks.PALM_LEAVES.get(), ModBlocks.BAOBAB_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(ModBlocks.PALM_SAPLING.get(), ModBlocks.BAOBAB_SAPLING.get());
-
+        tag(ModBlockTags.ICE_SKIP).add(ModBlocks.BRITTLE_ICE.get());
         tag(BlockTags.WALLS).add(ModBlocks.STONE_WALL.get(), ModBlocks.POLISHED_STONE_WALL.get());
 
         tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
