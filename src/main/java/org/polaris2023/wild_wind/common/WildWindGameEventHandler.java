@@ -5,6 +5,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -33,14 +35,15 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
@@ -223,16 +226,18 @@ public class WildWindGameEventHandler {
 
             if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.AUTO_SMELTING.get())) {
                 BlockPos pos = event.getPos();
-                autoSmelting(serverLevel, pos);
-//                if (
-//                        isTool(mainHandItem, ItemTags.PICKAXES, BlockTags.MINEABLE_WITH_PICKAXE, serverLevel, pos)
-//                        || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
-//                        || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
-//                        || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
-//                ) {
-//                    //获取掉落物
-//
-//                }
+
+                if (
+                        isTool(mainHandItem, ItemTags.PICKAXES, BlockTags.MINEABLE_WITH_PICKAXE, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
+                ) {
+                    //获取掉落物
+                    autoSmelting(serverLevel, pos, mainHandItem);
+                    serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                    event.setCanceled(true);
+                }
 
 
             }
@@ -243,13 +248,37 @@ public class WildWindGameEventHandler {
         return stack.is(itemTag) && serverLevel.getBlockState(pos).is(blockTag);
     }
 
-    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos) {
+    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem) {
         List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
         for (ItemStack drop : drops) {
             serverLevel
                     .getRecipeManager()
                     .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
-                        Block.popResource(serverLevel, pos, h.value().getResultItem(serverLevel.registryAccess()));
+                        ItemStack resultItem = h.value().getResultItem(serverLevel.registryAccess());
+
+
+                        int neoCount = 0;
+                        int count = drop.getCount();
+                        for (;count > 0; count--) {
+
+                            if (mainHandItem.getDamageValue() == mainHandItem.getMaxDamage()) {
+                                break;
+                            }
+                            int enchantmentLevel = mainHandItem.getEnchantmentLevel(serverLevel.registryAccess().holderOrThrow(Enchantments.UNBREAKING));
+                            if (enchantmentLevel != 0) {
+                                double ran = ((double) 100 / (enchantmentLevel + 1)) / 100;
+                                if (serverLevel.random.nextDouble() <= ran) {
+                                    mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                                }
+                            } else {
+                                mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                            }
+                            neoCount++;
+                        }
+                        resultItem.setCount(neoCount);
+                        Block.popResource(serverLevel, pos, resultItem);
+                        drop.setCount(count);
+                        Block.popResource(serverLevel, pos, drop);
                     }, () -> {
                         Block.popResource(serverLevel, pos, drop);
                     });

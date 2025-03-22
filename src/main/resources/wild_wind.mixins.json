@@ -12,6 +12,7 @@
     "HalfTransparentBlockMixin",
     "InvisibleItemFrame",
     "MelonMixin",
+    "MushroomCowMixin",
     "SquidMixin",
     "accessor.BlockEntityTypeAccess"
   ],
