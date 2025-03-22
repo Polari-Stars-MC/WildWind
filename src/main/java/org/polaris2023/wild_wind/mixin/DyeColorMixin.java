@@ -43,7 +43,7 @@ public class DyeColorMixin {
         DyeColor last = dyeColors.getLast();
         int i = 1;
         for (ModDyes color : ModDyes.values()) {
-            dyeColors.add(newColor(color.name(), last.ordinal() + i, color.getId(), color.getName(), color.getColor(), color.getMapColor(), color.getFireworkColor(), color.getTextColor()));
+            dyeColors.add(newColor(color.name(), last.ordinal() + i, color.getId(), color.getName(), color.getIntColor(), color.getMapColor(), color.getFireworkColor(), color.getTextColor()));
             i++;
         }
         $VALUES = dyeColors.toArray(new DyeColor[0]);

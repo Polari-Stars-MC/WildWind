@@ -5,6 +5,7 @@
   "refmap": "wild_wind.refmap.json",
   "mixins": [
     "AnimalMixin",
+    "BannerDuplicateRecipeMixin",
     "CowMixin",
     "DyeColorMixin",
     "EggMixin",
@@ -18,6 +19,8 @@
   ],
   "minVersion": "0.8",
   "client": [
+    "BlockEntityWithoutLevelRendererMixin",
+    "LoomScreenMixin",
     "SquidRendererMixin"
   ]
 }

@@ -134,10 +134,10 @@ public class RightClickHandler {
 
             BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
 
-//                    if (bedEntity != null && DyeColor.getColor(itemStack) != bedEntity.getColor()) {
-//                        System.out.println(bedEntity.getColor());
+//                    if (bedEntity != null && DyeColor.getIntColor(itemStack) != bedEntity.getIntColor()) {
+//                        System.out.println(bedEntity.getIntColor());
 //                        handleDyedBed(player, itemStack, blockState, level, pos, newBlockState);
-//                        System.out.println(bedEntity.getColor());
+//                        System.out.println(bedEntity.getIntColor());
 //                        event.setCanceled(true);
 //                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()), 1);
 //                        level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
