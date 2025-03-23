@@ -1,3 +1,4 @@
 1.0.4 change log:
 2025/3/22
     Finish Banner
+    Improve the right-click colouring event

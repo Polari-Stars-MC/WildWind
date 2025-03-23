@@ -35,9 +35,7 @@ public class WildWindClientEventHandler {
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
-        event.register((state, world, pos, tintIndex) -> {
-            return FastColor.ARGB32.opaque(12030298);
-        }, ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+        event.register((state, world, pos, tintIndex) -> FastColor.ARGB32.opaque(12030298), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
     }
 
     @SubscribeEvent

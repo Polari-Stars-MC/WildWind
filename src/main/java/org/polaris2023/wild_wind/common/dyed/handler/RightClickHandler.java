@@ -1,126 +1,53 @@
 package org.polaris2023.wild_wind.common.dyed.handler;
 
+import java.util.*;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentMap;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.LoomMenu;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.entity.BedBlockEntity;
-import net.minecraft.world.level.block.entity.ShulkerBoxBlockEntity;
+import net.minecraft.world.level.block.entity.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
-
-import java.util.*;
+import org.polaris2023.wild_wind.util.interfaces.IBannerBlockEntity;
 
 public class RightClickHandler {
-
-    private static final Set<Block> carpetBlock= new HashSet<>() ;
-    static {
-        carpetBlock.add(Blocks.BLACK_CARPET);
-        carpetBlock.add(Blocks.BLUE_CARPET);
-        carpetBlock.add(Blocks.BROWN_CARPET);
-        carpetBlock.add(Blocks.CYAN_CARPET);
-        carpetBlock.add(Blocks.GRAY_CARPET);
-        carpetBlock.add(Blocks.GREEN_CARPET);
-        carpetBlock.add(Blocks.LIGHT_BLUE_CARPET);
-        carpetBlock.add(Blocks.LIGHT_GRAY_CARPET);
-        carpetBlock.add(Blocks.LIME_CARPET);
-        carpetBlock.add(Blocks.MAGENTA_CARPET);
-        carpetBlock.add(Blocks.ORANGE_CARPET);
-        carpetBlock.add(Blocks.PINK_CARPET);
-        carpetBlock.add(Blocks.PURPLE_CARPET);
-        carpetBlock.add(Blocks.RED_CARPET);
-        carpetBlock.add(Blocks.WHITE_CARPET);
-        carpetBlock.add(Blocks.YELLOW_CARPET);
-    }
-    private static final Set<Block> concreteBlock= new HashSet<>();
-    static {
-        concreteBlock.add(Blocks.BLACK_CONCRETE);
-        concreteBlock.add(Blocks.BLUE_CONCRETE);
-        concreteBlock.add(Blocks.BROWN_CONCRETE);
-        concreteBlock.add(Blocks.CYAN_CONCRETE);
-        concreteBlock.add(Blocks.GRAY_CONCRETE);
-        concreteBlock.add(Blocks.GREEN_CONCRETE);
-        concreteBlock.add(Blocks.LIGHT_BLUE_CONCRETE);
-        concreteBlock.add(Blocks.LIGHT_GRAY_CONCRETE);
-        concreteBlock.add(Blocks.LIME_CONCRETE);
-        concreteBlock.add(Blocks.MAGENTA_CONCRETE);
-        concreteBlock.add(Blocks.ORANGE_CONCRETE);
-        concreteBlock.add(Blocks.PINK_CONCRETE);
-        concreteBlock.add(Blocks.PURPLE_CONCRETE);
-        concreteBlock.add(Blocks.RED_CONCRETE);
-        concreteBlock.add(Blocks.WHITE_CONCRETE);
-        concreteBlock.add(Blocks.YELLOW_CONCRETE);
-    }
-    public static final Set<Block> concrete_powderBlock= new HashSet<>();
-    static {
-        concrete_powderBlock.add(Blocks.BLACK_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.BLUE_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.BROWN_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.CYAN_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.GRAY_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.GREEN_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.LIGHT_BLUE_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.LIGHT_GRAY_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.LIME_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.MAGENTA_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.ORANGE_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.PINK_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.PURPLE_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.RED_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.WHITE_CONCRETE_POWDER);
-        concrete_powderBlock.add(Blocks.YELLOW_CONCRETE_POWDER);
-    }
-    public static final Set<Block> bannerBlock= new HashSet<>();
-    static {
-        bannerBlock.add(Blocks.BLACK_BANNER);
-        bannerBlock.add(Blocks.BLUE_BANNER);
-        bannerBlock.add(Blocks.BROWN_BANNER);
-        bannerBlock.add(Blocks.CYAN_BANNER);
-        bannerBlock.add(Blocks.GRAY_BANNER);
-        bannerBlock.add(Blocks.GREEN_BANNER);
-        bannerBlock.add(Blocks.LIGHT_BLUE_BANNER);
-        bannerBlock.add(Blocks.LIGHT_GRAY_BANNER);
-        bannerBlock.add(Blocks.LIME_BANNER);
-        bannerBlock.add(Blocks.MAGENTA_BANNER);
-        bannerBlock.add(Blocks.ORANGE_BANNER);
-        bannerBlock.add(Blocks.PINK_BANNER);
-        bannerBlock.add(Blocks.PURPLE_BANNER);
-        bannerBlock.add(Blocks.RED_BANNER);
-        bannerBlock.add(Blocks.WHITE_BANNER);
-        bannerBlock.add(Blocks.YELLOW_BANNER);
-    }
-
-
-
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
-        DyedBlockMap dyedBlockMap = DyedBlockMap.getInstance();
         boolean canceled = false;
         Map<Integer, Block> dyedBlock = switch (blockType(blockState)) {
-            case "WOOL" -> dyedBlockMap.getDyedBlock("WOOL");
-            case "CARPET" -> dyedBlockMap.getDyedBlock("CARPET");
-            case "BED" -> dyedBlockMap.getDyedBlock("BED");
-            case "TERRACOTTA" -> dyedBlockMap.getDyedBlock("TERRACOTTA");
-            case "CONCRETE" -> dyedBlockMap.getDyedBlock("CONCRETE");
-            case "CONCRETE_POWDER" -> dyedBlockMap.getDyedBlock("CONCRETE_POWDER");
-            case "GLAZED_TERRACOTTA" -> dyedBlockMap.getDyedBlock("GLAZED_TERRACOTTA");
-            case "GLASS" -> dyedBlockMap.getDyedBlock("GLASS");
-            case "GLASS_PANE" -> dyedBlockMap.getDyedBlock("GLASS_PANE");
-            case "SHULKER_BOX" -> dyedBlockMap.getDyedBlock("SHULKER_BOX");
-            case "CANDLE" -> dyedBlockMap.getDyedBlock("CANDLE");
-            case "BANNER" -> dyedBlockMap.getDyedBlock("BANNER");
+            case "WOOL" -> DyedBlockMap.getDyedBlock("WOOL");
+            case "CARPET" -> DyedBlockMap.getDyedBlock("CARPET");
+            case "BED" -> DyedBlockMap.getDyedBlock("BED");
+            case "TERRACOTTA" -> DyedBlockMap.getDyedBlock("TERRACOTTA");
+            case "CONCRETE" -> DyedBlockMap.getDyedBlock("CONCRETE");
+            case "CONCRETE_POWDER" -> DyedBlockMap.getDyedBlock("CONCRETE_POWDER");
+            case "GLAZED_TERRACOTTA" -> DyedBlockMap.getDyedBlock("GLAZED_TERRACOTTA");
+            case "GLASS" -> DyedBlockMap.getDyedBlock("GLASS");
+            case "GLASS_PANE" -> DyedBlockMap.getDyedBlock("GLASS_PANE");
+            case "SHULKER_BOX" -> DyedBlockMap.getDyedBlock("SHULKER_BOX");
+            case "CANDLE" -> DyedBlockMap.getDyedBlock("CANDLE");
+            case "BANNER" -> DyedBlockMap.getDyedBlock("BANNER");
+            case "WALL_BANNER" -> DyedBlockMap.getDyedBlock("WALL_BANNER");
             default -> null;
         };
         if (dyedBlock == null) return;
@@ -130,64 +57,45 @@ public class RightClickHandler {
         if (dyedBlockInstance == null) return;
         BlockState newBlockState = dyedBlockInstance.withPropertiesOf(blockState);
 
-        if (dyedBlock == dyedBlockMap.getDyedBlock("BED")) {
-
-            BedBlockEntity bedEntity = (BedBlockEntity) level.getBlockEntity(pos);
-
-//                    if (bedEntity != null && DyeColor.getIntColor(itemStack) != bedEntity.getIntColor()) {
-//                        System.out.println(bedEntity.getIntColor());
-//                        handleDyedBed(player, itemStack, blockState, level, pos, newBlockState);
-//                        System.out.println(bedEntity.getIntColor());
-//                        event.setCanceled(true);
-//                        player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()), 1);
-//                        level.playSound(null, pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
-//                    }
-            return;
-
+        if (dyedBlock == DyedBlockMap.getDyedBlock("BED")) {
+            BlockState oldBlockState = level.getBlockState(pos);
+            if (oldBlockState.is(dyedBlock.get(dyeColor.getId()))) return;
+            if (player.isCrouching()) {
+                canceled = handleDyedBed(level, pos, oldBlockState, newBlockState);
+            }
         }
-        else if (dyedBlock == dyedBlockMap.getDyedBlock("SHULKER_BOX")) {
+        else if (dyedBlock == DyedBlockMap.getDyedBlock("SHULKER_BOX")) {
             if (level.getBlockState(pos).is(dyedBlock.get(dyeColor.getId()))) return;
             if (player.isCrouching()){
                 canceled = handleDyedShulkerBox(level, pos, newBlockState);
             }
+        } else if (dyedBlock == DyedBlockMap.getDyedBlock("BANNER") ||
+                dyedBlock == DyedBlockMap.getDyedBlock("WALL_BANNER")) {
+            if (level.getBlockState(pos).is(dyedBlock.get(dyeColor.getId()))) return;
+            canceled = handleDyedBanner(level, pos, newBlockState);
         } else {
             if (level.getBlockState(pos).is(dyedBlock.get(dyeColor.getId()))) return;
             canceled = true;
-            level.setBlockAndUpdate(pos,newBlockState);
+            level.setBlockAndUpdate(pos, newBlockState);
         }
         if (canceled) {
-            if(!player.isCreative()){
-                itemStack.shrink(1);
-            }
+            itemStack.consume(1, player);
             event.setCanceled(true);
             player.awardStat(Stats.ITEM_USED.get(itemStack.getItem()),1);
             level.playSound(null,pos, SoundEvents.DYE_USE, SoundSource.NEUTRAL);
         }
     }
 
-
-
     private static boolean handleDyedShulkerBox(Level level, BlockPos pos, BlockState newBlockStateProperties) {
         ShulkerBoxBlockEntity shulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
         if (shulkerBoxEntity == null) return false;
         List<ItemStack> items = new ArrayList<>();
-        // 获取 HolderLookup.Provider
-        HolderLookup.Provider provider = level.registryAccess();
         for (int i = 0; i < shulkerBoxEntity.getContainerSize(); i++) {
-//            System.out.println(shulkerBoxEntity.getItem(i));
             items.add(shulkerBoxEntity.getItem(i));
-//            System.out.println(items);
         }
-        CompoundTag oldTag = shulkerBoxEntity.saveWithFullMetadata(provider);
-//
-//        System.out.println(oldTag.getString("CustomName"));
-//        System.out.println(oldTag);
-//
-//        System.out.println("---------------");
         level.setBlockAndUpdate(pos, newBlockStateProperties);
         ShulkerBoxBlockEntity newShulkerBoxEntity = (ShulkerBoxBlockEntity) level.getBlockEntity(pos);
         if (newShulkerBoxEntity == null) return false;
-//        newShulkerBoxEntity.setCustomName();
 
         for (int i = 0; i < items.size(); i++) {
             newShulkerBoxEntity.setItem(i, items.get(i));
@@ -195,6 +103,48 @@ public class RightClickHandler {
         return true;
     }
 
+    private static boolean handleDyedBed(Level level, BlockPos pos, BlockState oldBlockState, BlockState newBlockState) {
+        if(oldBlockState.getValue(BedBlock.PART) == BedPart.HEAD) {
+            BlockPos blockpos = pos.relative(oldBlockState.getValue(BedBlock.FACING).getOpposite());
+            level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 1);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            level.blockUpdated(blockpos, Blocks.AIR);
+            level.setBlock(blockpos, newBlockState.setValue(BedBlock.PART, BedPart.FOOT), 3);
+
+            level.blockUpdated(pos, Blocks.AIR);
+            level.setBlock(pos, newBlockState, 3);
+        } else {
+            BlockPos blockpos = pos.relative(oldBlockState.getValue(BedBlock.FACING));
+            level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 1);
+            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            level.blockUpdated(blockpos, Blocks.AIR);
+            level.setBlock(blockpos, newBlockState.setValue(BedBlock.PART, BedPart.HEAD), 3);
+
+            level.blockUpdated(pos, Blocks.AIR);
+            level.setBlock(pos, newBlockState, 3);
+        }
+        return true;
+    }
+
+    public static boolean handleDyedBanner(Level level, BlockPos pos, BlockState newBlockState) {
+        BlockEntity blockEntity = level.getBlockEntity(pos);
+        if (blockEntity instanceof BannerBlockEntity) {
+            BannerPatternLayers patternLayers = ((BannerBlockEntity) blockEntity).getPatterns();
+            level.setBlockAndUpdate(pos, newBlockState);
+            IBannerBlockEntity newBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
+            if (newBannerBlockEntity == null) return false;
+            newBannerBlockEntity.wild_wind$setBannerPatternLayers(patternLayers);
+            return true;
+        } else if (blockEntity instanceof ModBannerBlockEntity) {
+            BannerPatternLayers patternLayers = ((ModBannerBlockEntity) blockEntity).getPatterns();
+            level.setBlockAndUpdate(pos, newBlockState);
+            IBannerBlockEntity newModBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
+            if (newModBannerBlockEntity == null) return false;
+            newModBannerBlockEntity.wild_wind$setBannerPatternLayers(patternLayers);
+            return true;
+        }
+        return false;
+    }
 
     //判断方块类型
     public static String blockType(BlockState blockState) {
@@ -204,7 +154,7 @@ public class RightClickHandler {
         if (blockState.is(BlockTags.WOOL_CARPETS)){
             return "CARPET";
         }
-        if (blockState.getBlock() instanceof BedBlock){
+        if (blockState.is(BlockTags.BEDS)){
             return "BED";
         }
         if (blockState.is(BlockTags.TERRACOTTA)){
@@ -231,11 +181,16 @@ public class RightClickHandler {
         if (blockState.is(BlockTags.CANDLES)){
             return "CANDLE";
         }
-        if (bannerBlock.contains(blockState.getBlock())){
+        if (blockState.is(ModBlockTagsProvider.BANNER)){
             return "BANNER";
         }
-
-
+        if (blockState.is(ModBlockTagsProvider.WALL_BANNER)){
+            return "WALL_BANNER";
+        }
+        if (blockState.is(BlockTags.BEDS)){
+            return "BED";
+        }
+        
 
         return "PASS";
     }
