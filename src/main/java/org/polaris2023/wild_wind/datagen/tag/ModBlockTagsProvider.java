@@ -18,6 +18,8 @@ import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.datagen.ModDyedArray;
+import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -28,7 +30,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
     }
 
-    public static final TagKey<Block> CONCRETE_POWDERS = create("concrete_powders");
+    public static final TagKey<Block> CONCRETE_POWDERS = createCTag("concrete_powders");
+    public static final TagKey<Block> BANNER = create("banners");
+    public static final TagKey<Block> WALL_BANNER = create("wall_banners");
 
 
     protected IntrinsicTagAppender<Block> tag(Supplier<TagKey<Block>> tag) {
@@ -82,6 +86,13 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
         tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
         tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+        tag(BlockTags.BEDS).add(ModBlocks.BED.get());
+        for(Block banner : ModDyedArray.BANNER_BLOCK) {
+            tag(BANNER).add(banner);
+        }
+        for(Block wallBanner : ModDyedArray.WALL_BANNER_BLOCK) {
+            tag(WALL_BANNER).add(wallBanner);
+        }
         DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(CONCRETE_POWDERS).add(block));
 
         ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
@@ -90,6 +101,14 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     }
 
     public static TagKey<Block> create(String tagName) {
+        return BlockTags.create(Helpers.location(tagName));
+    }
+
+    public static TagKey<Block> create(String namespace, String tagName) {
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, tagName));
+    }
+
+    public static TagKey<Block> createCTag(String tagName) {
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
     }
 

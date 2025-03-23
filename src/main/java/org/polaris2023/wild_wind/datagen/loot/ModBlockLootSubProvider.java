@@ -10,7 +10,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -20,7 +22,9 @@ import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemConditions;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
@@ -47,7 +51,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
-        this.dropSelf(ModBlocks.BED.get());
+        this.add(ModBlocks.BED.get(), this::createBedDrops);
         this.dropSelf(ModBlocks.GLOW_MUCUS.get());
         this.dropSelf(ModBlocks.GLAREFLOWER.get());
         this.dropSelf(ModBlocks.GLAREFLOWER_SEEDS.get());
@@ -118,6 +122,22 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.GRANITE_BRICK_WALL.get());
     }
 
+    protected LootTable.Builder createBedDrops(Block block) {
+    return LootTable.lootTable()
+        .withPool(
+            LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(
+                    LootItem.lootTableItem(block.asItem())
+                        .when(
+                            LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                .setProperties(
+                                    StatePropertiesPredicate.Builder.properties()
+                                        .hasProperty(BedBlock.PART, BedPart.HEAD))))
+                .when(ExplosionCondition.survivesExplosion())
+        );
+    }
+
     protected LootTable.Builder createFortunateDrops(Block block, Item item, float miniDrops, float maxDrops) {
         HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         return this.createSilkTouchDispatchTable(
@@ -152,12 +172,9 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                         .add(AlternativesEntry.alternatives(
                                 AlternativesEntry.alternatives(
                                         AshLayerBlock.LAYERS.getPossibleValues(), (i) ->
-                                                i != 8 ? LootItem.lootTableItem(item)
+                                                LootItem.lootTableItem(item)
                                                         .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, i)))
-                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i))) :
-                                                        LootItem.lootTableItem(item)
-                                                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(AshLayerBlock.LAYERS, 8)))
-                                                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(0)))
+                                                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(i)))
                                 ).when(this.doesNotHaveSilkTouch()),
                                 AlternativesEntry.alternatives(
                                         AshLayerBlock.LAYERS.getPossibleValues(), (i) ->

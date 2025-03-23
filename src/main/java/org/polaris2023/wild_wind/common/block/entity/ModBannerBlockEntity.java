@@ -38,6 +38,10 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
         this.applyComponentsFromItemStack(stack);
     }
 
+    public void setPatterns(BannerPatternLayers patterns) {
+        this.patterns = patterns;
+    }
+
     public ItemStack getItem() {
         ItemStack itemstack = new ItemStack(ModBlocks.BANNER_ITEM.get());
         itemstack.applyComponents(this.collectComponents());
