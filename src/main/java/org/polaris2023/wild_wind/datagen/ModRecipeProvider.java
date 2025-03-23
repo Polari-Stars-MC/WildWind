@@ -620,6 +620,14 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .define('S', Blocks.STONE);
                 }));
+
+        add(shaped(RecipeCategory.MISC, ModBlocks.ASH.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.ASH_BLOCK.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.ASH_BLOCK.get());
+                }));
     }
 
     protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {

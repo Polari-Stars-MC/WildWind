@@ -30,12 +30,12 @@ public class WildWindClientEventHandler {
         event.register((stack, tintIndex) ->
                 FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL_ITEM);
         event.register((stack, tintIndex) ->
-                FastColor.ARGB32.opaque(12030298), ModBlocks.BANNER.asItem(), ModBlocks.WALL_BANNER.asItem());
+                FastColor.ARGB32.opaque(12695962), ModBlocks.BANNER.asItem(), ModBlocks.WALL_BANNER.asItem());
     }
 
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
-        event.register((state, world, pos, tintIndex) -> FastColor.ARGB32.opaque(12030298), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+        event.register((state, world, pos, tintIndex) -> FastColor.ARGB32.opaque(12695962), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
     }
 
     @SubscribeEvent

@@ -42,7 +42,7 @@ public abstract class ModAbstractBannerBlock extends AbstractBannerBlock {
     }
 
     public DyeColor getColor() {
-        return DyeColor.WHITE;
+        return DyeColor.BLACK;
     }
 
     public int getIntColor() {

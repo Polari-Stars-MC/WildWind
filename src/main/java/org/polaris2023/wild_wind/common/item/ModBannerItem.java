@@ -22,7 +22,7 @@ import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import java.util.List;
 
 public class ModBannerItem extends BannerItem {
-    public static final int DEFAULT_COLOR = 12030298;
+    public static final int DEFAULT_COLOR = 12695962;
 
     public ModBannerItem(Block block, Block wallBlock, Item.Properties properties) {
         super(block, wallBlock, properties);
@@ -40,12 +40,10 @@ public class ModBannerItem extends BannerItem {
         }
 
     }
-/*
+
     public int getIntColor() {
         return ((ModAbstractBannerBlock)this.getBlock()).getIntColor();
     }
-
- */
 
     @Override
     public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
