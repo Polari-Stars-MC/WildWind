@@ -3,3 +3,4 @@
     Finish Banner
     Improve the right-click colouring event
     Fixing a range of issues
+    Optimised code

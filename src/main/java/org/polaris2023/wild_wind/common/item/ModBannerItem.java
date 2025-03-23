@@ -22,7 +22,7 @@ import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import java.util.List;
 
 public class ModBannerItem extends BannerItem {
-    public static final int DEFAULT_COLOR = 12695962;
+    public static final int DEFAULT_COLOR = 13419950;
 
     public ModBannerItem(Block block, Block wallBlock, Item.Properties properties) {
         super(block, wallBlock, properties);

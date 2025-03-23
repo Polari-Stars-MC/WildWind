@@ -24,7 +24,7 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     @Nullable
     private Component name;
     private BannerPatternLayers patterns;
-    public static final int DEFAULT_COLOR = 12695962;
+    public static final int DEFAULT_COLOR = 13419950;
     public int color;
 
     public ModBannerBlockEntity(BlockPos pos, BlockState blockState) {

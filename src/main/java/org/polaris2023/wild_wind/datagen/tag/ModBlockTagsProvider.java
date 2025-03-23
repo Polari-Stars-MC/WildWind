@@ -63,8 +63,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(ModBlockTags.AZALEA_LOGS).add(ModBlocks.AZALEA_LOG.get(), ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get());
         tag(ModBlockTags.PALM_LOGS).add(ModBlocks.PALM_LOG.get(), ModBlocks.PALM_WOOD.get(), ModBlocks.STRIPPED_PALM_LOG.get(), ModBlocks.STRIPPED_PALM_WOOD.get());
         tag(ModBlockTags.BAOBAB_LOGS).add(ModBlocks.BAOBAB_LOG.get(), ModBlocks.BAOBAB_WOOD.get(), ModBlocks.STRIPPED_BAOBAB_LOG.get(), ModBlocks.STRIPPED_BAOBAB_WOOD.get());
-        tag(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.AZALEA_LOGS.get()).addTag(ModBlockTags.PALM_LOGS.get()).addTag(ModBlockTags.BAOBAB_LOGS.get());
-        tag(BlockTags.PLANKS).add(ModBlocks.AZALEA_PLANKS.get(), ModBlocks.PALM_PLANKS.get(), ModBlocks.BAOBAB_PLANKS.get());
         tag(BlockTags.LEAVES).add(ModBlocks.PALM_LEAVES.get(), ModBlocks.BAOBAB_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(ModBlocks.PALM_SAPLING.get(), ModBlocks.BAOBAB_SAPLING.get());
         tag(ModBlockTags.ICE_SKIP).add(ModBlocks.BRITTLE_ICE.get());
@@ -95,9 +93,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         }
         DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(CONCRETE_POWDERS).add(block));
 
-        ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
-        ModBlockFamilies.PALM_PLANKS.generateBlockTags(this::tag);
-        ModBlockFamilies.BAOBAB_PLANKS.generateBlockTags(this::tag);
+        ModBlockFamilies.AZALEA.generateBlockTags(this::tag);
+        ModBlockFamilies.PALM.generateBlockTags(this::tag);
+        ModBlockFamilies.BAOBAB.generateBlockTags(this::tag);
     }
 
     public static TagKey<Block> create(String tagName) {

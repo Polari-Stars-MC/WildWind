@@ -81,19 +81,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
         this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
 
-        this.dropSelf(ModBlocks.AZALEA_LOG.get());
-        this.dropSelf(ModBlocks.STRIPPED_AZALEA_LOG.get());
-        this.dropSelf(ModBlocks.AZALEA_WOOD.get());
-        this.dropSelf(ModBlocks.STRIPPED_AZALEA_WOOD.get());
-        this.dropSelf(ModBlocks.PALM_LOG.get());
-        this.dropSelf(ModBlocks.STRIPPED_PALM_LOG.get());
-        this.dropSelf(ModBlocks.PALM_WOOD.get());
-        this.dropSelf(ModBlocks.STRIPPED_PALM_WOOD.get());
-        this.dropSelf(ModBlocks.BAOBAB_LOG.get());
-        this.dropSelf(ModBlocks.STRIPPED_BAOBAB_LOG.get());
-        this.dropSelf(ModBlocks.BAOBAB_WOOD.get());
-        this.dropSelf(ModBlocks.STRIPPED_BAOBAB_WOOD.get());
-
         this.dropWhenSilkTouch(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());
         this.dropWhenSilkTouch(ModBlocks.GLISTERING_MELON.get());
@@ -105,9 +92,9 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.POLISHED_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_STONE_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
 
-        ModBlockFamilies.AZALEA_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
-        ModBlockFamilies.PALM_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
-        ModBlockFamilies.BAOBAB_PLANKS.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
+        ModBlockFamilies.AZALEA.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
+        ModBlockFamilies.PALM.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
+        ModBlockFamilies.BAOBAB.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
 
         this.add(ModBlocks.AZALEA_DOOR.get(), this.createDoorTable(ModBlocks.AZALEA_DOOR.get()));
         this.add(ModBlocks.PALM_DOOR.get(), this.createDoorTable(ModBlocks.PALM_DOOR.get()));

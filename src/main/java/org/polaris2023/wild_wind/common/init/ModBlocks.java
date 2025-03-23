@@ -100,8 +100,8 @@ public class ModBlocks {
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
 
     @I18n(en_us = "Banner", zh_cn = "旗帜", zh_tw = "旗幟")
-    public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", (p) -> new ModBannerBlock(12695962, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BANNER));
-    public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", (p) -> new ModWallBannerBlock(12695962, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WALL_BANNER));
+    public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", (p) -> new ModBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BANNER));
+    public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", (p) -> new ModWallBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WALL_BANNER));
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(BANNER.get(), WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ModBannerBlockEntity>> BANNER_BE =
             entity("banner", DSL.remainderType(), ModBannerBlockEntity::new, BANNER, WALL_BANNER);
