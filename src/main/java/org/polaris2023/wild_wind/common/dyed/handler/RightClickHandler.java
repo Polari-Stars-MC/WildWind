@@ -106,8 +106,8 @@ public class RightClickHandler {
     private static boolean handleDyedBed(Level level, BlockPos pos, BlockState oldBlockState, BlockState newBlockState) {
         if(oldBlockState.getValue(BedBlock.PART) == BedPart.HEAD) {
             BlockPos blockpos = pos.relative(oldBlockState.getValue(BedBlock.FACING).getOpposite());
-            level.setBlock(blockpos, Blocks.AIR.defaultBlockState(), 1);
-            level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+            level.setBlock(pos, Blocks.AIR.defaultBlockState(), 1);
+            level.setBlockAndUpdate(blockpos, Blocks.AIR.defaultBlockState());
             level.blockUpdated(blockpos, Blocks.AIR);
             level.setBlock(blockpos, newBlockState.setValue(BedBlock.PART, BedPart.FOOT), 3);
 

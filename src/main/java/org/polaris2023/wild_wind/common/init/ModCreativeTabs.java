@@ -31,24 +31,9 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.TABS;
 public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Building block", zh_cn = "原野之风：建筑方块", zh_tw = "原野之風：建築方塊")
     BUILDING_BLOCK(ModBlocks.POLISHED_STONE::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.AZALEA_LOG);
-        output.accept(ModBlocks.AZALEA_WOOD);
-        output.accept(ModBlocks.STRIPPED_AZALEA_LOG);
-        output.accept(ModBlocks.STRIPPED_AZALEA_WOOD);
-        ModBlockFamilies.AZALEA_PLANKS.addCreativeTab(output);
-
-        output.accept(ModBlocks.PALM_LOG);
-        output.accept(ModBlocks.PALM_WOOD);
-        output.accept(ModBlocks.STRIPPED_PALM_LOG);
-        output.accept(ModBlocks.STRIPPED_PALM_WOOD);
-        output.accept(ModBlocks.PALM_CROWN);
-        ModBlockFamilies.PALM_PLANKS.addCreativeTab(output);
-
-        output.accept(ModBlocks.BAOBAB_LOG);
-        output.accept(ModBlocks.BAOBAB_WOOD);
-        output.accept(ModBlocks.STRIPPED_BAOBAB_LOG);
-        output.accept(ModBlocks.STRIPPED_BAOBAB_WOOD);
-        ModBlockFamilies.BAOBAB_PLANKS.addCreativeTab(output);
+        ModBlockFamilies.AZALEA.addCreativeTab(output);
+        ModBlockFamilies.PALM.addCreativeTab(output);
+        ModBlockFamilies.BAOBAB.addCreativeTab(output);
 
         output.accept(ModBlocks.STONE_WALL);
         output.accept(ModBlocks.POLISHED_STONE);

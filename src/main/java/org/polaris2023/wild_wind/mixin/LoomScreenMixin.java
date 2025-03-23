@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.mixin;
 
 import com.mojang.blaze3d.platform.Lighting;
 import com.mojang.blaze3d.vertex.PoseStack;
-import mezz.jei.api.gui.handlers.IScreenHandler;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.LoomScreen;
@@ -13,12 +12,12 @@ import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.LoomMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.DyeColor;
-import net.minecraft.world.item.crafting.BannerDuplicateRecipe;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import org.polaris2023.wild_wind.client.renderer.ModBannerRenderer;
@@ -82,6 +81,7 @@ public abstract class LoomScreenMixin extends AbstractContainerScreen<LoomMenu> 
         Slot slot1 = this.menu.getDyeSlot();
         Slot slot2 = this.menu.getPatternSlot();
         Slot slot3 = this.menu.getResultSlot();
+        boolean isModBanner = false;
         if (!slot.hasItem()) {
             guiGraphics.blitSprite(BANNER_SLOT_SPRITE, i + slot.x, j + slot.y, 16, 16);
         }
@@ -107,8 +107,9 @@ public abstract class LoomScreenMixin extends AbstractContainerScreen<LoomMenu> 
             guiGraphics.pose().scale(0.6666667F, 0.6666667F, -0.6666667F);
             this.flag.xRot = 0.0F;
             this.flag.y = -32.0F;
-            if(slot3.getItem().getItem() instanceof ModBannerItem bannerItem) {
-                // int color = bannerItem.getIntColor();
+            isModBanner = slot3.getItem().getItem() instanceof ModBannerItem;
+            if(isModBanner) {
+                int color = ((ModBannerItem)slot3.getItem().getItem()).getIntColor();
                 ModBannerRenderer.renderPatterns(
                         guiGraphics.pose(),
                         guiGraphics.bufferSource(),
@@ -117,7 +118,7 @@ public abstract class LoomScreenMixin extends AbstractContainerScreen<LoomMenu> 
                         this.flag,
                         ModelBakery.BANNER_BASE,
                         true,
-                        12030298,
+                        FastColor.ARGB32.opaque(color),
                         this.resultBannerPatterns
                 );
             } else {
@@ -177,7 +178,7 @@ public abstract class LoomScreenMixin extends AbstractContainerScreen<LoomMenu> 
     }
 
     @Unique
-    private void wild_wind$renderPattern(GuiGraphics guiGraphics, Holder<BannerPattern> pattern, int x, int y) {
+    private void wild_wind$renderPattern(GuiGraphics guiGraphics, Holder<BannerPattern> patern, int x, int y) {
         PoseStack posestack = new PoseStack();
         posestack.pushPose();
         posestack.translate((float)x + 0.5F, (float)(y + 16), 0.0F);
@@ -188,18 +189,8 @@ public abstract class LoomScreenMixin extends AbstractContainerScreen<LoomMenu> 
         posestack.scale(0.6666667F, -0.6666667F, -0.6666667F);
         this.flag.xRot = 0.0F;
         this.flag.y = -32.0F;
-        BannerPatternLayers bannerpatternlayers = new BannerPatternLayers.Builder().add(pattern, DyeColor.WHITE).build();
-        BannerRenderer.renderPatterns(
-                posestack,
-                guiGraphics.bufferSource(),
-                15728880,
-                OverlayTexture.NO_OVERLAY,
-                this.flag,
-                ModelBakery.BANNER_BASE,
-                true,
-                DyeColor.GRAY,
-                bannerpatternlayers
-        );
+        BannerPatternLayers bannerpatternlayers = (new BannerPatternLayers.Builder()).add(patern, DyeColor.WHITE).build();
+        BannerRenderer.renderPatterns(posestack, guiGraphics.bufferSource(), 15728880, OverlayTexture.NO_OVERLAY, this.flag, ModelBakery.BANNER_BASE, true, DyeColor.GRAY, bannerpatternlayers);
         posestack.popPose();
         guiGraphics.flush();
     }

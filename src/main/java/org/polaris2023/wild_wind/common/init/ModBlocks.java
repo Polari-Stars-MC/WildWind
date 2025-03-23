@@ -94,20 +94,14 @@ public class ModBlocks {
             register("trapped_present", p -> new TrappedPresentBlockItem(TRAPPED_PRESENT.get(), p));
 
     @I18n(en_us = "Bed", zh_cn = "床", zh_tw = "床")
-    public static final DeferredBlock<NeoBedBlock> BED = register("bed", NeoBedBlock::new, BlockBehaviour.Properties.of()
-            .strength(0.2F, 0.2F)
-            .ignitedByLava()
-            .isSuffocating((state, level, pos) -> false)
-            .isRedstoneConductor((state, level, pos) -> false)
-            .pushReaction(PushReaction.DESTROY)
-            .instrument(NoteBlockInstrument.HARP));
+    public static final DeferredBlock<NeoBedBlock> BED = register("bed", NeoBedBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BED));
     public static final DeferredItem<BlockItem> BED_ITEM = register("bed", BED);
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
 
     @I18n(en_us = "Banner", zh_cn = "旗帜", zh_tw = "旗幟")
-    public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", (p) -> new ModBannerBlock(12030298, p), BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", (p) -> new ModWallBannerBlock(12030298, p), BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", (p) -> new ModBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BANNER));
+    public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", (p) -> new ModWallBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_WALL_BANNER));
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(BANNER.get(), WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ModBannerBlockEntity>> BANNER_BE =
             entity("banner", DSL.remainderType(), ModBannerBlockEntity::new, BANNER, WALL_BANNER);

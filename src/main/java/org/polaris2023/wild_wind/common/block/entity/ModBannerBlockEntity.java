@@ -24,7 +24,7 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     @Nullable
     private Component name;
     private BannerPatternLayers patterns;
-    public static final int DEFAULT_COLOR = 12030298;
+    public static final int DEFAULT_COLOR = 13419950;
     public int color;
 
     public ModBannerBlockEntity(BlockPos pos, BlockState blockState) {
@@ -36,10 +36,6 @@ public class ModBannerBlockEntity extends BlockEntity implements Nameable {
     public void fromItem(ItemStack stack, int color) {
         this.color = color;
         this.applyComponentsFromItemStack(stack);
-    }
-
-    public void setPatterns(BannerPatternLayers patterns) {
-        this.patterns = patterns;
     }
 
     public ItemStack getItem() {
