@@ -1,9 +1,11 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.BannerDuplicateRecipe;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -26,7 +28,6 @@ public class ModItems {
                     .component(ModComponents.MEAT_VALUE, 1F)
                     .component(ModComponents.MONSTER_VALUE, 1F)
                     .food(ModFoods.LIVING_TUBER.get())));
-
 
     @I18n(en_us = "Magic Wand Tool", zh_cn = "魔棒工具", zh_tw = "魔棒工具")
     @ParentItem(parent = "minecraft:item/stick")

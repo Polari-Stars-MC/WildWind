@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.common.entity.layer;
 
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.ModelLayers;
 import org.polaris2023.wild_wind.util.Helpers;
 
 public class ModModelLayers {

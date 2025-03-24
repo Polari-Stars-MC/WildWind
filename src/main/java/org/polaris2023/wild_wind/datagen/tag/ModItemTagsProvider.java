@@ -90,19 +90,19 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
         tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.PLANKS).add(ModBlocks.AZALEA_PLANKS_ITEM.get(), ModBlocks.PALM_PLANKS_ITEM.get(), ModBlocks.BAOBAB_PLANKS_ITEM.get());
         tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
         tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
         tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
-        ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
-        ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
-        ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
+        ModBlockFamilies.AZALEA.generateItemTags(this::tag);
+        ModBlockFamilies.PALM.generateItemTags(this::tag);
+        ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
         tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.RAW_FROG_LEG.get(),
                 ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
         tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
+        tag(ItemTags.BANNERS).add(ModBlocks.BANNER_ITEM.get());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {

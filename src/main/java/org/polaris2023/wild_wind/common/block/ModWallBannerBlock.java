@@ -2,15 +2,15 @@ package org.polaris2023.wild_wind.common.block;
 
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
@@ -19,62 +19,68 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 import java.util.Map;
 
-public class ModWallBannerBlock extends WallBannerBlock {
-    public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private static final Map<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box(0.0, 0.0, 14.0, 16.0, 12.5, 16.0), Direction.SOUTH, Block.box(0.0, 0.0, 0.0, 16.0, 12.5, 2.0), Direction.WEST, Block.box(14.0, 0.0, 0.0, 16.0, 12.5, 16.0), Direction.EAST, Block.box(0.0, 0.0, 0.0, 2.0, 12.5, 16.0)));
+public class ModWallBannerBlock extends ModAbstractBannerBlock {
+    public static final DirectionProperty FACING;
+    private static final Map<Direction, VoxelShape> SHAPES;
 
-    public ModWallBannerBlock(Properties properties) {
-        super(DyeColor.CYAN, properties);
-        this.registerDefaultState((this.defaultBlockState()).setValue(FACING, Direction.NORTH));
+    public MapCodec<? extends ModAbstractBannerBlock> codec() {
+        return null;
     }
 
-    @Override
+    public ModWallBannerBlock(int color, BlockBehaviour.Properties properties) {
+        super(color, properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+    }
+
     public String getDescriptionId() {
         return this.asItem().getDescriptionId();
     }
 
-    @Override
-    public boolean canSurvive(BlockState blockState, LevelReader levelReader, BlockPos blockPos) {
-        return levelReader.getBlockState(blockPos.relative(blockState.getValue(FACING).getOpposite())).isSolid();
+    protected boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
+        return level.getBlockState(pos.relative(state.getValue(FACING).getOpposite())).isSolid();
     }
 
-    @Override
-    public BlockState updateShape(BlockState blockState, Direction direction, BlockState blockState2, LevelAccessor levelAccessor, BlockPos blockPos, BlockPos blockPos2) {
-        if (direction == blockState.getValue(FACING).getOpposite() && !blockState.canSurvive(levelAccessor, blockPos)) {
-            return Blocks.AIR.defaultBlockState();
+    protected BlockState updateShape(BlockState state, Direction facing, BlockState facingState, LevelAccessor level, BlockPos currentPos, BlockPos facingPos) {
+        return facing == state.getValue(FACING).getOpposite() && !state.canSurvive(level, currentPos) ? Blocks.AIR.defaultBlockState() : super.updateShape(state, facing, facingState, level, currentPos, facingPos);
+    }
+
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPES.get(state.getValue(FACING));
+    }
+
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
+        BlockState blockstate = this.defaultBlockState();
+        LevelReader levelreader = context.getLevel();
+        BlockPos blockpos = context.getClickedPos();
+        Direction[] adirection = context.getNearestLookingDirections();
+
+        for(Direction direction : adirection) {
+            if (direction.getAxis().isHorizontal()) {
+                Direction direction1 = direction.getOpposite();
+                blockstate = blockstate.setValue(FACING, direction1);
+                if (blockstate.canSurvive(levelreader, blockpos)) {
+                    return blockstate;
+                }
+            }
         }
-        return super.updateShape(blockState, direction, blockState2, levelAccessor, blockPos, blockPos2);
-    }
 
-    @Override
-    public VoxelShape getShape(BlockState blockState, BlockGetter blockGetter, BlockPos blockPos, CollisionContext collisionContext) {
-        return SHAPES.get(blockState.getValue(FACING));
-    }
-
-    @Override
-    public BlockState getStateForPlacement(BlockPlaceContext blockPlaceContext) {
-        BlockState blockState = this.defaultBlockState();
-        Level levelReader = blockPlaceContext.getLevel();
-        BlockPos blockPos = blockPlaceContext.getClickedPos();
-        for (Direction direction : blockPlaceContext.getNearestLookingDirections()) {
-            if (!direction.getAxis().isHorizontal() || !(blockState = blockState.setValue(FACING, direction.getOpposite())).canSurvive(levelReader, blockPos)) continue;
-            return blockState;
-        }
         return null;
     }
 
-    @Override
-    public BlockState rotate(BlockState blockState, Rotation rotation) {
-        return blockState.setValue(FACING, rotation.rotate(blockState.getValue(FACING)));
+    protected BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(FACING, rotation.rotate(state.getValue(FACING)));
     }
 
-    @Override
-    public BlockState mirror(BlockState blockState, Mirror mirror) {
-        return blockState.rotate(mirror.getRotation(blockState.getValue(FACING)));
+    protected BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(FACING)));
     }
 
-    @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(FACING);
+    }
+
+    static {
+        FACING = HorizontalDirectionalBlock.FACING;
+        SHAPES = Maps.newEnumMap(ImmutableMap.of(Direction.NORTH, Block.box((double)0.0F, (double)0.0F, (double)14.0F, (double)16.0F, (double)12.5F, (double)16.0F), Direction.SOUTH, Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)12.5F, (double)2.0F), Direction.WEST, Block.box((double)14.0F, (double)0.0F, (double)0.0F, (double)16.0F, (double)12.5F, (double)16.0F), Direction.EAST, Block.box((double)0.0F, (double)0.0F, (double)0.0F, (double)2.0F, (double)12.5F, (double)16.0F)));
     }
 }

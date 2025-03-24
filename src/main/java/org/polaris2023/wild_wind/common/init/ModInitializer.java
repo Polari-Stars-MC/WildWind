@@ -1,6 +1,7 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;

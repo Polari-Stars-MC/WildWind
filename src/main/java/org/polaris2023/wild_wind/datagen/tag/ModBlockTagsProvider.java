@@ -18,6 +18,8 @@ import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.datagen.ModDyedArray;
+import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
@@ -28,7 +30,9 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
     }
 
-    public static final TagKey<Block> CONCRETE_POWDERS = create("concrete_powders");
+    public static final TagKey<Block> CONCRETE_POWDERS = createCTag("concrete_powders");
+    public static final TagKey<Block> BANNER = create("banners");
+    public static final TagKey<Block> WALL_BANNER = create("wall_banners");
 
 
     protected IntrinsicTagAppender<Block> tag(Supplier<TagKey<Block>> tag) {
@@ -59,8 +63,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(ModBlockTags.AZALEA_LOGS).add(ModBlocks.AZALEA_LOG.get(), ModBlocks.AZALEA_WOOD.get(), ModBlocks.STRIPPED_AZALEA_LOG.get(), ModBlocks.STRIPPED_AZALEA_WOOD.get());
         tag(ModBlockTags.PALM_LOGS).add(ModBlocks.PALM_LOG.get(), ModBlocks.PALM_WOOD.get(), ModBlocks.STRIPPED_PALM_LOG.get(), ModBlocks.STRIPPED_PALM_WOOD.get());
         tag(ModBlockTags.BAOBAB_LOGS).add(ModBlocks.BAOBAB_LOG.get(), ModBlocks.BAOBAB_WOOD.get(), ModBlocks.STRIPPED_BAOBAB_LOG.get(), ModBlocks.STRIPPED_BAOBAB_WOOD.get());
-        tag(BlockTags.LOGS_THAT_BURN).addTag(ModBlockTags.AZALEA_LOGS.get()).addTag(ModBlockTags.PALM_LOGS.get()).addTag(ModBlockTags.BAOBAB_LOGS.get());
-        tag(BlockTags.PLANKS).add(ModBlocks.AZALEA_PLANKS.get(), ModBlocks.PALM_PLANKS.get(), ModBlocks.BAOBAB_PLANKS.get());
         tag(BlockTags.LEAVES).add(ModBlocks.PALM_LEAVES.get(), ModBlocks.BAOBAB_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(ModBlocks.PALM_SAPLING.get(), ModBlocks.BAOBAB_SAPLING.get());
         tag(ModBlockTags.ICE_SKIP).add(ModBlocks.BRITTLE_ICE.get());
@@ -82,14 +84,29 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
         tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
         tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+        tag(BlockTags.BEDS).add(ModBlocks.BED.get());
+        for(Block banner : ModDyedArray.BANNER_BLOCK) {
+            tag(BANNER).add(banner);
+        }
+        for(Block wallBanner : ModDyedArray.WALL_BANNER_BLOCK) {
+            tag(WALL_BANNER).add(wallBanner);
+        }
         DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(CONCRETE_POWDERS).add(block));
 
-        ModBlockFamilies.AZALEA_PLANKS.generateBlockTags(this::tag);
-        ModBlockFamilies.PALM_PLANKS.generateBlockTags(this::tag);
-        ModBlockFamilies.BAOBAB_PLANKS.generateBlockTags(this::tag);
+        ModBlockFamilies.AZALEA.generateBlockTags(this::tag);
+        ModBlockFamilies.PALM.generateBlockTags(this::tag);
+        ModBlockFamilies.BAOBAB.generateBlockTags(this::tag);
     }
 
     public static TagKey<Block> create(String tagName) {
+        return BlockTags.create(Helpers.location(tagName));
+    }
+
+    public static TagKey<Block> create(String namespace, String tagName) {
+        return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, tagName));
+    }
+
+    public static TagKey<Block> createCTag(String tagName) {
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
     }
 

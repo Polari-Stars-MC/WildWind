@@ -19,7 +19,9 @@ import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
@@ -85,10 +87,10 @@ public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEnti
         this.pole.render(poseStack, vertexconsumer, packedLight, packedOverlay);
         this.bar.render(poseStack, vertexconsumer, packedLight, packedOverlay);
         BlockPos blockpos = blockEntity.getBlockPos();
-        float f2 = ((float)Math.floorMod((long)(blockpos.getX() * 7 + blockpos.getY() * 9 + blockpos.getZ() * 13) + i, 100L) + partialTick) / 100.0F;
+        float f2 = ((float)Math.floorMod(blockpos.getX() * 7L + blockpos.getY() * 9L + blockpos.getZ() * 13L + i, 100L) + partialTick) / 100.0F;
         this.flag.xRot = (-0.0125F + 0.01F * Mth.cos(((float)Math.PI * 2F) * f2)) * (float)Math.PI;
         this.flag.y = -32.0F;
-        ModBannerRenderer.renderPatterns(poseStack, bufferSource, packedLight, packedOverlay, this.flag, ModelBakery.BANNER_BASE, true, blockEntity.color, blockEntity.getPatterns());
+        ModBannerRenderer.renderPatterns(poseStack, bufferSource, packedLight, packedOverlay, this.flag, ModelBakery.BANNER_BASE, true, FastColor.ARGB32.opaque(blockEntity.color), blockEntity.getPatterns());
         poseStack.popPose();
         poseStack.popPose();
     }
@@ -100,9 +102,8 @@ public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEnti
     public static void renderPatterns(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, ModelPart flagPart, Material flagMaterial, boolean banner, int baseColor, BannerPatternLayers patterns, boolean glint) {
         flagPart.render(poseStack, flagMaterial.buffer(buffer, RenderType::entitySolid, glint), packedLight, packedOverlay);
         renderPatternLayer(poseStack, buffer, packedLight, packedOverlay, flagPart, banner ? Sheets.BANNER_BASE : Sheets.SHIELD_BASE, baseColor);
-
-        for(int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
-            BannerPatternLayers.Layer bannerpatternlayers$layer = (BannerPatternLayers.Layer)patterns.layers().get(i);
+        for (int i = 0; i < 16 && i < patterns.layers().size(); ++i) {
+            BannerPatternLayers.Layer bannerpatternlayers$layer = patterns.layers().get(i);
             Material material = banner ? Sheets.getBannerMaterial(bannerpatternlayers$layer.pattern()) : Sheets.getShieldMaterial(bannerpatternlayers$layer.pattern());
             ModBannerRenderer.renderPatternLayer(poseStack, buffer, packedLight, packedOverlay, flagPart, material, bannerpatternlayers$layer.color().getTextureDiffuseColor());
         }
