@@ -9,12 +9,11 @@ import net.minecraft.world.item.Items;
 public class ModEntityDataAccess {
     public static EntityDataAccessor<Integer> MILKING_INTERVALS_BY_COW;
     public static EntityDataAccessor<Integer> MILKING_INTERVALS_BY_GOAT;
-    public static EntityDataAccessor<Integer> MILKING_INTERVALS_BY_MUSHROOM_COW;
+
 
     static {
         //bootstrap
         Cow.createAttributes();
         Goat.createAttributes();
-        MushroomCow.createAttributes();
     }
 }
