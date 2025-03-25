@@ -9,7 +9,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -103,6 +102,19 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
         tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
         tag(ItemTags.BANNERS).add(ModBlocks.BANNER_ITEM.get());
+        tag(ItemTags.STAIRS).add(
+                ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_STAIRS_ITEM.get()
+        );
+        tag(ItemTags.SLABS).add(
+                ModBlocks.ANDESITE_BRICK_SLAB_ITEM.get(), ModBlocks.DIORITE_BRICK_SLAB_ITEM.get(), ModBlocks.GRANITE_BRICK_SLAB_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_SLAB_ITEM.get()
+        );
+        tag(ItemTags.WALLS).add(
+                ModBlocks.STONE_WALL_ITEM.get(), ModBlocks.POLISHED_STONE_WALL_ITEM.get(),
+                ModBlocks.ANDESITE_BRICK_WALL_ITEM.get(), ModBlocks.DIORITE_BRICK_WALL_ITEM.get(), ModBlocks.GRANITE_BRICK_WALL_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_WALL_ITEM.get()
+        );
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
