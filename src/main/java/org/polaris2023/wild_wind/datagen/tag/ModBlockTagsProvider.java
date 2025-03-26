@@ -1,8 +1,6 @@
 package org.polaris2023.wild_wind.datagen.tag;
 
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
@@ -51,8 +49,16 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
         //Mineable
         tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get(),
-                ModBlocks.CONCRETE.get(), ModBlocks.GLAZED_TERRACOTTA.get());
+        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
+                ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get(),
+                ModBlocks.CONCRETE.get(), ModBlocks.GLAZED_TERRACOTTA.get(),
+                ModBlocks.STONE_WALL.get(),
+                ModBlocks.POLISHED_STONE.get(), ModBlocks.POLISHED_STONE_SLAB.get(), ModBlocks.POLISHED_STONE_STAIRS.get(), ModBlocks.POLISHED_STONE_WALL.get(),
+                ModBlocks.ANDESITE_BRICKS.get(), ModBlocks.CRACKED_ANDESITE_BRICKS.get(), ModBlocks.ANDESITE_BRICK_SLAB.get(), ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.ANDESITE_BRICK_WALL.get(),
+                ModBlocks.DIORITE_BRICKS.get(), ModBlocks.CRACKED_DIORITE_BRICKS.get(), ModBlocks.DIORITE_BRICK_SLAB.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_WALL.get(),
+                ModBlocks.GRANITE_BRICKS.get(), ModBlocks.CRACKED_GRANITE_BRICKS.get(), ModBlocks.GRANITE_BRICK_SLAB.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_WALL.get(),
+                ModBlocks.BLUE_ICE_BRICKS.get(), ModBlocks.CRACKED_BLUE_ICE_BRICKS.get(), ModBlocks.BLUE_ICE_BRICK_SLAB.get(), ModBlocks.BLUE_ICE_BRICK_STAIRS.get(), ModBlocks.BLUE_ICE_BRICK_WALL.get()
+        );
         tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get(), ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get(),
                 ModBlocks.SILT.get(), ModBlocks.QUICKSAND.get(), ModBlocks.RED_QUICKSAND.get(),
@@ -66,7 +72,19 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.LEAVES).add(ModBlocks.PALM_LEAVES.get(), ModBlocks.BAOBAB_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(ModBlocks.PALM_SAPLING.get(), ModBlocks.BAOBAB_SAPLING.get());
         tag(ModBlockTags.ICE_SKIP).add(ModBlocks.BRITTLE_ICE.get());
-        tag(BlockTags.WALLS).add(ModBlocks.STONE_WALL.get(), ModBlocks.POLISHED_STONE_WALL.get());
+        tag(BlockTags.STAIRS).add(
+                ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(),
+                ModBlocks.BLUE_ICE_BRICK_STAIRS.get()
+        );
+        tag(BlockTags.SLABS).add(
+                ModBlocks.ANDESITE_BRICK_SLAB.get(), ModBlocks.DIORITE_BRICK_SLAB.get(), ModBlocks.GRANITE_BRICK_SLAB.get(),
+                ModBlocks.BLUE_ICE_BRICK_SLAB.get()
+        );
+        tag(BlockTags.WALLS).add(
+                ModBlocks.STONE_WALL.get(), ModBlocks.POLISHED_STONE_WALL.get(),
+                ModBlocks.ANDESITE_BRICK_WALL.get(), ModBlocks.DIORITE_BRICK_WALL.get(), ModBlocks.GRANITE_BRICK_WALL.get(),
+                ModBlocks.BLUE_ICE_BRICK_WALL.get()
+        );
 
         tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
         tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());

@@ -36,7 +36,6 @@ import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
-import javax.xml.crypto.Data;
 import java.util.Set;
 
 public class ModBlockLootSubProvider extends BlockLootSubProvider {
@@ -120,6 +119,11 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.GRANITE_BRICK_STAIRS.get());
         this.add(ModBlocks.GRANITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.GRANITE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.GRANITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.BLUE_ICE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_BLUE_ICE_BRICKS.get());
+        this.dropSelf(ModBlocks.BLUE_ICE_BRICK_STAIRS.get());
+        this.add(ModBlocks.BLUE_ICE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.BLUE_ICE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.BLUE_ICE_BRICK_WALL.get());
     }
 
     protected LootTable.Builder createBedDrops(Block block) {
