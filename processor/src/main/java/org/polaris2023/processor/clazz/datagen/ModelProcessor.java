@@ -98,7 +98,6 @@ public class ModelProcessor extends ClassProcessor {
         BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
         BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
-        CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
         Slab slab = register(variableElement.getAnnotation(Slab.class));
@@ -128,9 +127,7 @@ public class ModelProcessor extends ClassProcessor {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
         }
         //block model gen
-        if (cube != null) {
-            checkAppend(typeElement, variableElement,"cubeAll", cube.all(), cube.render_type(), cube.item());
-        }
+
         else if (cubeColumn != null) {
             checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
         }
@@ -202,20 +199,17 @@ public class ModelProcessor extends ClassProcessor {
 
     private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
         BasicBlock basicBlock = variableElement.getAnnotation(BasicBlock.class);
-        if (basicBlock != null) {
-            StringBuilder sb = new StringBuilder(mergeNext("stateProvider.simpleBlock", typeElement, variableElement));
-            if (!basicBlock.render_type().isEmpty())
-                sb.append(".renderType(\"").append(basicBlock.render_type()).append("\")");
-            sb.append(";");
-            if (basicBlock.item()) {
-                sb
-                        .append("itemModelProvider.simpleBlockItem(")
-                        .append(typeElement.getQualifiedName())
-                        .append(".")
-                        .append(variableElement.getSimpleName())
-                        .append(".get().asItem());");
-            }
-            InitProcessor.modelGen(context, sb.toString());
+        CubeAll cubeAll = variableElement.getAnnotation(CubeAll.class);
+        if ( cubeAll != null || basicBlock != null) {
+            String sb = "cubeAll(%s.%s, %s, \"%s\", \"%s\");"
+                    .formatted(
+                            typeElement.getQualifiedName(),
+                            variableElement.getSimpleName(),
+                            cubeAll != null ? cubeAll.item() : basicBlock.item(),
+                            cubeAll != null ? cubeAll.render_type() : basicBlock.render_type(),
+                            cubeAll != null ? cubeAll.all() : ""
+                    );
+            InitProcessor.modelGen(context, sb);
         }
     }
 
