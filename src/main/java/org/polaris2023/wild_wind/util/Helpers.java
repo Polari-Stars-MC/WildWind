@@ -18,6 +18,9 @@ import java.util.function.Supplier;
 
 public final class Helpers {
 
+    public static final String BLOCK_PLACEHOLDER = "wild_wind:template/block_placeholder";
+    public static final String ITEM_PLACEHOLDER = "wild_wind:template/item_placeholder";
+
     public static ResourceLocation location(String path) {
         return ResourceLocation.fromNamespaceAndPath(WildWindMod.MOD_ID, path);
     }
