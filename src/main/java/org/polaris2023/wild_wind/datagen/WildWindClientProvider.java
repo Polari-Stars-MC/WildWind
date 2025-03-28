@@ -183,7 +183,7 @@ public class WildWindClientProvider implements DataProvider {
 
     public <T extends Block> BlockModelBuilder cubeAll(Supplier<T> block, boolean item, String renderType, String all) {
         Block b = block.get();
-        BlockModelBuilder model = cubeModel(key(b).getPath(), renderType, all);
+        BlockModelBuilder model = cubeAllModel(key(b).getPath(), renderType, all);
         if (item) {
             stateProvider.simpleBlockWithItem(b, model);
         } else {
@@ -192,7 +192,13 @@ public class WildWindClientProvider implements DataProvider {
         return model;
     }
 
-    public <T extends Block> BlockModelBuilder cubeModel(String path, String renderType, String all) {
+    public <T extends Block> BlockModelBuilder cubeAllModel(Supplier<T> block, String renderType, String all) {
+        T b = block.get();
+        ResourceLocation key = key(b);
+        return cubeAllModel(key.getPath(), renderType, all);
+    }
+
+    public <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, String all) {
         BlockModelBuilder bm = blockModelProvider.cubeAll(path, Helpers.location(path).withPrefix("block/"));
         if (!renderType.isEmpty()) bm.renderType(renderType);
         if (!all.isEmpty()) bm.texture("all", all);

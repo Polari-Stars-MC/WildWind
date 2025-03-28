@@ -89,7 +89,8 @@ public class ModelProcessor extends ClassProcessor {
             this::spawnEggItem,
             this::basicBlock,
             this::cubeBottomTop,
-            this::parentItem
+            this::parentItem,
+            this::cubeAllFor
     );
 
     @Override
@@ -199,18 +200,33 @@ public class ModelProcessor extends ClassProcessor {
 
     private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
         CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
-        if (cubeAllFor.self()) {
+        if (cubeAllFor != null) {
             CubeAll cube = cubeAllFor.cube();
-            String sb = "cubeAll(%s.%s, %s, \"%s\", \"%s\");"
-                    .formatted(
-                            typeElement.getQualifiedName(),
-                            variableElement.getSimpleName(),
-                            cube != null && cube.item(),
-                            cube != null ? cube.render_type() : "",
-                            cube != null ? cube.all() : ""
-                    );
-            InitProcessor.modelGen(context, sb);
+            InitProcessor.modelGen(context, cubeAllModel(typeElement, variableElement, cube));
+            for (CubeAllFor.Type type : cubeAllFor.value()) {
+                InitProcessor.modelGen(context, cubeAllModel(type.key(), type.cube()));
+            }
         }
+
+    }
+
+    private static String cubeAllModel(TypeElement typeElement, VariableElement variableElement, CubeAll cube) {
+        return "cubeAllModel(%s.%s, \"%s\", \"%s\");"
+                .formatted(
+                        typeElement.getQualifiedName(),
+                        variableElement.getSimpleName(),
+                        cube != null ? cube.render_type() : "",
+                        cube != null ? cube.all() : ""
+                );
+    }
+
+    private static String cubeAllModel(String path, CubeAll cube) {
+        return "cubeAllModel(\"%s\", \"%s\", \"%s\");"
+                .formatted(
+                        path,
+                        cube != null ? cube.render_type() : "",
+                        cube != null ? cube.all() : ""
+                );
     }
 
     private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
