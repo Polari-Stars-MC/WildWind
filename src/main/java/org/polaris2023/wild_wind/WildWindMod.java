@@ -19,7 +19,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.polaris2023.wild_wind.common.WildWindEventHandler;
 import org.polaris2023.wild_wind.common.init.*;
-import org.polaris2023.wild_wind.mixin.accessor.BlockEntityTypeAccess;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
 import java.util.ServiceLoader;
@@ -39,6 +38,7 @@ public class WildWindMod {
         WildWindEventHandler.modConstruction(modEventBus);
         ModPotions.register(modEventBus);
         ModVanillaCompat.register(NeoForge.EVENT_BUS);
+        ModAttachmentTypes.ATTACHMENT_TYPES.register(modEventBus);
         modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);
@@ -152,9 +152,9 @@ public class WildWindMod {
         consumer.accept(builder);
         item.components = builder.build();
     }
+
     private static void appendBlocksToBlockEntities() {
-        BlockEntityTypeAccess signBuilderAccess = (BlockEntityTypeAccess) BlockEntityType.SIGN;
-        Set<Block> signValidBlocks = signBuilderAccess.wild_wind$getValidBlocks();
+        Set<Block> signValidBlocks = BlockEntityType.SIGN.validBlocks;
         if(!(signValidBlocks instanceof ObjectOpenHashSet<Block>)) {
             signValidBlocks = new ObjectOpenHashSet<>(signValidBlocks);
         }
@@ -166,12 +166,8 @@ public class WildWindMod {
         signValidBlocks.add(ModBlocks.BAOBAB_SIGN.get());
         signValidBlocks.add(ModBlocks.BAOBAB_WALL_SIGN.get());
 
-        signBuilderAccess.wild_wind$setValidBlocks(signValidBlocks);
-
-
-        BlockEntityTypeAccess hangingSignBuilderAccess = (BlockEntityTypeAccess) BlockEntityType.HANGING_SIGN;
-        Set<Block> hangingSignValidBlocks = hangingSignBuilderAccess.wild_wind$getValidBlocks();
-        if(!(hangingSignValidBlocks instanceof ObjectOpenHashSet<Block>)) {
+        Set<Block> hangingSignValidBlocks = BlockEntityType.HANGING_SIGN.validBlocks;
+        if (!(hangingSignValidBlocks instanceof ObjectOpenHashSet<Block>)) {
             hangingSignValidBlocks = new ObjectOpenHashSet<>(hangingSignValidBlocks);
         }
 
@@ -181,7 +177,6 @@ public class WildWindMod {
         hangingSignValidBlocks.add(ModBlocks.PALM_WALL_HANGING_SIGN.get());
         hangingSignValidBlocks.add(ModBlocks.BAOBAB_HANGING_SIGN.get());
         hangingSignValidBlocks.add(ModBlocks.BAOBAB_WALL_HANGING_SIGN.get());
-
-        hangingSignBuilderAccess.wild_wind$setValidBlocks(hangingSignValidBlocks);
     }
+
 }

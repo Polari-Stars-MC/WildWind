@@ -24,14 +24,12 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        IntrinsicTagAppender<EntityType<?>> arthropod = tag(EntityTypeTags.ARTHROPOD);
-        IntrinsicTagAppender<EntityType<?>> frogFood = tag(EntityTypeTags.FROG_FOOD);
-        arthropod.add(ModEntities.FIREFLY.get());
-        frogFood.add(ModEntities.FIREFLY.get());
-        tag(ModEntityTypeTags.WILD_WIND_INVISIBLE.get())
+        this.tag(EntityTypeTags.ARTHROPOD).add(ModEntities.FIREFLY.get());
+        this.tag(EntityTypeTags.FROG_FOOD).add(ModEntities.FIREFLY.get());
+        this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(EntityType.SQUID);
+        this.tag(ModEntityTypeTags.WILD_WIND_INVISIBLE.get())
                 .add(EntityType.ITEM_FRAME)
                 .add(EntityType.GLOW_ITEM_FRAME);
-
     }
 
 

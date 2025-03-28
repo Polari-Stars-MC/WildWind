@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.client;
 
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
@@ -14,8 +13,6 @@ import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
 import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
-import org.polaris2023.wild_wind.client.renderer.ModBannerRenderer;
-import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModEntities;
@@ -40,7 +37,6 @@ public class WildWindClientEventHandler {
 
     @SubscribeEvent
     public static void registerRender(final EntityRenderersEvent.RegisterRenderers event) {
-         event.registerBlockEntityRenderer(ModBlocks.BANNER_BE.get(), ModBannerRenderer::new);
         event.registerEntityRenderer(ModEntities.FIREFLY.get(), context ->
                 new ModMobRenderer<>("firefly", context, FireflyModel::new, FireflyModel.LAYER_LOCATION, 1));
         event.registerEntityRenderer(ModEntities.TROUT.get(), context ->
@@ -54,6 +50,5 @@ public class WildWindClientEventHandler {
         event.registerLayerDefinition(FireflyModel.LAYER_LOCATION, FireflyModel::createBodyLayer);
         event.registerLayerDefinition(TroutModel.LAYER_LOCATION, TroutModel::createBodyLayer);
         event.registerLayerDefinition(PiranhaModel.LAYER_LOCATION, PiranhaModel::createBodyLayer);
-        event.registerLayerDefinition(ModModelLayers.BANNER, ModBannerRenderer::createBodyLayer);
     }
 }

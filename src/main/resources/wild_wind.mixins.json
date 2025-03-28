@@ -4,24 +4,12 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "wild_wind.refmap.json",
   "mixins": [
-    "AnimalMixin",
-    "BannerBlockEntityMixin",
-    "BannerDuplicateRecipeMixin",
-    "CowMixin",
-    "DyeColorMixin",
     "EggMixin",
-    "GoatMixin",
-    "HalfTransparentBlockMixin",
     "InvisibleItemFrame",
-    "MelonMixin",
-    "MushroomCowMixin",
-    "SquidMixin",
-    "accessor.BlockEntityTypeAccess"
+    "MelonMixin"
   ],
   "minVersion": "0.8",
   "client": [
-    "BlockEntityWithoutLevelRendererMixin",
-    "LoomScreenMixin",
-    "SquidRendererMixin"
+    "LivingEntityRendererMixin"
   ]
 }
