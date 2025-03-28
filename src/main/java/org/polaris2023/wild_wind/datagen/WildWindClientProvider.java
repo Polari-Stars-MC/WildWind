@@ -146,9 +146,6 @@ public class WildWindClientProvider implements DataProvider {
                 Helpers.location("block/glistering_melon_top")
         );
 
-
-                        ;
-
         stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
 //        List<DeferredHolder<Block, ?>> blocks = new ArrayList<>(ModInitializer.blocks());
 //        stateProvider.models().generatedModels.forEach((location, __) -> {
@@ -169,7 +166,7 @@ public class WildWindClientProvider implements DataProvider {
     }
 
     public void init() {
-    }// 不可在此处写代码，切记
+    }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
 
     public ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
@@ -186,18 +183,20 @@ public class WildWindClientProvider implements DataProvider {
 
     public <T extends Block> BlockModelBuilder cubeAll(Supplier<T> block, boolean item, String renderType, String all) {
         Block b = block.get();
-        BlockModelBuilder model = blockModelProvider.cubeAll(key(b).getPath(), blockTexture(b));
-        if (!renderType.isEmpty()) {
-            model.renderType(renderType);
-        }
-        if (!all.isEmpty())
-            model.texture("all", all);
+        BlockModelBuilder model = cubeModel(key(b).getPath(), renderType, all);
         if (item) {
             stateProvider.simpleBlockWithItem(b, model);
         } else {
             stateProvider.simpleBlock(b, model);
         }
         return model;
+    }
+
+    public <T extends Block> BlockModelBuilder cubeModel(String path, String renderType, String all) {
+        BlockModelBuilder bm = blockModelProvider.cubeAll(path, Helpers.location(path).withPrefix("block/"));
+        if (!renderType.isEmpty()) bm.renderType(renderType);
+        if (!all.isEmpty()) bm.texture("all", all);
+        return bm;
     }
 
     public ResourceLocation key(Block block) {
