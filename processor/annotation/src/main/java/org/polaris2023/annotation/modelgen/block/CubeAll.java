@@ -8,4 +8,5 @@ public @interface CubeAll {
     boolean item() default true;
     String render_type() default "";
     String all() default "";
+
 }

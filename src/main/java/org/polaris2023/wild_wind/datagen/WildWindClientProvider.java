@@ -8,23 +8,18 @@ import net.minecraft.data.PackOutput;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.util.Helpers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -106,7 +101,13 @@ public class WildWindClientProvider implements DataProvider {
                 );
             }
         }
+        ResourceLocation key = key(ModBlocks.BRITTLE_ICE.get());
+        blockModelProvider.cubeAll(key.getPath(), key.withPrefix("block/").withSuffix("_0")).renderType("translucent");
+        for (int age : BrittleIceBlock.AGE.getPossibleValues()) {
 
+            ResourceLocation resourceLocation = key.withSuffix("_" + age);
+            blockModelProvider.cubeAll(resourceLocation.getPath(), resourceLocation.withPrefix("block/")).renderType("translucent");
+        }
         VariantBlockStateBuilder brittleIceStates = stateProvider.getVariantBuilder(ModBlocks.BRITTLE_ICE.get());
         for(int age : BrittleIceBlock.AGE.getPossibleValues()) {
             for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {
@@ -165,7 +166,7 @@ public class WildWindClientProvider implements DataProvider {
     }
 
     public void init() {
-    }// 不可在此处写代码，切记
+    }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
 
     public ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
@@ -182,18 +183,20 @@ public class WildWindClientProvider implements DataProvider {
 
     public <T extends Block> BlockModelBuilder cubeAll(Supplier<T> block, boolean item, String renderType, String all) {
         Block b = block.get();
-        BlockModelBuilder model = blockModelProvider.cubeAll(key(b).getPath(), blockTexture(b));
-        if (!renderType.isEmpty()) {
-            model.renderType(renderType);
-        }
-        if (!all.isEmpty())
-            model.texture("all", all);
+        BlockModelBuilder model = cubeModel(key(b).getPath(), renderType, all);
         if (item) {
             stateProvider.simpleBlockWithItem(b, model);
         } else {
             stateProvider.simpleBlock(b, model);
         }
         return model;
+    }
+
+    public <T extends Block> BlockModelBuilder cubeModel(String path, String renderType, String all) {
+        BlockModelBuilder bm = blockModelProvider.cubeAll(path, Helpers.location(path).withPrefix("block/"));
+        if (!renderType.isEmpty()) bm.renderType(renderType);
+        if (!all.isEmpty()) bm.texture("all", all);
+        return bm;
     }
 
     public ResourceLocation key(Block block) {
