@@ -8,23 +8,18 @@ import net.minecraft.data.PackOutput;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.util.Helpers;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -106,7 +101,13 @@ public class WildWindClientProvider implements DataProvider {
                 );
             }
         }
+        ResourceLocation key = key(ModBlocks.BRITTLE_ICE.get());
+        blockModelProvider.cubeAll(key.getPath(), key.withPrefix("block/").withSuffix("_0")).renderType("translucent");
+        for (int age : BrittleIceBlock.AGE.getPossibleValues()) {
 
+            ResourceLocation resourceLocation = key.withSuffix("_" + age);
+            blockModelProvider.cubeAll(resourceLocation.getPath(), resourceLocation.withPrefix("block/")).renderType("translucent");
+        }
         VariantBlockStateBuilder brittleIceStates = stateProvider.getVariantBuilder(ModBlocks.BRITTLE_ICE.get());
         for(int age : BrittleIceBlock.AGE.getPossibleValues()) {
             for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {
@@ -144,6 +145,9 @@ public class WildWindClientProvider implements DataProvider {
                 Helpers.location("block/glistering_melon_side"),
                 Helpers.location("block/glistering_melon_top")
         );
+
+
+                        ;
 
         stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
 //        List<DeferredHolder<Block, ?>> blocks = new ArrayList<>(ModInitializer.blocks());
