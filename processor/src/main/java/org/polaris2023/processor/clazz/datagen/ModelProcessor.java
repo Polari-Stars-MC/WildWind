@@ -197,21 +197,21 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
-    private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
-        CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
-        if (cubeAllFor.self()) {
-            CubeAll cube = cubeAllFor.cube();
-            String sb = "cubeAll(%s.%s, %s, \"%s\", \"%s\");"
-                    .formatted(
-                            typeElement.getQualifiedName(),
-                            variableElement.getSimpleName(),
-                            cube != null && cube.item(),
-                            cube != null ? cube.render_type() : "",
-                            cube != null ? cube.all() : ""
-                    );
-            InitProcessor.modelGen(context, sb);
-        }
-    }
+//    private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
+//        CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
+//        if (cubeAllFor.self()) {
+//            CubeAll cube = cubeAllFor.cube();
+//            String sb = "cubeAll(%s.%s, %s, \"%s\", \"%s\");"
+//                    .formatted(
+//                            typeElement.getQualifiedName(),
+//                            variableElement.getSimpleName(),
+//                            cube != null && cube.item(),
+//                            cube != null ? cube.render_type() : "",
+//                            cube != null ? cube.all() : ""
+//                    );
+//            InitProcessor.modelGen(context, sb);
+//        }
+//    }
 
     private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
         BasicBlock basicBlock = variableElement.getAnnotation(BasicBlock.class);
