@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "redstone",
+  "group": "wooden_pressure_plate",
+  "key": {
+    "S": {
+      "item": "wild_wind:palm_planks"
+    }
+  },
+  "pattern": [
+    "SS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:palm_pressure_plate"
+  }
+}

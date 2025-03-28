@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_minecraft:chest": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:chest"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:baobab_chest_boat"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:baobab_boat": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wild_wind:baobab_boat"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:baobab_boat",
+      "has_minecraft:chest"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:baobab_chest_boat"
+    ]
+  }
+}

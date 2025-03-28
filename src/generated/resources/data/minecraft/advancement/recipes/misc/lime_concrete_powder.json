@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:lime_concrete_powder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:concrete_powder_minecraft:lime_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "wild_wind:concrete_powder",
+              "minecraft:lime_dye"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:concrete_powder_minecraft:lime_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:lime_concrete_powder"
+    ]
+  }
+}

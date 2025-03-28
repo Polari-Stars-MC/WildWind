@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "wild_wind:salt_block"
+    }
+  ],
+  "result": {
+    "count": 9,
+    "id": "wild_wind:salt"
+  }
+}

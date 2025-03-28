@@ -1,0 +1,20 @@
+{
+  "values": [
+    "minecraft:carrot",
+    "wild_wind:baked_carrot",
+    "minecraft:golden_carrot",
+    "minecraft:beetroot",
+    "wild_wind:baked_beetroot",
+    "minecraft:potato",
+    "minecraft:baked_potato",
+    "wild_wind:pumpkin_slice",
+    "wild_wind:baked_pumpkin_slice",
+    "minecraft:brown_mushroom",
+    "minecraft:red_mushroom",
+    "wild_wind:baked_mushroom",
+    "minecraft:crimson_fungus",
+    "minecraft:warped_fungus",
+    "wild_wind:living_tuber",
+    "wild_wind:baked_living_tuber"
+  ]
+}

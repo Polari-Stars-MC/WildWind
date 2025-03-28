@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:campfire/baked_mushroom"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "minecraft:brown_mushroom": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:brown_mushroom"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "minecraft:brown_mushroom"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:campfire/baked_mushroom"
+    ]
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "age=0,unstable=false": {
+      "model": "wild_wind:block/brittle_ice_0"
+    },
+    "age=0,unstable=true": {
+      "model": "wild_wind:block/brittle_ice_0"
+    },
+    "age=1,unstable=false": {
+      "model": "wild_wind:block/brittle_ice_1"
+    },
+    "age=1,unstable=true": {
+      "model": "wild_wind:block/brittle_ice_1"
+    },
+    "age=2,unstable=false": {
+      "model": "wild_wind:block/brittle_ice_2"
+    },
+    "age=2,unstable=true": {
+      "model": "wild_wind:block/brittle_ice_2"
+    },
+    "age=3,unstable=false": {
+      "model": "wild_wind:block/brittle_ice_3"
+    },
+    "age=3,unstable=true": {
+      "model": "wild_wind:block/brittle_ice_3"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "values": [
+    "minecraft:tall_grass",
+    "minecraft:short_grass",
+    "minecraft:fern",
+    "minecraft:large_fern",
+    "minecraft:potted_fern",
+    "minecraft:mangrove_propagule",
+    "minecraft:potted_mangrove_propagule",
+    "#minecraft:flowers"
+  ]
+}

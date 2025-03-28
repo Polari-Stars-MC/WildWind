@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "ice",
+  "key": {
+    "I": {
+      "item": "wild_wind:brittle_ice"
+    }
+  },
+  "pattern": [
+    "III",
+    "III",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:ice"
+  }
+}

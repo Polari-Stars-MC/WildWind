@@ -1,0 +1,49 @@
+{
+  "values": {
+    "wild_wind:baked_apple": {
+      "chance": 0.85
+    },
+    "wild_wind:baked_beetroot": {
+      "chance": 0.85
+    },
+    "wild_wind:baked_berries": {
+      "chance": 0.65
+    },
+    "wild_wind:baked_carrot": {
+      "chance": 0.85
+    },
+    "wild_wind:baked_melon_slice": {
+      "chance": 0.65
+    },
+    "wild_wind:baked_mushroom": {
+      "chance": 0.85
+    },
+    "wild_wind:baked_pumpkin_slice": {
+      "chance": 0.65
+    },
+    "wild_wind:baked_seeds": {
+      "chance": 0.5
+    },
+    "wild_wind:baobab_leaves": {
+      "chance": 0.3
+    },
+    "wild_wind:baobab_sapling": {
+      "chance": 0.3
+    },
+    "wild_wind:dough": {
+      "chance": 0.85
+    },
+    "wild_wind:failed_cuisine": {
+      "chance": 0.85
+    },
+    "wild_wind:flour": {
+      "chance": 0.65
+    },
+    "wild_wind:palm_leaves": {
+      "chance": 0.3
+    },
+    "wild_wind:palm_sapling": {
+      "chance": 0.3
+    }
+  }
+}

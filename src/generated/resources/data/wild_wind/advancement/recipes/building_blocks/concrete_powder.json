@@ -1,0 +1,43 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_minecraft:gravel": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:gravel"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_minecraft:sand": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sand"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:concrete_powder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_minecraft:sand",
+      "has_minecraft:gravel"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:concrete_powder"
+    ]
+  }
+}

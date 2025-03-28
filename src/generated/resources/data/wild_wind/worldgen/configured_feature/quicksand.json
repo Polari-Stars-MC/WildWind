@@ -1,0 +1,17 @@
+{
+  "type": "wild_wind:quicksand_lake",
+  "config": {
+    "barrier": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "minecraft:sand"
+      }
+    },
+    "fluid": {
+      "type": "minecraft:simple_state_provider",
+      "state": {
+        "Name": "wild_wind:quicksand"
+      }
+    }
+  }
+}
