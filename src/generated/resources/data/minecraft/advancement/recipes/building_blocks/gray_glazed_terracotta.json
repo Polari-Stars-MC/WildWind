@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:gray_glazed_terracotta"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:glazed_terracotta_minecraft:gray_dye": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "wild_wind:glazed_terracotta",
+              "minecraft:gray_dye"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:glazed_terracotta_minecraft:gray_dye"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:gray_glazed_terracotta"
+    ]
+  }
+}

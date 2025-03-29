@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "wild_wind:pumpkin_slice"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:pumpkin_seeds"
+  }
+}

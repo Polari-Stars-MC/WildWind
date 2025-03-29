@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab_top",
+  "textures": {
+    "bottom": "wild_wind:block/palm_planks",
+    "side": "wild_wind:block/palm_planks",
+    "top": "wild_wind:block/palm_planks"
+  }
+}

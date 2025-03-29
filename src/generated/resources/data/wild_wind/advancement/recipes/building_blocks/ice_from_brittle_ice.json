@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:ice_from_brittle_ice"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:brittle_ice": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wild_wind:brittle_ice"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:brittle_ice"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:ice_from_brittle_ice"
+    ]
+  }
+}

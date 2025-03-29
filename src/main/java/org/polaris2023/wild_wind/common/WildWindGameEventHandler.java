@@ -5,12 +5,12 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -21,10 +21,11 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Shulker;
@@ -44,6 +45,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
@@ -117,14 +120,12 @@ public class WildWindGameEventHandler {
         }
     }
 
-
     @SubscribeEvent
     public static void hurtEvent(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof Firefly firefly) {
             firefly.clearTicker();
         }
     }
-
 
     @SubscribeEvent
     public static void clickEventEmpty(PlayerInteractEvent.LeftClickEmpty event) {
@@ -174,7 +175,6 @@ public class WildWindGameEventHandler {
                 thrownegg.setItem(itemstack);
                 thrownegg.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
                 level.addFreshEntity(thrownegg);
-                System.out.println("test");
             }
 
             player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
@@ -279,42 +279,47 @@ public class WildWindGameEventHandler {
                         Block.popResource(serverLevel, pos, resultItem);
                         drop.setCount(count);
                         Block.popResource(serverLevel, pos, drop);
-                    }, () -> {
-                        Block.popResource(serverLevel, pos, drop);
-                    });
+                    }, () -> Block.popResource(serverLevel, pos, drop));
         }
     }
 
     @SubscribeEvent
-    private static void mobTick(EntityTickEvent.Pre event) {
+    private static void onEntityTick(EntityTickEvent.Pre event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof Goat || entity instanceof Cow) {
+            AttachmentType<Integer> type = ModAttachmentTypes.MILKING_INTERVALS.get();
+            entity.setData(type, Math.max(0, entity.getData(type) - 1));
+        } else if (entity instanceof Squid squid) {
+            AttachmentType<Integer> type1 = ModAttachmentTypes.SQUID_CONVERSION_TIME.get();
+            AttachmentType<Boolean> type2 = ModAttachmentTypes.SHOULD_SQUID_CONVERT.get();
+            squid.setData(type1, Math.max(0, squid.getData(type1) - 1));
+            Level level = squid.level();
+            if (squid.getData(type1) <= 0 && squid.getData(type2)) {
+                GlowSquid glowSquid = squid.convertTo(EntityType.GLOW_SQUID, Boolean.FALSE);
+                if (glowSquid != null) {
+                    EventHooks.onLivingConvert(squid, glowSquid);
+                }
 
-        switch (event.getEntity()) {
-            case Goat goat -> {
-                int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT);
-                if (i > 0) {
-                    goat.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT, i - 1);
+                if (!squid.isSilent()) {
+                    level.playSound(null, squid.blockPosition(), SoundEvents.GLOW_INK_SAC_USE, SoundSource.NEUTRAL);
                 }
             }
-            case Cow cow -> {
-                int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW);
-                if (i > 0) {
-                    WildWindMod.LOGGER.info(i);
-                    cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, i - 1);
+
+            if (squid.getData(type1) > 0 && !squid.getData(type2) && level.isClientSide) {
+                level.addParticle(ParticleTypes.GLOW, squid.getRandomX(0.6), squid.getRandomY(), squid.getRandomZ(0.6), 0.0F, 0.0F, 0.0F);
+            }
+
+        } else if (entity instanceof ItemEntity item) {
+            if (item.getItem().is(ModItems.LIVING_TUBER)) {
+                RandomSource random = item.getRandom();
+                Level level = item.level();
+                int j = random.nextInt(20, 200);
+                if (level.getGameTime() % j == 0) {
+                    int i = random.nextInt(1, 13);
+                    ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
+                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
                 }
             }
-            case ItemEntity item -> {
-                if (item.getItem().is(ModItems.LIVING_TUBER)) {
-                    RandomSource random = item.getRandom();
-                    Level level = item.level();
-                    int j = random.nextInt(20, 200);
-                    if (level.getGameTime() % j == 0) {
-                        int i = random.nextInt(1, 13);
-                        ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-                        level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
-                    }
-                }
-            }
-            default -> {}
         }
     }
 
@@ -353,25 +358,61 @@ public class WildWindGameEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event){
         Player player = event.getEntity();
         Level level = player.level();
         ItemStack itemStack = player.getMainHandItem();
         BlockPos pos = event.getPos();
         BlockState blockState = level.getBlockState(pos);
-
-        if (event.getHand() == InteractionHand.MAIN_HAND){
-            if(itemStack.getItem() instanceof DyeItem){
+        if (event.getHand() == InteractionHand.MAIN_HAND) {
+            if (itemStack.getItem() instanceof DyeItem) {
                 if (!level.isClientSide) {
-                    System.out.println("right click server");
                     rightClick(player, level, itemStack, pos, blockState,event);
-
                 }
             }
         }
     }
+
     @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteractSpecific event){
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getEntity();
+        Entity target = event.getTarget();
+        AttachmentType<Integer> type = ModAttachmentTypes.MILKING_INTERVALS.get();
+        ItemStack itemInHand = player.getItemInHand(event.getHand());
+        if (target instanceof Goat || target instanceof Cow) {
+            if (itemInHand.is(Items.BUCKET) && !((AgeableMob) target).isBaby()) {
+                if (target.getData(type) > 0) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        ModTranslateKey key = target instanceof Goat ?
+                                ModTranslateKey.GOAT_INTOLERANCE :
+                                ModTranslateKey.COW_INTOLERANCE;
+                        serverPlayer.sendSystemMessage(key.translatable());
+                        serverPlayer.swing(event.getHand(), Boolean.TRUE);
+                    }
+
+                    event.setCanceled(true);
+                } else {
+                    target.setData(type, 6000);
+                }
+            }
+        } else if (target instanceof MushroomCow mushroomCow) {
+            if (itemInHand.is(Items.BOWL) && !mushroomCow.isBaby()) {
+                if (target.getData(type) > 0) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.sendSystemMessage(ModTranslateKey.MOOSHROOM_COW_INTOLERANCE.translatable());
+                        serverPlayer.swing(event.getHand(), Boolean.TRUE);
+                    }
+
+                    event.setCanceled(true);
+                } else {
+                    target.setData(type, 6000);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityInteractSpecific(PlayerInteractEvent.EntityInteractSpecific event){
         Player player = event.getEntity();
         Level level = player.level();
         Entity shulker = event.getTarget();
@@ -393,4 +434,5 @@ public class WildWindGameEventHandler {
             }
         }
     }
+
 }

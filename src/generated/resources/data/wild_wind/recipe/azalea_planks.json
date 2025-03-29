@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    [
+      {
+        "item": "wild_wind:azalea_wood"
+      },
+      {
+        "item": "wild_wind:azalea_log"
+      },
+      {
+        "item": "wild_wind:stripped_azalea_wood"
+      },
+      {
+        "item": "wild_wind:stripped_azalea_log"
+      }
+    ]
+  ],
+  "result": {
+    "count": 4,
+    "id": "wild_wind:azalea_planks"
+  }
+}

@@ -2,22 +2,14 @@ package org.polaris2023.wild_wind.common.dyed.handler;
 
 import java.util.*;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentMap;
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.LoomMenu;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -128,15 +120,15 @@ public class RightClickHandler {
 
     public static boolean handleDyedBanner(Level level, BlockPos pos, BlockState newBlockState) {
         BlockEntity blockEntity = level.getBlockEntity(pos);
-        if (blockEntity instanceof BannerBlockEntity) {
-            BannerPatternLayers patternLayers = ((BannerBlockEntity) blockEntity).getPatterns();
+        if (blockEntity instanceof BannerBlockEntity bannerBlockEntity) {
+            BannerPatternLayers patternLayers = bannerBlockEntity.getPatterns();
             level.setBlockAndUpdate(pos, newBlockState);
             IBannerBlockEntity newBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
             if (newBannerBlockEntity == null) return false;
             newBannerBlockEntity.wild_wind$setBannerPatternLayers(patternLayers);
             return true;
-        } else if (blockEntity instanceof ModBannerBlockEntity) {
-            BannerPatternLayers patternLayers = ((ModBannerBlockEntity) blockEntity).getPatterns();
+        } else if (blockEntity instanceof ModBannerBlockEntity bannerBlockEntity) {
+            BannerPatternLayers patternLayers = bannerBlockEntity.getPatterns();
             level.setBlockAndUpdate(pos, newBlockState);
             IBannerBlockEntity newModBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
             if (newModBannerBlockEntity == null) return false;

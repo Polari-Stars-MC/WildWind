@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wild_wind:block/granite_brick_slab"
+    },
+    "type=double": {
+      "model": "wild_wind:block/granite_bricks"
+    },
+    "type=top": {
+      "model": "wild_wind:block/granite_brick_slab_top"
+    }
+  }
+}

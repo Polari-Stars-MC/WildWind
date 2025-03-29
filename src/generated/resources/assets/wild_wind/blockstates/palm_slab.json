@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "wild_wind:block/palm_slab"
+    },
+    "type=double": {
+      "model": "wild_wind:block/palm_planks"
+    },
+    "type=top": {
+      "model": "wild_wind:block/palm_slab_top"
+    }
+  }
+}

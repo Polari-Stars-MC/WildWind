@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "minecraft:charcoal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "wild_wind:palm_crown": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wild_wind:palm_crown"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "wild_wind:palm_crown"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "minecraft:charcoal"
+    ]
+  }
+}

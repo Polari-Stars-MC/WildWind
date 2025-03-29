@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "carpet",
+  "key": {
+    "S": {
+      "item": "wild_wind:wool"
+    }
+  },
+  "pattern": [
+    "SS ",
+    "   ",
+    "   "
+  ],
+  "result": {
+    "count": 3,
+    "id": "wild_wind:carpet"
+  }
+}
