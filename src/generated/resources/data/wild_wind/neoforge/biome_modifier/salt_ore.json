@@ -1,9 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#c:is_overworld",
-  "features": [
-    "wild_wind:ore_salt",
-    "wild_wind:ore_salt_buried"
-  ],
-  "step": "underground_ores"
-}
