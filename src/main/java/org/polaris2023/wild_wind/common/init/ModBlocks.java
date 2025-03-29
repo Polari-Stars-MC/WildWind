@@ -146,6 +146,15 @@ public class ModBlocks {
     @BasicItem
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM = register("duckweed", DUCKWEED);
 
+//    @CubeAllFor(
+//            cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0"),
+//            value = {
+//                    @CubeAllFor.Type(key = "brittle_ice_0", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0")),
+//                    @CubeAllFor.Type(key = "brittle_ice_1", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_1")),
+//                    @CubeAllFor.Type(key = "brittle_ice_2", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_2")),
+//                    @CubeAllFor.Type(key = "brittle_ice_3", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_3")),
+//            }
+//    )
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
