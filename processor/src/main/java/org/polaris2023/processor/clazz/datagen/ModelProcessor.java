@@ -90,8 +90,11 @@ public class ModelProcessor extends ClassProcessor {
             this::basicBlock,
             this::cubeBottomTop,
             this::parentItem,
-            this::cubeAllFor
+            this::cubeAllFor,
+            this::cross
     );
+
+
 
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
@@ -227,6 +230,20 @@ public class ModelProcessor extends ClassProcessor {
                         cube != null ? cube.render_type() : "",
                         cube != null ? cube.all() : ""
                 );
+    }
+
+    private void cross(TypeElement typeElement, VariableElement variableElement) {
+        Cross cross = variableElement.getAnnotation(Cross.class);
+        if (cross != null) {
+            String sb = "cross(%s.%s, %s, \"%s\", \"%s\");".formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    cross.item(),
+                    cross.render_type(),
+                    cross.cross()
+            );
+            InitProcessor.modelGen(context, sb);
+        }
     }
 
     private void basicBlock(TypeElement typeElement, VariableElement variableElement) {

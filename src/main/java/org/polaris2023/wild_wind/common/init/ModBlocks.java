@@ -117,6 +117,7 @@ public class ModBlocks {
                     .randomTicks());
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
+    @Cross(item = false)
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
     @BasicBlockLocatedItem
