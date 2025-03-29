@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "wild_wind:polished_stone"
+  },
+  "result": {
+    "count": 1,
+    "id": "wild_wind:polished_stone_wall"
+  }
+}

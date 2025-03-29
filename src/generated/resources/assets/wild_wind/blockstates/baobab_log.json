@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "wild_wind:block/baobab_log_horizontal",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "wild_wind:block/baobab_log"
+    },
+    "axis=z": {
+      "model": "wild_wind:block/baobab_log_horizontal",
+      "x": 90
+    }
+  }
+}

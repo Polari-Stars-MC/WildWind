@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "ash_block",
+  "key": {
+    "A": {
+      "item": "wild_wind:ash_dust"
+    }
+  },
+  "pattern": [
+    "AA",
+    "AA"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:ash_block"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "glow_mucus",
+  "key": {
+    "I": {
+      "item": "wild_wind:ash_dust"
+    },
+    "S": {
+      "item": "minecraft:slime_ball"
+    },
+    "W": {
+      "item": "wild_wind:glow_powder"
+    }
+  },
+  "pattern": [
+    "IWI",
+    "WSW",
+    "IWI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:glow_mucus"
+  }
+}

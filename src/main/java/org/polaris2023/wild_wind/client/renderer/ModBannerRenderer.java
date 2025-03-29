@@ -12,28 +12,28 @@ import net.minecraft.client.model.geom.builders.PartDefinition;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.Sheets;
-import net.minecraft.client.renderer.blockentity.BannerRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.FastColor;
 import net.minecraft.util.Mth;
-import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.block.BannerBlock;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.RotationSegment;
+import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.OnlyIn;
-import org.polaris2023.wild_wind.common.block.ModBannerBlock;
 import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
-import org.polaris2023.wild_wind.common.block.ModWallBannerBlock;
+import org.polaris2023.wild_wind.common.block.modified.ModBannerBlock;
+import org.polaris2023.wild_wind.common.block.modified.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 import net.neoforged.api.distmarker.Dist;
 
 @OnlyIn(Dist.CLIENT)
 public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEntity> {
+
     private final ModelPart flag;
     private final ModelPart pole;
     private final ModelPart bar;
@@ -56,7 +56,6 @@ public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEnti
 
     @Override
     public void render(ModBannerBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
-        float f = 0.6666667F;
         boolean flag = blockEntity.getLevel() == null;
         poseStack.pushPose();
         long i;
@@ -69,12 +68,12 @@ public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEnti
             BlockState blockstate = blockEntity.getBlockState();
             if (blockstate.getBlock() instanceof ModBannerBlock) {
                 poseStack.translate(0.5F, 0.5F, 0.5F);
-                float f1 = -RotationSegment.convertToDegrees((Integer)blockstate.getValue(ModBannerBlock.ROTATION));
+                float f1 = -RotationSegment.convertToDegrees(blockstate.getValue(ModBannerBlock.ROTATION));
                 poseStack.mulPose(Axis.YP.rotationDegrees(f1));
                 this.pole.visible = true;
             } else {
                 poseStack.translate(0.5F, -0.16666667F, 0.5F);
-                float f3 = -((Direction)blockstate.getValue(ModWallBannerBlock.FACING)).toYRot();
+                float f3 = -blockstate.getValue(ModWallBannerBlock.FACING).toYRot();
                 poseStack.mulPose(Axis.YP.rotationDegrees(f3));
                 poseStack.translate(0.0F, -0.3125F, -0.4375F);
                 this.pole.visible = false;
@@ -113,4 +112,12 @@ public class ModBannerRenderer implements BlockEntityRenderer<ModBannerBlockEnti
     private static void renderPatternLayer(PoseStack poseStack, MultiBufferSource buffer, int packedLight, int packedOverlay, ModelPart flagPart, Material material, int color) {
         flagPart.render(poseStack, material.buffer(buffer, RenderType::entityNoOutline), packedLight, packedOverlay, color);
     }
+
+    @Override
+    public AABB getRenderBoundingBox(ModBannerBlockEntity blockEntity) {
+        BlockPos pos = blockEntity.getBlockPos();
+        boolean standing = blockEntity.getBlockState().getBlock() instanceof BannerBlock;
+        return AABB.encapsulatingFullBlocks(pos, standing ? pos.above() : pos.below());
+    }
+
 }

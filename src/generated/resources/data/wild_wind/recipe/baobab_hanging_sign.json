@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "hanging_sign",
+  "key": {
+    "I": {
+      "item": "minecraft:chain"
+    },
+    "S": {
+      "item": "wild_wind:stripped_azalea_log"
+    }
+  },
+  "pattern": [
+    "I I",
+    "SSS",
+    "SSS"
+  ],
+  "result": {
+    "count": 6,
+    "id": "wild_wind:baobab_hanging_sign"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "wild_wind:glazed_terracotta"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "wild_wind:blocks/glazed_terracotta"
+}

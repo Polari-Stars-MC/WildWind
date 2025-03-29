@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/outer_stairs",
+  "textures": {
+    "bottom": "wild_wind:block/granite_bricks",
+    "side": "wild_wind:block/granite_bricks",
+    "top": "wild_wind:block/granite_bricks"
+  }
+}

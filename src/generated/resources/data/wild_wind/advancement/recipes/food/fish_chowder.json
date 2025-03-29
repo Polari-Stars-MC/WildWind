@@ -1,0 +1,72 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_minecraft:bowl": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:bowl"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_minecraft:brown_mushroom_minecraft:red_mushroom": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:brown_mushroom",
+              "minecraft:red_mushroom"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_minecraft:kelp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:kelp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:fish_chowder"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:raw_trout_minecraft:cod_minecraft:salmon": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "wild_wind:raw_trout",
+              "minecraft:cod",
+              "minecraft:salmon"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:raw_trout_minecraft:cod_minecraft:salmon",
+      "has_minecraft:brown_mushroom_minecraft:red_mushroom",
+      "has_minecraft:kelp",
+      "has_minecraft:bowl"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:fish_chowder"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:honey_bottle"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    [
+      {
+        "item": "minecraft:glow_berries"
+      },
+      {
+        "item": "minecraft:apple"
+      },
+      {
+        "item": "minecraft:sweet_berries"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:candy"
+  }
+}

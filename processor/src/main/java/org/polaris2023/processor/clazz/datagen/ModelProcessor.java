@@ -198,6 +198,7 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
+
     private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
         CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
         if (cubeAllFor != null) {

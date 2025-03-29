@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "wild_wind:baobab_boat"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:baobab_chest_boat"
+  }
+}

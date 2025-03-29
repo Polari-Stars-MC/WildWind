@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "wild_wind:palm_pressure_plate"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_wild_wind:palm_planks": {
+      "conditions": {
+        "items": [
+          {
+            "items": "wild_wind:palm_planks"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_wild_wind:palm_planks"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "wild_wind:palm_pressure_plate"
+    ]
+  }
+}

@@ -1,7 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
 import com.google.common.reflect.TypeToken;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvent;
@@ -86,8 +85,7 @@ public class ModInitializer {
         init(bus, ModBlocks.class, BLOCKS, TILES);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class},
-                ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ITEMS);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);

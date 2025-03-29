@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "key": {
+    "S": {
+      "item": "wild_wind:baobab_planks"
+    }
+  },
+  "pattern": [
+    "S S",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:baobab_boat"
+  }
+}

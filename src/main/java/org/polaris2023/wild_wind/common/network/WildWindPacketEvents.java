@@ -6,6 +6,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.network.packets.EggShootPacket;
+import org.polaris2023.wild_wind.common.network.packets.SquidConvertPacket;
 
 /**
  * @author : baka4n
@@ -13,9 +14,12 @@ import org.polaris2023.wild_wind.common.network.packets.EggShootPacket;
  */
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = WildWindMod.MOD_ID)
 public class WildWindPacketEvents {
+
     @SubscribeEvent
     public static void setupPackets(RegisterPayloadHandlersEvent event) {
         PayloadRegistrar registrar = event.registrar(WildWindMod.MOD_ID).versioned(WildWindMod.MOD_VERSION).optional();
         registrar.playToServer(EggShootPacket.TYPE, EggShootPacket.STREAM_CODEC, EggShootPacket::handle);
+        registrar.playToClient(SquidConvertPacket.TYPE, SquidConvertPacket.STREAM_CODEC, SquidConvertPacket::handle);
     }
+
 }

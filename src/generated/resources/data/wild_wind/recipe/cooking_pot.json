@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "cooking_pot",
+  "key": {
+    "C": {
+      "tag": "minecraft:coals"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "tag": "minecraft:logs"
+    }
+  },
+  "pattern": [
+    "I I",
+    "III",
+    "PCP"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:cooking_pot"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "boat",
+  "key": {
+    "S": {
+      "item": "wild_wind:azalea_planks"
+    }
+  },
+  "pattern": [
+    "S S",
+    "SSS"
+  ],
+  "result": {
+    "count": 1,
+    "id": "wild_wind:azalea_boat"
+  }
+}
