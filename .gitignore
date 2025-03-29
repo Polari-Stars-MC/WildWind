@@ -30,3 +30,5 @@ repo
 
 /.xcodemap/
 /design/
+
+src/generated/
