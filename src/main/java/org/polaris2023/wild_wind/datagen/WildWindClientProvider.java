@@ -6,20 +6,29 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
 
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -36,6 +45,35 @@ public class WildWindClientProvider implements DataProvider {
     final ItemModelProvider itemModelProvider;
 
     final String modid;
+    final Map<String, LanguageProvider> languages = new HashMap<>();
+
+    public LanguageProvider lang(String lang, Object key, String translate) {
+        if (!languages.containsKey(lang)) {
+            languages.put(lang, new LanguageProvider(output, lang, modid) {
+                @Override
+                protected void addTranslations() {
+
+                }
+            });
+        }
+
+        LanguageProvider languageProvider = languages.get(lang);
+        switch (key) {
+            case String str -> languageProvider.add(str, translate);
+            case DeferredHolder<?, ?> holder -> lang(lang, holder.get(), translate);
+            case Supplier<?> supplier -> lang(lang, supplier.get(), translate);
+            case SoundEvent sound -> languageProvider.add("sound." + sound.getLocation().toString().replace(":", "."), translate);
+            case Block block -> languageProvider.add(block, translate);
+            case Item item -> languageProvider.add(item, translate);
+            case EntityType<?> type -> languageProvider.add(type.getDescriptionId(), translate);
+            case TranslatableContents contents -> languageProvider.add(contents.getKey(), translate);
+            case MobEffect effect -> languageProvider.add(effect.getDescriptionId(), translate);
+            case CreativeModeTab tab -> lang(lang, tab.getDisplayName().getContents() instanceof TranslatableContents contents ? contents : Optional.empty(), translate);
+            case ItemStack stack -> languageProvider.add(stack.getDescriptionId(), translate);
+            default -> {}//没有其中任何一个语言则略过
+        }
+        return languageProvider;
+    }
 
     public WildWindClientProvider(PackOutput output, String modid, ExistingFileHelper exFileHelper) {
         this.modid = modid;
@@ -102,6 +140,7 @@ public class WildWindClientProvider implements DataProvider {
             }
         }
         ResourceLocation key = key(ModBlocks.BRITTLE_ICE.get());
+
         blockModelProvider.cubeAll(key.getPath(), key.withPrefix("block/").withSuffix("_0")).renderType("translucent");
         for (int age : BrittleIceBlock.AGE.getPossibleValues()) {
 
@@ -163,11 +202,14 @@ public class WildWindClientProvider implements DataProvider {
     public void item() {
         itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
         itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
+
     }
 
     public void init() {
     }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
+    public void languageInit() {
+    }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
     public ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
         return itemModelProvider.getBuilder(block.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ResourceLocation.fromNamespaceAndPath(block.getNamespace(), "block/" + block.getPath()));
@@ -192,6 +234,15 @@ public class WildWindClientProvider implements DataProvider {
         return model;
     }
 
+    public <T extends Block> BlockModelBuilder cubeAllModel(Supplier<T> block, String renderType, String all, String... suffix) {
+        T b = block.get();
+        BlockModelBuilder model = cubeAllModel(key(b).getPath(), renderType, all);
+        for (String s : suffix) {
+            cubeAllModel(key(b).withSuffix(s).getPath(), renderType, "");
+        }
+        return model;
+    }
+
     public <T extends Block> BlockModelBuilder cubeAllModel(Supplier<T> block, String renderType, String all) {
         T b = block.get();
         ResourceLocation key = key(b);
@@ -199,9 +250,9 @@ public class WildWindClientProvider implements DataProvider {
     }
 
     public <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, String all) {
-        BlockModelBuilder bm = blockModelProvider.cubeAll(path, Helpers.location(path).withPrefix("block/"));
+        ResourceLocation parse = all.isEmpty() ? null : ResourceLocation.parse(all);
+        BlockModelBuilder bm = blockModelProvider.cubeAll(path, parse != null ? parse : Helpers.location(path).withPrefix("block/"));
         if (!renderType.isEmpty()) bm.renderType(renderType);
-        if (!all.isEmpty()) bm.texture("all", all);
         return bm;
     }
 
@@ -216,8 +267,10 @@ public class WildWindClientProvider implements DataProvider {
 
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
-        CompletableFuture<?> run = stateProvider.run(cachedOutput);
-        return CompletableFuture.allOf(run);
+        List<CompletableFuture<?>> futures =
+                new LinkedList<>(languages.values().stream().map((LanguageProvider cache) -> cache.run(cachedOutput)).toList());
+        futures.add(stateProvider.run(cachedOutput));
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
     @Override
