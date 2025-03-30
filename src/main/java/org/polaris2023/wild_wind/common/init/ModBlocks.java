@@ -164,8 +164,10 @@ public class ModBlocks {
             max = 3,
             def = "wild_wind:block/brittle_ice"
     )
+
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
+
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM = register("brittle_ice", BRITTLE_ICE);
 
     @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
@@ -249,7 +251,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> POLISHED_STONE = register("polished_stone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
     public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM = register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
-    @Wall(wall = "minecraft:block/polished_stone")
+    @Wall(wall = "wild_wind:block/polished_stone")
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL = register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM = register("polished_stone_wall", POLISHED_STONE_WALL);
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
@@ -454,7 +456,7 @@ public class ModBlocks {
     public static final DeferredBlock<LeavesBlock> PALM_LEAVES = register("palm_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_LEAVES));
     public static final DeferredItem<BlockItem> PALM_LEAVES_ITEM = register("palm_leaves", PALM_LEAVES);
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
-    @CubeAll(all = Helpers.BLOCK_PLACEHOLDER)
+    @CubeAll()
     public static final DeferredBlock<LeavesBlock> BAOBAB_LEAVES = register("baobab_leaves", LeavesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_LEAVES));
     public static final DeferredItem<BlockItem> BAOBAB_LEAVES_ITEM = register("baobab_leaves", BAOBAB_LEAVES);
 
