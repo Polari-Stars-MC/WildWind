@@ -13,6 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -34,6 +35,7 @@ import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
+import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Set;
@@ -52,6 +54,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = registries.lookupOrThrow(Registries.ENCHANTMENT);
         this.add(ModBlocks.BED.get(), this::createBedDrops);
         this.dropSelf(ModBlocks.GLOW_MUCUS.get());
         this.dropSelf(ModBlocks.GLAREFLOWER.get());
@@ -76,6 +79,17 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.WALL_BANNER.get(), this::createBannerDrops);
 
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
+        this.add(Blocks.PUMPKIN, pumpkin ->
+            createSilkTouchDispatchTable(
+                    pumpkin,
+                    applyExplosionDecay(
+                            pumpkin,
+                            LootItem.lootTableItem(ModBaseFoods.PUMPKIN_SLICE.get())
+                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 7.0F)))
+                                    .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+                                    .apply(LimitCount.limitCount(IntRange.upperBound(9)))
+                            )
+            ));
 
         this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
         this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));

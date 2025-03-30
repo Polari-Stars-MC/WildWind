@@ -1,7 +1,9 @@
 package org.polaris2023.wild_wind.util.interfaces.datagen;
 
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.effect.MobEffect;
@@ -11,6 +13,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.Potion;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -52,6 +55,11 @@ public interface ILanguage extends DatagenClient {
             case String str -> languageProvider.add(str, translate);
             case DeferredHolder<?, ?> holder -> lang(lang, holder.get(), translate);
             case Supplier<?> supplier -> lang(lang, supplier.get(), translate);
+            case ResourceKey<?> eKey -> {
+                eKey.cast(Registries.ENCHANTMENT).ifPresent(rk -> {
+                    lang(lang, "enchantment.%s".formatted(eKey.location().toString().replace(":", ".")), translate);
+                });
+            }
             case SoundEvent sound -> languageProvider.add("sound." + sound.getLocation().toString().replace(":", "."), translate);
             case Block block -> languageProvider.add(block, translate);
             case Item item -> languageProvider.add(item, translate);

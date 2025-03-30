@@ -172,9 +172,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
     }
 
     public void item() {
-
-//        itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
-//        itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
+        itemModelProvider.simpleBlockItem(ModBlocks.BRITTLE_ICE.get());
     }
 
     public void init() {
