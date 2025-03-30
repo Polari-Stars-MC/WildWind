@@ -1,20 +1,6 @@
-1.0.4 change log:
-2025/3/23
-    Finish Banner
-    Improve the right-click colouring event
-    Fixing a range of issues
-2025/3/24
-    Optimised code
-2025/3/25
-    Add textures.
-    Add blue ice bricks
-    Fix an issue where some decorative blocks did not fall and did not connect
-2025/3/28
-    Optimised code
-    add neo block texture
-2025/3/30
-    New features of automatic melting.
+1.0.5 change log:
 
+2025/3/30
 
 
 2025/3/31
