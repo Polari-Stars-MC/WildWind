@@ -117,7 +117,7 @@ public class InitProcessor extends AbstractProcessor {
                         .getMembers()
                         .stream()
                         .filter(tree -> tree.getKind().equals(Tree.Kind.METHOD)))
-                        .filter(method -> method.getName().toString().equals("language")).findFirst();
+                        .filter(method -> method.getName().toString().equals("languageInit")).findFirst();
             for (ClassProcessor classProcessor : classProcessors) {
                 classProcessor.process(annotations, roundEnv);
             }
@@ -129,7 +129,7 @@ public class InitProcessor extends AbstractProcessor {
                     .append("\t\t\t.setTargetLanguage(\"%s\")".formatted(lang))
                     .append("\n")
                     .append(code));
-            Codes.LanguageProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.ILanguage", language_init);
+//            Codes.LanguageProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.ILanguage", language_init);
             Codes.ModelProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.IModel", ModelProcessor.MODEL);
             servicesSave();
             ONLY_ONCE.set(false);

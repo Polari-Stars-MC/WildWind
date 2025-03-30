@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#c:is_desert",
-  "features": "wild_wind:quicksand",
-  "step": "lakes"
-}

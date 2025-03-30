@@ -39,6 +39,7 @@ import java.util.Arrays;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 
+@SuppressWarnings("unused")
 public class ModBlocks {
     public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
@@ -109,6 +110,7 @@ public class ModBlocks {
                     .randomTicks());
     public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", SILT);
 
+    @Cross(item = false)
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
     @BasicBlockLocatedItem
@@ -146,7 +148,22 @@ public class ModBlocks {
     @BasicItem
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM = register("duckweed", DUCKWEED);
 
+//    @CubeAllFor(
+//            cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0"),
+//            value = {
+//                    @CubeAllFor.Type(key = "brittle_ice_0", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0")),
+//                    @CubeAllFor.Type(key = "brittle_ice_1", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_1")),
+//                    @CubeAllFor.Type(key = "brittle_ice_2", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_2")),
+//                    @CubeAllFor.Type(key = "brittle_ice_3", cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_3")),
+//            }
+//    )
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
+    @CubeAllFor(
+            cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0"),
+            min = 0,
+            max = 3,
+            def = "wild_wind:block/brittle_ice"
+    )
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
     public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM = register("brittle_ice", BRITTLE_ICE);
@@ -171,6 +188,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> WOOL_ITEM = register("wool", WOOL);
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
+    @Carpet(carpet = "wild_wind:block/wool")
     public static final DeferredBlock<CarpetBlock> CARPET = register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
     public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", CARPET);
 
@@ -184,6 +202,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA = register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_GLAZED_TERRACOTTA));
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
@@ -217,6 +236,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
 
     @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")
@@ -229,16 +249,16 @@ public class ModBlocks {
     public static final DeferredBlock<Block> POLISHED_STONE = register("polished_stone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
     public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM = register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
-    @Wall
+    @Wall(wall = "minecraft:block/polished_stone")
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL = register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
     public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM = register("polished_stone_wall", POLISHED_STONE_WALL);
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
-    @Stairs(type = "stone")
+    @Stairs(type = "stone", bottom = "wild_wind:block/polished_stone", top = "wild_wind:block/polished_stone", side = "wild_wind:block/polished_stone")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS = register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
     public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM = register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
     @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
-    @Slab(type = "stone")
+    @Slab(type = "stone", bottom = "wild_wind:block/polished_stone", side = "wild_wind:block/polished_stone", top = "wild_wind:block/polished_stone")
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB = register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
     public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM = register("polished_stone_slab", POLISHED_STONE_SLAB);
 
@@ -440,10 +460,12 @@ public class ModBlocks {
 
     //TODO: TreeGrower
     @I18n(en_us = "Palm Sapling", zh_cn = "棕榈树苗", zh_tw = "棕櫚樹苗")
+    @Cross(item = false)
     public static final DeferredBlock<SaplingBlock> PALM_SAPLING = register("palm_sapling", props -> new SaplingBlock(ModTreeGrowers.PALM, props), BlockBehaviour.Properties.ofFullCopy(Blocks.SPRUCE_SAPLING));
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> PALM_SAPLING_ITEM = register("palm_sapling", PALM_SAPLING);
     @I18n(en_us = "Baobab Sapling", zh_cn = "猴面包树苗", zh_tw = "猴麵包樹苗")
+    @Cross(item = false)
     public static final DeferredBlock<SaplingBlock> BAOBAB_SAPLING = register("baobab_sapling", props -> new SaplingBlock(ModTreeGrowers.BAOBAB, props), BlockBehaviour.Properties.ofFullCopy(Blocks.ACACIA_SAPLING));
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> BAOBAB_SAPLING_ITEM = register("baobab_sapling", BAOBAB_SAPLING);

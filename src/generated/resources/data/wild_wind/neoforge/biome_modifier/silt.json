@@ -1,9 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "#c:is_swamp",
-  "features": [
-    "wild_wind:silt",
-    "wild_wind:silt_disk"
-  ],
-  "step": "fluid_springs"
-}

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/template_wall_side",
-  "textures": {
-    "wall": "wild_wind:block/andesite_bricks"
-  }
-}
