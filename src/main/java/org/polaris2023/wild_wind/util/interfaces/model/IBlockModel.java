@@ -16,6 +16,18 @@ import java.util.function.Supplier;
 public interface IBlockModel {
     WildWindClientProvider self();
 
+    default <T extends Block> BlockModelBuilder carpet(Supplier<T> block, boolean item, String renderType, String carpet) {
+        T b = block.get();
+        ResourceLocation key = key(b);
+        BlockModelBuilder cm = carpetModel(key.getPath(), renderType, carpet.isEmpty() ? blockTexture(b) : ResourceLocation.parse(carpet));
+        if (item) {
+            self().stateProvider.simpleBlockWithItem(b, cm);
+        } else {
+            self().stateProvider.simpleBlock(b, cm);
+        }
+        return cm;
+    }
+
     default <T extends Block> BlockModelBuilder cross(Supplier<T> block, boolean item, String renderType, String cross) {
         T b = block.get();
         ResourceLocation key = key(b);
@@ -40,10 +52,26 @@ public interface IBlockModel {
         return model;
     }
 
+    default <T extends Block> BlockModelBuilder carpetModel(String path, String renderType, ResourceLocation carpet) {
+        BlockModelBuilder cm = self().blockModelProvider.carpet(path, carpet);
+        if (!renderType.isEmpty()) cm.renderType(renderType);
+        return cm;
+    }
+
     default <T extends Block> BlockModelBuilder crossModel(String path, String renderType, ResourceLocation cross) {
         BlockModelBuilder cm = self().blockModelProvider.cross(path, cross);
         if (!renderType.isEmpty()) cm.renderType(renderType);
         return cm;
+    }
+
+    default <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, String all) {
+        return cubeAllModel(path, renderType, all.isEmpty() ? Helpers.location(path) : ResourceLocation.parse(all));
+    }
+
+    default <T extends Block> BlockModelBuilder cubeAllModel(Supplier<T> block, String renderType, String all, int index) {
+        Block b = block.get();
+        ResourceLocation key = key(b);
+        return cubeAllModel(key.getPath() + "_" + index, renderType, all.isEmpty() ? blockTexture(b).withSuffix("_" + index).toString() : all + "_" + index);
     }
 
     default <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, ResourceLocation all) {

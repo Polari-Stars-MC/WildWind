@@ -96,20 +96,11 @@ public class WildWindClientProvider implements DataProvider, IBlockModel, IItemM
     }
 
     public void state() {
-
-        // Tiny Cactus
-//        stateProvider.simpleBlock(ModBlocks.TINY_CACTUS.get(), blockModelProvider.cross("tiny_cactus", Helpers.location("block/tiny_cactus")).renderType("cutout"));
-
-        // Carpet
-        stateProvider.simpleBlockWithItem(ModBlocks.CARPET.get(), blockModelProvider.carpet("carpet", Helpers.location("block/wool")));
         // Stone & Polished Stone
-        stateProvider.wallBlock(ModBlocks.STONE_WALL.get(), stateProvider.blockTexture(Blocks.STONE));
-        stateProvider.wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        stateProvider.stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        stateProvider.slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        // Sapling
-        stateProvider.simpleBlock(ModBlocks.PALM_SAPLING.get(), blockModelProvider.cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
-        stateProvider.simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), blockModelProvider.cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
+        stateProvider.wallBlock(ModBlocks.STONE_WALL.get(), blockTexture(Blocks.STONE));
+        stateProvider.wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+        stateProvider.stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+        stateProvider.slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), blockTexture(ModBlocks.POLISHED_STONE.get()), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
 
         VariantBlockStateBuilder glowMucusStates = stateProvider.getVariantBuilder(ModBlocks.GLOW_MUCUS.get());
         for (Direction facing : Direction.values()) {
@@ -141,14 +132,7 @@ public class WildWindClientProvider implements DataProvider, IBlockModel, IItemM
                 );
             }
         }
-        ResourceLocation key = key(ModBlocks.BRITTLE_ICE.get());
 
-        blockModelProvider.cubeAll(key.getPath(), key.withPrefix("block/").withSuffix("_0")).renderType("translucent");
-        for (int age : BrittleIceBlock.AGE.getPossibleValues()) {
-
-            ResourceLocation resourceLocation = key.withSuffix("_" + age);
-            blockModelProvider.cubeAll(resourceLocation.getPath(), resourceLocation.withPrefix("block/")).renderType("translucent");
-        }
         VariantBlockStateBuilder brittleIceStates = stateProvider.getVariantBuilder(ModBlocks.BRITTLE_ICE.get());
         for(int age : BrittleIceBlock.AGE.getPossibleValues()) {
             for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {

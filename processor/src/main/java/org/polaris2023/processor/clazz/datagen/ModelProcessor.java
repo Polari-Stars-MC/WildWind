@@ -91,7 +91,8 @@ public class ModelProcessor extends ClassProcessor {
             this::cubeBottomTop,
             this::parentItem,
             this::cubeAllFor,
-            this::cross
+            this::cross,
+            this::carpet
     );
 
 
@@ -207,11 +208,18 @@ public class ModelProcessor extends ClassProcessor {
         if (cubeAllFor != null) {
             CubeAll cube = cubeAllFor.cube();
             InitProcessor.modelGen(context, cubeAllModel(typeElement, variableElement, cube));
-            for (CubeAllFor.Type type : cubeAllFor.value()) {
-                InitProcessor.modelGen(context, cubeAllModel(type.key(), type.cube()));
+            String def = cubeAllFor.def();
+            if (def.isEmpty()) def = cubeAllFor.cube().all();
+            for (int i = cubeAllFor.min(); i <= cubeAllFor.max(); i+=cubeAllFor.step()) {
+                InitProcessor.modelGen(context, "cubeAllModel(%s.%s, \"%s\", \"%s\", %d);".formatted(
+                        typeElement.getQualifiedName(),
+                        variableElement.getSimpleName(),
+                        cube.render_type(),
+                        def,
+                        i
+                ));
             }
         }
-
     }
 
     private static String cubeAllModel(TypeElement typeElement, VariableElement variableElement, CubeAll cube) {
@@ -233,6 +241,10 @@ public class ModelProcessor extends ClassProcessor {
                 );
     }
 
+    private void wall(TypeElement typeElement, VariableElement variableElement) {
+        Wall annotation = variableElement.getAnnotation(Wall.class);
+    }
+
     private void cross(TypeElement typeElement, VariableElement variableElement) {
         Cross cross = variableElement.getAnnotation(Cross.class);
         if (cross != null) {
@@ -242,6 +254,20 @@ public class ModelProcessor extends ClassProcessor {
                     cross.item(),
                     cross.render_type(),
                     cross.cross()
+            );
+            InitProcessor.modelGen(context, sb);
+        }
+    }
+
+    private void carpet(TypeElement typeElement, VariableElement variableElement) {
+        Carpet carpet = variableElement.getAnnotation(Carpet.class);
+        if (carpet != null) {
+            String sb = "carpet(%s.%s, %s, \"%s\", \"%s\");".formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    carpet.item(),
+                    carpet.render_type(),
+                    carpet.carpet()
             );
             InitProcessor.modelGen(context, sb);
         }
