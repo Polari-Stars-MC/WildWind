@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.util.interfaces.model;
+package org.polaris2023.wild_wind.util.interfaces.datagen.model;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -7,13 +7,13 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
 import org.polaris2023.wild_wind.datagen.WildWindClientProvider;
+import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
 
 /**
  * @author : baka4n
  * {@code @Date : 2025/03/29 21:14:27}
  */
-public interface IItemModel {
-    WildWindClientProvider self();
+public interface IItemModel extends DatagenClient {
     default ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
         return self().itemModelProvider.getBuilder(block.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ResourceLocation.fromNamespaceAndPath(block.getNamespace(), "block/" + block.getPath()));
     }

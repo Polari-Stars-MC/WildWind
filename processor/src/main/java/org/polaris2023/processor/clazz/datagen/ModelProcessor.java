@@ -314,6 +314,7 @@ public class ModelProcessor extends ClassProcessor {
 
     private void blockItem(VariableElement variableElement, TypeElement typeElement, BasicBlockItem basicBlockItem) {
         StringBuilder sb = new StringBuilder();
+
         sb
                 .append("itemModelProvider.simpleBlockItem(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
                 .append(typeElement.getQualifiedName())

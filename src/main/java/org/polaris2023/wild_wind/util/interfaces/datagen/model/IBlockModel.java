@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.util.interfaces.model;
+package org.polaris2023.wild_wind.util.interfaces.datagen.model;
 
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -6,6 +6,7 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
 import org.polaris2023.wild_wind.datagen.WildWindClientProvider;
 import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
 
 import java.util.function.Supplier;
 
@@ -13,8 +14,7 @@ import java.util.function.Supplier;
  * @author : baka4n
  * {@code @Date : 2025/03/29 21:09:51}
  */
-public interface IBlockModel {
-    WildWindClientProvider self();
+public interface IBlockModel extends DatagenClient {
 
     default <T extends Block> BlockModelBuilder carpet(Supplier<T> block, boolean item, String renderType, String carpet) {
         T b = block.get();

@@ -14,7 +14,6 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import org.polaris2023.wild_wind.datagen.tag.*;
-import org.polaris2023.wild_wind.util.interfaces.ILanguage;
 import org.polaris2023.wild_wind.util.interfaces.IModel;
 import net.minecraft.server.packs.PackType;
 
@@ -36,10 +35,10 @@ public class ModDataGenerator {
 
         CompletableFuture<HolderLookup.Provider> provider = event.getLookupProvider();
         ExistingFileHelper helper = event.getExistingFileHelper();
-        gen.addProvider(event.includeServer(), new ModEnchantTagsProvider(output, lookupProvider, helper));
-        for (ILanguage<?> language : ServiceLoader.load(ILanguage.class)) {
-            gen.addProvider(event.includeClient(), language.setModid(MOD_ID).setOutput(output));
-        }
+//        gen.addProvider(event.includeServer(), new ModEnchantTagsProvider(output, lookupProvider, helper));
+//        for (ILanguage<?> language : ServiceLoader.load(ILanguage.class)) {
+//            gen.addProvider(event.includeClient(), language.setModid(MOD_ID).setOutput(output));
+//        }
 
         gen.addProvider(event.includeClient(), new ModSoundDefinitionsProvider(output, helper));
         for (IModel<?> model : ServiceLoader.load(IModel.class)) {

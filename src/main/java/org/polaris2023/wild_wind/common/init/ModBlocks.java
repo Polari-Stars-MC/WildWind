@@ -201,6 +201,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
     public static final DeferredBlock<GlazedTerracottaBlock> GLAZED_TERRACOTTA = register("glazed_terracotta",  GlazedTerracottaBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_GLAZED_TERRACOTTA));
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLAZED_TERRACOTTA_ITEM = register("glazed_terracotta", GLAZED_TERRACOTTA);
 
     @I18n(en_us = "Salt Block", zh_cn = "盐块", zh_tw = "鹽塊")
@@ -234,6 +235,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
 
     @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")
