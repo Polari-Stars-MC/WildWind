@@ -14,7 +14,6 @@
     add neo block texture
 2025/3/30
     New features of automatic melting.
-    Pumpkin drops changed.
 
 
 
