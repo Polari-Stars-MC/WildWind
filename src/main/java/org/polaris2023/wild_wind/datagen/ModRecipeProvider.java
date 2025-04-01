@@ -149,6 +149,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting);
 
         smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE_ITEM.get(), ModBlocks.DEEPSLATE_SALT_ORE_ITEM.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
+
+        smeltingSmokingAndCampfire(ModBaseFoods.VENISON, RecipeCategory.FOOD, ModBaseFoods.COOKED_VENISON, 0.35F);
     }
 
     public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
