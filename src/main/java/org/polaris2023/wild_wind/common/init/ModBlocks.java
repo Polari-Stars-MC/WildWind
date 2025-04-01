@@ -33,7 +33,6 @@ import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.block.modified.ModBannerBlock;
 import org.polaris2023.wild_wind.common.block.modified.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
-import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.Arrays;
 
@@ -64,11 +63,11 @@ public class ModBlocks {
     @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
     public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg", BlockBehaviour.Properties.of().noLootTable());
 
-    @I18n(en_us = "Spider Attachments", zh_cn = "蛛丝覆层", zh_tw = "蛛絲覆層")
-    public static final DeferredBlock<Block> SPIDER_COVER = register("spider_cover", BlockBehaviour.Properties.of().noLootTable());
-    public static final DeferredItem<BlockItem> SPIDER_COVER_ITEM = register("spider_cover", SPIDER_COVER);
-    @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
-    public static final DeferredBlock<Block> SPIDER_MUCOSA = register("spider_mucosa", BlockBehaviour.Properties.of().noLootTable());
+    @I18n(en_us = "Cobweb Cover", zh_cn = "蛛丝覆层", zh_tw = "蛛絲覆層")
+    public static final DeferredBlock<Block> COBWEB_COVER = register("cobweb_cover", BlockBehaviour.Properties.of().noLootTable());
+    public static final DeferredItem<BlockItem> COBWEB_COVER_ITEM = register("cobweb_cover", COBWEB_COVER);
+    @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
+    public static final DeferredBlock<Block> COBWEB_MUCOSA = register("cobweb_mucosa", BlockBehaviour.Properties.of().noLootTable());
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
     public static final DeferredBlock<Block> REEDS = register("reeds");
     @BasicItem

@@ -95,7 +95,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         ModBlockFamilies.AZALEA.generateItemTags(this::tag);
         ModBlockFamilies.PALM.generateItemTags(this::tag);
         ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
-        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.RAW_FROG_LEG.get(),
+        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.FROG_LEG.get(),
                 ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());

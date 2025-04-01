@@ -77,8 +77,8 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     BAKED_SEEDS,
     @I18n(en_us = "Baked Berries", zh_cn = "烤浆果", zh_tw = "烤莓醬")
     BAKED_BERRIES(p -> p.component(ModComponents.FRUIT_VALUE, 0.5F)),
-    @I18n(en_us = "Raw Frog Leg", zh_cn = "生蛙腿", zh_tw = "生蛙腿")
-    RAW_FROG_LEG(p -> p
+    @I18n(en_us = "Frog Leg", zh_cn = "生蛙腿", zh_tw = "生蛙腿")
+    FROG_LEG(p -> p
             .component(ModComponents.MEAT_VALUE, 0.5F)
             .component(ModComponents.MONSTER_VALUE, 1F)),
     @I18n(en_us = "Cooked Frog Leg", zh_cn = "烤蛙腿", zh_tw = "烤蛙腿")
