@@ -153,7 +153,7 @@ public class WildWindGameEventHandler {
 
             BlockPos relative = event.getPos().relative(face);
             if (level.getBlockState(relative).canBeReplaced()) {
-                event.getLevel().setBlockAndUpdate(relative, ModFluids.MILK_BLOCK.get().defaultBlockState());
+                event.getLevel().setBlockAndUpdate(relative, ModBlocks.MILK_BLOCK.get().defaultBlockState());
                 player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
                 event.setCanceled(true);
             }
@@ -315,9 +315,9 @@ public class WildWindGameEventHandler {
                 Level level = item.level();
                 int j = random.nextInt(20, 200);
                 if (level.getGameTime() % j == 0) {
-                    int i = random.nextInt(1, 13);
-                    ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
+                    int i = random.nextInt(ModSounds.DEATH_S.size());
+                    SoundEvent soundEvent = ModSounds.AMBIENT_S.get(i).get();
+                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), soundEvent, SoundSource.HOSTILE, 1F, 1F, true);
                 }
             }
         }

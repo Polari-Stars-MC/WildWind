@@ -20,9 +20,6 @@ import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
-import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -32,14 +29,13 @@ import java.util.function.Consumer;
 
 import static org.polaris2023.wild_wind.datagen.ModDyedArray.*;
 
-
 public class ModRecipeProvider extends RecipeProvider {
+
     public ModRecipeProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
         super(output, registries);
     }
 
     public final Map<ResourceLocation, RecipeBuilder> list = new HashMap<>();
-
 
     @Override
     protected void buildRecipes(RecipeOutput recipeOutput) {
@@ -50,9 +46,7 @@ public class ModRecipeProvider extends RecipeProvider {
         addShapedRecipe();
         addShapelessRecipe();
         addCookingPotRecipes();
-        list.forEach((s, b) -> {
-            b.save(recipeOutput, s);
-        });
+        list.forEach((s, b) -> b.save(recipeOutput, s));
     }
 
     protected void addCookingPotRecipes() {
@@ -124,32 +118,32 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addSmeltingRecipes() {
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
-        smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
-        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModBaseFoods.BAKED_CARROT.get(), 0.35F);
-        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModBaseFoods.BAKED_BEETROOT.get(), 0.35F);
-        smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModBaseFoods.COOKED_EGG.get(), 0.35F);
+        smeltingSmokingAndCampfire(ModItems.RAW_TROUT, RecipeCategory.FOOD, ModItems.COOKED_TROUT, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModItems.BAKED_LIVING_TUBER, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.DOUGH, RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
+        smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModItems.BAKED_CARROT, 0.35F);
+        smeltingSmokingAndCampfire(Items.BEETROOT, RecipeCategory.FOOD, ModItems.BAKED_BEETROOT, 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.EGG, Items.TURTLE_EGG), RecipeCategory.FOOD, ModItems.COOKED_EGG, 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Items.WHEAT_SEEDS, Items.PUMPKIN_SEEDS, Items.MELON_SEEDS, Items.BEETROOT_SEEDS,
-                Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD, ModBlocks.GLAREFLOWER_SEEDS), RecipeCategory.FOOD, ModBaseFoods.BAKED_SEEDS.get(), 0.35F);
-        smeltingSmokingAndCampfire(Ingredient.of(Items.SWEET_BERRIES, Items.GLOW_BERRIES), RecipeCategory.FOOD, ModBaseFoods.BAKED_BERRIES.get(), 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.PUMPKIN_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_PUMPKIN_SLICE.get(), 0.35F);
-        smeltingSmokingAndCampfire(Items.MELON_SLICE, RecipeCategory.FOOD, ModBaseFoods.BAKED_MELON_SLICE.get(), 0.35F);
-        smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
+                Items.TORCHFLOWER_SEEDS, Items.PITCHER_POD, ModBlocks.GLAREFLOWER_SEEDS), RecipeCategory.FOOD, ModItems.BAKED_SEEDS, 0.35F);
+        smeltingSmokingAndCampfire(Ingredient.of(Items.SWEET_BERRIES, Items.GLOW_BERRIES), RecipeCategory.FOOD, ModItems.BAKED_BERRIES, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.PUMPKIN_SLICE, RecipeCategory.FOOD, ModItems.BAKED_PUMPKIN_SLICE, 0.35F);
+        smeltingSmokingAndCampfire(Items.MELON_SLICE, RecipeCategory.FOOD, ModItems.BAKED_MELON_SLICE, 0.35F);
+        smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModItems.BAKED_APPLE, 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
-                RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
+                RecipeCategory.FOOD, ModItems.BAKED_MUSHROOM, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.RAW_FROG_LEG, RecipeCategory.FOOD, ModItems.COOKED_FROG_LEG, 0.35F);
+        smeltingSmokingAndCampfire(ModItems.RAW_PIRANHA, RecipeCategory.FOOD, ModItems.COOKED_PIRANHA, 0.35F);
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F));
 
         // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
         // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
 
-        SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
+        SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA,0.35F);
         add(smelting);
 
-        smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE_ITEM.get(), ModBlocks.DEEPSLATE_SALT_ORE_ITEM.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
+        smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE, ModBlocks.DEEPSLATE_SALT_ORE), RecipeCategory.MISC, ModItems.SALT, 0.7F);
     }
 
     public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
@@ -160,13 +154,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapedRecipe() {
         add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
-            unlockedBy(builder, ModBlocks.BRITTLE_ICE_ITEM);
+            unlockedBy(builder, ModBlocks.BRITTLE_ICE);
             builder
                     .pattern("III")
                     .pattern("III")
                     .pattern("III")
                     .group("ice")
-                    .define('I', ModBlocks.BRITTLE_ICE_ITEM);
+                    .define('I', ModBlocks.BRITTLE_ICE);
         }), Helpers.location("ice_from_brittle_ice"));
         add(shaped(RecipeCategory.MISC, ModItems.MAGIC_FLUTE, 1, builder -> {
             unlockedBy(builder, Items.BONE);
@@ -177,7 +171,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('B', Items.BONE)
                     .define('R', ModItems.LIVING_TUBER);
         }));
-        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT, 1,
                 builder -> {
             unlockedBy(builder, Items.IRON_INGOT);
             unlockedBy(builder, ItemTags.LOGS);
@@ -192,7 +186,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('C', ItemTags.COALS);
         }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.WOOL.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.WOOL, 1,
                 builder -> {
             unlockedBy(builder, Items.STRING);
             builder
@@ -202,18 +196,18 @@ public class ModRecipeProvider extends RecipeProvider {
                     .group("wool")
                     .define('S', Items.STRING);
                 }));
-        add(shaped(RecipeCategory.MISC, ModBlocks.CARPET.get(), 3,
+        add(shaped(RecipeCategory.MISC, ModBlocks.CARPET, 3,
                 builder -> {
-            unlockedBy(builder, ModBlocks.WOOL.get());
+            unlockedBy(builder, ModBlocks.WOOL);
             builder
                     .pattern("SS ")
                     .pattern("   ")
                     .pattern("   ")
                     .group("carpet")
-                    .define('S', ModBlocks.WOOL.get());
+                    .define('S', ModBlocks.WOOL);
                 }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.GLOW_MUCUS, 1,
                 builder -> {
             unlockedBy(builder, ModItems.GLOW_POWDER);
             unlockedBy(builder, ModItems.ASH_DUST);
@@ -228,7 +222,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('S', Items.SLIME_BALL);
                 }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.ASH_BLOCK.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.ASH_BLOCK, 1,
                         builder -> {
             unlockedBy(builder, ModItems.ASH_DUST);
             builder
@@ -238,31 +232,31 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('A', ModItems.ASH_DUST);
                 }));
 
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB.get(), 6,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE);
                     builder
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.POLISHED_STONE.get());
+                            .define('S', ModBlocks.POLISHED_STONE);
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS.get(), 4,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS, 4,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE);
                     builder
                             .pattern(("S  "))
                             .pattern(("SS "))
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.POLISHED_STONE.get());
+                            .define('S', ModBlocks.POLISHED_STONE);
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_WALL.get(), 6,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_WALL, 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.POLISHED_STONE.get());
+                    unlockedBy(builder, ModBlocks.POLISHED_STONE);
                     builder
                             .pattern(("SSS"))
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.POLISHED_STONE.get());
+                            .define('S', ModBlocks.POLISHED_STONE);
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STONE_WALL.get(), 6,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.STONE_WALL, 6,
                 builder -> {
                     unlockedBy(builder, Blocks.STONE);
                     builder
@@ -271,12 +265,12 @@ public class ModRecipeProvider extends RecipeProvider {
                             .define('S', Blocks.STONE);
                 }));
 
-        add(shaped(RecipeCategory.MISC, ModBlocks.ASH.get(), 6,
+        add(shaped(RecipeCategory.MISC, ModBlocks.ASH, 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.ASH_BLOCK.get());
+                    unlockedBy(builder, ModBlocks.ASH_BLOCK);
                     builder
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.ASH_BLOCK.get());
+                            .define('S', ModBlocks.ASH_BLOCK);
                 }));
     }
 
@@ -305,13 +299,13 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addShapelessRecipe() {
-        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
-            unlockedBy(fish_chowder, ModBaseFoods.RAW_TROUT.get(), Items.COD, Items.SALMON);
+        add(shapeless(RecipeCategory.FOOD, ModItems.FISH_CHOWDER, 1, fish_chowder -> {
+            unlockedBy(fish_chowder, ModItems.RAW_TROUT, Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             unlockedBy(fish_chowder, Items.KELP);
             unlockedBy(fish_chowder, Items.BOWL);
             fish_chowder
-                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModBaseFoods.RAW_TROUT.get()))
+                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModItems.RAW_TROUT))
                     .requires(Items.KELP)
                     .requires(Ingredient.of(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM))
                     .requires(Items.BOWL);
@@ -338,7 +332,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(ModItems.CHEESE)
                     .requires(Items.BOWL);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.CHEESE_PUMPKIN_SOUP.get(), 1, cheese_pumpkin_soup -> {
+        add(shapeless(RecipeCategory.FOOD, ModItems.CHEESE_PUMPKIN_SOUP, 1, cheese_pumpkin_soup -> {
             unlockedBy(cheese_pumpkin_soup, ModItems.CHEESE);
             unlockedBy(cheese_pumpkin_soup, Items.PUMPKIN);
             unlockedBy(cheese_pumpkin_soup, Items.BOWL);
@@ -347,19 +341,19 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.BOWL)
                     .requires(ModItems.CHEESE);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBaseFoods.FLOUR, 1, flour -> {
+        add(shapeless(RecipeCategory.MISC, ModItems.FLOUR, 1, flour -> {
             unlockedBy(flour, Items.WHEAT);
             flour
                     .requires(Items.WHEAT);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBaseFoods.DOUGH.get(), 1, dough -> {
-            unlockedBy(dough, ModBaseFoods.FLOUR);
+        add(shapeless(RecipeCategory.MISC, ModItems.DOUGH, 1, dough -> {
+            unlockedBy(dough, ModItems.FLOUR);
             unlockedBy(dough, Items.WATER_BUCKET);
             dough
-                    .requires(ModBaseFoods.FLOUR, 3)
+                    .requires(ModItems.FLOUR, 3)
                     .requires(Items.WATER_BUCKET);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.CANDY.get(), 1, candy -> {
+        add(shapeless(RecipeCategory.FOOD, ModItems.CANDY, 1, candy -> {
             unlockedBy(candy, Items.SUGAR);
             unlockedBy(candy, Items.HONEY_BOTTLE);
             unlockedBy(candy, Items.GLOW_BERRIES, Items.APPLE, Items.SWEET_BERRIES);
@@ -372,7 +366,7 @@ public class ModRecipeProvider extends RecipeProvider {
                                     new ItemStack(Items.APPLE),
                                     new ItemStack(Items.SWEET_BERRIES, 2)));
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.BERRY_CAKE.get(), 1, berry_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModItems.BERRY_CAKE, 1, berry_cake -> {
             unlockedBy(berry_cake, Items.SWEET_BERRIES);
             unlockedBy(berry_cake, Items.GLOW_BERRIES);
             unlockedBy(berry_cake, Items.SUGAR);
@@ -383,7 +377,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.APPLE_CAKE.get(), 1, apple_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModItems.APPLE_CAKE, 1, apple_cake -> {
             unlockedBy(apple_cake, Items.APPLE);
             unlockedBy(apple_cake, Items.SUGAR);
             unlockedBy(apple_cake, Items.EGG);
@@ -397,18 +391,18 @@ public class ModRecipeProvider extends RecipeProvider {
             wool
                     .requires(ItemTags.WOOL);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK_ITEM, 1, salt_block -> {
-            unlockedBy(salt_block, ModBaseItems.SALT);
-            salt_block.requires(ModBaseItems.SALT, 9);
+        add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK, 1, salt_block -> {
+            unlockedBy(salt_block, ModItems.SALT);
+            salt_block.requires(ModItems.SALT, 9);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBaseItems.SALT, 9, salt -> {
-            unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
-            salt.requires(ModBlocks.SALT_BLOCK_ITEM);
+        add(shapeless(RecipeCategory.MISC, ModItems.SALT, 9, salt -> {
+            unlockedBy(salt, ModBlocks.SALT_BLOCK);
+            salt.requires(ModBlocks.SALT_BLOCK);
         }));
 
         add(shapeless(RecipeCategory.MISC, Blocks.PUMPKIN, 1, pumpkin -> {
-            unlockedBy(pumpkin, ModBaseFoods.PUMPKIN_SLICE);
-            pumpkin.requires(ModBaseFoods.PUMPKIN_SLICE, 9);
+            unlockedBy(pumpkin, ModItems.PUMPKIN_SLICE);
+            pumpkin.requires(ModItems.PUMPKIN_SLICE, 9);
         }));
         add(shapeless(RecipeCategory.MISC, ModBlocks.GLISTERING_MELON, 1, glistering_melon -> {
             unlockedBy(glistering_melon, Items.GLISTERING_MELON_SLICE);
@@ -416,8 +410,8 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.GLISTERING_MELON_SLICE, 9);
         }));
         add(shapeless(RecipeCategory.MISC, Items.PUMPKIN_SEEDS, 1, pumpkin_seeds -> {
-            unlockedBy(pumpkin_seeds, ModBaseFoods.PUMPKIN_SLICE);
-            pumpkin_seeds.requires(ModBaseFoods.PUMPKIN_SLICE);
+            unlockedBy(pumpkin_seeds, ModItems.PUMPKIN_SLICE);
+            pumpkin_seeds.requires(ModItems.PUMPKIN_SLICE);
         }));
 
         add(shapeless(RecipeCategory.MISC, Items.GLOWSTONE_DUST, 1, glowstone_dust -> {
@@ -434,7 +428,6 @@ public class ModRecipeProvider extends RecipeProvider {
             glow_ink_sac
                     .requires(ModItems.GLOW_POWDER)
                     .requires(Items.INK_SAC);
-
         }));
 
         add(shapeless(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CONCRETE_POWDER, 8, concrete_powder -> {

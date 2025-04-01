@@ -26,8 +26,8 @@ import net.minecraft.world.level.block.state.properties.RotationSegment;
 import net.minecraft.world.phys.AABB;
 import net.neoforged.api.distmarker.OnlyIn;
 import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
-import org.polaris2023.wild_wind.common.block.modified.ModBannerBlock;
-import org.polaris2023.wild_wind.common.block.modified.ModWallBannerBlock;
+import org.polaris2023.wild_wind.common.block.misc.ModBannerBlock;
+import org.polaris2023.wild_wind.common.block.misc.ModWallBannerBlock;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 import net.neoforged.api.distmarker.Dist;
 

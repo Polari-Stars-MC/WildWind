@@ -15,9 +15,7 @@ import org.polaris2023.wild_wind.client.entity.piranha.PiranhaModel;
 import org.polaris2023.wild_wind.client.entity.trout.TroutModel;
 import org.polaris2023.wild_wind.client.renderer.ModBannerRenderer;
 import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModComponents;
-import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.*;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class WildWindClientEventHandler {
@@ -25,8 +23,8 @@ public class WildWindClientEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerSlimeColor(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.SLIME_COLOR, 0)), Items.SLIME_BALL);
-        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL_ITEM);
-        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(13419950), ModBlocks.BANNER.asItem(), ModBlocks.WALL_BANNER.asItem());
+        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL.get());
+        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(13419950), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
     }
 
     @SubscribeEvent
@@ -36,12 +34,12 @@ public class WildWindClientEventHandler {
 
     @SubscribeEvent
     public static void registerRender(final EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlocks.BANNER_BE.get(), ModBannerRenderer::new);
-        event.registerEntityRenderer(ModEntities.FIREFLY.get(), context ->
+        event.registerBlockEntityRenderer(ModBlockEntityTypes.BANNER_BE.get(), ModBannerRenderer::new);
+        event.registerEntityRenderer(ModEntityTypes.FIREFLY.get(), context ->
                 new ModMobRenderer<>("firefly", context, FireflyModel::new, FireflyModel.LAYER_LOCATION, 1));
-        event.registerEntityRenderer(ModEntities.TROUT.get(), context ->
+        event.registerEntityRenderer(ModEntityTypes.TROUT.get(), context ->
                 new ModMobRenderer<>("trout", context, TroutModel::new, TroutModel.LAYER_LOCATION, 1));
-        event.registerEntityRenderer(ModEntities.PIRANHA.get(), context ->
+        event.registerEntityRenderer(ModEntityTypes.PIRANHA.get(), context ->
                 new ModMobRenderer<>("piranha", context, PiranhaModel::new, PiranhaModel.LAYER_LOCATION, 1));
     }
 

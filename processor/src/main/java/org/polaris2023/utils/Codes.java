@@ -30,7 +30,6 @@ public enum Codes {
             
             import net.neoforged.neoforge.registries.DeferredHolder;
             
-            import org.polaris2023.wild_wind.common.init.ModInitializer;
             import org.polaris2023.wild_wind.util.interfaces.IModel;
             
             import java.nio.file.Path;

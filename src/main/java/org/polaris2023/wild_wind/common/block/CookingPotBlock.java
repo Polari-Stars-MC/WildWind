@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityTypes;
 
 public class CookingPotBlock extends BaseEntityBlock {
     public static final MapCodec<CookingPotBlock> CODEC = simpleCodec(CookingPotBlock::new);
@@ -51,13 +51,13 @@ public class CookingPotBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return ModBlocks.COOKING_POT_TILE.get().create(pos, state);
+        return ModBlockEntityTypes.COOKING_POT_TILE.get().create(pos, state);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide ? null : createTickerHelper(type, ModBlocks.COOKING_POT_TILE.get(),
+        return level.isClientSide ? null : createTickerHelper(type, ModBlockEntityTypes.COOKING_POT_TILE.get(),
                 CookingPotBlockEntity::serverTick);
     }
 }

@@ -22,20 +22,19 @@ public class WildWindEventHandler {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new ModBannerItem.RenderBannerItem(), ModBlocks.BANNER_ITEM);
+        event.registerItem(new ModBannerItem.RenderBannerItem(), ModItems.BANNER);
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(ModEntities.FIREFLY.get(), Firefly.createAttributes().build());
-        event.put(ModEntities.GLARE.get(), Glare.createAttributes().build());
-        event.put(ModEntities.TROUT.get(), Trout.createAttributes().build());
-        event.put(ModEntities.PIRANHA.get(), Piranha.createAttributes().build());
+        event.put(ModEntityTypes.FIREFLY.get(), Firefly.createAttributes().build());
+        event.put(ModEntityTypes.GLARE.get(), Glare.createAttributes().build());
+        event.put(ModEntityTypes.TROUT.get(), Trout.createAttributes().build());
+        event.put(ModEntityTypes.PIRANHA.get(), Piranha.createAttributes().build());
     }
 
     @SubscribeEvent
     public static void register(RegisterEvent event) {
-        event.register(Registries.FEATURE, helper -> ModFeatures.init(helper::register));
         event.register(Registries.ITEM, helper -> ModVanillaCompat.setup());
     }
 

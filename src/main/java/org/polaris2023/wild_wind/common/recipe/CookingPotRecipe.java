@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModComponents;
-import org.polaris2023.wild_wind.common.init.ModRecipeSerializes;
-import org.polaris2023.wild_wind.common.init.ModRecipes;
+import org.polaris2023.wild_wind.common.init.ModRecipeSerializers;
+import org.polaris2023.wild_wind.common.init.ModRecipeTypes;
 import org.polaris2023.wild_wind.util.MinMaxValue;
 
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class CookingPotRecipe extends SingleItemRecipe {
                             MinMaxValue<Float> sweet,
                             List<ResourceLocation> locations
     ) {
-        super(ModRecipes.COOKING_POT.get(), ModRecipeSerializes.COOKING_POT.get(), group, Ingredient.of(Items.STICK), result);
+        super(ModRecipeTypes.COOKING_POT.get(), ModRecipeSerializers.COOKING_POT.get(), group, Ingredient.of(Items.STICK), result);
         this.stack = stack;
         this.meat = meat;
         this.vegetable = vegetable;

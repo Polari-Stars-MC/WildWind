@@ -4,7 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityTypes;
 
 /**
  * @author : baka4n
@@ -12,7 +12,7 @@ import org.polaris2023.wild_wind.common.init.ModBlocks;
  */
 public class DuckweedBlockEntity extends BlockEntity {
     public DuckweedBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlocks.DUCKWEED_TILE.get(), pos, blockState);
+        super(ModBlockEntityTypes.DUCKWEED_TILE.get(), pos, blockState);
     }
 
     public static void serverTick(Level level,

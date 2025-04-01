@@ -27,6 +27,7 @@ import java.util.Iterator;
 import java.util.Optional;
 
 public class MagicFluteItem extends Item {
+
 	private final TagKey<Instrument> instruments;
 
 	public MagicFluteItem(Properties properties) {
@@ -43,11 +44,11 @@ public class MagicFluteItem extends Item {
 			player.startUsingItem(usedHand);
 			play(level, player, instrument);
 			onFluteWorks(itemStack, player);
-
 			player.getCooldowns().addCooldown(this, 300);
 			player.awardStat(Stats.ITEM_USED.get(this));
 			return InteractionResultHolder.consume(itemStack);
 		}
+
 		return InteractionResultHolder.fail(itemStack);
 	}
 
@@ -92,10 +93,6 @@ public class MagicFluteItem extends Item {
 		float volume = instrument.range() / 16.0F;
 		level.playSound(player, player, soundevent, SoundSource.RECORDS, volume, 1.0F);
 		level.gameEvent(GameEvent.INSTRUMENT_PLAY, player.position(), GameEvent.Context.of(player));
-	}
-
-	public static MagicFluteItem stackTo1(Properties properties) {
-		return new MagicFluteItem(properties.stacksTo(1).durability(100).rarity(Rarity.UNCOMMON));
 	}
 
 	@Override

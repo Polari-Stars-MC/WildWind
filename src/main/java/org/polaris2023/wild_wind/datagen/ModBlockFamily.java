@@ -1,14 +1,11 @@
 package org.polaris2023.wild_wind.datagen;
 
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -17,22 +14,18 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.util.Helpers;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
 import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.*;
 
 public record ModBlockFamily(Block baseBlock, Block wood, Block log, Block strippedWood, Block strippedLog,
-							 BoatItem boat, BoatItem chestBoat, ButtonBlock button, FenceBlock fence, FenceGateBlock fenceGate,
-							 PressurePlateBlock pressurePlate, StandingSignBlock standingSign, WallSignBlock wallSign,
-							 CeilingHangingSignBlock ceilingHangingSign, WallHangingSignBlock wallHangingSign,
-							 SlabBlock slab, StairBlock stair, DoorBlock door, TrapDoorBlock trapdoor,
-							 String recipeGroupPrefix, String recipeUnlockedBy) {
+							 BoatItem boat, BoatItem chestBoat, ButtonBlock button, FenceBlock fence, FenceGateBlock fenceGate, PressurePlateBlock pressurePlate,
+							 StandingSignBlock standingSign, WallSignBlock wallSign, CeilingHangingSignBlock ceilingHangingSign, WallHangingSignBlock wallHangingSign,
+							 SlabBlock slab, StairBlock stair, DoorBlock door, TrapDoorBlock trapdoor, String recipeGroupPrefix, String recipeUnlockedBy) {
+
 	@Deprecated(since = "using annotation @AllWood", forRemoval = true)
 	public void registerStatesAndModels(BlockStateProvider provider, String name) {
 		ResourceLocation planks = Helpers.location("block/" + name + "_planks");

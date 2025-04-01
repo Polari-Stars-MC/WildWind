@@ -6,7 +6,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModSounds;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
@@ -26,7 +26,7 @@ public class ModSoundDefinitionsProvider extends SoundDefinitionsProvider {
      */
     @Override
     public void registerSounds() {
-        for (DeferredHolder<SoundEvent, ? extends SoundEvent> sound : ModInitializer.sounds()) {
+        for (DeferredHolder<SoundEvent, ? extends SoundEvent> sound : ModSounds.SOUNDS.getEntries()) {
             SoundEvent soundEvent = sound.get();
             add(soundEvent, SoundDefinition.definition()
                     .with(sound(soundEvent.getLocation().toString(), SoundDefinition.SoundType.SOUND)

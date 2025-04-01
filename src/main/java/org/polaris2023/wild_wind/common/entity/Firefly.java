@@ -24,13 +24,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import org.polaris2023.wild_wind.common.entity.goal.firefly.abstracts.FireflyBaseGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyRoostGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyGlowGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyAfraidGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyAttractGoal;
 import org.polaris2023.wild_wind.common.entity.goal.firefly.FireflyPopulationMigration;
-import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModEntityTypes;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 
 import java.util.List;
@@ -39,7 +38,7 @@ import java.util.UUID;
 
 public class Firefly extends Animal implements FlyingAnimal {
 
-    private static final EntityDimensions BABY_DIMENSIONS = ModEntities.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
+    private static final EntityDimensions BABY_DIMENSIONS = ModEntityTypes.FIREFLY.get().getDimensions().scale(0.5f).withEyeHeight(0.2975F);
 
     private static final EntityDataAccessor<Boolean> ROOST = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Long> TICKER = SynchedEntityData.defineId(Firefly.class, EntityDataSerializers.LONG);
@@ -66,7 +65,7 @@ public class Firefly extends Animal implements FlyingAnimal {
 
     @Override
     public AgeableMob getBreedOffspring( ServerLevel serverLevel, AgeableMob ageableMob) {
-        return ModEntities.FIREFLY.get().create(serverLevel);
+        return ModEntityTypes.FIREFLY.get().create(serverLevel);
     }
 
     @Override

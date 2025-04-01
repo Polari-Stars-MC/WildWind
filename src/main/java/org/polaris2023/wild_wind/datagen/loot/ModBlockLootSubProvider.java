@@ -31,9 +31,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
 import java.util.Set;
@@ -47,7 +45,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModInitializer.blocks().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
+        return ModBlocks.BLOCKS.getEntries().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
     }
 
     @Override
@@ -65,7 +63,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(ModBlocks.RED_QUICKSAND.get());
         this.dropWhenSilkTouch(ModBlocks.SILT.get());
         this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.add(ModBlocks.ASH.get(), (block) -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.asItem(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
+        this.add(ModBlocks.ASH.get(), (block) -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.get().asItem(), ModBlocks.ASH.get().asItem(), ModItems.ASH_DUST.get()));
 
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
@@ -77,8 +75,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
 
-        this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
-        this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModBaseItems.SALT.get(), 2.0F, 5.0F));
+        this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModItems.SALT.get(), 2.0F, 5.0F));
+        this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModItems.SALT.get(), 2.0F, 5.0F));
 
         this.dropWhenSilkTouch(ModBlocks.SCULK_JAW.get());
         this.dropSelf(ModBlocks.DUCKWEED.get());

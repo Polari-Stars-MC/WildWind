@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModEntityTypes;
 import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
 
 import java.util.concurrent.CompletableFuture;
@@ -24,8 +24,8 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.@NotNull Provider pProvider) {
-        this.tag(EntityTypeTags.ARTHROPOD).add(ModEntities.FIREFLY.get());
-        this.tag(EntityTypeTags.FROG_FOOD).add(ModEntities.FIREFLY.get());
+        this.tag(EntityTypeTags.ARTHROPOD).add(ModEntityTypes.FIREFLY.get());
+        this.tag(EntityTypeTags.FROG_FOOD).add(ModEntityTypes.FIREFLY.get());
         this.tag(EntityTypeTags.FREEZE_IMMUNE_ENTITY_TYPES).add(EntityType.SQUID);
         this.tag(ModEntityTypeTags.WILD_WIND_INVISIBLE.get())
                 .add(EntityType.ITEM_FRAME)

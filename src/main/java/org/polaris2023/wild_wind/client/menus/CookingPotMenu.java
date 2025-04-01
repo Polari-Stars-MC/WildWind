@@ -7,12 +7,9 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.neoforged.neoforge.attachment.AttachmentType;
-import net.neoforged.neoforge.items.ItemStackHandler;
-import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.client.container.CookingPotContainer;
 import org.polaris2023.wild_wind.common.block.entity.CookingPotBlockEntity;
-import org.polaris2023.wild_wind.common.init.ModMenus;
+import org.polaris2023.wild_wind.common.init.ModMenuTypes;
 
 public class CookingPotMenu extends AbstractContainerMenu implements ContainerListener {
     private final Level level;
@@ -24,7 +21,7 @@ public class CookingPotMenu extends AbstractContainerMenu implements ContainerLi
     }
 
     public CookingPotMenu(int containerId, Inventory playInv, BlockEntity entity, ContainerData data) {
-        super(ModMenus.COOKING_POT.get(), containerId);
+        super(ModMenuTypes.COOKING_POT.get(), containerId);
         checkContainerSize(playInv, 1);
         this.level = playInv.player.level();
         this.data = data;
