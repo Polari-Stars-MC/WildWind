@@ -1,14 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
-import biomesoplenty.init.ModCreativeTab;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
@@ -19,7 +14,6 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
@@ -132,6 +126,11 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModItems.CHEESE);
                 output.accept(ModBaseFoods.FAILED_CUISINE);
                 output.accept(ModBaseFoods.CHARRED_CUISINE);
+                output.accept(ModBaseFoods.VENISON);
+                output.accept(ModBaseFoods.COOKED_VENISON);
+                output.accept(ModBaseFoods.APPLE_PIE);
+                output.accept(ModBaseFoods.GOLDEN_APPLE_PIE);
+                output.accept(ModBaseFoods.ENCHANTED_GOLDEN_APPLE_PIE);
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {

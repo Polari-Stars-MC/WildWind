@@ -1,11 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
-import net.minecraft.core.component.DataComponents;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BannerItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.BannerDuplicateRecipe;
-import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -15,8 +10,6 @@ import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
-
-
 
 public class ModItems {
     @BasicItem

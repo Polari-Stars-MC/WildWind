@@ -21,7 +21,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -150,6 +149,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting);
 
         smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE_ITEM.get(), ModBlocks.DEEPSLATE_SALT_ORE_ITEM.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
+
+        smeltingSmokingAndCampfire(ModBaseFoods.VENISON, RecipeCategory.FOOD, ModBaseFoods.COOKED_VENISON, 0.35F);
     }
 
     public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
