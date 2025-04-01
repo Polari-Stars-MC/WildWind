@@ -4,14 +4,13 @@ import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.common.block.entity.DuckweedBlockEntity;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityTypes;
 
 /**
  * @author : baka4n
@@ -33,13 +32,13 @@ public class DuckweedBlock extends BaseEntityBlock {
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState blockState) {
-        return ModBlocks.DUCKWEED_TILE.get().create(blockPos, blockState);
+        return ModBlockEntityTypes.DUCKWEED_TILE.get().create(blockPos, blockState);
     }
 
     @Nullable
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return level.isClientSide ? null : createTickerHelper(type, ModBlocks.DUCKWEED_TILE.get(),
+        return level.isClientSide ? null : createTickerHelper(type, ModBlockEntityTypes.DUCKWEED_TILE.get(),
                 DuckweedBlockEntity::serverTick);
     }
 }

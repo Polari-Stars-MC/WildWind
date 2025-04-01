@@ -13,7 +13,7 @@ import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.entity.goal.piranha.PiranhaAttackGoal;
-import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
+import org.polaris2023.wild_wind.common.init.ModItems;
 
 import java.util.List;
 
@@ -65,6 +65,7 @@ public class Piranha extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ModMobBuckets.PIRANHA_BUCKET.entry.toStack();
+        return ModItems.PIRANHA_BUCKET.toStack();
     }
+
 }

@@ -5,7 +5,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BannerBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityTypes;
+import org.polaris2023.wild_wind.common.init.ModItems;
 
 public class ModBannerBlockEntity extends BannerBlockEntity {
 
@@ -18,12 +19,12 @@ public class ModBannerBlockEntity extends BannerBlockEntity {
 
     @Override
     public BlockEntityType<?> getType() {
-        return ModBlocks.BANNER_BE.get();
+        return ModBlockEntityTypes.BANNER_BE.get();
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ModBlocks.BANNER_ITEM.get());
+        return new ItemStack(ModItems.BANNER.get());
     }
 
 }

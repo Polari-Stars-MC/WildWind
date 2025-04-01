@@ -14,7 +14,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.common.NeoForge;
 import org.polaris2023.wild_wind.common.init.*;
 import org.polaris2023.wild_wind.util.interfaces.IConfig;
 
@@ -30,10 +29,21 @@ public class WildWindMod {
     public static final String MOD_VERSION = ModList.get().getModFileById(MOD_ID).versionString();
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
-        ModInitializer.init(modEventBus);
-        ModPotions.register(modEventBus);
-        ModVanillaCompat.register(NeoForge.EVENT_BUS);
+        ModItems.ITEMS.register(modEventBus);
+        ModBlocks.BLOCKS.register(modEventBus);
+        ModFluids.FLUIDS.register(modEventBus);
+        ModEffects.EFFECTS.register(modEventBus);
+        ModPotions.POTIONS.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
+        ModMenuTypes.MENU_TYPES.register(modEventBus);
+        ModComponents.COMPONENTS.register(modEventBus);
+        ModInstruments.INSTRUMENTS.register(modEventBus);
+        ModEntityTypes.ENTITY_TYPES.register(modEventBus);
+        ModRecipeTypes.RECIPE_TYPES.register(modEventBus);
         ModAttachmentTypes.ATTACHMENT_TYPES.register(modEventBus);
+        ModCreativeModeTab.CREATIVE_MODE_TABS.register(modEventBus);
+        ModBlockEntityTypes.BLOCK_ENTITY_TYPES.register(modEventBus);
+        ModRecipeSerializers.RECIPE_SERIALIZERS.register(modEventBus);
         modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);

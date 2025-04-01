@@ -11,14 +11,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModBlockEntityTypes;
 
 public class CookingPotBlockEntity extends BlockEntity implements MenuProvider {
     int i = 0;
 
 
     public CookingPotBlockEntity(BlockPos pos, BlockState blockState) {
-        super(ModBlocks.COOKING_POT_TILE.get(), pos, blockState);
+        super(ModBlockEntityTypes.COOKING_POT_TILE.get(), pos, blockState);
 
     }
 

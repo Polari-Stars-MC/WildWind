@@ -10,7 +10,7 @@ import net.minecraft.world.entity.ambient.AmbientCreature;
 import net.minecraft.world.entity.animal.AbstractSchoolingFish;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
+import org.polaris2023.wild_wind.common.init.ModItems;
 
 public class Trout extends AbstractSchoolingFish {
 
@@ -22,8 +22,7 @@ public class Trout extends AbstractSchoolingFish {
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return AmbientCreature.createMobAttributes()
-                .add(Attributes.MAX_HEALTH, 3f);
+        return AmbientCreature.createMobAttributes().add(Attributes.MAX_HEALTH, 3f);
     }
 
     @Override
@@ -43,6 +42,7 @@ public class Trout extends AbstractSchoolingFish {
 
     @Override
     public ItemStack getBucketItemStack() {
-        return ModMobBuckets.TROUT_BUCKET.entry.toStack();
+        return ModItems.TROUT_BUCKET.toStack();
     }
+
 }

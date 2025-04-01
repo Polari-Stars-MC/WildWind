@@ -15,8 +15,6 @@ import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
-import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
@@ -25,7 +23,6 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 public class ModItemTagsProvider extends ItemTagsProvider {
-
 
     public ModItemTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
         super(output, lookupProvider, blockTags, WildWindMod.MOD_ID, existingFileHelper);
@@ -45,20 +42,20 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         );
         IntrinsicTagAppender<Item> vegetable_food = tag(ModItemTags.VEGETABLE_FOOD);
         add(vegetable_food,
-                Items.CARROT, ModBaseFoods.BAKED_CARROT, Items.GOLDEN_CARROT,
-                Items.BEETROOT, ModBaseFoods.BAKED_BEETROOT,
+                Items.CARROT, ModItems.BAKED_CARROT.get(), Items.GOLDEN_CARROT,
+                Items.BEETROOT, ModItems.BAKED_BEETROOT.get(),
                 Items.POTATO, Items.BAKED_POTATO,
-                ModBaseFoods.PUMPKIN_SLICE, ModBaseFoods.BAKED_PUMPKIN_SLICE,
-                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModBaseFoods.BAKED_MUSHROOM,
+                ModItems.PUMPKIN_SLICE.get(), ModItems.BAKED_PUMPKIN_SLICE.get(),
+                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModItems.BAKED_MUSHROOM.get(),
                 Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS,
-                ModItems.LIVING_TUBER, ModBaseFoods.BAKED_LIVING_TUBER
+                ModItems.LIVING_TUBER.get(), ModItems.BAKED_LIVING_TUBER.get()
         );
         IntrinsicTagAppender<Item> fruit_food = tag(ModItemTags.FRUIT_FOOD);
         add(fruit_food,
-                Items.APPLE, ModBaseFoods.BAKED_APPLE, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE,
+                Items.APPLE, ModItems.BAKED_APPLE.get(), Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE,
                 Items.CHORUS_FRUIT, Items.POPPED_CHORUS_FRUIT,
-                Items.MELON_SLICE, ModBaseFoods.BAKED_MELON_SLICE, Items.GLISTERING_MELON_SLICE,
-                Items.SWEET_BERRIES, Items.GLOW_BERRIES,ModBaseFoods.BAKED_BERRIES,
+                Items.MELON_SLICE, ModItems.BAKED_MELON_SLICE.get(), Items.GLISTERING_MELON_SLICE,
+                Items.SWEET_BERRIES, Items.GLOW_BERRIES,ModItems.BAKED_BERRIES.get(),
                 Items.SUGAR_CANE
         );
         IntrinsicTagAppender<Item> protein_food = tag(ModItemTags.PROTEIN_FOOD);
@@ -67,13 +64,13 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.TURTLE_EGG,
                 Items.SNIFFER_EGG,
                 Items.DRAGON_EGG,
-                ModBaseFoods.COOKED_EGG
+                ModItems.COOKED_EGG.get()
         );
         IntrinsicTagAppender<Item> fish_food = tag(ModItemTags.FISH_FOOD);
         add(fish_food,
                 Items.COD, Items.COOKED_COD,
                 Items.SALMON, Items.COOKED_SALMON,
-                ModBaseFoods.RAW_TROUT, ModBaseFoods.COOKED_TROUT,
+                ModItems.RAW_TROUT.get(), ModItems.COOKED_TROUT.get(),
                 Items.KELP, Items.DRIED_KELP
         );
         IntrinsicTagAppender<Item> monster_food = tag(ModItemTags.MONSTER_FOOD);
@@ -83,46 +80,24 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.TROPICAL_FISH, Items.PUFFERFISH,
                 Items.ROTTEN_FLESH
         );
-        add(tag(ItemTags.WOOL), ModBlocks.WOOL);
-        add(tag(ItemTags.WOOL_CARPETS), ModBlocks.CARPET);
-        this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
-        this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
-        this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
-        tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
         tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
         ModBlockFamilies.AZALEA.generateItemTags(this::tag);
         ModBlockFamilies.PALM.generateItemTags(this::tag);
         ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
-        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.RAW_FROG_LEG.get(),
-                ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
-        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
-        tag(ItemTags.BANNERS).add(ModBlocks.BANNER_ITEM.get());
-        tag(ItemTags.STAIRS).add(
-                ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS_ITEM.get(),
-                ModBlocks.BLUE_ICE_BRICK_STAIRS_ITEM.get()
-        );
-        tag(ItemTags.SLABS).add(
-                ModBlocks.ANDESITE_BRICK_SLAB_ITEM.get(), ModBlocks.DIORITE_BRICK_SLAB_ITEM.get(), ModBlocks.GRANITE_BRICK_SLAB_ITEM.get(),
-                ModBlocks.BLUE_ICE_BRICK_SLAB_ITEM.get()
-        );
-        tag(ItemTags.WALLS).add(
-                ModBlocks.STONE_WALL_ITEM.get(), ModBlocks.POLISHED_STONE_WALL_ITEM.get(),
-                ModBlocks.ANDESITE_BRICK_WALL_ITEM.get(), ModBlocks.DIORITE_BRICK_WALL_ITEM.get(), ModBlocks.GRANITE_BRICK_WALL_ITEM.get(),
-                ModBlocks.BLUE_ICE_BRICK_WALL_ITEM.get()
-        );
+        tag(ItemTags.WOLF_FOOD).add(ModItems.COOKED_TROUT.get(), ModItems.RAW_TROUT.get(), ModItems.COOKED_FROG_LEG.get(), ModItems.RAW_FROG_LEG.get(),
+                ModItems.COOKED_PIRANHA.get(), ModItems.RAW_PIRANHA.get());
+        tag(ItemTags.CAT_FOOD).add(ModItems.RAW_PIRANHA.get());
+        tag(ItemTags.OCELOT_FOOD).add(ModItems.RAW_PIRANHA.get());
+        tag(ItemTags.FISHES).add(ModItems.RAW_PIRANHA.get(), ModItems.COOKED_PIRANHA.get());
+        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get().asItem());
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
         appender.add(Arrays.stream(likes).map(ItemLike::asItem).toArray(Item[]::new));
     }
 
-
     protected IntrinsicTagAppender<Item> tag(Supplier<TagKey<Item>> tag) {
         return super.tag(tag.get());
     }
+
 }

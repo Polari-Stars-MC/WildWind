@@ -1,7 +1,6 @@
 package org.polaris2023.processor;
 
 import com.google.auto.service.AutoService;
-import com.squareup.javapoet.*;
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.Tree;
@@ -11,7 +10,6 @@ import com.sun.tools.javac.parser.JavacParser;
 import com.sun.tools.javac.parser.ParserFactory;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.tree.JCTree;
-import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.util.Context;
 import org.polaris2023.processor.clazz.ClassProcessor;
 import org.polaris2023.processor.clazz.config.AutoConfigProcessor;

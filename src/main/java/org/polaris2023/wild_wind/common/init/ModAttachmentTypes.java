@@ -13,6 +13,7 @@ public class ModAttachmentTypes {
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> MILKING_INTERVALS = registerInteger("milking_intervals");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SQUID_CONVERSION_TIME = registerInteger("squid_conversion_time");
     public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SQUID_CONVERT = registerBoolean("should_squid_convert");
+    public static final DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_ITEM_FRAME_INVISIBLE = registerBoolean("should_item_frame_invisible");
 
     private static DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> registerInteger(String name) {
         return ATTACHMENT_TYPES.register(name, () -> AttachmentType.builder(() -> 0).serialize(Codec.INT).build());

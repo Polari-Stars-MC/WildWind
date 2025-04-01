@@ -13,16 +13,12 @@ import net.minecraft.world.level.storage.loot.functions.SmeltItemFunction;
 import net.minecraft.world.level.storage.loot.providers.number.*;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
-import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModEntityTypes;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
 import java.util.stream.Stream;
 
 public class ModEntityLootSubProvider extends EntityLootSubProvider {
-
 
     public ModEntityLootSubProvider(HolderLookup.Provider registries) {
         super(FeatureFlags.DEFAULT_FLAGS, registries);
@@ -30,27 +26,28 @@ public class ModEntityLootSubProvider extends EntityLootSubProvider {
 
     @Override
     protected @NotNull Stream<EntityType<?>> getKnownEntityTypes() {
-        return ModInitializer.entities().stream().map(DeferredHolder::value);
+        return ModEntityTypes.ENTITY_TYPES.getEntries().stream().map(DeferredHolder::value);
     }
 
     @Override
     public void generate() {
-        add(ModEntities.FIREFLY.get(), LootTable.lootTable()
+        add(ModEntityTypes.FIREFLY.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0f))
-                        .add(LootItem.lootTableItem(ModItems.GLOW_POWDER))
+                        .add(LootItem.lootTableItem(ModItems.GLOW_POWDER.get()))
                         .apply(SetItemCountFunction
                                 .setCount(UniformGenerator.between(0.0f, 1.0f)))
                         .apply(EnchantedCountIncreaseFunction
                                 .lootingMultiplier(registries, ConstantValue.exactly(1.0f))
                                 .setLimit(3))
                 ));
-        add(ModEntities.GLARE.get(), LootTable.lootTable());
-        add(ModEntities.TROUT.get(), LootTable.lootTable()
+        add(ModEntityTypes.GLARE.get(), LootTable.lootTable());
+        add(ModEntityTypes.TROUT.get(), LootTable.lootTable()
                 .withPool(LootPool.lootPool()
                         .setRolls(ConstantValue.exactly(1.0F))
-                        .add(LootItem.lootTableItem(ModBaseFoods.RAW_TROUT.get())
+                        .add(LootItem.lootTableItem(ModItems.RAW_TROUT.get())
                                 .apply(SmeltItemFunction.smelted().when(this.shouldSmeltLoot())))));
-        add(ModEntities.PIRANHA.get(), LootTable.lootTable());
+        add(ModEntityTypes.PIRANHA.get(), LootTable.lootTable());
     }
+
 }

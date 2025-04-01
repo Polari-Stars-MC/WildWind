@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.common.block.modified;
+package org.polaris2023.wild_wind.common.block.misc;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.DyeColor;
