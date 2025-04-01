@@ -6,20 +6,35 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
+import org.polaris2023.wild_wind.util.interfaces.datagen.ILanguage;
+import org.polaris2023.wild_wind.util.interfaces.datagen.model.IBlockModel;
+import org.polaris2023.wild_wind.util.interfaces.datagen.model.IItemModel;
 
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
@@ -28,27 +43,30 @@ import java.util.function.Supplier;
  * @author : baka4n
  * {@code @Date : 2025/03/18 19:09:04}
  */
-public class WildWindClientProvider implements DataProvider {
+public class WildWindClientProvider implements DatagenClient, DataProvider, IBlockModel, IItemModel, ILanguage {
 
-    final PackOutput output;
-    final BlockStateProvider stateProvider;
-    final BlockModelProvider blockModelProvider;
-    final ItemModelProvider itemModelProvider;
+    public final PackOutput output;
+    public final BlockStateProvider stateProvider;
+    public final BlockModelProvider blockModelProvider;
+    public final ItemModelProvider itemModelProvider;
 
-    final String modid;
+    public final String modid;
 
     public WildWindClientProvider(PackOutput output, String modid, ExistingFileHelper exFileHelper) {
         this.modid = modid;
         this.output = output;
+
         this.stateProvider = new BlockStateProvider(output, modid, exFileHelper) {
 
             @Override
             protected void registerStatesAndModels() {
+                block();
                 init();
                 state();
                 item();
             }
         };
+        languageInit();
         itemModelProvider = stateProvider.itemModels();
         blockModelProvider = stateProvider.models();
 
@@ -56,20 +74,11 @@ public class WildWindClientProvider implements DataProvider {
     }
 
     public void state() {
-
-        // Tiny Cactus
-        stateProvider.simpleBlock(ModBlocks.TINY_CACTUS.get(), blockModelProvider.cross("tiny_cactus", Helpers.location("block/tiny_cactus")).renderType("cutout"));
-
-        // Carpet
-        stateProvider.simpleBlockWithItem(ModBlocks.CARPET.get(), blockModelProvider.carpet("carpet", Helpers.location("block/wool")));
         // Stone & Polished Stone
-        stateProvider.wallBlock(ModBlocks.STONE_WALL.get(), stateProvider.blockTexture(Blocks.STONE));
-        stateProvider.wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        stateProvider.stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        stateProvider.slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
-        // Sapling
-        stateProvider.simpleBlock(ModBlocks.PALM_SAPLING.get(), blockModelProvider.cross("palm_sapling", Helpers.location("block/palm_sapling")).renderType("cutout"));
-        stateProvider.simpleBlock(ModBlocks.BAOBAB_SAPLING.get(), blockModelProvider.cross("baobab_sapling", Helpers.location("block/baobab_sapling")).renderType("cutout"));
+
+//        stateProvider.wallBlock(ModBlocks.POLISHED_STONE_WALL.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+//        stateProvider.stairsBlock(ModBlocks.POLISHED_STONE_STAIRS.get(), blockTexture(ModBlocks.POLISHED_STONE.get()));
+//        stateProvider.slabBlock(ModBlocks.POLISHED_STONE_SLAB.get(), blockTexture(ModBlocks.POLISHED_STONE.get()), stateProvider.blockTexture(ModBlocks.POLISHED_STONE.get()));
 
         VariantBlockStateBuilder glowMucusStates = stateProvider.getVariantBuilder(ModBlocks.GLOW_MUCUS.get());
         for (Direction facing : Direction.values()) {
@@ -101,13 +110,7 @@ public class WildWindClientProvider implements DataProvider {
                 );
             }
         }
-        ResourceLocation key = key(ModBlocks.BRITTLE_ICE.get());
-        blockModelProvider.cubeAll(key.getPath(), key.withPrefix("block/").withSuffix("_0")).renderType("translucent");
-        for (int age : BrittleIceBlock.AGE.getPossibleValues()) {
 
-            ResourceLocation resourceLocation = key.withSuffix("_" + age);
-            blockModelProvider.cubeAll(resourceLocation.getPath(), resourceLocation.withPrefix("block/")).renderType("translucent");
-        }
         VariantBlockStateBuilder brittleIceStates = stateProvider.getVariantBuilder(ModBlocks.BRITTLE_ICE.get());
         for(int age : BrittleIceBlock.AGE.getPossibleValues()) {
             for(boolean unstable : BrittleIceBlock.UNSTABLE.getPossibleValues()) {
@@ -134,19 +137,15 @@ public class WildWindClientProvider implements DataProvider {
                 case WEST -> 90;
                 default -> 0;
             };
+
             glazedTerracottaStates.partialState().with(BlockStateProperties.HORIZONTAL_FACING, facing)
-                    .addModels(new ConfiguredModel(blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta")), 0, yRotation, false));
+                    .addModels(new ConfiguredModel(blockModelProvider.getBuilder("glazed_terracotta"), 0, yRotation, false));
         }
 
         //glistering_melon
-        BlockModelBuilder glisteringMelonModel = blockModelProvider.cubeBottomTop(
-                "glistering_melon",
-                Helpers.location("block/glistering_melon_side"),
-                Helpers.location("block/glistering_melon_side"),
-                Helpers.location("block/glistering_melon_top")
-        );
 
-        stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), glisteringMelonModel);
+
+        stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), blockModelProvider.getBuilder("glistering_melon"));
 //        List<DeferredHolder<Block, ?>> blocks = new ArrayList<>(ModInitializer.blocks());
 //        stateProvider.models().generatedModels.forEach((location, __) -> {
 //            blocks.removeIf(h -> h.getId().equals(location));
@@ -160,62 +159,46 @@ public class WildWindClientProvider implements DataProvider {
 
     } // 手写模型生成塞这块
 
+    public void block() {
+        //glistering_melon
+        blockModelProvider.cubeBottomTop(
+                "glistering_melon",
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_side"),
+                Helpers.location("block/glistering_melon_top")
+        );
+        blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta"));
+
+    }
+
     public void item() {
-        itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
-        itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
+
+//        itemModelProvider.simpleBlockItem(ModBlocks.GLISTERING_MELON.get());
+//        itemModelProvider.simpleBlockItem(ModBlocks.GLAZED_TERRACOTTA.get());
     }
 
     public void init() {
     }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
+    public void languageInit() {
+    }// 不可在此处写代码，切记,这里用于注解生成器生成代码
 
-    public ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
-        return itemModelProvider.getBuilder(block.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ResourceLocation.fromNamespaceAndPath(block.getNamespace(), "block/" + block.getPath()));
-    }
-
-    public ItemModelBuilder basicBlockLocatedItem(Item blockItem) {
-        return basicBlockLocatedItem(BuiltInRegistries.ITEM.getKey(blockItem));
-    }
-
-    public static WildWindClientProvider getInstance(PackOutput output, String modid, ExistingFileHelper exFileHelper) {
-        return new WildWindClientProvider(output, modid, exFileHelper);
-    }
-
-    public <T extends Block> BlockModelBuilder cubeAll(Supplier<T> block, boolean item, String renderType, String all) {
-        Block b = block.get();
-        BlockModelBuilder model = cubeModel(key(b).getPath(), renderType, all);
-        if (item) {
-            stateProvider.simpleBlockWithItem(b, model);
-        } else {
-            stateProvider.simpleBlock(b, model);
-        }
-        return model;
-    }
-
-    public <T extends Block> BlockModelBuilder cubeModel(String path, String renderType, String all) {
-        BlockModelBuilder bm = blockModelProvider.cubeAll(path, Helpers.location(path).withPrefix("block/"));
-        if (!renderType.isEmpty()) bm.renderType(renderType);
-        if (!all.isEmpty()) bm.texture("all", all);
-        return bm;
-    }
-
-    public ResourceLocation key(Block block) {
-        return BuiltInRegistries.BLOCK.getKey(block);
-    }
-
-    public ResourceLocation blockTexture(Block block) {
-        ResourceLocation name = key(block);
-        return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "block/" + name.getPath());
-    }
 
     @Override
     public CompletableFuture<?> run(CachedOutput cachedOutput) {
-        CompletableFuture<?> run = stateProvider.run(cachedOutput);
-        return CompletableFuture.allOf(run);
+        List<CompletableFuture<?>> futures =
+                new LinkedList<>(LANGUAGES.values().stream().map((LanguageProvider cache) -> cache.run(cachedOutput)).toList());
+        futures.add(stateProvider.run(cachedOutput));
+        return CompletableFuture.allOf(futures.toArray(new CompletableFuture[0]));
     }
 
     @Override
     public String getName() {
-        return "Model Generated By " + modid;
+        return "Client Generated Bus By " + modid;
+    }
+
+    @Override
+    public WildWindClientProvider self() {
+        return this;
     }
 }

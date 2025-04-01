@@ -1,6 +1,0 @@
-{
-  "type": "neoforge:add_features",
-  "biomes": "minecraft:basalt_deltas",
-  "features": "wild_wind:ash",
-  "step": "underground_decoration"
-}

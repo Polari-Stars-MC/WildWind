@@ -234,7 +234,7 @@ public class WildWindGameEventHandler {
                         || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
                 ) {
                     //获取掉落物
-                    autoSmelting(serverLevel, pos, mainHandItem);
+                    autoSmelting(serverLevel, pos, mainHandItem, player);
                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                     event.setCanceled(true);
                 }
@@ -248,8 +248,9 @@ public class WildWindGameEventHandler {
         return stack.is(itemTag) && serverLevel.getBlockState(pos).is(blockTag);
     }
 
-    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem) {
-        List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
+    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, Player player) {
+        List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos), player, mainHandItem);
+
         for (ItemStack drop : drops) {
             serverLevel
                     .getRecipeManager()
