@@ -23,7 +23,7 @@ public class ModBannerBlockEntity extends BannerBlockEntity {
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ModBlocks.BANNER_ITEM.get());
+        return new ItemStack(ModBlocks.BANNER.get());
     }
 
 }

@@ -1,14 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
-import biomesoplenty.init.ModCreativeTab;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
@@ -19,7 +14,6 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
@@ -50,8 +44,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     }),
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
     NATURAL_BLOCKS(ModBlocks.SALT_ORE_ITEM::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.BRITTLE_ICE_ITEM);
-        output.accept(ModBlocks.ASH_BLOCK_ITEM);
+        output.accept(ModBlocks.BRITTLE_ICE);
+        output.accept(ModBlocks.ASH_BLOCK);
         output.accept(ModBlocks.ASH);
         output.accept(ModBlocks.SILT);
         output.accept(ModBlocks.QUICKSAND);
@@ -73,8 +67,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.DUCKWEED);
         output.accept(ModBlocks.GLISTERING_MELON);
         output.accept(ModBlocks.SCULK_JAW);
-        output.accept(ModBlocks.SPIDER_COVER);
-        output.accept(ModBaseItems.SPIDER_MUCOSA);
+        output.accept(ModBlocks.COBWEB_COVER);
+        output.accept(ModBaseItems.COBWEB_MUCOSA);
         output.accept(ModBaseItems.SPIDER_EGG);
         output.accept(ModBlocks.TINY_CACTUS);
     }, BUILDING_BLOCK),
@@ -121,7 +115,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.BAKED_BEETROOT);
                 output.accept(ModItems.LIVING_TUBER);
                 output.accept(ModBaseFoods.BAKED_LIVING_TUBER);
-                output.accept(ModBaseFoods.RAW_FROG_LEG);
+                output.accept(ModBaseFoods.FROG_LEG);
                 output.accept(ModBaseFoods.COOKED_FROG_LEG);
                 output.accept(ModBaseFoods.RAW_TROUT);
                 output.accept(ModBaseFoods.COOKED_TROUT);
@@ -142,7 +136,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
 
     }, FOOD_AND_DRINK),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
-    WILD_WIND(ModBlocks.COOKING_POT_ITEM::toStack,
+    WILD_WIND(ModBlocks.COOKING_POT::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
                     if (checkOr(item,

@@ -1,9 +1,5 @@
-1.0.5 change log:
+5.0.1 change log:
 
-2025/3/30
+2025/4/1
+    Fixed an issue where the registration name was not fixed.
 
-
-2025/3/31
-2025/3/32
-2025/3/33
-2025/3/34

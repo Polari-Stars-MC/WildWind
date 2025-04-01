@@ -21,7 +21,6 @@ import net.neoforged.neoforge.fluids.FluidStack;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -138,7 +137,7 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(Items.APPLE, RecipeCategory.FOOD, ModBaseFoods.BAKED_APPLE.get(), 0.35F);
         smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
                 RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F));
@@ -160,13 +159,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapedRecipe() {
         add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
-            unlockedBy(builder, ModBlocks.BRITTLE_ICE_ITEM);
+            unlockedBy(builder, ModBlocks.BRITTLE_ICE);
             builder
                     .pattern("III")
                     .pattern("III")
                     .pattern("III")
                     .group("ice")
-                    .define('I', ModBlocks.BRITTLE_ICE_ITEM);
+                    .define('I', ModBlocks.BRITTLE_ICE);
         }), Helpers.location("ice_from_brittle_ice"));
         add(shaped(RecipeCategory.MISC, ModItems.MAGIC_FLUTE, 1, builder -> {
             unlockedBy(builder, Items.BONE);
@@ -177,7 +176,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('B', Items.BONE)
                     .define('R', ModItems.LIVING_TUBER);
         }));
-        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT.get(), 1,
                 builder -> {
             unlockedBy(builder, Items.IRON_INGOT);
             unlockedBy(builder, ItemTags.LOGS);
