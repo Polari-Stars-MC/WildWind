@@ -232,12 +232,15 @@ public class WildWindGameEventHandler {
                         || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
                         || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
                         || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
+                        || nullTool(serverLevel, pos, BlockTags.MINEABLE_WITH_AXE, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
                 ) {
                     //获取掉落物
                     autoSmelting(serverLevel, pos, mainHandItem, player);
                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                     event.setCanceled(true);
+
                 }
+
 
 
             }
@@ -246,6 +249,18 @@ public class WildWindGameEventHandler {
 
     private static boolean isTool(ItemStack stack, TagKey<Item> itemTag, TagKey<Block> blockTag, ServerLevel serverLevel, BlockPos pos) {
         return stack.is(itemTag) && serverLevel.getBlockState(pos).is(blockTag);
+    }
+
+    @SafeVarargs
+    private static boolean nullTool(ServerLevel level, BlockPos pos, TagKey<Block>... blockTags) {
+        BlockState state = level.getBlockState(pos);
+
+        for (TagKey<Block> blockTag : blockTags) {
+            if (state.is(blockTag)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, Player player) {

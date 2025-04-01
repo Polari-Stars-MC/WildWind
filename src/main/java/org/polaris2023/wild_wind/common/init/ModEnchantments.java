@@ -12,12 +12,14 @@ import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.Locale;
 import java.util.function.Supplier;
 
 public enum ModEnchantments implements Supplier<ResourceKey<Enchantment>> {
+    @I18n(en_us = "Auto Smelting", zh_cn = "自动冶炼", zh_tw = "自動冶鍊")
     AUTO_SMELTING((location, hg, hg1, hg2, hg3) -> Enchantment.enchantment(
             Enchantment.definition(
                     hg2.getOrThrow(ItemTags.MINING_ENCHANTABLE),
@@ -29,6 +31,7 @@ public enum ModEnchantments implements Supplier<ResourceKey<Enchantment>> {
                     EquipmentSlotGroup.MAINHAND
             )
     )),
+    @I18n(en_us = "Curse of Rusting", zh_cn = "锈斑诅咒", zh_tw = "鏽斑詛咒")
     RUSTY((location, hg, hg1, hg2, hg3) -> Enchantment.enchantment(
             Enchantment.definition(
                     hg2.getOrThrow(ItemTags.DURABILITY_ENCHANTABLE),

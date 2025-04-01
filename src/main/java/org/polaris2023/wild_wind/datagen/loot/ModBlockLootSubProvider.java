@@ -50,6 +50,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+
         this.add(ModBlocks.BED.get(), this::createBedDrops);
         this.dropSelf(ModBlocks.GLOW_MUCUS.get());
         this.dropSelf(ModBlocks.GLAREFLOWER.get());
@@ -74,6 +75,18 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.WALL_BANNER.get(), this::createBannerDrops);
 
         this.dropSelf(ModBlocks.SALT_BLOCK.get());
+//        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+//        this.add(Blocks.PUMPKIN, pumpkin ->
+//            createSilkTouchDispatchTable(
+//                    pumpkin,
+//                    applyExplosionDecay(
+//                            pumpkin,
+//                            LootItem.lootTableItem(ModBaseFoods.PUMPKIN_SLICE.get())
+//                                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(3.0F, 7.0F)))
+//                                    .apply(ApplyBonusCount.addUniformBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))
+//                                    .apply(LimitCount.limitCount(IntRange.upperBound(9)))
+//                            )
+//            ));
 
         this.add(ModBlocks.SALT_ORE.get(), this.createFortunateDrops(ModBlocks.SALT_ORE.get(), ModItems.SALT.get(), 2.0F, 5.0F));
         this.add(ModBlocks.DEEPSLATE_SALT_ORE.get(), this.createFortunateDrops(ModBlocks.DEEPSLATE_SALT_ORE.get(), ModItems.SALT.get(), 2.0F, 5.0F));

@@ -86,8 +86,15 @@ public class ModBlocks {
     @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
     public static final DeferredBlock<Block> DUCKWEED = BLOCKS.register("duckweed", () -> new DuckweedBlock(BASE));
     @I18n(en_us = "Brittle Ice", zh_cn = "脆冰", zh_tw = "脆冰")
+    @CubeAllFor(
+            cube = @CubeAll(render_type = "translucent", all = "wild_wind:block/brittle_ice_0"),
+            min = 0,
+            max = 3,
+            def = "wild_wind:block/brittle_ice"
+    )
     public static final DeferredBlock<Block> BRITTLE_ICE = BLOCKS.register("brittle_ice", () -> new BrittleIceBlock(
             ofFullCopy(Blocks.ICE).strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY)));
+
     @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
     @BasicBlock
     public static final DeferredBlock<Block> ASH_BLOCK = BLOCKS.registerSimpleBlock("ash_block", ofFullCopy(Blocks.SNOW_BLOCK));
@@ -146,8 +153,9 @@ public class ModBlocks {
     @BasicBlock
     public static final DeferredBlock<Block> POLISHED_STONE = normal("polished_stone", BASE.mapColor(MapColor.STONE).strength(2.5f));
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
-    @Wall
+    @Wall(wall = "wild_wind:block/polished_stone")
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL = wall("polished_stone_wall", ofFullCopy(Blocks.STONE_BRICK_WALL));
+
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
     @Stairs(type = "stone")
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS = stair("polished_stone_stairs", POLISHED_STONE, ofFullCopy(Blocks.STONE_STAIRS));
@@ -284,8 +292,9 @@ public class ModBlocks {
     @BasicBlock
     public static final DeferredBlock<Block> PALM_LEAVES = register("palm_leaves", () -> Blocks.leaves(SoundType.GRASS));
     @I18n(en_us = "Baobab Leaves", zh_cn = "猴面包树叶", zh_tw = "猴麵包樹葉")
-    @CubeAll(all = Helpers.BLOCK_PLACEHOLDER)
+    @CubeAll()
     public static final DeferredBlock<Block> BAOBAB_LEAVES = register("baobab_leaves", () -> Blocks.leaves(SoundType.GRASS));
+
 
     //TODO: TreeGrower
     @I18n(en_us = "Palm Sapling", zh_cn = "棕榈树苗", zh_tw = "棕櫚樹苗")
