@@ -25,7 +25,7 @@ public class WildWindClientEventHandler {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void registerSlimeColor(RegisterColorHandlersEvent.Item event) {
         event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.SLIME_COLOR, 0)), Items.SLIME_BALL);
-        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL_ITEM);
+        event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(stack.getOrDefault(ModComponents.COLOR, 0)), ModBlocks.WOOL);
         event.register((stack, tintIndex) -> FastColor.ARGB32.opaque(13419950), ModBlocks.BANNER.asItem(), ModBlocks.WALL_BANNER.asItem());
     }
 

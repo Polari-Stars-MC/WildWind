@@ -159,13 +159,13 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapedRecipe() {
         add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
-            unlockedBy(builder, ModBlocks.BRITTLE_ICE_ITEM);
+            unlockedBy(builder, ModBlocks.BRITTLE_ICE);
             builder
                     .pattern("III")
                     .pattern("III")
                     .pattern("III")
                     .group("ice")
-                    .define('I', ModBlocks.BRITTLE_ICE_ITEM);
+                    .define('I', ModBlocks.BRITTLE_ICE);
         }), Helpers.location("ice_from_brittle_ice"));
         add(shaped(RecipeCategory.MISC, ModItems.MAGIC_FLUTE, 1, builder -> {
             unlockedBy(builder, Items.BONE);
@@ -176,7 +176,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .define('B', Items.BONE)
                     .define('R', ModItems.LIVING_TUBER);
         }));
-        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT_ITEM.get(), 1,
+        add(shaped(RecipeCategory.MISC, ModBlocks.COOKING_POT.get(), 1,
                 builder -> {
             unlockedBy(builder, Items.IRON_INGOT);
             unlockedBy(builder, ItemTags.LOGS);
