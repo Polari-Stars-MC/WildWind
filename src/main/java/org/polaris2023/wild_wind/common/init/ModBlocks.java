@@ -29,6 +29,8 @@ import org.polaris2023.wild_wind.common.block.modified.*;
 import java.util.Arrays;
 
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
+import static org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry.*;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 @SuppressWarnings("unused")
 public class ModBlocks {
@@ -129,8 +131,6 @@ public class ModBlocks {
     )
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
-
-
 
     @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
     @BasicBlock

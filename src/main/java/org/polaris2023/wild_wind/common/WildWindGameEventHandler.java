@@ -39,8 +39,10 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -53,6 +55,7 @@ import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -73,6 +76,22 @@ import static org.polaris2023.wild_wind.common.dyed.handler.RightClickHandler.ri
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class WildWindGameEventHandler {
+
+    @SubscribeEvent
+    public static void cropGrowPost(CropGrowEvent.Post event) {
+        LevelAccessor level = event.getLevel();
+        if (level instanceof ServerLevel serverLevel) {
+            BlockPos pos = event.getPos();
+            if (serverLevel.getBlockState(pos).is(Blocks.ATTACHED_MELON_STEM)) {
+                Direction direction = serverLevel.getBlockState(pos).getValue(HorizontalDirectionalBlock.FACING);
+                BlockPos blockPos = pos.relative(direction);
+                if (serverLevel.getRandom().nextFloat() < 0.02F) {
+                    serverLevel.setBlockAndUpdate(blockPos, ModBlocks.GLISTERING_MELON.get().defaultBlockState());
+                    serverLevel.setBlockAndUpdate(pos, Blocks.ATTACHED_MELON_STEM.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void tooltipAdd(ItemTooltipEvent event) {

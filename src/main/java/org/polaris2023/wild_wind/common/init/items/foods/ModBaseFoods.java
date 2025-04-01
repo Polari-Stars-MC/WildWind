@@ -8,13 +8,13 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModFoods;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.Locale;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_1;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.simpleItem;
 
 /**
  * @author : baka4n
@@ -97,19 +97,19 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     public final DeferredItem<Item> entry;
 
     ModBaseFoods(Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer, food);
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), consumer, food);
     }
 
     ModBaseFoods(Consumer<Item.Properties> consumer) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer, ModFoods.valueOf(name()));
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), consumer, ModFoods.valueOf(name()));
     }
 
     ModBaseFoods(Supplier<FoodProperties> food) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), food);
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), food);
     }
 
     ModBaseFoods() {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), ModFoods.valueOf(name()));
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), ModFoods.valueOf(name()));
     }
 
 

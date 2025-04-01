@@ -16,9 +16,7 @@ import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
-import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
-
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 public class ModItems {
     @BasicItem
@@ -70,7 +68,7 @@ public class ModItems {
             register("nether_mushroom_stew", properties -> 
                     new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
     @BasicItem
-    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = ModInitializer.register("glow_mucus", ModBlocks.GLOW_MUCUS);
+    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = register("glow_mucus", ModBlocks.GLOW_MUCUS);
 
     public static final DeferredItem<BlockItem> FIREFLY_JAR_ITEM = register("firefly_jar", ModBlocks.FIREFLY_JAR);
 

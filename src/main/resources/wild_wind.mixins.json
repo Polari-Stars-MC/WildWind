@@ -5,8 +5,7 @@
   "refmap": "wild_wind.refmap.json",
   "mixins": [
     "EggMixin",
-    "InvisibleItemFrame",
-    "MelonMixin"
+    "InvisibleItemFrame"
   ],
   "minVersion": "0.8",
   "client": [

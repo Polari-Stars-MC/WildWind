@@ -42,7 +42,7 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
-public interface ModInitializer {
+public interface ModInitializer extends BlockRegistry {
     DeferredRegister.DataComponents COMPONENTS =
             DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, MOD_ID);
     DeferredRegister<SoundEvent> SOUNDS =
@@ -166,85 +166,5 @@ public interface ModInitializer {
                         : List.of());
     }
 
-    static DeferredBlock<Block> register(String name) {
-        return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
-    }
 
-    static <T extends Block> DeferredBlock<T> register(String name, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerBlock(name, function, properties);
-    }
-
-    static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerSimpleBlock(name, properties);
-    }
-
-    static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
-        return ITEMS.registerSimpleBlockItem(name, block);
-    }
-
-    static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block, Supplier<FoodProperties> supplier) {
-        return ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
-    }
-
-    static <SST extends StandingSignBlock, WST extends WallSignBlock> DeferredItem<SignItem> registerSign(String name,
-                                                                                                          DeferredBlock<SST> standing,
-                                                                                                          DeferredBlock<WST> wall) {
-        return ITEMS.registerItem(name, properties -> new SignItem(properties.stacksTo(16), standing.get(), wall.get()));
-    }
-
-    static <SST extends CeilingHangingSignBlock, WST extends WallHangingSignBlock> DeferredItem<HangingSignItem> registerHangingSign(String name,
-                                                                                                                                     DeferredBlock<SST> standing,
-                                                                                                                                     DeferredBlock<WST> wall) {
-        return ITEMS.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
-    }
-
-    static DeferredItem<Item> simpleItem(String name) {
-
-        return ITEMS.registerSimpleItem(name);
-    }
-
-    static DeferredItem<Item> item(String name, Function<Item.Properties, Item> toItemFunction) {
-        return ITEMS.registerItem(name, toItemFunction);
-    }
-
-    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
-        return item(name, properties -> {
-            consumer.accept(properties);
-            return new Item(properties);
-        });
-    }
-
-    static DeferredItem<Item> simpleItem(String name, Supplier<FoodProperties> food) {
-        return simpleItem(name, properties -> properties.food(food.get()));
-    }
-
-    static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer, Supplier<FoodProperties> food) {
-        return simpleItem(name, properties -> consumer.accept(properties.food(food.get())));
-    }
-
-    static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, T> item) {
-        return ITEMS.registerItem(name, item);
-    }
-
-    static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
-        return ITEMS.register(name, item);
-    }
-
-    static DeferredItem<DeferredSpawnEggItem> register(String name,
-                                                       Supplier<? extends EntityType<? extends Mob>> type,
-                                                       int backgroundColor,
-                                                       int highlightColor,
-                                                       Consumer<Item.Properties> consumer) {
-        return ModInitializer.ITEMS.registerItem(name, properties -> {
-            consumer.accept(properties);
-            return new DeferredSpawnEggItem(type, backgroundColor, highlightColor, properties);
-        });
-    }
-
-    static DeferredItem<DeferredSpawnEggItem> register(String name,
-                                                       Supplier<? extends EntityType<? extends Mob>> type,
-                                                       int backgroundColor,
-                                                       int highlightColor) {
-        return register(name, type, backgroundColor, highlightColor, properties -> {});
-    }
 }
