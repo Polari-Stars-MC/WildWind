@@ -232,17 +232,15 @@ public class WildWindGameEventHandler {
                         || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
                         || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
                         || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
-                        || nullTool(serverLevel, pos, BlockTags.MINEABLE_WITH_AXE, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
+                        || nullTool(mainHandItem, serverLevel, pos, BlockTags.MINEABLE_WITH_AXE, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
                 ) {
+
                     //获取掉落物
                     autoSmelting(serverLevel, pos, mainHandItem, player);
                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
                     event.setCanceled(true);
 
                 }
-
-
-
             }
         }
     }
@@ -252,7 +250,7 @@ public class WildWindGameEventHandler {
     }
 
     @SafeVarargs
-    private static boolean nullTool(ServerLevel level, BlockPos pos, TagKey<Block>... blockTags) {
+    private static boolean nullTool(ItemStack stack, ServerLevel level, BlockPos pos, TagKey<Block>... blockTags) {
         BlockState state = level.getBlockState(pos);
 
         for (TagKey<Block> blockTag : blockTags) {
@@ -260,10 +258,12 @@ public class WildWindGameEventHandler {
                 return false;
             }
         }
-        return true;
+        return stack.is(ItemTags.AXES);
     }
 
     private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, Player player) {
+        if (player.isCreative())
+            return;
         List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos), player, mainHandItem);
 
         for (ItemStack drop : drops) {

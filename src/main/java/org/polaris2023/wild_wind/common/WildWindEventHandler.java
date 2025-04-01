@@ -22,7 +22,7 @@ public class WildWindEventHandler {
     @OnlyIn(Dist.CLIENT)
     @SubscribeEvent
     public static void registerClientExtensions(RegisterClientExtensionsEvent event) {
-        event.registerItem(new ModBannerItem.RenderBannerItem(), ModBlocks.BANNER_ITEM);
+        event.registerItem(new ModBannerItem.RenderBannerItem(), ModBlocks.BANNER.asItem());
     }
 
     @SubscribeEvent

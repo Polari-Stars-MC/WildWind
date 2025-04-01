@@ -1,7 +1,8 @@
-1.0.5 change log:
+5.0.1 change log:
 
 2025/4/1
-Add venison and apple pie.
+    Fixed an issue where the registration name was not fixed.
+    Add venison and apple pie.
 
 2025/4/2
 2025/4/3
