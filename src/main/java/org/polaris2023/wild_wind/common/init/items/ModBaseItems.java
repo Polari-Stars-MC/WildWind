@@ -5,7 +5,6 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -13,6 +12,7 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_1;
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_SNOW;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.simpleItem;
 
 /**
  * @author : baka4n
@@ -41,10 +41,10 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     ;
     public final DeferredItem<Item> entry;
     ModBaseItems() {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT));
+        entry = simpleItem(name().toLowerCase(Locale.ROOT));
     }
     ModBaseItems(Consumer<Item.Properties> consumer) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer);
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), consumer);
     }
 
     @Override

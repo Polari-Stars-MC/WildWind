@@ -1,6 +1,11 @@
 package org.polaris2023.wild_wind.common.init;
 
+
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.entity.BannerPatternLayers;
+
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
@@ -9,7 +14,7 @@ import org.polaris2023.wild_wind.common.item.*;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 public class ModItems {
     @BasicItem
@@ -61,7 +66,7 @@ public class ModItems {
             register("nether_mushroom_stew", properties -> 
                     new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
     @BasicItem
-    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = ModInitializer.register("glow_mucus", ModBlocks.GLOW_MUCUS);
+    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = register("glow_mucus", ModBlocks.GLOW_MUCUS);
 
     public static final DeferredItem<BlockItem> FIREFLY_JAR_ITEM = register("firefly_jar", ModBlocks.FIREFLY_JAR);
 

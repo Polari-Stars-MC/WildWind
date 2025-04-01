@@ -10,10 +10,11 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.SpawnEggItem;
 import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.Locale;
 import java.util.function.Supplier;
+
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.register;
 
 /**
  * @author : baka4n
@@ -36,7 +37,7 @@ public enum ModSpawnEggs implements Supplier<DeferredSpawnEggItem>, ItemLike {
 
     public final DeferredItem<DeferredSpawnEggItem> entry;
     <E extends Mob> ModSpawnEggs(DeferredHolder<EntityType<?>, EntityType<E>> type, int backgroundColor, int highlightColor) {
-        entry = ModInitializer.register(name().toLowerCase(Locale.ROOT), type, backgroundColor, highlightColor);
+        entry = register(name().toLowerCase(Locale.ROOT), type, backgroundColor, highlightColor);
     }
 
 

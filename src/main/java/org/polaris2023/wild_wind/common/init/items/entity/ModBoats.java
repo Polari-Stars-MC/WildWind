@@ -7,7 +7,7 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.init.ModEnumExtensions;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.register;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 /**
  * @author : baka4n
