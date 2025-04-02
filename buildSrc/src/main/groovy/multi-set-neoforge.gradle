@@ -45,6 +45,21 @@ base {
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
+repositories {
+    maven {
+        name = "Jared's maven" // JEI
+        url = "https://maven.blamejared.com/"
+    }
+    maven {
+        name = "ModMaven" // JEI
+        url = "https://modmaven.dev"
+    }
+    maven {
+        name = "TerraformersMC" // EMI
+        url = "https://maven.terraformersmc.com/"
+    }
+}
+
 neoForge {
     version = project.neo_version
     interfaceInjectionData {
@@ -114,6 +129,10 @@ dependencies {
     compileOnly(libs.bundles.compileonly)
     runtimeOnly(libs.bundles.linkage)
     runtimeOnly(libs.bundles.runtimeonly)
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    // runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+    compileOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}:api"
+    // runtimeOnly "dev.emi:emi-neoforge:${emi_version}+${minecraft_version}"
     implementation(jij)
     implementation(libs.bundles.implementation)
     for (final def ji in jijg) {

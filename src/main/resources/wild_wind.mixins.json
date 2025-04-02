@@ -4,20 +4,11 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "wild_wind.refmap.json",
   "mixins": [
-    "AnimalMixin",
-    "CowMixin",
-    "DyeColorMixin",
     "EggMixin",
-    "GoatMixin",
-    "HalfTransparentBlockMixin",
-    "IceBlockMixin",
-    "InvisibleItemFrame",
-    "MelonMixin",
-    "SquidMixin",
-    "accessor.BlockEntityTypeAccess"
+    "InvisibleItemFrame"
   ],
   "minVersion": "0.8",
   "client": [
-    "SquidRendererMixin"
+    "LivingEntityRendererMixin"
   ]
 }

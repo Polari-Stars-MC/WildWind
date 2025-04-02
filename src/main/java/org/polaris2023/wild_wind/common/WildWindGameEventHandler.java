@@ -5,21 +5,27 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Fox;
+import net.minecraft.world.entity.animal.MushroomCow;
+import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.goat.Goat;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Shulker;
@@ -30,19 +36,26 @@ import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
+import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -63,6 +76,22 @@ import static org.polaris2023.wild_wind.common.dyed.handler.RightClickHandler.ri
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class WildWindGameEventHandler {
+
+    @SubscribeEvent
+    public static void cropGrowPost(CropGrowEvent.Post event) {
+        LevelAccessor level = event.getLevel();
+        if (level instanceof ServerLevel serverLevel) {
+            BlockPos pos = event.getPos();
+            if (serverLevel.getBlockState(pos).is(Blocks.ATTACHED_MELON_STEM)) {
+                Direction direction = serverLevel.getBlockState(pos).getValue(HorizontalDirectionalBlock.FACING);
+                BlockPos blockPos = pos.relative(direction);
+                if (serverLevel.getRandom().nextFloat() < 0.02F) {
+                    serverLevel.setBlockAndUpdate(blockPos, ModBlocks.GLISTERING_MELON.get().defaultBlockState());
+                    serverLevel.setBlockAndUpdate(pos, Blocks.ATTACHED_MELON_STEM.defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, direction));
+                }
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void tooltipAdd(ItemTooltipEvent event) {
@@ -110,14 +139,12 @@ public class WildWindGameEventHandler {
         }
     }
 
-
     @SubscribeEvent
     public static void hurtEvent(LivingDamageEvent.Post event) {
         if (event.getEntity() instanceof Firefly firefly) {
             firefly.clearTicker();
         }
     }
-
 
     @SubscribeEvent
     public static void clickEventEmpty(PlayerInteractEvent.LeftClickEmpty event) {
@@ -167,7 +194,6 @@ public class WildWindGameEventHandler {
                 thrownegg.setItem(itemstack);
                 thrownegg.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 1.5F, 1.0F);
                 level.addFreshEntity(thrownegg);
-                System.out.println("test");
             }
 
             player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
@@ -216,54 +242,119 @@ public class WildWindGameEventHandler {
         if (event.getLevel() instanceof  ServerLevel serverLevel) {
 
             ItemStack mainHandItem = player.getMainHandItem();
-            if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.SMELTING.get())) {
+
+            if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.AUTO_SMELTING.get())) {
                 BlockPos pos = event.getPos();
 
-                //获取掉落物
-                List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos));
-                for (ItemStack drop : drops) {
-                    serverLevel
-                            .getRecipeManager()
-                            .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
-                                Block.popResource(serverLevel, pos, h.value().getResultItem(serverLevel.registryAccess()));
-                            }, () -> {
-                                Block.popResource(serverLevel, pos, drop);
-                            });
+                if (
+                        isTool(mainHandItem, ItemTags.PICKAXES, BlockTags.MINEABLE_WITH_PICKAXE, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.SHOVELS, BlockTags.MINEABLE_WITH_SHOVEL, serverLevel, pos)
+                        || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
+                        || nullTool(serverLevel, pos, BlockTags.MINEABLE_WITH_AXE, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
+                ) {
+
+                    //获取掉落物
+                    autoSmelting(serverLevel, pos, mainHandItem, player);
+                    serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                    event.setCanceled(true);
+
                 }
             }
         }
     }
 
-    @SubscribeEvent
-    private static void mobTick(EntityTickEvent.Pre event) {
+    private static boolean isTool(ItemStack stack, TagKey<Item> itemTag, TagKey<Block> blockTag, ServerLevel serverLevel, BlockPos pos) {
+        return stack.is(itemTag) && serverLevel.getBlockState(pos).is(blockTag);
+    }
 
-        switch (event.getEntity()) {
-            case Goat goat -> {
-                int i = goat.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT);
-                if (i > 0) {
-                    goat.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_GOAT, i - 1);
+    @SafeVarargs
+    private static boolean nullTool(ServerLevel level, BlockPos pos, TagKey<Block>... blockTags) {
+        BlockState state = level.getBlockState(pos);
+
+        for (TagKey<Block> blockTag : blockTags) {
+            if (state.is(blockTag)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private static void autoSmelting(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, Player player) {
+        if (player.isCreative())
+            return;
+        List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos), player, mainHandItem);
+
+        for (ItemStack drop : drops) {
+            serverLevel
+                    .getRecipeManager()
+                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
+                        ItemStack resultItem = h.value().getResultItem(serverLevel.registryAccess());
+
+
+                        int neoCount = 0;
+                        int count = drop.getCount();
+                        for (;count > 0; count--) {
+
+                            if (mainHandItem.getDamageValue() == mainHandItem.getMaxDamage()) {
+                                break;
+                            }
+                            int enchantmentLevel = mainHandItem.getEnchantmentLevel(serverLevel.registryAccess().holderOrThrow(Enchantments.UNBREAKING));
+                            if (enchantmentLevel != 0) {
+                                double ran = ((double) 100 / (enchantmentLevel + 1)) / 100;
+                                if (serverLevel.random.nextDouble() <= ran) {
+                                    mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                                }
+                            } else {
+                                mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                            }
+                            neoCount++;
+                        }
+                        resultItem.setCount(neoCount);
+                        Block.popResource(serverLevel, pos, resultItem);
+                        drop.setCount(count);
+                        Block.popResource(serverLevel, pos, drop);
+                    }, () -> Block.popResource(serverLevel, pos, drop));
+        }
+    }
+
+    @SubscribeEvent
+    private static void onEntityTick(EntityTickEvent.Pre event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof Goat || entity instanceof Cow) {
+            AttachmentType<Integer> type = ModAttachmentTypes.MILKING_INTERVALS.get();
+            entity.setData(type, Math.max(0, entity.getData(type) - 1));
+        } else if (entity instanceof Squid squid) {
+            AttachmentType<Integer> type1 = ModAttachmentTypes.SQUID_CONVERSION_TIME.get();
+            AttachmentType<Boolean> type2 = ModAttachmentTypes.SHOULD_SQUID_CONVERT.get();
+            squid.setData(type1, Math.max(0, squid.getData(type1) - 1));
+            Level level = squid.level();
+            if (squid.getData(type1) <= 0 && squid.getData(type2)) {
+                GlowSquid glowSquid = squid.convertTo(EntityType.GLOW_SQUID, Boolean.FALSE);
+                if (glowSquid != null) {
+                    EventHooks.onLivingConvert(squid, glowSquid);
+                }
+
+                if (!squid.isSilent()) {
+                    level.playSound(null, squid.blockPosition(), SoundEvents.GLOW_INK_SAC_USE, SoundSource.NEUTRAL);
                 }
             }
-            case Cow cow -> {
-                int i = cow.getEntityData().get(ModEntityDataAccess.MILKING_INTERVALS_BY_COW);
-                if (i > 0) {
-                    WildWindMod.LOGGER.info(i);
-                    cow.getEntityData().set(ModEntityDataAccess.MILKING_INTERVALS_BY_COW, i - 1);
+
+            if (squid.getData(type1) > 0 && !squid.getData(type2) && level.isClientSide) {
+                level.addParticle(ParticleTypes.GLOW, squid.getRandomX(0.6), squid.getRandomY(), squid.getRandomZ(0.6), 0.0F, 0.0F, 0.0F);
+            }
+
+        } else if (entity instanceof ItemEntity item) {
+            if (item.getItem().is(ModItems.LIVING_TUBER)) {
+                RandomSource random = item.getRandom();
+                Level level = item.level();
+                int j = random.nextInt(20, 200);
+                if (level.getGameTime() % j == 0) {
+                    int i = random.nextInt(1, 13);
+                    ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
+                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
                 }
             }
-            case ItemEntity item -> {
-                if (item.getItem().is(ModItems.LIVING_TUBER)) {
-                    RandomSource random = item.getRandom();
-                    Level level = item.level();
-                    int j = random.nextInt(20, 200);
-                    if (level.getGameTime() % j == 0) {
-                        int i = random.nextInt(1, 13);
-                        ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-                        level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
-                    }
-                }
-            }
-            default -> {}
         }
     }
 
@@ -302,25 +393,61 @@ public class WildWindGameEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRightClick(PlayerInteractEvent.RightClickBlock event){
+    public static void onRightClickBlock(PlayerInteractEvent.RightClickBlock event){
         Player player = event.getEntity();
         Level level = player.level();
         ItemStack itemStack = player.getMainHandItem();
         BlockPos pos = event.getPos();
         BlockState blockState = level.getBlockState(pos);
-
-        if (event.getHand() == InteractionHand.MAIN_HAND){
-            if(itemStack.getItem() instanceof DyeItem){
+        if (event.getHand() == InteractionHand.MAIN_HAND) {
+            if (itemStack.getItem() instanceof DyeItem) {
                 if (!level.isClientSide) {
-                    System.out.println("right click server");
                     rightClick(player, level, itemStack, pos, blockState,event);
-
                 }
             }
         }
     }
+
     @SubscribeEvent
-    public static void onRightClickEntity(PlayerInteractEvent.EntityInteractSpecific event){
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getEntity();
+        Entity target = event.getTarget();
+        AttachmentType<Integer> type = ModAttachmentTypes.MILKING_INTERVALS.get();
+        ItemStack itemInHand = player.getItemInHand(event.getHand());
+        if (target instanceof Goat || target instanceof Cow) {
+            if (itemInHand.is(Items.BUCKET) && !((AgeableMob) target).isBaby()) {
+                if (target.getData(type) > 0) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        ModTranslateKey key = target instanceof Goat ?
+                                ModTranslateKey.GOAT_INTOLERANCE :
+                                ModTranslateKey.COW_INTOLERANCE;
+                        serverPlayer.sendSystemMessage(key.translatable());
+                        serverPlayer.swing(event.getHand(), Boolean.TRUE);
+                    }
+
+                    event.setCanceled(true);
+                } else {
+                    target.setData(type, 6000);
+                }
+            }
+        } else if (target instanceof MushroomCow mushroomCow) {
+            if (itemInHand.is(Items.BOWL) && !mushroomCow.isBaby()) {
+                if (target.getData(type) > 0) {
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        serverPlayer.sendSystemMessage(ModTranslateKey.MOOSHROOM_COW_INTOLERANCE.translatable());
+                        serverPlayer.swing(event.getHand(), Boolean.TRUE);
+                    }
+
+                    event.setCanceled(true);
+                } else {
+                    target.setData(type, 6000);
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityInteractSpecific(PlayerInteractEvent.EntityInteractSpecific event){
         Player player = event.getEntity();
         Level level = player.level();
         Entity shulker = event.getTarget();
@@ -342,4 +469,5 @@ public class WildWindGameEventHandler {
             }
         }
     }
+
 }

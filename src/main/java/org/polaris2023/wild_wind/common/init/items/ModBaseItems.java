@@ -5,9 +5,6 @@ import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
-import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
-import org.polaris2023.wild_wind.util.ItemPropertiesUtil;
 
 import java.util.Locale;
 import java.util.function.Consumer;
@@ -15,6 +12,7 @@ import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_1;
 import static org.polaris2023.wild_wind.util.ItemPropertiesUtil.STACK_TO_SNOW;
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.simpleItem;
 
 /**
  * @author : baka4n
@@ -34,8 +32,8 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     CHEESE_PUMPKIN_SOUP(STACK_TO_1),
     @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
     SPIDER_EGG(STACK_TO_1),
-    @I18n(en_us = "Spider Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
-    SPIDER_MUCOSA,
+    @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
+    COBWEB_MUCOSA,
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
     SALT,
     @I18n(en_us = "Fish Bone", zh_cn = "鱼骨", zh_tw = "魚骨")
@@ -45,10 +43,10 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     ;
     public final DeferredItem<Item> entry;
     ModBaseItems() {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT));
+        entry = simpleItem(name().toLowerCase(Locale.ROOT));
     }
     ModBaseItems(Consumer<Item.Properties> consumer) {
-        entry = ModInitializer.simpleItem(name().toLowerCase(Locale.ROOT), consumer);
+        entry = simpleItem(name().toLowerCase(Locale.ROOT), consumer);
     }
 
     @Override

@@ -1,14 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
-import biomesoplenty.init.ModCreativeTab;
-import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.*;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.annotation.language.I18n;
@@ -19,7 +14,6 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Supplier;
 
@@ -31,24 +25,9 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.TABS;
 public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Building block", zh_cn = "原野之风：建筑方块", zh_tw = "原野之風：建築方塊")
     BUILDING_BLOCK(ModBlocks.POLISHED_STONE::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.AZALEA_LOG);
-        output.accept(ModBlocks.AZALEA_WOOD);
-        output.accept(ModBlocks.STRIPPED_AZALEA_LOG);
-        output.accept(ModBlocks.STRIPPED_AZALEA_WOOD);
-        ModBlockFamilies.AZALEA_PLANKS.addCreativeTab(output);
-
-        output.accept(ModBlocks.PALM_LOG);
-        output.accept(ModBlocks.PALM_WOOD);
-        output.accept(ModBlocks.STRIPPED_PALM_LOG);
-        output.accept(ModBlocks.STRIPPED_PALM_WOOD);
-        output.accept(ModBlocks.PALM_CROWN);
-        ModBlockFamilies.PALM_PLANKS.addCreativeTab(output);
-
-        output.accept(ModBlocks.BAOBAB_LOG);
-        output.accept(ModBlocks.BAOBAB_WOOD);
-        output.accept(ModBlocks.STRIPPED_BAOBAB_LOG);
-        output.accept(ModBlocks.STRIPPED_BAOBAB_WOOD);
-        ModBlockFamilies.BAOBAB_PLANKS.addCreativeTab(output);
+        ModBlockFamilies.AZALEA.addCreativeTab(output);
+        ModBlockFamilies.PALM.addCreativeTab(output);
+        ModBlockFamilies.BAOBAB.addCreativeTab(output);
 
         output.accept(ModBlocks.STONE_WALL);
         output.accept(ModBlocks.POLISHED_STONE);
@@ -65,8 +44,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     }),
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
     NATURAL_BLOCKS(ModBlocks.SALT_ORE_ITEM::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.BRITTLE_ICE_ITEM);
-        output.accept(ModBlocks.ASH_BLOCK_ITEM);
+        output.accept(ModBlocks.BRITTLE_ICE);
+        output.accept(ModBlocks.ASH_BLOCK);
         output.accept(ModBlocks.ASH);
         output.accept(ModBlocks.SILT);
         output.accept(ModBlocks.QUICKSAND);
@@ -88,8 +67,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.DUCKWEED);
         output.accept(ModBlocks.GLISTERING_MELON);
         output.accept(ModBlocks.SCULK_JAW);
-        output.accept(ModBlocks.SPIDER_COVER);
-        output.accept(ModBaseItems.SPIDER_MUCOSA);
+        output.accept(ModBlocks.COBWEB_COVER);
+        output.accept(ModBaseItems.COBWEB_MUCOSA);
         output.accept(ModBaseItems.SPIDER_EGG);
         output.accept(ModBlocks.TINY_CACTUS);
     }, BUILDING_BLOCK),
@@ -136,7 +115,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.BAKED_BEETROOT);
                 output.accept(ModItems.LIVING_TUBER);
                 output.accept(ModBaseFoods.BAKED_LIVING_TUBER);
-                output.accept(ModBaseFoods.RAW_FROG_LEG);
+                output.accept(ModBaseFoods.FROG_LEG);
                 output.accept(ModBaseFoods.COOKED_FROG_LEG);
                 output.accept(ModBaseFoods.RAW_TROUT);
                 output.accept(ModBaseFoods.COOKED_TROUT);
@@ -145,6 +124,13 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.DOUGH);
                 output.accept(ModBaseFoods.COOKED_EGG);
                 output.accept(ModItems.CHEESE);
+                output.accept(ModBaseFoods.FAILED_CUISINE);
+                output.accept(ModBaseFoods.CHARRED_CUISINE);
+                output.accept(ModBaseFoods.VENISON);
+                output.accept(ModBaseFoods.COOKED_VENISON);
+                output.accept(ModBaseFoods.APPLE_PIE);
+                output.accept(ModBaseFoods.GOLDEN_APPLE_PIE);
+                output.accept(ModBaseFoods.ENCHANTED_GOLDEN_APPLE_PIE);
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {
@@ -152,9 +138,10 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModItems.GLOW_POWDER);
         output.accept(ModItems.ASH_DUST);
         output.accept(ModBaseItems.SALT);
+
     }, FOOD_AND_DRINK),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
-    WILD_WIND(ModBlocks.COOKING_POT_ITEM::toStack,
+    WILD_WIND(ModBlocks.COOKING_POT::toStack,
             () -> (__, output) -> {
                 for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
                     if (checkOr(item,

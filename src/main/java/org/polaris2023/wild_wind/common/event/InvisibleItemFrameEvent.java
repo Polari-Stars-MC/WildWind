@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -16,6 +15,8 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
+import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 import org.polaris2023.wild_wind.util.interfaces.ICustomItemFrame;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
@@ -26,14 +27,14 @@ public class InvisibleItemFrameEvent {
         Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         Entity entity = event.getTarget();
-        if ((entity.getType() == EntityType.ITEM_FRAME || entity.getType() == EntityType.GLOW_ITEM_FRAME)
+
+        if (entity.getType().is(ModEntityTypeTags.WILD_WIND_INVISIBLE.get())
                 && hand == InteractionHand.MAIN_HAND
-                && player.getItemInHand(hand).getItem() == ModItems.ASH_DUST.get()
+                && player.getItemInHand(hand).is(ModItemTags.WILD_WIND_INVISIBLE.get())
                 && player.isShiftKeyDown()
         ) {
             if (!world.isClientSide) {
                 ICustomItemFrame frame = (ICustomItemFrame) entity;
-
                 if (frame.wild_wind$getIsInvisible()) {
                     event.setCanceled(true);
                     return;

@@ -5,6 +5,7 @@ import org.polaris2023.annotation.KV;
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.modelgen.other.*;
+import org.polaris2023.annotation.register.ResourceLocation;
 import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
@@ -15,6 +16,7 @@ import java.lang.Override;
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 public class ModelProcessor extends ClassProcessor {
 
@@ -73,54 +75,52 @@ public class ModelProcessor extends ClassProcessor {
     public static String merge(String code, TypeElement typeElement, VariableElement element) {
         return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get());";
     }
+    public static String mergeNext(String code, TypeElement typeElement, VariableElement element) {
+        return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get())";
+    }
+
+    public void spawnEggItem(TypeElement typeElement, VariableElement variableElement) {
+        SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
+        if (spawnEggItem == null) return;
+        InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
+    }
+
+    public final List<BiConsumer<TypeElement, VariableElement>> runs = List.of(
+            this::spawnEggItem,
+            this::basicBlock,
+            this::cubeBottomTop,
+            this::parentItem,
+            this::cubeAllFor,
+            this::cross,
+            this::carpet
+    );
+
+
 
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
-
-
         BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
-        BasicItem basicItem = register(variableElement.getAnnotation(BasicItem.class));
+        BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
         BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
-        CubeAll cube = register(variableElement.getAnnotation(CubeAll.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
         Slab slab = register(variableElement.getAnnotation(Slab.class));
+        Wall wall = register(variableElement.getAnnotation(Wall.class));
         Log log = register(variableElement.getAnnotation(Log.class));
         Wood wood = register(variableElement.getAnnotation(Wood.class));
         Button button = register(variableElement.getAnnotation(Button.class));
-        SpawnEggItem spawnEggItem = register(variableElement.getAnnotation(SpawnEggItem.class));
-        ParentItem parentItem = register(variableElement.getAnnotation(ParentItem.class));
         Fence fence = register(variableElement.getAnnotation(Fence.class));
         FenceGate fenceGate = register(variableElement.getAnnotation(FenceGate.class));
         PressurePlate pressurePlate = register(variableElement.getAnnotation(PressurePlate.class));
         AllWood allWood = register(variableElement.getAnnotation(AllWood.class));
         AllSign allSign = register(variableElement.getAnnotation(AllSign.class));
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
+        AllBrick allBrick = register(variableElement.getAnnotation(AllBrick.class));
         //item model gen
-        if (spawnEggItem != null) {
-            InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
-        }
-        else if (parentItem != null) {
-            StringBuilder sb = new StringBuilder();
-            sb
-                    .append("itemModelProvider.withExistingParent(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
-                    .append(typeElement.getQualifiedName())
-                    .append(".")
-                    .append(variableElement.getSimpleName())
-                    .append(".get()).toString()")
-                    .append(", \"")
-                    .append(parentItem.parent())
-                    .append("\")");
-            for (KV texture : parentItem.textures()) {
-                sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
-            }
-            sb.append(";");
-            System.out.println(sb);
-            InitProcessor.modelGen(context, sb.toString());
+        runs.forEach(run -> run.accept(typeElement, variableElement));
 
-        }
-        else if (basicBlockItem != null) {
+        if (basicBlockItem != null) {
             blockItem(variableElement, typeElement, basicBlockItem);
         }
         else if (basicBlockLocatedItem != null) {
@@ -128,16 +128,11 @@ public class ModelProcessor extends ClassProcessor {
         }
         else if (basicItem != null && basicItem.used()) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-        }
-        else if (typeBasicItem != null &&
-                typeBasicItem.used() &&
-                variableElement.getModifiers().contains(Modifier.STATIC)) {
+        } else if (typeBasicItem != null && typeBasicItem.used() && variableElement.getModifiers().contains(Modifier.STATIC)) {
             basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
         }
         //block model gen
-        if (cube != null) {
-            checkAppend(typeElement, variableElement,"cubeAll", cube.texture(), cube.render_type(), cube.item());
-        }
+
         else if (cubeColumn != null) {
             checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
         }
@@ -162,7 +157,8 @@ public class ModelProcessor extends ClassProcessor {
                     all.isEmpty() ? stairs.bottom() : all,
                     all.isEmpty() ? stairs.side() : all,
                     all.isEmpty() ? stairs.top() : all,
-                    stairs.item()
+                    stairs.item(),
+                    stairs.type()
             );
         }
         else if (slab != null) {
@@ -171,8 +167,12 @@ public class ModelProcessor extends ClassProcessor {
                     all.isEmpty() ? slab.bottom() : all,
                     all.isEmpty() ? slab.side() : all,
                     all.isEmpty() ? slab.top() : all,
-                    slab.item()
+                    slab.item(),
+                    slab.type()
             );
+        }
+        else if(wall != null) {
+            checkAppend(typeElement, variableElement, "wallBlock", wall.wall(), wall.item(), wall.bricks());
         }
         else if (pressurePlate != null) {
             checkAppend(typeElement, variableElement, "pressurePlateBlock", pressurePlate.texture(), pressurePlate.item());
@@ -186,16 +186,135 @@ public class ModelProcessor extends ClassProcessor {
         else if (allWood != null) {
             checkAppend(typeElement, variableElement, "allWoodBlock");
         }
+        else if(allBrick != null) {
+            checkAppend(typeElement, variableElement, "allBrickBlock");
+        }
+    }
+
+    private String location(ResourceLocation location) {
+        return "ResourceLocation.fromNamespaceAndPath(\"" + location.namespace() + "\", \"" + location.path() + "\")";
+    }
+
+    private void cubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
+        CubeBottomTop cubeBottomTop = variableElement.getAnnotation(CubeBottomTop.class);
+        if (cubeBottomTop != null) {
+            
+        }
+    }
 
 
+    private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
+        CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
+        if (cubeAllFor != null) {
+            CubeAll cube = cubeAllFor.cube();
+            InitProcessor.modelGen(context, cubeAllModel(typeElement, variableElement, cube));
+            String def = cubeAllFor.def();
+            if (def.isEmpty()) def = cubeAllFor.cube().all();
+            for (int i = cubeAllFor.min(); i <= cubeAllFor.max(); i+=cubeAllFor.step()) {
+                InitProcessor.modelGen(context, "cubeAllModel(%s.%s, \"%s\", \"%s\", %d);".formatted(
+                        typeElement.getQualifiedName(),
+                        variableElement.getSimpleName(),
+                        cube.render_type(),
+                        def,
+                        i
+                ));
+            }
+        }
+    }
 
+    private static String cubeAllModel(TypeElement typeElement, VariableElement variableElement, CubeAll cube) {
+        return "cubeAllModel(%s.%s, \"%s\", \"%s\");"
+                .formatted(
+                        typeElement.getQualifiedName(),
+                        variableElement.getSimpleName(),
+                        cube != null ? cube.render_type() : "",
+                        cube != null ? cube.all() : ""
+                );
+    }
 
+    private static String cubeAllModel(String path, CubeAll cube) {
+        return "cubeAllModel(\"%s\", \"%s\", \"%s\");"
+                .formatted(
+                        path,
+                        cube != null ? cube.render_type() : "",
+                        cube != null ? cube.all() : ""
+                );
+    }
 
+    private void wall(TypeElement typeElement, VariableElement variableElement) {
+        Wall annotation = variableElement.getAnnotation(Wall.class);
+    }
 
+    private void cross(TypeElement typeElement, VariableElement variableElement) {
+        Cross cross = variableElement.getAnnotation(Cross.class);
+        if (cross != null) {
+            String sb = "cross(%s.%s, %s, \"%s\", \"%s\");".formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    cross.item(),
+                    cross.render_type(),
+                    cross.cross()
+            );
+            InitProcessor.modelGen(context, sb);
+        }
+    }
+
+    private void carpet(TypeElement typeElement, VariableElement variableElement) {
+        Carpet carpet = variableElement.getAnnotation(Carpet.class);
+        if (carpet != null) {
+            String sb = "carpet(%s.%s, %s, \"%s\", \"%s\");".formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    carpet.item(),
+                    carpet.render_type(),
+                    carpet.carpet()
+            );
+            InitProcessor.modelGen(context, sb);
+        }
+    }
+
+    private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
+        BasicBlock basicBlock = variableElement.getAnnotation(BasicBlock.class);
+        CubeAll cubeAll = variableElement.getAnnotation(CubeAll.class);
+
+        if ( cubeAll != null || basicBlock != null) {
+            String sb = "cubeAll(%s.%s, %s, \"%s\", \"%s\");"
+                    .formatted(
+                            typeElement.getQualifiedName(),
+                            variableElement.getSimpleName(),
+                            cubeAll != null ? cubeAll.item() : basicBlock.item(),
+                            cubeAll != null ? cubeAll.render_type() : basicBlock.render_type(),
+                            cubeAll != null ? cubeAll.all() : ""
+                    );
+            InitProcessor.modelGen(context, sb);
+        }
+    }
+
+    private void parentItem(TypeElement typeElement, VariableElement variableElement) {
+        ParentItem parentItem = variableElement.getAnnotation(ParentItem.class);
+        if (parentItem != null) {
+            StringBuilder sb = new StringBuilder();
+            sb
+                    .append("itemModelProvider.withExistingParent(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
+                    .append(typeElement.getQualifiedName())
+                    .append(".")
+                    .append(variableElement.getSimpleName())
+                    .append(".get()).toString()")
+                    .append(", \"")
+                    .append(parentItem.parent())
+                    .append("\")");
+            for (KV texture : parentItem.textures()) {
+                sb.append(".texture(\"").append(texture.key()).append("\", \"").append(texture.value()).append("\")");
+            }
+            sb.append(";");
+            InitProcessor.modelGen(context, sb.toString());
+
+        }
     }
 
     private void blockItem(VariableElement variableElement, TypeElement typeElement, BasicBlockItem basicBlockItem) {
         StringBuilder sb = new StringBuilder();
+
         sb
                 .append("itemModelProvider.simpleBlockItem(net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(")
                 .append(typeElement.getQualifiedName())

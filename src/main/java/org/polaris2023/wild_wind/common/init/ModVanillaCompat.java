@@ -1,10 +1,9 @@
 package org.polaris2023.wild_wind.common.init;
 
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.ComposterBlock;
 import net.minecraft.world.level.block.FireBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -28,24 +27,12 @@ public class ModVanillaCompat{
     public static final Map<ItemLike, Float> compostables = new HashMap<>();
 
     public static void setup() {
-        ModBlockFamilies.AZALEA_PLANKS.generateFlammable();
-        ModBlockFamilies.BAOBAB_PLANKS.generateFlammable();
-        ModBlockFamilies.PALM_PLANKS.generateFlammable();
+        ModBlockFamilies.AZALEA.generateFlammable();
+        ModBlockFamilies.BAOBAB.generateFlammable();
+        ModBlockFamilies.PALM.generateFlammable();
         registerFlammable(ModBlocks.BAOBAB_LEAVES.get(), 30, 60);
         registerFlammable(ModBlocks.PALM_LEAVES.get(), 30, 60);
         registerFlammable(ModBlocks.PALM_CROWN.get(), 5, 5);
-        registerFlammable(ModBlocks.AZALEA_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.BAOBAB_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.PALM_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.AZALEA_LOG.get(), 5, 5);
-        registerFlammable(ModBlocks.BAOBAB_LOG.get(), 5, 5);
-        registerFlammable(ModBlocks.PALM_LOG.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_AZALEA_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_BAOBAB_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_PALM_WOOD.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_AZALEA_LOG.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_BAOBAB_LOG.get(), 5, 5);
-        registerFlammable(ModBlocks.STRIPPED_PALM_LOG.get(), 5, 5);
 
         registerCompostable(0.85F, ModBaseFoods.BAKED_BEETROOT.entry);
         registerCompostable(0.85F, ModBaseFoods.BAKED_CARROT.entry);
@@ -69,6 +56,7 @@ public class ModVanillaCompat{
     }
 
     private static void registerCompostable(float chance, ItemLike item) {
+        ComposterBlock.COMPOSTABLES.put(item.asItem(), chance);
         compostables.put(item, chance);
     }
 

@@ -13,10 +13,11 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.wild_wind.common.init.ModEntities;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 
 import java.util.Locale;
 import java.util.function.Supplier;
+
+import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.register;
 
 /**
  * @author : baka4n
@@ -33,7 +34,7 @@ public enum ModMobBuckets implements Supplier<MobBucketItem>, ItemLike {
     public final DeferredItem<MobBucketItem> entry;
 
     <T extends EntityType<?>> ModMobBuckets(Supplier<T> type, Supplier<Fluid> content) {
-        this.entry = ModInitializer.register(name().toLowerCase(Locale.ROOT), () -> new MobBucketItem(
+        this.entry = register(name().toLowerCase(Locale.ROOT), () -> new MobBucketItem(
                 type.get(),
                 content.get(),
                 SoundEvents.BUCKET_EMPTY_FISH,

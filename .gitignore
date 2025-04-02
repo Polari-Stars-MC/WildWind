@@ -28,5 +28,7 @@ run-data
 
 repo
 
-src/generated
 /.xcodemap/
+/design/
+
+src/generated/

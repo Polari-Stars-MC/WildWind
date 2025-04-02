@@ -229,17 +229,27 @@ public class DyedBlockMap {//使用id存储内存量更小更准确
         bannerBlock.put(DyeColor.WHITE.getId(), Blocks.WHITE_BANNER);
         bannerBlock.put(DyeColor.YELLOW.getId(), Blocks.YELLOW_BANNER);
         dyedBlockMap.put("BANNER", bannerBlock);
+        Map<Integer, Block> wallBannerBlock= new HashMap<>();
+        wallBannerBlock.put(DyeColor.BLACK.getId(), Blocks.BLACK_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.BLUE.getId(), Blocks.BLUE_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.BROWN.getId(), Blocks.BROWN_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.CYAN.getId(), Blocks.CYAN_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.GRAY.getId(), Blocks.GRAY_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.GREEN.getId(), Blocks.GREEN_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.LIGHT_BLUE.getId(), Blocks.LIGHT_BLUE_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.LIGHT_GRAY.getId(), Blocks.LIGHT_GRAY_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.LIME.getId(), Blocks.LIME_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.MAGENTA.getId(), Blocks.MAGENTA_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.ORANGE.getId(), Blocks.ORANGE_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.PINK.getId(), Blocks.PINK_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.PURPLE.getId(), Blocks.PURPLE_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.RED.getId(), Blocks.RED_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.WHITE.getId(), Blocks.WHITE_WALL_BANNER);
+        wallBannerBlock.put(DyeColor.YELLOW.getId(), Blocks.YELLOW_WALL_BANNER);
+        dyedBlockMap.put("WALL_BANNER", wallBannerBlock);
 
     }
-    public Map<Integer,Block> getDyedBlock(String type){
+    public static Map<Integer,Block> getDyedBlock(String type){
         return dyedBlockMap.get(type);
     }
-
-    public static DyedBlockMap getInstance() {//获取式缓存机制
-        final class Handler {
-            public static final DyedBlockMap instance = new DyedBlockMap();
-        }
-        return Handler.instance;
-    }
-
 }

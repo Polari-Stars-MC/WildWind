@@ -7,5 +7,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface CubeAll {
     boolean item() default true;
     String render_type() default "";
-    String texture() default "";
+    String all() default "";
+
 }

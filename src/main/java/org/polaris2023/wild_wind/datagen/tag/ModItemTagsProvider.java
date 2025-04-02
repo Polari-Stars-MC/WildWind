@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.wild_wind.WildWindMod;
@@ -89,17 +89,32 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
         tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.PLANKS).add(ModBlocks.AZALEA_PLANKS_ITEM.get(), ModBlocks.PALM_PLANKS_ITEM.get(), ModBlocks.BAOBAB_PLANKS_ITEM.get());
         tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
         tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
-        ModBlockFamilies.AZALEA_PLANKS.generateItemTags(this::tag);
-        ModBlockFamilies.PALM_PLANKS.generateItemTags(this::tag);
-        ModBlockFamilies.BAOBAB_PLANKS.generateItemTags(this::tag);
-        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.RAW_FROG_LEG.get(),
+        tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
+        ModBlockFamilies.AZALEA.generateItemTags(this::tag);
+        ModBlockFamilies.PALM.generateItemTags(this::tag);
+        ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
+        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.FROG_LEG.get(),
                 ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
+        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
+        tag(ItemTags.BANNERS).add(ModBlocks.BANNER.get().asItem());
+        tag(ItemTags.STAIRS).add(
+                ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_STAIRS_ITEM.get()
+        );
+        tag(ItemTags.SLABS).add(
+                ModBlocks.ANDESITE_BRICK_SLAB_ITEM.get(), ModBlocks.DIORITE_BRICK_SLAB_ITEM.get(), ModBlocks.GRANITE_BRICK_SLAB_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_SLAB_ITEM.get()
+        );
+        tag(ItemTags.WALLS).add(
+                ModBlocks.STONE_WALL_ITEM.get(), ModBlocks.POLISHED_STONE_WALL_ITEM.get(),
+                ModBlocks.ANDESITE_BRICK_WALL_ITEM.get(), ModBlocks.DIORITE_BRICK_WALL_ITEM.get(), ModBlocks.GRANITE_BRICK_WALL_ITEM.get(),
+                ModBlocks.BLUE_ICE_BRICK_WALL_ITEM.get()
+        );
     }
 
     public static void add(IntrinsicTagAppender<Item> appender, ItemLike... likes) {
