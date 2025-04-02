@@ -128,7 +128,10 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Enchanted Golden Apple Pie", zh_cn = "附魔金苹果派", zh_tw = "附魔金蘋果派")
     @BasicItem(used = false)
     ENCHANTED_GOLDEN_APPLE_PIE(p -> p.rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true))
-    ;
+    ,
+    @I18n(en_us = "Berry Pie", zh_cn = "浆果派", zh_tw = "莓果派")
+    @BasicItem
+    BERRY_PIE;
 
     public final DeferredItem<Item> entry;
 

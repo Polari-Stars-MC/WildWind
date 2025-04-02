@@ -94,6 +94,8 @@ public enum ModFoods implements Supplier<FoodProperties> {
             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
     COOKED_VENISON(8, 0.8F),
     APPLE_PIE(6, 0.3F),
+    BERRY_PIE(8, 0.1F,
+            of(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 6000, 0), 1.0F)),
     GOLDEN_APPLE_PIE(8, 1.2F,
             of(() -> new MobEffectInstance(MobEffects.ABSORPTION, 3600, 0), 1.0F),
             of(() -> new MobEffectInstance(MobEffects.REGENERATION, 140, 1), 1.0F)),
