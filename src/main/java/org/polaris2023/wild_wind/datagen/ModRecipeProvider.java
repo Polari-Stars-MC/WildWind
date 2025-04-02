@@ -832,7 +832,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.APPLE_PIE.get(), 1, apple_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.APPLE_CAKE.get(), 1, apple_cake -> {
             unlockedBy(apple_cake, Items.APPLE);
             unlockedBy(apple_cake, Items.SUGAR);
             unlockedBy(apple_cake, Items.EGG);
