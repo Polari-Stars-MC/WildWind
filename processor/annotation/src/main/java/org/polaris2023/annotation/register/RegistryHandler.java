@@ -9,5 +9,9 @@ import java.lang.annotation.RetentionPolicy;
  * 获取注册表所在位置
  */
 @Retention(RetentionPolicy.SOURCE)
-public @interface RegistryHandle {
+public @interface RegistryHandler {
+    Type value() default Type.NONE;
+    enum Type {
+        NONE,Item, Block, Entity,
+    }
 }

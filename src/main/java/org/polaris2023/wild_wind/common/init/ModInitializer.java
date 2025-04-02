@@ -80,7 +80,7 @@ public interface ModInitializer extends BlockRegistry {
         init(bus, ModBlocks.class, BLOCKS, TILES);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ModItems.ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ModItems.REGISTER);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
@@ -142,7 +142,7 @@ public interface ModInitializer extends BlockRegistry {
                         : token.isSubtypeOf(Potion.class)
                         ? POTIONS.getEntries()
                         : token.isSubtypeOf(Item.class)
-                        ? ModItems.ITEMS.getEntries()
+                        ? ModItems.REGISTER.getEntries()
                         : token.isSubtypeOf(CreativeModeTab.class)
                         ? TABS.getEntries()
                         : token.isSubtypeOf(PoiType.class)

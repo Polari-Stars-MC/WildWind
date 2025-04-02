@@ -12,6 +12,7 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
+import org.polaris2023.annotation.register.RegistryHandler;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.*;
@@ -22,9 +23,10 @@ import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
-
+@RegistryHandler(RegistryHandler.Type.Item)
 public class ModItems {
-    public static final DeferredRegister.Items ITEMS =
+
+    public static final DeferredRegister.Items REGISTER =
             DeferredRegister.createItems(MOD_ID);
 
     @BasicItem

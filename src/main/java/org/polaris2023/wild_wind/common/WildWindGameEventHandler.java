@@ -20,6 +20,8 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Cow;
@@ -76,6 +78,29 @@ import static org.polaris2023.wild_wind.common.dyed.handler.RightClickHandler.ri
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class WildWindGameEventHandler {
+
+    @SubscribeEvent
+    public static void rightClickItem(PlayerInteractEvent.RightClickItem event) {
+        Player player = event.getEntity();
+        ItemStack itemStack = event.getItemStack();
+        InteractionHand hand = event.getHand();
+        if (itemStack.is(Items.EGG)) {
+            FoodProperties foodproperties = itemStack.getFoodProperties(player);
+            if (foodproperties != null) {
+                if (player.canEat(foodproperties.canAlwaysEat())) {
+                    player.startUsingItem(hand);
+                    event.setCancellationResult(InteractionResultHolder.consume(itemStack).getResult());
+
+                } else {
+                    event.setCancellationResult(InteractionResultHolder.fail(itemStack).getResult());
+                }
+            } else {
+                event.setCancellationResult(InteractionResultHolder.pass(itemStack).getResult());
+            }
+            event.setCanceled(true);
+        }
+
+    }
 
     @SubscribeEvent
     public static void cropGrowPost(CropGrowEvent.Post event) {
