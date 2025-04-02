@@ -27,7 +27,6 @@ import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
-import org.polaris2023.wild_wind.datagen.ModGLM;
 import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import java.util.Collection;
@@ -87,7 +86,7 @@ public interface ModInitializer extends BlockRegistry {
         init(bus, ModVillagers.class, POIS, VILLAGERS, PROFESSIONS);
         init(bus, ModMenus.class, MENU_TYPES);
         init(bus, ModInstruments.class, INSTRUMENTS);
-        init(bus, ModGLM.class, GLMS);
+        init(bus, ModGlobalLootModifiers.class, GLMS);
     }
 
     static void init(IEventBus bus, Class<?> clazz, DeferredRegister<?>... registers) {

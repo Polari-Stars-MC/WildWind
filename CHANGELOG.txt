@@ -3,6 +3,6 @@
 2025/4/1
     Fixed an issue where the registration name was not fixed.
     Add venison and apple pie.
-
 2025/4/2
+    Add Fur.
 2025/4/3

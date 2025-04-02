@@ -56,6 +56,7 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(output, provider, helper));
         gen.addProvider(event.includeServer(), new ModCompostMapProvider(output, provider));
         gen.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(output, lookupProvider, helper));
+        gen.addProvider(event.includeServer(), new ModGlobalLootModifierProvider(output, provider));
 
         gen.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
                 Component.literal("Resources for Wild Wind"),
