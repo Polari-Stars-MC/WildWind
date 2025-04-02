@@ -10,14 +10,17 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.common.init.ModItems;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.ITEMS;
+import static org.polaris2023.wild_wind.common.init.ModItems.ITEMS;
 
 /**
  * @author : baka4n
@@ -61,7 +64,7 @@ public interface ItemRegistry {
                                                        int backgroundColor,
                                                        int highlightColor,
                                                        Consumer<Item.Properties> consumer) {
-        return ModInitializer.ITEMS.registerItem(name, properties -> {
+        return ITEMS.registerItem(name, properties -> {
             consumer.accept(properties);
             return new DeferredSpawnEggItem(type, backgroundColor, highlightColor, properties);
         });
@@ -92,5 +95,9 @@ public interface ItemRegistry {
                                                                                                                                      DeferredBlock<SST> standing,
                                                                                                                                      DeferredBlock<WST> wall) {
         return ITEMS.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
+    }
+
+    static Collection<DeferredHolder<Item, ? extends Item>> items() {
+        return ITEMS.getEntries();
     }
 }
