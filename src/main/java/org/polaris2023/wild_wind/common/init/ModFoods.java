@@ -89,7 +89,17 @@ public enum ModFoods implements Supplier<FoodProperties> {
             of(() -> new MobEffectInstance(MobEffects.CONFUSION, 600, 0), 0.3F)),
     POPPED_CHORUS_FRUIT(4, 0.3F, FoodProperties.Builder::alwaysEdible),
     CHARRED_CUISINE(0,0.0F),
-    FAILED_CUISINE(0,0.0F);
+    FAILED_CUISINE(0,0.0F),
+    BAT_WING(2, 0.1F,
+             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
+    COOKED_BAT_WING(4, 0.8F),
+    CALAMARI(2, 0.1F),
+    GLOWING_CALAMARI(2, 0.1F),
+    COOKED_CALAMARI(4, 0.8F),
+    BERRY_PIE(8, 0.1F,
+            of(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 6000, 0), 1F))
+
+    ;
     private final FoodProperties properties;
 
     @SafeVarargs

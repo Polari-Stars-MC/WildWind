@@ -821,7 +821,7 @@ public class ModRecipeProvider extends RecipeProvider {
                                     new ItemStack(Items.APPLE),
                                     new ItemStack(Items.SWEET_BERRIES, 2)));
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.BERRY_CAKE.get(), 1, berry_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.BERRY_PIE.get(), 1, berry_cake -> {
             unlockedBy(berry_cake, Items.SWEET_BERRIES);
             unlockedBy(berry_cake, Items.GLOW_BERRIES);
             unlockedBy(berry_cake, Items.SUGAR);
@@ -832,7 +832,7 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.APPLE_CAKE.get(), 1, apple_cake -> {
+        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.APPLE_PIE.get(), 1, apple_cake -> {
             unlockedBy(apple_cake, Items.APPLE);
             unlockedBy(apple_cake, Items.SUGAR);
             unlockedBy(apple_cake, Items.EGG);

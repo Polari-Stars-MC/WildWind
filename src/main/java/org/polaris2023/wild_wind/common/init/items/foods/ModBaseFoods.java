@@ -88,8 +88,32 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
 
     @I18n(en_us = "Charred Cuisine", zh_cn = "焦糊料理", zh_tw = "焦糊料理")
      CHARRED_CUISINE,
-    @I18n(en_us = "Failed Cuisine", zh_cn = "失败料理", zh_tw = "失败料理")
+    @I18n(en_us = "Failed Cuisine", zh_cn = "失败料理", zh_tw = "失敗料理")
     FAILED_CUISINE,
+    @I18n(en_us = "Bat Wing", zh_cn = "生蝙蝠翅膀", zh_tw = "生蝙蝠翅膀")
+    BAT_WING(p -> p
+                    .component(ModComponents.MEAT_VALUE, 0.5F)
+                    .component(ModComponents.MONSTER_VALUE, 1F)),
+    @I18n(en_us = "Cooked Bat Wing", zh_cn = "熟蝙蝠翅膀", zh_tw = "熟蝙蝠翅膀")
+    COOKED_BAT_WING(p -> p
+            .component(ModComponents.MEAT_VALUE, 0.5F)
+            .component(ModComponents.MONSTER_VALUE, 1F)),
+    @I18n(en_us = "Calamari", zh_cn = "鱿鱼须", zh_tw = "鱿鱼须")
+    CALAMARI(p -> p
+            .component(ModComponents.MEAT_VALUE, 0.5F)
+            .component(ModComponents.FISH_VALUE, 0.5F)),
+    @I18n(en_us = "Glowing Calamari", zh_cn = "发光鱿鱼须", zh_tw = "發光鱿鱼须")
+    GLOWING_CALAMARI(p -> p
+            .component(ModComponents.MEAT_VALUE, 0.5F)
+            .component(ModComponents.FISH_VALUE, 0.5F)),
+    @I18n(en_us = "Cooked Calamari", zh_cn = "熟鱿鱼须", zh_tw = "熟鱿鱼须")
+    COOKED_CALAMARI(p -> p
+            .component(ModComponents.MEAT_VALUE, 0.5F)
+            .component(ModComponents.FISH_VALUE, 0.5F)),
+    @I18n(en_us = "Berry Pie", zh_cn = "浆果派", zh_tw = "莓果派")
+    BERRY_PIE,
+
+
 
 
     ;
