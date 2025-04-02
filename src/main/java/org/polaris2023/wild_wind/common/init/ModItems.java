@@ -8,11 +8,15 @@ import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import net.neoforged.neoforge.registries.DeferredItem;
 import org.polaris2023.annotation.language.I18n;
+import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
+import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
+import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.*;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
+import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
 
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
