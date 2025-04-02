@@ -26,8 +26,6 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     // ASH_DUST,
     @I18n(en_us = "Apple Cake", zh_cn = "苹果派", zh_tw = "蘋果派")
     APPLE_CAKE,
-    @I18n(en_us = "Berry Cake", zh_cn = "浆果派", zh_tw = "漿果派")
-    BERRY_CAKE,
     @I18n(en_us = "Candy", zh_cn = "糖果", zh_tw = "糖果")
     CANDY(STACK_TO_SNOW),
     @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")
@@ -37,7 +35,11 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     COBWEB_MUCOSA,
     @I18n(en_us = "salt", zh_cn = "盐", zh_tw = "鹽")
-    SALT
+    SALT,
+    @I18n(en_us = "Fish Bone", zh_cn = "鱼骨", zh_tw = "魚骨")
+    FISH_BONE,
+    @I18n(en_us = "Charred Bone", zh_cn = "焦脆骨头", zh_tw = "焦脆骨頭")
+    CHARRED_BONE,
     ;
     public final DeferredItem<Item> entry;
     ModBaseItems() {
