@@ -12,6 +12,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.polaris2023.wild_wind.datagen.loot.ModBlockLootSubProvider;
 import org.polaris2023.wild_wind.datagen.loot.ModEntityLootSubProvider;
+import org.polaris2023.wild_wind.datagen.loot.ModEntityExtraLootSubProvider;
 
 import java.util.List;
 import java.util.Set;
@@ -23,7 +24,8 @@ public class ModLootTableProvider extends LootTableProvider {
                                 CompletableFuture<HolderLookup.Provider> registries) {
         super(output, Set.of(), List.of(
                 gen(ModEntityLootSubProvider::new, LootContextParamSets.ENTITY),
-                gen(ModBlockLootSubProvider::new, LootContextParamSets.BLOCK)
+                gen(ModBlockLootSubProvider::new, LootContextParamSets.BLOCK),
+                gen(ModEntityExtraLootSubProvider::new, LootContextParamSets.ENTITY)
         ), registries);
     }
 
