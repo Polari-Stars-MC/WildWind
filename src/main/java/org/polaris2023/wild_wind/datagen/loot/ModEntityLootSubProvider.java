@@ -16,14 +16,11 @@ import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.common.init.ModEntities;
 import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
-import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 
 import java.util.stream.Stream;
 
 public class ModEntityLootSubProvider extends EntityLootSubProvider {
-
-
     public ModEntityLootSubProvider(HolderLookup.Provider registries) {
         super(FeatureFlags.DEFAULT_FLAGS, registries);
     }
