@@ -11,7 +11,7 @@ import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.client.model.generators.ModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
+import org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -47,7 +47,7 @@ public class CheckGenTextures implements DataProvider {
                 .resolve(modid)
                 .resolve("textures");
         Path item = textures.resolve("item");
-        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ModInitializer.items();
+        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ItemRegistry.entry();
         CompletableFuture<Void>[] futures = new CompletableFuture[itemEntry.size()];
         Font arial = new Font("Arial", Font.PLAIN, 12);
         int i = 0;

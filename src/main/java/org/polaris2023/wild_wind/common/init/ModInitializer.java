@@ -43,8 +43,7 @@ public interface ModInitializer extends BlockRegistry {
             DeferredRegister.create(Registries.ENTITY_TYPE, MOD_ID);
     DeferredRegister<Fluid> FLUIDS =
             DeferredRegister.create(BuiltInRegistries.FLUID, MOD_ID);
-    DeferredRegister.Blocks BLOCKS =
-            DeferredRegister.createBlocks(MOD_ID);
+
     DeferredRegister<BlockEntityType<?>> TILES =
             DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, MOD_ID);
     DeferredRegister<CreativeModeTab> TABS =
@@ -53,8 +52,7 @@ public interface ModInitializer extends BlockRegistry {
             DeferredRegister.create(Registries.MOB_EFFECT, MOD_ID);
     DeferredRegister<Potion> POTIONS =
             DeferredRegister.create(Registries.POTION, MOD_ID);
-    DeferredRegister.Items ITEMS =
-            DeferredRegister.createItems(MOD_ID);
+
     DeferredRegister<RecipeType<?>> RECIPES =
             DeferredRegister.create(Registries.RECIPE_TYPE, MOD_ID);
     DeferredRegister<RecipeSerializer<?>> RECIPES_SERIALIZERS =
@@ -77,10 +75,10 @@ public interface ModInitializer extends BlockRegistry {
         init(bus, ModSounds.class, SOUNDS);
         init(bus, ModEntities.class, ENTITIES);
         init(bus, ModFluids.class, FLUIDS);
-        init(bus, ModBlocks.class, BLOCKS, TILES);
+        init(bus, ModBlocks.class, ModBlocks.BLOCKS, TILES);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
-        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ITEMS);
+        init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ModItems.REGISTER);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
@@ -114,14 +112,6 @@ public interface ModInitializer extends BlockRegistry {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
     }
 
-    static Collection<DeferredHolder<Item, ? extends Item>> items() {
-        return ITEMS.getEntries();
-    }
-
-    static Collection<DeferredHolder<Block, ? extends Block>> blocks() {
-        return BLOCKS.getEntries();
-    }
-
     static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
         return ENTITIES.getEntries();
     }
@@ -140,13 +130,13 @@ public interface ModInitializer extends BlockRegistry {
                         : token.isSubtypeOf(Fluid.class)
                         ? FLUIDS.getEntries()
                         : token.isSubtypeOf(Block.class)
-                        ? BLOCKS.getEntries()
+                        ? ModBlocks.BLOCKS.getEntries()
                         : token.isSubtypeOf(MobEffect.class)
                         ? EFFECTS.getEntries()
                         : token.isSubtypeOf(Potion.class)
                         ? POTIONS.getEntries()
                         : token.isSubtypeOf(Item.class)
-                        ? ITEMS.getEntries()
+                        ? ModItems.REGISTER.getEntries()
                         : token.isSubtypeOf(CreativeModeTab.class)
                         ? TABS.getEntries()
                         : token.isSubtypeOf(PoiType.class)
