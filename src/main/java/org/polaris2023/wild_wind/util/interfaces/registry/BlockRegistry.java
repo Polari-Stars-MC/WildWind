@@ -3,10 +3,12 @@ package org.polaris2023.wild_wind.util.interfaces.registry;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
+import java.util.Collection;
 import java.util.function.Function;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.BLOCKS;
+import static org.polaris2023.wild_wind.common.init.ModBlocks.BLOCKS;
 
 /**
  * @author : baka4n
@@ -23,6 +25,10 @@ public interface BlockRegistry {
 
     static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
         return BLOCKS.registerSimpleBlock(name, properties);
+    }
+
+    static Collection<DeferredHolder<Block, ? extends Block>> entry() {
+        return BLOCKS.getEntries();
     }
 
 

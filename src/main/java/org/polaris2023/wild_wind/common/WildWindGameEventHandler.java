@@ -197,7 +197,7 @@ public class WildWindGameEventHandler {
 
             BlockPos relative = event.getPos().relative(face);
             if (level.getBlockState(relative).canBeReplaced()) {
-                event.getLevel().setBlockAndUpdate(relative, ModFluids.MILK_BLOCK.get().defaultBlockState());
+                event.getLevel().setBlockAndUpdate(relative, ModBlocks.MILK_BLOCK.get().defaultBlockState());
                 player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
                 event.setCanceled(true);
             }

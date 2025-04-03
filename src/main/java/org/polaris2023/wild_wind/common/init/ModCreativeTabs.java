@@ -144,7 +144,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT::toStack,
             () -> (__, output) -> {
-                for (DeferredHolder<Item, ? extends Item> item : ItemRegistry.items()) {
+                for (DeferredHolder<Item, ? extends Item> item : ItemRegistry.entry()) {
                     if (checkOr(item,
                             BUILDING_BLOCK,
                             NATURAL_BLOCKS,

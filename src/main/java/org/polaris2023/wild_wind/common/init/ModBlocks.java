@@ -28,12 +28,16 @@ import org.polaris2023.wild_wind.common.block.modified.*;
 
 import java.util.Arrays;
 
+import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 @SuppressWarnings("unused")
 public class ModBlocks {
+    public static final DeferredRegister.Blocks BLOCKS =
+            DeferredRegister.createBlocks(MOD_ID);
+
     public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
@@ -500,6 +504,8 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_STAIRS_ITEM = register("blue_ice_brick_stairs", BLUE_ICE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_SLAB_ITEM = register("blue_ice_brick_slab", BLUE_ICE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_WALL_ITEM = register("blue_ice_brick_wall", BLUE_ICE_BRICK_WALL);
+
+    public static final DeferredBlock<LiquidBlock> MILK_BLOCK = BLOCKS.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

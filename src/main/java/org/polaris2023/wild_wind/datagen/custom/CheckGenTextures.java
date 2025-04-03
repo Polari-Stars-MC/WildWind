@@ -47,7 +47,7 @@ public class CheckGenTextures implements DataProvider {
                 .resolve(modid)
                 .resolve("textures");
         Path item = textures.resolve("item");
-        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ItemRegistry.items();
+        Collection<DeferredHolder<Item, ? extends Item>> itemEntry = ItemRegistry.entry();
         CompletableFuture<Void>[] futures = new CompletableFuture[itemEntry.size()];
         Font arial = new Font("Arial", Font.PLAIN, 12);
         int i = 0;

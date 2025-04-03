@@ -95,7 +95,7 @@ public interface ItemRegistry {
         return REGISTER.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
     }
 
-    static Collection<DeferredHolder<Item, ? extends Item>> items() {
+    static Collection<DeferredHolder<Item, ? extends Item>> entry() {
         return REGISTER.getEntries();
     }
 }

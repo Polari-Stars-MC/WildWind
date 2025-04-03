@@ -35,6 +35,7 @@ import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import java.util.Set;
 
@@ -47,7 +48,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return ModInitializer.blocks().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
+        return BlockRegistry.entry().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
     }
 
     @Override
