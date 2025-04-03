@@ -19,9 +19,7 @@ public class ModVanillaCompat{
     }
 
     private static void registerFuels(final FurnaceFuelBurnTimeEvent event) {
-        if (event.getItemStack().is(ModBlocks.PALM_CROWN.get().asItem())) {
-            event.setBurnTime(300);
-        }
+
     }
 
     public static final Map<ItemLike, Float> compostables = new HashMap<>();
