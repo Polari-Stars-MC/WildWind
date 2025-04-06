@@ -30,6 +30,7 @@ public class RegistryHandlerProcessor extends ClassProcessor {
                     tree.getMembers().stream().filter(t -> t.getKind().equals(Tree.Kind.VARIABLE))
                             .map(t -> (VariableTree) t).findFirst()
             );
+            InitProcessor.REGISTRY_CLASS_MAP.put(value, tree);
         }
     }
 }
