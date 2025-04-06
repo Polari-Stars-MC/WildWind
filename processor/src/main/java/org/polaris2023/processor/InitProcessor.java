@@ -17,6 +17,7 @@ import org.polaris2023.processor.clazz.ClassProcessor;
 import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
 import org.polaris2023.processor.clazz.datagen.ModelProcessor;
+import org.polaris2023.processor.clazz.registry.AttachmentRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.BlockRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.ItemRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.RegistryHandlerProcessor;
@@ -101,6 +102,7 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new RegistryHandlerProcessor(environment));
         classProcessors.add(new BlockRegistryProcessor(environment));
         classProcessors.add(new ItemRegistryProcessor(environment));
+        classProcessors.add(new AttachmentRegistryProcessor(environment));
     }
 
     /**

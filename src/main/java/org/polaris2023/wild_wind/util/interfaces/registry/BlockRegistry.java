@@ -8,7 +8,7 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import java.util.Collection;
 import java.util.function.Function;
 
-import static org.polaris2023.wild_wind.common.init.ModBlocks.BLOCKS;
+import static org.polaris2023.wild_wind.common.init.ModBlocks.REGISTER;
 
 /**
  * @author : baka4n
@@ -16,19 +16,19 @@ import static org.polaris2023.wild_wind.common.init.ModBlocks.BLOCKS;
  */
 public interface BlockRegistry {
     static DeferredBlock<Block> register(String name) {
-        return BLOCKS.registerSimpleBlock(name, BlockBehaviour.Properties.of());
+        return REGISTER.registerSimpleBlock(name, BlockBehaviour.Properties.of());
     }
 
     static <T extends Block> DeferredBlock<T> register(String name, Function<BlockBehaviour.Properties, T> function, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerBlock(name, function, properties);
+        return REGISTER.registerBlock(name, function, properties);
     }
 
     static DeferredBlock<Block> register(String name, BlockBehaviour.Properties properties) {
-        return BLOCKS.registerSimpleBlock(name, properties);
+        return REGISTER.registerSimpleBlock(name, properties);
     }
 
     static Collection<DeferredHolder<Block, ? extends Block>> entry() {
-        return BLOCKS.getEntries();
+        return REGISTER.getEntries();
     }
 
 

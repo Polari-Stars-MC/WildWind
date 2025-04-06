@@ -23,6 +23,7 @@ import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.register.RegistryBlockItem;
+import org.polaris2023.annotation.register.RegistryHandler;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
@@ -36,9 +37,10 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
+@RegistryHandler(RegistryHandler.Type.Block)
 @SuppressWarnings("unused")
 public class ModBlocks {
-    public static final DeferredRegister.Blocks BLOCKS =
+    public static final DeferredRegister.Blocks REGISTER =
             DeferredRegister.createBlocks(MOD_ID);
 
     public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
@@ -527,7 +529,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_SLAB_ITEM = register("blue_ice_brick_slab", BLUE_ICE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_WALL_ITEM = register("blue_ice_brick_wall", BLUE_ICE_BRICK_WALL);
 
-    public static final DeferredBlock<LiquidBlock> MILK_BLOCK = BLOCKS.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
+    public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
