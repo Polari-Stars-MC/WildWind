@@ -6,7 +6,6 @@ import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.List;
-import com.sun.tools.javac.util.ListBuffer;
 import org.polaris2023.annotation.register.RegistryBlockItem;
 import org.polaris2023.annotation.register.RegistryHandler;
 import org.polaris2023.processor.InitProcessor;
@@ -15,7 +14,6 @@ import org.polaris2023.utils.JCUtils;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.lang.annotation.Annotation;
 import java.util.Optional;
 
 /**
