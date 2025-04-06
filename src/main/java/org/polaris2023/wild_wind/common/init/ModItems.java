@@ -25,9 +25,7 @@ import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 @RegistryHandler(RegistryHandler.Type.Item)
 public class ModItems {
-
-    public static final DeferredRegister.Items REGISTER =
-            DeferredRegister.createItems(MOD_ID);
+    public static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(MOD_ID);
 
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
