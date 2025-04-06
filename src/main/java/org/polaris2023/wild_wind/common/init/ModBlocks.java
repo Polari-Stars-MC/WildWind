@@ -5,6 +5,7 @@ import com.mojang.datafixers.types.Type;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
@@ -16,10 +17,12 @@ import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.Nullable;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
+import org.polaris2023.annotation.register.RegistryBlockItem;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
@@ -28,17 +31,22 @@ import org.polaris2023.wild_wind.common.block.modified.*;
 
 import java.util.Arrays;
 
+import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
 @SuppressWarnings("unused")
 public class ModBlocks {
+    public static final DeferredRegister.Blocks BLOCKS =
+            DeferredRegister.createBlocks(MOD_ID);
+
     public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
+    @RegistryBlockItem
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
 
 
@@ -53,6 +61,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> SPIDER_EGG = register("spider_egg", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Cobweb Cover", zh_cn = "蛛丝覆层", zh_tw = "蛛絲覆層")
+    @RegistryBlockItem
     public static final DeferredBlock<Block> COBWEB_COVER = register("cobweb_cover", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
@@ -72,6 +81,7 @@ public class ModBlocks {
 
 
     @I18n(en_us = "Bed", zh_cn = "床", zh_tw = "床")
+    @RegistryBlockItem
     public static final DeferredBlock<NeoBedBlock> BED = register("bed", NeoBedBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BED));
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
@@ -84,6 +94,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
                     .sound(SoundType.MUD)
@@ -97,6 +108,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
                     .sound(SoundType.SAND)
@@ -106,18 +118,22 @@ public class ModBlocks {
 
     @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<QuicksandBlock> RED_QUICKSAND = register("red_quicksand", p -> new QuicksandBlock(p, Blocks.RED_SAND.defaultBlockState()),
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f).sound(SoundType.SAND).isSuffocating((state, level, pos) -> true).pushReaction(PushReaction.DESTROY));
 
     @I18n(en_us = "Cooking Pot", zh_cn = "烹饪锅", zh_tw = "烹饪鍋具")
+    @RegistryBlockItem
     public static final DeferredBlock<CookingPotBlock> COOKING_POT = register("cooking_pot", CookingPotBlock::new, BlockBehaviour.Properties.of().strength(2.0F, 6.0F));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<CookingPotBlockEntity>> COOKING_POT_TILE =
             entity("cooking_pot", DSL.remainderType(), CookingPotBlockEntity::new, COOKING_POT);
 
     @I18n(en_us = "Sculk Jaw", zh_cn = "幽匿颚口", zh_tw = "幽匿顎口")
+    @RegistryBlockItem
     public static final DeferredBlock<SculkJawBlock> SCULK_JAW = register("sculk_jaw", SculkJawBlock::new, BlockBehaviour.Properties.of());
 
     @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
+
     public static final DeferredBlock<DuckweedBlock> DUCKWEED = register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
@@ -129,11 +145,13 @@ public class ModBlocks {
             max = 3,
             def = "wild_wind:block/brittle_ice"
     )
+    @RegistryBlockItem
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
 
     @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<Block> ASH_BLOCK = register("ash_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
 
 
@@ -143,6 +161,7 @@ public class ModBlocks {
   
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<Block> WOOL = register("wool", BlockBehaviour.Properties.of()
             .instrument(NoteBlockInstrument.GUITAR)
             .strength(0.8F)
@@ -152,11 +171,13 @@ public class ModBlocks {
 
     @I18n(en_us = "carpet", zh_cn = "地毯", zh_tw = "地毯")
     @Carpet(carpet = "wild_wind:block/wool")
+    @RegistryBlockItem
     public static final DeferredBlock<CarpetBlock> CARPET = register("carpet", CarpetBlock::new, BlockBehaviour.Properties.of().strength(0.1F).sound(SoundType.WOOL).ignitedByLava() );
 
 
     @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
     @BasicBlock
+    @RegistryBlockItem
     public static final DeferredBlock<Block> CONCRETE = register("concrete", BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE).strength(0.8F).ignitedByLava());
 
     @I18n(en_us = "Concrete Powder", zh_cn = "混凝土粉末", zh_tw = "混凝土粉末")
@@ -351,7 +372,12 @@ public class ModBlocks {
     @I18n(en_us = "Palm Crown", zh_cn = "棕榈树冠", zh_tw = "棕櫚樹冠")
     @BasicBlock
     public static final DeferredBlock<Block> PALM_CROWN = register("palm_crown", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD));
-    public static final DeferredItem<BlockItem> PALM_CROWN_ITEM = register("palm_crown", PALM_CROWN);
+    public static final DeferredItem<BlockItem> PALM_CROWN_ITEM = register("palm_crown", p -> new BlockItem(PALM_CROWN.get(), p) {
+        @Override
+        public int getBurnTime(ItemStack itemStack, @Nullable RecipeType<?> recipeType) {
+            return 300;
+        }
+    });
 
     @AllWood
     @I18n(en_us = "Baobab Planks", zh_cn = "猴面包木板", zh_tw = "猴麵包木材")
@@ -500,6 +526,8 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_STAIRS_ITEM = register("blue_ice_brick_stairs", BLUE_ICE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_SLAB_ITEM = register("blue_ice_brick_slab", BLUE_ICE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_WALL_ITEM = register("blue_ice_brick_wall", BLUE_ICE_BRICK_WALL);
+
+    public static final DeferredBlock<LiquidBlock> MILK_BLOCK = BLOCKS.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

@@ -10,14 +10,15 @@ import net.minecraft.world.item.SignItem;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
 import net.neoforged.neoforge.registries.DeferredBlock;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 
+import java.util.Collection;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static org.polaris2023.wild_wind.common.init.ModInitializer.ITEMS;
+import static org.polaris2023.wild_wind.common.init.ModItems.REGISTER;
 
 /**
  * @author : baka4n
@@ -26,11 +27,11 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.ITEMS;
 public interface ItemRegistry {
 
     static DeferredItem<Item> simpleItem(String name) {
-        return ITEMS.registerSimpleItem(name);
+        return REGISTER.registerSimpleItem(name);
     }
 
     static DeferredItem<Item> item(String name, Function<Item.Properties, Item> toItemFunction) {
-        return ITEMS.registerItem(name, toItemFunction);
+        return REGISTER.registerItem(name, toItemFunction);
     }
 
     static DeferredItem<Item> simpleItem(String name, Consumer<Item.Properties> consumer) {
@@ -49,11 +50,11 @@ public interface ItemRegistry {
     }
 
     static <T extends Item> DeferredItem<T> register(String name, Function<Item.Properties, T> item) {
-        return ITEMS.registerItem(name, item);
+        return REGISTER.registerItem(name, item);
     }
 
     static <T extends Item> DeferredItem<T> register(String name, Supplier<T> item) {
-        return ITEMS.register(name, item);
+        return REGISTER.register(name, item);
     }
 
     static DeferredItem<DeferredSpawnEggItem> register(String name,
@@ -61,7 +62,7 @@ public interface ItemRegistry {
                                                        int backgroundColor,
                                                        int highlightColor,
                                                        Consumer<Item.Properties> consumer) {
-        return ModInitializer.ITEMS.registerItem(name, properties -> {
+        return REGISTER.registerItem(name, properties -> {
             consumer.accept(properties);
             return new DeferredSpawnEggItem(type, backgroundColor, highlightColor, properties);
         });
@@ -75,22 +76,26 @@ public interface ItemRegistry {
     }
 
     static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block) {
-        return ITEMS.registerSimpleBlockItem(name, block);
+        return REGISTER.registerSimpleBlockItem(name, block);
     }
 
     static <T extends Block> DeferredItem<BlockItem> register(String name, DeferredBlock<T> block, Supplier<FoodProperties> supplier) {
-        return ITEMS.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
+        return REGISTER.registerItem(name, properties -> new BlockItem(block.get(), properties.food(supplier.get())));
     }
 
     static <SST extends StandingSignBlock, WST extends WallSignBlock> DeferredItem<SignItem> registerSign(String name,
                                                                                                           DeferredBlock<SST> standing,
                                                                                                           DeferredBlock<WST> wall) {
-        return ITEMS.registerItem(name, properties -> new SignItem(properties.stacksTo(16), standing.get(), wall.get()));
+        return REGISTER.registerItem(name, properties -> new SignItem(properties.stacksTo(16), standing.get(), wall.get()));
     }
 
     static <SST extends CeilingHangingSignBlock, WST extends WallHangingSignBlock> DeferredItem<HangingSignItem> registerHangingSign(String name,
                                                                                                                                      DeferredBlock<SST> standing,
                                                                                                                                      DeferredBlock<WST> wall) {
-        return ITEMS.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
+        return REGISTER.registerItem(name, properties -> new HangingSignItem(standing.get(), wall.get(), properties.stacksTo(16)));
+    }
+
+    static Collection<DeferredHolder<Item, ? extends Item>> entry() {
+        return REGISTER.getEntries();
     }
 }

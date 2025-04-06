@@ -12,7 +12,10 @@ public class JCUtils {
 
     public enum Ident {
         ModConfigSpec("net.neoforged.neoforge.common.ModConfigSpec"),
-            ModConfigSpecBuilder(ModConfigSpec, "Builder"),
+        ModConfigSpecBuilder(ModConfigSpec, "Builder"),
+        Item("net.minecraft.world.item.Item"),
+        BlockItem("net.minecraft.world.item.BlockItem"),
+        DeferredItem("net.neoforged.neoforge.registries.DeferredItem"),
         ;
 
         private final Ident ident;

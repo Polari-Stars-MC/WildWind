@@ -7,10 +7,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import net.neoforged.neoforge.registries.DeferredItem;
+import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
+import org.polaris2023.annotation.register.RegistryHandler;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.*;
@@ -18,9 +20,15 @@ import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
 
+import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
+@RegistryHandler(RegistryHandler.Type.Item)
 public class ModItems {
+
+    public static final DeferredRegister.Items REGISTER =
+            DeferredRegister.createItems(MOD_ID);
+
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
     public static final DeferredItem<LivingTuberItem> LIVING_TUBER =
@@ -76,15 +84,11 @@ public class ModItems {
     @BasicItem
     public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = register("glow_mucus", ModBlocks.GLOW_MUCUS);
 
-    public static final DeferredItem<BlockItem> FIREFLY_JAR_ITEM = register("firefly_jar", ModBlocks.FIREFLY_JAR);
-
     @BasicItem
     public static final DeferredItem<BlockItem> GLAREFLOWER_ITEM = register("glareflower", ModBlocks.GLAREFLOWER);
 
     @BasicItem
     public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM = register("glareflower_seeds", ModBlocks.GLAREFLOWER_SEEDS, ModFoods.GLAREFLOWER_SEEDS);
-
-    public static final DeferredItem<BlockItem> COBWEB_COVER_ITEM = register("cobweb_cover", ModBlocks.COBWEB_COVER);
 
     @BasicItem
     public static final DeferredItem<BlockItem> REEDS_ITEM = register("reeds", ModBlocks.REEDS);
@@ -96,31 +100,21 @@ public class ModItems {
 
     public static final DeferredItem<TrappedPresentBlockItem> TRAPPED_PRESENT_ITEM = register("trapped_present", p -> new TrappedPresentBlockItem(ModBlocks.TRAPPED_PRESENT.get(), p));
 
-    public static final DeferredItem<BlockItem> BED_ITEM = register("bed", ModBlocks.BED);
-
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
 
-    public static final DeferredItem<BlockItem> SILT_ITEM = register("silt", ModBlocks.SILT);
 
     @BasicBlockLocatedItem
     public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", ModBlocks.TINY_CACTUS);
 
-    public static final DeferredItem<BlockItem> QUICKSAND_ITEM = register("quicksand", ModBlocks.QUICKSAND);
-
-    public static final DeferredItem<BlockItem> RED_QUICKSAND_ITEM = register("red_quicksand", ModBlocks.RED_QUICKSAND);
-
-    public static final DeferredItem<BlockItem> COOKING_POT_ITEM = register("cooking_pot", ModBlocks.COOKING_POT);
-
-    public static final DeferredItem<BlockItem> SCULK_JAW_ITEM = register("sculk_jaw", ModBlocks.SCULK_JAW);
     @BasicItem
     public static final DeferredItem<BlockItem> DUCKWEED_ITEM = register("duckweed", ModBlocks.DUCKWEED);
 
-    public static final DeferredItem<BlockItem> BRITTLE_ICE_ITEM = register("brittle_ice", ModBlocks.BRITTLE_ICE);
-    public static final DeferredItem<BlockItem> ASH_BLOCK_ITEM = register("ash_block", ModBlocks.ASH_BLOCK);
     @ParentItem(parent = "wild_wind:block/ash_1")
     public static final DeferredItem<BlockItem> ASH_ITEM = register("ash", ModBlocks.ASH);
-    public static final DeferredItem<BlockItem> WOOL_ITEM = register("wool", ModBlocks.WOOL);
-    public static final DeferredItem<BlockItem> CARPET_ITEM = register("carpet", ModBlocks.CARPET);
-    public static final DeferredItem<BlockItem> CONCRETE_ITEM = register("concrete", ModBlocks.CONCRETE);
+
+
+//    static {
+//        REGISTER.registerSimpleBlockItem(ModBlocks.ASH_BLOCK)
+//    }
 
 }

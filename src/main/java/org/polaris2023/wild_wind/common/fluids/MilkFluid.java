@@ -17,6 +17,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.neoforged.neoforge.fluids.FluidType;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModFluids;
 
 /**
@@ -84,8 +85,10 @@ public abstract class MilkFluid extends FlowingFluid {
 
     @Override
     protected BlockState createLegacyBlock(FluidState fluidState) {
-        return ModFluids.MILK_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(fluidState));
+        return ModBlocks.MILK_BLOCK.get().defaultBlockState().setValue(LiquidBlock.LEVEL, getLegacyLevel(fluidState));
     }
+
+
 
     public static class Source extends MilkFluid {
 

@@ -13,6 +13,7 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry;
 
 import java.util.Locale;
 import java.util.function.Supplier;
@@ -143,7 +144,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT::toStack,
             () -> (__, output) -> {
-                for (DeferredHolder<Item, ? extends Item> item : ModInitializer.items()) {
+                for (DeferredHolder<Item, ? extends Item> item : ItemRegistry.entry()) {
                     if (checkOr(item,
                             BUILDING_BLOCK,
                             NATURAL_BLOCKS,
