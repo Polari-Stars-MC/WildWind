@@ -13,7 +13,9 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.properties.BedPart;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -31,13 +33,13 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.ModInitializer;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
 import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import java.util.Set;
+import java.util.function.Function;
 
 public class ModBlockLootSubProvider extends BlockLootSubProvider {
     private static final Set<Item> EXPLOSION_RESISTANT = ImmutableSet.of();
@@ -53,21 +55,22 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     public void generate() {
+        Function<Block, LootTable.Builder> tallFlowerFactory = block -> this.createSinglePropConditionTable(block, DoublePlantBlock.HALF, DoubleBlockHalf.LOWER);
 
         this.add(ModBlocks.BED.get(), this::createBedDrops);
         this.dropSelf(ModBlocks.GLOW_MUCUS.get());
         this.dropSelf(ModBlocks.GLAREFLOWER.get());
         this.dropSelf(ModBlocks.GLAREFLOWER_SEEDS.get());
-        this.dropSelf(ModBlocks.REEDS.get());
-        this.dropSelf(ModBlocks.CATTAILS.get());
+        this.add(ModBlocks.REEDS.get(), tallFlowerFactory);
+        this.add(ModBlocks.CATTAILS.get(), tallFlowerFactory);
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
         this.dropWhenSilkTouch(ModBlocks.QUICKSAND.get());
         this.dropWhenSilkTouch(ModBlocks.RED_QUICKSAND.get());
         this.dropWhenSilkTouch(ModBlocks.SILT.get());
-        this.add(ModBlocks.ASH_BLOCK.get(), this.createFortunateDrops(ModBlocks.ASH_BLOCK.get(), ModItems.ASH_DUST.get(), 2.0F, 4.0F));
-        this.add(ModBlocks.ASH.get(), (block) -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.asItem(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
+        this.add(ModBlocks.ASH_BLOCK.get(), block -> this.createFortunateDrops(block, ModItems.ASH_DUST.get(), 2.0F, 4.0F));
+        this.add(ModBlocks.ASH.get(), block -> this.createLayerDrops(block, ModBlocks.ASH_BLOCK.asItem(), ModBlocks.ASH.asItem(), ModItems.ASH_DUST.get()));
 
         this.dropSelf(ModBlocks.WOOL.get());
         this.dropSelf(ModBlocks.CARPET.get());
