@@ -3,9 +3,11 @@ package org.polaris2023.wild_wind.common;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -61,6 +63,7 @@ import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.*;
@@ -72,6 +75,7 @@ import org.polaris2023.wild_wind.util.TeleportUtil;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import static org.polaris2023.wild_wind.common.dyed.handler.RightClickHandler.rightClick;
@@ -271,6 +275,7 @@ public class WildWindGameEventHandler {
             if (EnchantmentHelper.hasEnchantment(serverLevel, mainHandItem, ModEnchantments.AUTO_SMELTING.get())) {
                 BlockPos pos = event.getPos();
 
+
                 if (
                         isTool(mainHandItem, ItemTags.PICKAXES, BlockTags.MINEABLE_WITH_PICKAXE, serverLevel, pos)
                         || isTool(mainHandItem, ItemTags.AXES, BlockTags.MINEABLE_WITH_AXE, serverLevel, pos)
@@ -278,7 +283,6 @@ public class WildWindGameEventHandler {
                         || isTool(mainHandItem, ItemTags.HOES, BlockTags.MINEABLE_WITH_HOE, serverLevel, pos)
                         || nullTool(serverLevel, pos, BlockTags.MINEABLE_WITH_AXE, BlockTags.MINEABLE_WITH_PICKAXE, BlockTags.MINEABLE_WITH_SHOVEL, BlockTags.MINEABLE_WITH_HOE)
                 ) {
-
                     //获取掉落物
                     autoSmelting(serverLevel, pos, mainHandItem, player);
                     serverLevel.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
@@ -309,38 +313,42 @@ public class WildWindGameEventHandler {
         if (player.isCreative())
             return;
         List<ItemStack> drops = Block.getDrops(serverLevel.getBlockState(pos), serverLevel, pos, serverLevel.getBlockEntity(pos), player, mainHandItem);
-
         for (ItemStack drop : drops) {
-            serverLevel
-                    .getRecipeManager()
-                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel).ifPresentOrElse(h -> {
-                        ItemStack resultItem = h.value().getResultItem(serverLevel.registryAccess());
 
-
-                        int neoCount = 0;
-                        int count = drop.getCount();
-                        for (;count > 0; count--) {
-
-                            if (mainHandItem.getDamageValue() == mainHandItem.getMaxDamage()) {
-                                break;
-                            }
-                            int enchantmentLevel = mainHandItem.getEnchantmentLevel(serverLevel.registryAccess().holderOrThrow(Enchantments.UNBREAKING));
-                            if (enchantmentLevel != 0) {
-                                double ran = ((double) 100 / (enchantmentLevel + 1)) / 100;
-                                if (serverLevel.random.nextDouble() <= ran) {
-                                    mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
-                                }
-                            } else {
-                                mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
-                            }
-                            neoCount++;
-                        }
-                        resultItem.setCount(neoCount);
-                        Block.popResource(serverLevel, pos, resultItem);
-                        drop.setCount(count);
-                        Block.popResource(serverLevel, pos, drop);
-                    }, () -> Block.popResource(serverLevel, pos, drop));
+            RecipeManager recipeManager = serverLevel.getRecipeManager();
+            recipeManager
+                    .getRecipeFor(RecipeType.SMELTING, new SingleRecipeInput(drop), serverLevel)
+                    .ifPresentOrElse(furnaceImpl(serverLevel, pos, mainHandItem, drop), () -> Block.popResource(serverLevel, pos, drop));
         }
+    }
+
+    private static <T extends AbstractCookingRecipe> @NotNull Consumer<RecipeHolder<T>> furnaceImpl(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, ItemStack drop) {
+        return h -> {
+            ItemStack resultItem = h.value().getResultItem(serverLevel.registryAccess());
+
+            int neoCount = 0;
+            int count = drop.getCount();
+            for (; count > 0; count--) {
+
+                if (mainHandItem.getDamageValue() == mainHandItem.getMaxDamage()) {
+                    break;
+                }
+                int enchantmentLevel = mainHandItem.getEnchantmentLevel(serverLevel.registryAccess().holderOrThrow(Enchantments.UNBREAKING));
+                if (enchantmentLevel != 0) {
+                    double ran = ((double) 100 / (enchantmentLevel + 1)) / 100;
+                    if (serverLevel.random.nextDouble() <= ran) {
+                        mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                    }
+                } else {
+                    mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                }
+                neoCount++;
+            }
+            resultItem.setCount(neoCount);
+            Block.popResource(serverLevel, pos, resultItem);
+            drop.setCount(count);
+            Block.popResource(serverLevel, pos, drop);
+        };
     }
 
     @SubscribeEvent
