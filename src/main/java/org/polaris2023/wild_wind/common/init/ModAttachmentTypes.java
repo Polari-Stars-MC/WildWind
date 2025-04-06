@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.common.init;
 
-import com.mojang.serialization.Codec;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
