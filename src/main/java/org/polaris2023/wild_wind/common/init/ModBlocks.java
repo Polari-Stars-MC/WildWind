@@ -55,7 +55,6 @@ public class ModBlocks {
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
 
-
     @I18n(en_us = "Glare Flower Seeds", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
     public static final DeferredBlock<Block> GLAREFLOWER_SEEDS = register("glareflower_seeds");
 
@@ -68,15 +67,15 @@ public class ModBlocks {
 
     @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     public static final DeferredBlock<Block> COBWEB_MUCOSA = register("cobweb_mucosa", BlockBehaviour.Properties.of().noLootTable());
+
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
-    public static final DeferredBlock<Block> REEDS = register("reeds");
+    public static final DeferredBlock<TallFlowerBlock> REEDS = register("reeds", TallFlowerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
-    public static final DeferredBlock<Block> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
+    public static final DeferredBlock<CattailsBlock> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
 
     @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
     public static final DeferredBlock<PresentBlock> PRESENT = register("present", PresentBlock::new, BlockBehaviour.Properties.of().noLootTable());
-
 
     @I18n(en_us = "Trapped Present", zh_cn = "陷阱礼物盒", zh_tw = "陷阱禮物盒")
     public static final DeferredBlock<TrappedPresentBlock> TRAPPED_PRESENT = register("trapped_present", TrappedPresentBlock::new, BlockBehaviour.Properties.of().noLootTable());
