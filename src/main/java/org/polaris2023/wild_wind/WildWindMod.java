@@ -33,7 +33,7 @@ public class WildWindMod {
         ModInitializer.init(modEventBus);
         ModPotions.register(modEventBus);
         ModVanillaCompat.register(NeoForge.EVENT_BUS);
-        ModAttachmentTypes.ATTACHMENT_TYPES.register(modEventBus);
+        ModAttachmentTypes.REGISTER.register(modEventBus);
         modEventBus.addListener((FMLCommonSetupEvent event) -> event.enqueueWork(() -> {
             food(Items.EGG, ModFoods.EGG);
             food(Items.TURTLE_EGG, ModFoods.EGG);

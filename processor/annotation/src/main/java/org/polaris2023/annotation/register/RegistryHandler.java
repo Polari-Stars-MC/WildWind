@@ -12,6 +12,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface RegistryHandler {
     Type value() default Type.NONE;
     enum Type {
-        NONE,Item, Block, Entity,
+        NONE,Item, Block, Entity,AttachmentType
     }
 }

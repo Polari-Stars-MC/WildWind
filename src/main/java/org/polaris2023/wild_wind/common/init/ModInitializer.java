@@ -75,7 +75,7 @@ public interface ModInitializer extends BlockRegistry {
         init(bus, ModSounds.class, SOUNDS);
         init(bus, ModEntities.class, ENTITIES);
         init(bus, ModFluids.class, FLUIDS);
-        init(bus, ModBlocks.class, ModBlocks.BLOCKS, TILES);
+        init(bus, ModBlocks.class, ModBlocks.REGISTER, TILES);
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
         init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ModItems.REGISTER);
@@ -130,7 +130,7 @@ public interface ModInitializer extends BlockRegistry {
                         : token.isSubtypeOf(Fluid.class)
                         ? FLUIDS.getEntries()
                         : token.isSubtypeOf(Block.class)
-                        ? ModBlocks.BLOCKS.getEntries()
+                        ? ModBlocks.REGISTER.getEntries()
                         : token.isSubtypeOf(MobEffect.class)
                         ? EFFECTS.getEntries()
                         : token.isSubtypeOf(Potion.class)

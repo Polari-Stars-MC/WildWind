@@ -16,6 +16,8 @@ public class JCUtils {
         Item("net.minecraft.world.item.Item"),
         BlockItem("net.minecraft.world.item.BlockItem"),
         DeferredItem("net.neoforged.neoforge.registries.DeferredItem"),
+        AttachmentType("net.neoforged.neoforge.attachment.AttachmentType"),
+        Codec("com.mojang.serialization.Codec")
         ;
 
         private final Ident ident;
