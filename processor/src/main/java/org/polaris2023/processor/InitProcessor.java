@@ -75,7 +75,7 @@ public class InitProcessor extends AbstractProcessor {
 
             JCTree.JCStatement jcStatement = javacParser.parseStatement();
             if (jcMethodDecl.body != null)
-                jcMethodDecl.body.stats = jcMethodDecl.body.stats.prepend(jcStatement);
+                jcMethodDecl.body.stats = jcMethodDecl.body.stats.append(jcStatement);
         });
     }
 

@@ -92,9 +92,83 @@ public class ModelProcessor extends ClassProcessor {
             this::parentItem,
             this::cubeAllFor,
             this::cross,
-            this::carpet
+            this::carpet,
+            this::basicItem
     );
 
+    private void basicItem(TypeElement typeElement, VariableElement variableElement) {
+        BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
+        if (basicItem != null && basicItem.used()) {
+            StringBuilder sb =
+                    new StringBuilder(mergeNext("basicItem", typeElement, variableElement));
+            Display[] display = basicItem.value().display();
+            if (display.length > 0) {
+                sb.append(".transforms()");
+                for (Display d : display) {
+                    sb.append(".transform(net.minecraft.client.renderer.block.model.ItemTransform.")
+                            .append(d.name().name()).append(")");
+                    Vec3f rotation = d.rotation();
+                    if (rotation.x() == 0.0F && rotation.y() == 0.0F && rotation.z() == 0.0F) {
+                        sb.append(".rotation(")
+                                .append(rotation.x())
+                                .append(",")
+                                .append(rotation.y())
+                                .append(",")
+                                .append(rotation.z())
+                                .append(")");
+                    }
+                    Vec3f translation = d.translation();
+                    if (translation.x() == 0.0F && translation.y() == 0.0F && translation.z() == 0.0F) {
+                        sb.append(".translation(")
+                                .append(translation.x())
+                                .append(",")
+                                .append(translation.y())
+                                .append(",")
+                                .append(translation.z())
+                                .append(")");
+                    }
+                    Vec3f rightRotation = d.rightRotation();
+                    if (rightRotation.x() == 0.0F && rightRotation.y() == 0.0F && rightRotation.z() == 0.0F) {
+                        sb.append(".rightRotation(")
+                                .append(rightRotation.x())
+                                .append(",")
+                                .append(rightRotation.y())
+                                .append(",")
+                                .append(rightRotation.z())
+                                .append(")");
+                    }
+                    Vec3f scale = d.scale();
+                    if (scale.x() == 0.0F && scale.y() == 0.0F && scale.z() == 0.0F) {
+                        sb.append(".scale(")
+                                .append(scale.x())
+                                .append(",")
+                                .append(scale.y())
+                                .append(",")
+                                .append(scale.z())
+                                .append(")");
+                    }
+                }
+                sb.append(".end()");
+            }
+            var overrides = basicItem.value().overrides();
+            for (var override : overrides) {
+                sb.append(".override()");
+                for (Predicate predicate : override.predicate()) {
+                    sb.append(".predicate(ResourceLocation.parse(\"")
+                            .append(predicate.name())
+                            .append("\"), ")
+                            .append(predicate.value())
+                            .append(")");
+                }
+                sb.append(".model(itemModelProvider.getExistingFile(ResourceLocation.parse(")
+                        .append(override.model())
+                        .append("\")))");
+                sb.append(".end()");
+            }
+            sb.append(";");
+            InitProcessor.modelGen(context, sb.toString());
+        }
+    }
 
 
     @Override
@@ -126,11 +200,12 @@ public class ModelProcessor extends ClassProcessor {
         else if (basicBlockLocatedItem != null) {
             checkAppend(typeElement, variableElement,"basicBlockLocatedItem");
         }
-        else if (basicItem != null && basicItem.used()) {
-            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-        } else if (typeBasicItem != null && typeBasicItem.used() && variableElement.getModifiers().contains(Modifier.STATIC)) {
-            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
-        }
+
+//        if (basicItem != null && basicItem.used()) {
+//            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
+//        } else if (typeBasicItem != null && typeBasicItem.used() && variableElement.getModifiers().contains(Modifier.STATIC)) {
+//            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
+//        }
         //block model gen
 
         else if (cubeColumn != null) {
@@ -351,10 +426,10 @@ public class ModelProcessor extends ClassProcessor {
                     MODEL.append(", ");
                 }
                 Display display = addition.display()[i];
-                XYZ scale = display.scale();
+                Vec3f scale = display.scale();
 
-                XYZ rotation = display.rotation();
-                XYZ translation = display.translation();
+                Vec3f rotation = display.rotation();
+                Vec3f translation = display.translation();
                 MODEL
                         .append("\"")
                         .append(display.name())
