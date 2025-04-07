@@ -11,7 +11,6 @@ import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.LakeFeature;
-import net.minecraft.world.level.levelgen.feature.SnowAndFreezeFeature;
 import net.minecraft.world.level.levelgen.feature.configurations.*;
 import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
 import net.minecraft.world.level.levelgen.feature.stateproviders.RuleBasedBlockStateProvider;
@@ -39,6 +38,10 @@ public class ModConfiguredFeatureRegistry {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> RED_QUICKSAND = create("red_quicksand");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT = create("silt");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> SILT_DISK = create("silt_disk");
+
+	//Patches
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAILS = create("patch_cattails");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REEDS = create("patch_reeds");
 
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
@@ -69,6 +72,12 @@ public class ModConfiguredFeatureRegistry {
 				RuleBasedBlockStateProvider.simple(ModBlocks.SILT.get()),
 				BlockPredicate.matchesBlocks(List.of(Blocks.MUD)),
 				UniformInt.of(4, 7), 1
+		));
+		FeatureUtils.register(context, PATCH_CATTAILS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get()))
+		));
+		FeatureUtils.register(context, PATCH_REEDS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get()))
 		));
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}
