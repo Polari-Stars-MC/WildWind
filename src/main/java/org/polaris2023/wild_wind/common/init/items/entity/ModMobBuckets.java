@@ -23,10 +23,11 @@ import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.re
  * @author : baka4n
  * {@code @Date : 2025/02/12 21:17:12}
  */
-@BasicItem
 public enum ModMobBuckets implements Supplier<MobBucketItem>, ItemLike {
+    @BasicItem
     @I18n(en_us = "Trout Bucket", zh_cn = "鳟鱼桶", zh_tw = "鱒魚桶")
     TROUT_BUCKET(ModEntities.TROUT,  () -> Fluids.WATER),
+    @BasicItem
     @I18n(en_us = "Piranha Bucket", zh_cn = "食人鱼桶", zh_tw = "食人魚桶")
     PIRANHA_BUCKET(ModEntities.PIRANHA,  () -> Fluids.WATER),
     ;
