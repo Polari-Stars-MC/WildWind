@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.util.interfaces.datagen.model;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder;
 import net.neoforged.neoforge.client.model.generators.ModelFile;
@@ -22,11 +23,15 @@ public interface IItemModel extends DatagenClient {
         return basicBlockLocatedItem(BuiltInRegistries.ITEM.getKey(blockItem));
     }
 
-    default <T extends Item> ResourceLocation key(T item) {
-        return BuiltInRegistries.ITEM.getKey(item);
+    default <T extends ItemLike> ItemModelBuilder basicItem(T like) {
+        return self().itemModelProvider.basicItem(like.asItem());
     }
 
-    default <T extends Item> ResourceLocation blockTexture(T item) {
+    default <T extends ItemLike> ResourceLocation key(T item) {
+        return BuiltInRegistries.ITEM.getKey(item.asItem());
+    }
+
+    default <T extends ItemLike> ResourceLocation blockTexture(T item) {
         ResourceLocation name = key(item);
         return ResourceLocation.fromNamespaceAndPath(name.getNamespace(), "item/" + name.getPath());
     }
