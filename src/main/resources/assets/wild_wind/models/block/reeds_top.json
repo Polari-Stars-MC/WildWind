@@ -1,6 +1,7 @@
 {
 	"parent": "block/block",
-	"render_type": "cutout_mipped",
+	"render_type": "cutout",
+	"ambientocclusion": false,
 	"textures": {
 		"particle": "wild_wind:block/reeds_catkins",
 		"top": "wild_wind:block/reeds_top",
