@@ -9,6 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.polaris2023.wild_wind.common.WildWindGameEventHandler;
@@ -30,7 +31,7 @@ public record EggShootPacket() implements CustomPacketPayload {
         ctx.enqueueWork(() -> {
             ItemStack mainHandItem = ctx.player().getMainHandItem();
             ItemStack offHandItem = ctx.player().getOffhandItem();
-            WildWindGameEventHandler.eggShoot(mainHandItem.isEmpty() ? offHandItem : mainHandItem, ctx.player(), ctx.player().level());
+            WildWindGameEventHandler.eggShoot(mainHandItem.is(Items.EGG) ? offHandItem : mainHandItem, ctx.player(), ctx.player().level());
         });
     }
 
