@@ -1,7 +1,5 @@
 package org.polaris2023.annotation.modelgen.block;
 
-import org.polaris2023.annotation.register.ResourceLocation;
-
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
@@ -11,7 +9,9 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.SOURCE)
 public @interface CubeBottomTop {
-    ResourceLocation side();
-    ResourceLocation bottom();
-    ResourceLocation top();
+    String side() default "";
+    String bottom() default "";
+    String top() default "";
+    boolean item() default true;
+
 }
