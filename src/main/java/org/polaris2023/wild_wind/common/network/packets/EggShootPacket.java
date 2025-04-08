@@ -31,7 +31,7 @@ public record EggShootPacket() implements CustomPacketPayload {
         ctx.enqueueWork(() -> {
             ItemStack mainHandItem = ctx.player().getMainHandItem();
             ItemStack offHandItem = ctx.player().getOffhandItem();
-            WildWindGameEventHandler.eggShoot(mainHandItem.is(Items.EGG) ? offHandItem : mainHandItem, ctx.player(), ctx.player().level());
+            WildWindGameEventHandler.eggShoot(mainHandItem.is(Items.EGG) ? mainHandItem : offHandItem, ctx.player(), ctx.player().level());
         });
     }
 
