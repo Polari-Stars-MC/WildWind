@@ -39,15 +39,6 @@ public class ModelProcessor extends ClassProcessor {
         return t;
     }
 
-    private boolean isAnnotation() {
-        for (Annotation annotation : annotations) {
-            if (annotation != null) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void checkAppend(TypeElement typeElement, VariableElement variableElement, String methodName,Object... appends) {
         check();
         MODEL.append("\n\t\t.")
@@ -173,8 +164,6 @@ public class ModelProcessor extends ClassProcessor {
 
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
-        BasicItem typeBasicItem = typeElement.getAnnotation(BasicItem.class);
-        BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
         BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
         CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));

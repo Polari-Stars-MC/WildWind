@@ -16,6 +16,8 @@ Jared's Maven -> https://maven.blamejared.com/
 ModMaven -> https://modmaven.dev/
 CurseMaven -> https://www.cursemaven.com/
     --> curse.maven
+Modonomicon -> https://dl.cloudsmith.io/public/klikli-dev/mods/maven/
+    --> com.klikli_dev
 """
 
 [libraries]
