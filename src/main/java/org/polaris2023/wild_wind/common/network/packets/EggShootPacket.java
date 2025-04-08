@@ -6,6 +6,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -19,7 +20,7 @@ import java.util.UUID;
  * @author : baka4n
  * {@code @Date : 2025/02/13 19:56:11}
  */
-public record EggShootPacket(ItemStack stack) implements CustomPacketPayload {
+public record EggShootPacket() implements CustomPacketPayload {
     public static final Type<EggShootPacket> TYPE = new Type<>(Helpers.location("egg_shoot"));
     public static final StreamCodec<RegistryFriendlyByteBuf, EggShootPacket> STREAM_CODEC = CustomPacketPayload.codec(
             EggShootPacket::write, EggShootPacket::new
@@ -27,18 +28,26 @@ public record EggShootPacket(ItemStack stack) implements CustomPacketPayload {
 
     public static void handle(EggShootPacket es, IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
-            WildWindGameEventHandler.eggShoot(es.stack, ctx.player(), ctx.player().level());
+            ItemStack mainHandItem = ctx.player().getMainHandItem();
+            ItemStack offHandItem = ctx.player().getOffhandItem();
+            WildWindGameEventHandler.eggShoot(mainHandItem.isEmpty() ? offHandItem : mainHandItem, ctx.player(), ctx.player().level());
         });
     }
 
+    public static ItemStack checkNull(RegistryFriendlyByteBuf buf) {
+        try {
+            return ItemStack.STREAM_CODEC.decode(buf);
+        } catch (Exception e) {
+            return ItemStack.EMPTY;
+        }
+
+    }
+
     public EggShootPacket(RegistryFriendlyByteBuf buf) {
-        this(ItemStack.STREAM_CODEC.decode(buf));
-
+        this();
     }
 
-    private void write(RegistryFriendlyByteBuf buf) {
-        ItemStack.STREAM_CODEC.encode(buf, stack);
-    }
+    private void write(RegistryFriendlyByteBuf buf) {}
 
     @Override
     public Type<? extends CustomPacketPayload> type() {

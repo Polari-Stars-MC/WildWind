@@ -91,6 +91,63 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
         tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
         tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
+        tag(ModItemTags.POISON_SEEDS_COMPONENT_SEED)
+                .addTag(Tags.Items.SEEDS_TORCHFLOWER)
+                .add(Items.PITCHER_POD);
+        tag(ModItemTags.SEEDS_COMPONENT_FOOD)
+                .addTag(Tags.Items.SEEDS_PUMPKIN)
+                .addTag(Tags.Items.SEEDS_MELON)
+                .addTag(Tags.Items.SEEDS_BEETROOT)
+                .addTag(Tags.Items.SEEDS_WHEAT);
+        tag(ModItemTags.EGG_COMPONENT_FOOD)
+                .addTag(Tags.Items.EGGS)
+                .add(Items.TURTLE_EGG);
+        tag(ModItemTags.VEGETABLE_COMPONENT_OP5F).add(
+                Items.KELP, Items.DRIED_KELP,
+                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,
+                Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS);
+        tag(ModItemTags.VEGETABLE_COMPONENT_1F).add(
+                Items.CARROT, Items.GOLDEN_CARROT,
+                Items.BEETROOT, Items.POTATO,
+                Items.BAKED_POTATO, Items.POISONOUS_POTATO
+        );
+        tag(ModItemTags.MEAT_COMPONENT_OP5F).add(
+                Items.MUTTON, Items.COOKED_MUTTON,
+                Items.CHICKEN, Items.COOKED_CHICKEN,
+                Items.RABBIT, Items.RABBIT_FOOT,
+                Items.COOKED_RABBIT, Items.ROTTEN_FLESH,
+                Items.SPIDER_EYE, Items.FERMENTED_SPIDER_EYE,
+                Items.COD, Items.COOKED_COD,
+                Items.SALMON, Items.COOKED_SALMON,
+                Items.TROPICAL_FISH, Items.PUFFERFISH
+        );
+        tag(ModItemTags.MEAT_COMPONENT_1F).add(
+                Items.BEEF, Items.COOKED_BEEF,
+                Items.PORKCHOP, Items.COOKED_PORKCHOP
+        );
+        tag(ModItemTags.FISH_COMPONENT_1F).add(
+                Items.COD, Items.COOKED_COD,
+                Items.SALMON, Items.COOKED_SALMON,
+                Items.TROPICAL_FISH, Items.PUFFERFISH
+        );
+        tag(ModItemTags.MONSTER_COMPONENT_1F).add(
+                Items.POISONOUS_POTATO, Items.RABBIT_FOOT,
+                Items.ROTTEN_FLESH, Items.SPIDER_EYE,
+                Items.FERMENTED_SPIDER_EYE, Items.TROPICAL_FISH,
+                Items.PUFFERFISH
+        );
+        tag(ModItemTags.FRUIT_COMPONENT_1F).add(
+                Items.APPLE, Items.GOLDEN_APPLE,
+                Items.ENCHANTED_GOLDEN_APPLE, Items.CHORUS_FRUIT,
+                Items.POPPED_CHORUS_FRUIT, Items.SUGAR_CANE
+        );
+        tag(ModItemTags.FRUIT_COMPONENT_0P5F).add(
+                Items.MELON_SLICE, Items.GLISTERING_MELON_SLICE,
+                Items.SWEET_BERRIES, Items.GLOW_BERRIES
+        );
+        tag(ModItemTags.PROTEIN_COMPONENT_1F).add(Items.EGG, Items.TURTLE_EGG,
+                Items.SNIFFER_EGG, Items.DRAGON_EGG);
+        tag(ModItemTags.SWEET_COMPONENT_1F).add(Items.SUGAR, Items.HONEY_BOTTLE);
         tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
         ModBlockFamilies.AZALEA.generateItemTags(this::tag);
         ModBlockFamilies.PALM.generateItemTags(this::tag);

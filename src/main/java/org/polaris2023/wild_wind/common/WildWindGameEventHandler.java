@@ -177,12 +177,12 @@ public class WildWindGameEventHandler {
 
     @SubscribeEvent
     public static void clickEventEmpty(PlayerInteractEvent.LeftClickEmpty event) {
-        ItemStack itemstack = event.getItemStack();
+
         Player player = event.getEntity();
-        if (itemstack.is(Items.EGG)) {
-            PacketDistributor.sendToServer(new EggShootPacket(itemstack));
-            player.awardStat(Stats.ITEM_USED.get(itemstack.getItem()));
-            itemstack.consume(1, player);
+        ItemStack mainHandItem = player.getMainHandItem();
+        ItemStack offHandItem = player.getOffhandItem();
+        if (mainHandItem.is(Items.EGG) || offHandItem.is(Items.EGG)) {
+            PacketDistributor.sendToServer(new EggShootPacket());
         }
 //        eggShoot(event.getItemStack(), event.getEntity(), event.getLevel());
     }
