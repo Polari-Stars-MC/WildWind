@@ -16,6 +16,29 @@ import java.util.function.Supplier;
  */
 public interface IBlockModel extends DatagenClient {
 
+    default <T extends Block> void cubeBottomTop(Supplier<T> block, boolean item, String render_type, String side, String bottom, String top) {
+        T b = block.get();
+        ResourceLocation key = key(b);
+        BlockModelBuilder blockModelBuilder = cubeBottomTopModel(key.getPath(),
+                render_type,
+                side.isEmpty() ? key.withPrefix("block/").withSuffix("_side") : ResourceLocation.parse(side),
+                bottom.isEmpty() ? key.withPrefix("block/").withSuffix("_bottom") : ResourceLocation.parse(bottom),
+                top.isEmpty() ? key.withPrefix("block/").withSuffix("_top") : ResourceLocation.parse(top)
+        );
+
+        if (item) {
+            self().stateProvider.simpleBlockWithItem(b, blockModelBuilder);
+        } else {
+            self().stateProvider.simpleBlock(b, blockModelBuilder);
+        }
+    }
+
+    default <T extends Block> BlockModelBuilder cubeBottomTopModel(String path, String renderType, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+        BlockModelBuilder cm = self().blockModelProvider.cubeBottomTop(path, side, bottom, top);
+        if (!renderType.isEmpty()) cm.renderType(renderType);
+        return cm;
+    }
+
     default <T extends Block> BlockModelBuilder carpet(Supplier<T> block, boolean item, String renderType, String carpet) {
         T b = block.get();
         ResourceLocation key = key(b);

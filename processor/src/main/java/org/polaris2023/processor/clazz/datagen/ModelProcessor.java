@@ -273,7 +273,13 @@ public class ModelProcessor extends ClassProcessor {
     private void cubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
         CubeBottomTop cubeBottomTop = variableElement.getAnnotation(CubeBottomTop.class);
         if (cubeBottomTop != null) {
-            
+//            StringBuilder sb = new StringBuilder();
+//            sb
+//                    .append("cubeBottomTop(")
+//                    .append(typeElement.getQualifiedName())
+//                    .append(".")
+//                    .append(variableElement.getSimpleName())
+//                    .append(")");
         }
     }
 

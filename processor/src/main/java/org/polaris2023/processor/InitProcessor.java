@@ -56,26 +56,39 @@ public class InitProcessor extends AbstractProcessor {
     public static Optional<? extends MethodTree> modelInit;
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static Optional<? extends MethodTree> languageInit;
+    public static ClassTree wildWindClientProvider;
 
     public static void modelGen(Context context,String code) {
         gen(modelInit, context, code);
     }
 
-    public static void languageGen(Context context,String code) {
+    public static void modelGen(Context context, JCTree.JCStatement code) {
+        gen(modelInit, context, code);
+    }
+
+    public static void languageGen(Context context, String code) {
+        gen(languageInit, context, code);
+    }
+
+    public static <T extends JCTree.JCStatement> void languageGen(Context context, T code) {
         gen(languageInit, context, code);
     }
 
     @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
     public static void gen(Optional<? extends MethodTree> optional, Context context, String code) {
+        ParserFactory parserFactory = ParserFactory.instance(context);
+        JavacParser javacParser = parserFactory.newParser(code, false, false, false);
+        JCTree.JCStatement jcStatement = javacParser.parseStatement();
+        gen(optional, context, jcStatement);
+    }
+
+    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
+    public static void gen(Optional<? extends MethodTree> optional, Context context, JCTree.JCStatement statement) {
         optional.ifPresent(tree -> {
             var jcMethodDecl = (JCTree.JCMethodDecl) tree;
-
-            ParserFactory parserFactory = ParserFactory.instance(context);
-            JavacParser javacParser = parserFactory.newParser(code, false, false, false);
-
-            JCTree.JCStatement jcStatement = javacParser.parseStatement();
-            if (jcMethodDecl.body != null)
-                jcMethodDecl.body.stats = jcMethodDecl.body.stats.append(jcStatement);
+            if(jcMethodDecl.body != null) {
+                jcMethodDecl.body.stats = jcMethodDecl.body.stats.append(statement);
+            }
         });
     }
 
@@ -124,6 +137,7 @@ public class InitProcessor extends AbstractProcessor {
                             .stream()
                             .filter(tree -> tree.getKind().equals(Tree.Kind.METHOD)))
                             .filter(method -> method.getName().toString().equals("init")).findFirst();
+            wildWindClientProvider = classTree;
             languageInit =
                     ((Stream<? extends MethodTree>) classTree
                         .getMembers()

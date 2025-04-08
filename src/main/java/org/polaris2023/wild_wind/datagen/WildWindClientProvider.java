@@ -5,7 +5,6 @@ import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.neoforged.neoforge.client.model.generators.*;
 
@@ -159,6 +158,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
     public void item() {
         itemModelProvider.simpleBlockItem(ModBlocks.BRITTLE_ICE.get());
+
     }
 
     public void init() {
