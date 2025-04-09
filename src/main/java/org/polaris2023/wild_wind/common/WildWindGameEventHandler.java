@@ -328,7 +328,8 @@ public class WildWindGameEventHandler {
 
     private static <T extends AbstractCookingRecipe> @NotNull Consumer<RecipeHolder<T>> furnaceImpl(ServerLevel serverLevel, BlockPos pos, ItemStack mainHandItem, ItemStack drop) {
         return h -> {
-            ItemStack resultItem = h.value().getResultItem(serverLevel.registryAccess());
+            T value = h.value();
+            ItemStack resultItem = value.getResultItem(serverLevel.registryAccess());
 
             int neoCount = 0;
             int count = drop.getCount();
@@ -341,10 +342,16 @@ public class WildWindGameEventHandler {
                 if (enchantmentLevel != 0) {
                     double ran = ((double) 100 / (enchantmentLevel + 1)) / 100;
                     if (serverLevel.random.nextDouble() <= ran) {
-                        mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                        mainHandItem.setDamageValue(
+                                Math.min(mainHandItem.getMaxDamage(),
+                                        mainHandItem.getDamageValue() +
+                                        Math.max(1, value.getCookingTime() / 250)));
                     }
                 } else {
-                    mainHandItem.setDamageValue(mainHandItem.getDamageValue() + 1);
+                    mainHandItem.setDamageValue(
+                            Math.min(mainHandItem.getMaxDamage(),
+                                    mainHandItem.getDamageValue() +
+                                    Math.max(1, value.getCookingTime() / 250)));
                 }
                 neoCount++;
             }

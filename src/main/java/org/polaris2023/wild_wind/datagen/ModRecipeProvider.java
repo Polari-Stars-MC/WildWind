@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.datagen;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -123,7 +124,10 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 2), "stonecutting/");
     }
 
+    public static final ImmutableList<ItemLike> IRON_SMELTABLES = ImmutableList.of(Items.RAW_IRON_BLOCK);
+
     protected void addSmeltingRecipes() {
+
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
@@ -142,6 +146,13 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), WildWindMod.MOD_ID + "/");
+
+        add(smelting(Items.RAW_IRON_BLOCK, RecipeCategory.MISC, Items.IRON_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(smelting(Items.RAW_GOLD_BLOCK, RecipeCategory.MISC, Items.GOLD_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(smelting(Items.RAW_COPPER_BLOCK, RecipeCategory.MISC, Items.COPPER_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(blasting(Items.RAW_IRON_BLOCK, RecipeCategory.MISC, Items.IRON_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
+        add(blasting(Items.RAW_GOLD_BLOCK, RecipeCategory.MISC, Items.GOLD_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
+        add(blasting(Items.RAW_COPPER_BLOCK, RecipeCategory.MISC, Items.COPPER_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
 
         // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
         // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
