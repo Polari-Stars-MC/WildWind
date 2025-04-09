@@ -82,7 +82,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 glazed_terracotta
                         .requires(ModBlocks.GLAZED_TERRACOTTA)
                         .requires(DYE[finalI]);
-            }));
+            }), "wild_wind/");
             add(shapeless(RecipeCategory.MISC, CARPET_BLOCK[i], 1, carpet -> {
                 unlockedBy(carpet, ModBlocks.CARPET, DYE[finalI]);
                 carpet

@@ -31,6 +31,7 @@ import net.minecraft.world.entity.animal.Fox;
 import net.minecraft.world.entity.animal.MushroomCow;
 import net.minecraft.world.entity.animal.Squid;
 import net.minecraft.world.entity.animal.goat.Goat;
+import net.minecraft.world.entity.decoration.ItemFrame;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.monster.Shulker;
 import net.minecraft.world.entity.npc.VillagerTrades;
@@ -63,11 +64,14 @@ import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.*;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
+import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
+import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 import org.polaris2023.wild_wind.common.network.packets.EggShootPacket;
 import org.polaris2023.wild_wind.util.EnchantmentHelper;
 import org.polaris2023.wild_wind.util.RegistryUtil;
@@ -388,6 +392,19 @@ public class WildWindGameEventHandler {
                     level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
                 }
             }
+        } else if (entity instanceof ItemFrame frame) {
+            AttachmentType<Boolean> isInvisible = ModAttachmentTypes.IS_INVISIBLE.get();
+            AttachmentType<Boolean> vanillaInvisible = ModAttachmentTypes.VANILLA_INVISIBLE_SAVE.get();
+            if (frame.hasData(isInvisible) && frame.getData(isInvisible)) {
+                if (frame.getItem().isEmpty()) {
+                    boolean data = frame.hasData(vanillaInvisible) ? frame.getData(vanillaInvisible) : false;
+                    frame.setData(vanillaInvisible, data);
+                    frame.setInvisible(false);
+                } else {
+                    frame.setData(vanillaInvisible, frame.isInvisible());
+                    frame.setInvisible(true);
+                }
+            }
         }
     }
 
@@ -445,6 +462,7 @@ public class WildWindGameEventHandler {
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         Player player = event.getEntity();
         Entity target = event.getTarget();
+        Level level = event.getLevel();
         AttachmentType<Integer> type = ModAttachmentTypes.MILKING_INTERVALS.get();
         ItemStack itemInHand = player.getItemInHand(event.getHand());
         if (target instanceof Goat || target instanceof Cow) {
@@ -474,6 +492,18 @@ public class WildWindGameEventHandler {
                     event.setCanceled(true);
                 } else {
                     target.setData(type, 6000);
+                }
+            }
+        } else if (target instanceof ItemFrame frame) {
+            if (frame.getType().is(ModEntityTypeTags.WILD_WIND_INVISIBLE.get())
+            && event.getHand() == InteractionHand.MAIN_HAND
+            && itemInHand.is(ModItemTags.WILD_WIND_INVISIBLE.get())
+            && player.isShiftKeyDown()) {
+                AttachmentType<Boolean> isInvisible = ModAttachmentTypes.IS_INVISIBLE.get();
+                AttachmentType<Boolean> vanillaInvisible = ModAttachmentTypes.VANILLA_INVISIBLE_SAVE.get();
+                if (!frame.hasData(isInvisible)) {
+                    frame.setData(isInvisible, true);
+                    frame.setData(vanillaInvisible, frame.isInvisible());
                 }
             }
         }
