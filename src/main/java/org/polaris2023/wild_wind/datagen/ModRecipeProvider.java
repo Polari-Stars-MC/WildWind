@@ -18,6 +18,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
@@ -82,7 +83,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 glazed_terracotta
                         .requires(ModBlocks.GLAZED_TERRACOTTA)
                         .requires(DYE[finalI]);
-            }), "wild_wind/");
+            }), WildWindMod.MOD_ID + "/");
             add(shapeless(RecipeCategory.MISC, CARPET_BLOCK[i], 1, carpet -> {
                 unlockedBy(carpet, ModBlocks.CARPET, DYE[finalI]);
                 carpet
@@ -140,7 +141,7 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
 
-        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), Helpers.location("charcoal"));
+        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), WildWindMod.MOD_ID + "/");
 
         // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
         // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
