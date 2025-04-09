@@ -12,12 +12,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.polaris2023.wild_wind.WildWindMod;
-import org.polaris2023.wild_wind.common.init.ModItems;
+import org.polaris2023.wild_wind.common.init.ModAttachmentTypes;
 import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
-import org.polaris2023.wild_wind.util.interfaces.ICustomItemFrame;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class InvisibleItemFrameEvent {
@@ -34,13 +35,17 @@ public class InvisibleItemFrameEvent {
                 && player.isShiftKeyDown()
         ) {
             if (!world.isClientSide) {
-                ICustomItemFrame frame = (ICustomItemFrame) entity;
-                if (frame.wild_wind$getIsInvisible()) {
+                ItemFrame frame = (ItemFrame) entity;
+                DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> isInvisible = ModAttachmentTypes.IS_INVISIBLE;
+                if (!entity.hasData(isInvisible)) {
+                    entity.setData(isInvisible, false);
+                }
+                if (entity.getData(isInvisible)) {
                     event.setCanceled(true);
                     return;
                 }
 
-                frame.wild_wind$setIsInvisible(true);
+                entity.setData(isInvisible, true);
 
                 ItemFrame itemFrame = (ItemFrame) entity;
                 itemFrame.setRotation(itemFrame.getRotation() - 1);

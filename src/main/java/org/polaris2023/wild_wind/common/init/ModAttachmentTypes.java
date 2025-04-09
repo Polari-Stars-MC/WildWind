@@ -19,5 +19,7 @@ public class ModAttachmentTypes {
     public static DeferredHolder<AttachmentType<?>, AttachmentType<Integer>> SQUID_CONVERSION_TIME;
     @AttachmentBoolean
     public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SHOULD_SQUID_CONVERT;
+    @AttachmentBoolean
+    public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IS_INVISIBLE;
 
 }
