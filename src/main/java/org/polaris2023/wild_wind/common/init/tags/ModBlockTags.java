@@ -16,6 +16,8 @@ public enum ModBlockTags implements Supplier<TagKey<Block>> {
     PALM_LOGS,
     BAOBAB_LOGS,
     ICE_SKIP,
+    CATTAILS_MAY_PLACE,
+    REEDS_MAY_PLACE
     ;
     final TagKey<Block> tag;
     ModBlockTags() {

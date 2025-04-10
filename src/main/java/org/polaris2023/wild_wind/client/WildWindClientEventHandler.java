@@ -1,11 +1,7 @@
 package org.polaris2023.wild_wind.client;
 
-import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.DoublePlantBlock;
-import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -36,10 +32,10 @@ public class WildWindClientEventHandler {
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         event.register((state, world, pos, tintIndex) -> FastColor.ARGB32.opaque(13419950), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
-        event.register((state, world, pos, tintIndex) ->
-                        world != null && pos != null ? BiomeColors.getAverageGrassColor(
-                                world, state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos
-                        ) : GrassColor.getDefaultColor(), ModBlocks.CATTAILS.get(), ModBlocks.REEDS.get());
+//        event.register((state, world, pos, tintIndex) ->
+//                        world != null && pos != null ? BiomeColors.getAverageGrassColor(
+//                                world, state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos
+//                        ) : GrassColor.getDefaultColor(), ModBlocks.CATTAILS.get(), ModBlocks.REEDS.get());
     }
 
     @SubscribeEvent

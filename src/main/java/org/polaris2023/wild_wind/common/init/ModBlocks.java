@@ -69,7 +69,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> COBWEB_MUCOSA = register("cobweb_mucosa", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
-    public static final DeferredBlock<TallFlowerBlock> REEDS = register("reeds", TallFlowerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
+    public static final DeferredBlock<ReedsBlock> REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
     public static final DeferredBlock<CattailsBlock> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
