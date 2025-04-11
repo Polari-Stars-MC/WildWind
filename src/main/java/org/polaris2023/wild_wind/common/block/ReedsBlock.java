@@ -24,10 +24,10 @@ import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 
 import javax.annotation.Nullable;
 
-public class CattailsBlock extends TallFlowerBlock implements IShearable, SimpleWaterloggedBlock {
+public class ReedsBlock extends TallFlowerBlock implements IShearable, SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
-    public CattailsBlock(Properties props) {
+    public ReedsBlock(Properties props) {
         super(props);
         this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
@@ -66,7 +66,7 @@ public class CattailsBlock extends TallFlowerBlock implements IShearable, Simple
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(ModBlockTags.CATTAILS_MAY_PLACE.get());
+        return state.is(ModBlockTags.REEDS_MAY_PLACE.get());
     }
 }
 

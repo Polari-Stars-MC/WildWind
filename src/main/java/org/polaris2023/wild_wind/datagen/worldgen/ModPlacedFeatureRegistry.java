@@ -24,6 +24,10 @@ public class ModPlacedFeatureRegistry {
 	public static final ResourceKey<PlacedFeature> ORE_SALT = create("ore_salt");
 	public static final ResourceKey<PlacedFeature> ORE_SALT_BURIED = create("ore_salt_buried");
 
+	//Patches
+	public static final ResourceKey<PlacedFeature> PATCH_CATTAILS = create("patch_cattails");
+	public static final ResourceKey<PlacedFeature> PATCH_REEDS = create("patch_reeds");
+
 	//Quicksand
 	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
 	public static final ResourceKey<PlacedFeature> RED_QUICKSAND = create("red_quicksand");
@@ -76,6 +80,20 @@ public class ModPlacedFeatureRegistry {
 				RarityFilter.onAverageOnceEvery(10),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, PATCH_CATTAILS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_CATTAILS),
+				RarityFilter.onAverageOnceEvery(6),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, PATCH_REEDS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_REEDS),
+				RarityFilter.onAverageOnceEvery(8),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP,
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(

@@ -72,6 +72,14 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.LEAVES).add(ModBlocks.PALM_LEAVES.get(), ModBlocks.BAOBAB_LEAVES.get());
         tag(BlockTags.SAPLINGS).add(ModBlocks.PALM_SAPLING.get(), ModBlocks.BAOBAB_SAPLING.get());
         tag(ModBlockTags.ICE_SKIP).add(ModBlocks.BRITTLE_ICE.get());
+        tag(ModBlockTags.CATTAILS_MAY_PLACE).add(
+                Blocks.DIRT, Blocks.PODZOL, Blocks.GRASS_BLOCK, Blocks.MYCELIUM, Blocks.COARSE_DIRT, Blocks.FARMLAND,
+                Blocks.MUD, Blocks.CLAY, Blocks.GRAVEL, Blocks.SAND, Blocks.RED_SAND
+        );
+        tag(ModBlockTags.REEDS_MAY_PLACE).add(
+                Blocks.DIRT, Blocks.PODZOL, Blocks.GRASS_BLOCK, Blocks.MYCELIUM, Blocks.COARSE_DIRT, Blocks.FARMLAND,
+                Blocks.MUD, Blocks.CLAY, Blocks.GRAVEL, Blocks.SAND, Blocks.RED_SAND
+        );
         tag(BlockTags.STAIRS).add(
                 ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(),
                 ModBlocks.BLUE_ICE_BRICK_STAIRS.get()
