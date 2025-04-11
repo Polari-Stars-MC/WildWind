@@ -21,7 +21,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
-import org.polaris2023.wild_wind.util.interfaces.IBannerBlockEntity;
 
 public class RightClickHandler {
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
@@ -123,16 +122,18 @@ public class RightClickHandler {
         if (blockEntity instanceof BannerBlockEntity bannerBlockEntity) {
             BannerPatternLayers patternLayers = bannerBlockEntity.getPatterns();
             level.setBlockAndUpdate(pos, newBlockState);
-            IBannerBlockEntity newBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
+
+            BannerBlockEntity newBannerBlockEntity = (BannerBlockEntity) level.getBlockEntity(pos);
             if (newBannerBlockEntity == null) return false;
-            newBannerBlockEntity.wild_wind$setBannerPatternLayers(patternLayers);
+
+            newBannerBlockEntity.patterns = patternLayers;
             return true;
         } else if (blockEntity instanceof ModBannerBlockEntity bannerBlockEntity) {
             BannerPatternLayers patternLayers = bannerBlockEntity.getPatterns();
             level.setBlockAndUpdate(pos, newBlockState);
-            IBannerBlockEntity newModBannerBlockEntity = (IBannerBlockEntity) level.getBlockEntity(pos);
+            BannerBlockEntity newModBannerBlockEntity = (BannerBlockEntity) level.getBlockEntity(pos);
             if (newModBannerBlockEntity == null) return false;
-            newModBannerBlockEntity.wild_wind$setBannerPatternLayers(patternLayers);
+            newModBannerBlockEntity.patterns = patternLayers;
             return true;
         }
         return false;

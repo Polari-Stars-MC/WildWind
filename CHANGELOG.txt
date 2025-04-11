@@ -1,4 +1,4 @@
-5.0.1 change log:
+1.0.5 change log:
 
 2025/4/1
     Fixed an issue where the registration name was not fixed.
@@ -14,3 +14,5 @@
 2025/4/8
     Model displacement repair.
     Package sending bug fixed.
+2025/4/9
+    Auto-smelting enchantment repaired

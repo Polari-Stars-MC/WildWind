@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.datagen;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -18,6 +19,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.fluids.FluidStack;
+import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
@@ -82,7 +84,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 glazed_terracotta
                         .requires(ModBlocks.GLAZED_TERRACOTTA)
                         .requires(DYE[finalI]);
-            }));
+            }), WildWindMod.MOD_ID + "/");
             add(shapeless(RecipeCategory.MISC, CARPET_BLOCK[i], 1, carpet -> {
                 unlockedBy(carpet, ModBlocks.CARPET, DYE[finalI]);
                 carpet
@@ -122,7 +124,10 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 2), "stonecutting/");
     }
 
+    public static final ImmutableList<ItemLike> IRON_SMELTABLES = ImmutableList.of(Items.RAW_IRON_BLOCK);
+
     protected void addSmeltingRecipes() {
+
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
@@ -140,7 +145,14 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
 
-        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), Helpers.location("charcoal"));
+        add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), WildWindMod.MOD_ID + "/");
+
+        add(smelting(Items.RAW_IRON_BLOCK, RecipeCategory.MISC, Items.IRON_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(smelting(Items.RAW_GOLD_BLOCK, RecipeCategory.MISC, Items.GOLD_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(smelting(Items.RAW_COPPER_BLOCK, RecipeCategory.MISC, Items.COPPER_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_smelt");
+        add(blasting(Items.RAW_IRON_BLOCK, RecipeCategory.MISC, Items.IRON_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
+        add(blasting(Items.RAW_GOLD_BLOCK, RecipeCategory.MISC, Items.GOLD_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
+        add(blasting(Items.RAW_COPPER_BLOCK, RecipeCategory.MISC, Items.COPPER_BLOCK, 4.9f, 1000), WildWindMod.MOD_ID + "/", "_blast");
 
         // add(smelting(ModBlocks.PALM_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));
         // add(smelting(ModBlocks.BAOBAB_LEAVES, RecipeCategory.MISC, Items.LEAF_LITTER, 0.35F));

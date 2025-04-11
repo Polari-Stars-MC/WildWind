@@ -23,6 +23,7 @@ public class ModEnchantTagsProvider extends EnchantmentTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+
         tag(NON_TREASURE).add(ModEnchantments.AUTO_SMELTING.get());
     }
 }

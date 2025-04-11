@@ -22,6 +22,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity> extends 
         if (entity.getData(ModAttachmentTypes.SHOULD_SQUID_CONVERT)) {
             cir.setReturnValue(true);
         }
+
     }
 
 }

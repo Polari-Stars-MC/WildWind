@@ -8,8 +8,9 @@ import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import org.polaris2023.wild_wind.common.init.ModAttachmentTypes;
 import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.util.interfaces.INetPacket;
 
-public record SquidConvertPacket(int entityID) implements CustomPacketPayload {
+public record SquidConvertPacket(int entityID) implements CustomPacketPayload, INetPacket {
 
     public static final Type<SquidConvertPacket> TYPE = new Type<>(Helpers.location("squid_convert"));
     public static final StreamCodec<RegistryFriendlyByteBuf, SquidConvertPacket> STREAM_CODEC =
@@ -17,10 +18,6 @@ public record SquidConvertPacket(int entityID) implements CustomPacketPayload {
 
     public SquidConvertPacket(FriendlyByteBuf buf) {
         this(buf.readInt());
-    }
-
-    public void write(FriendlyByteBuf buf) {
-        buf.writeInt(this.entityID);
     }
 
     @Override
@@ -37,4 +34,8 @@ public record SquidConvertPacket(int entityID) implements CustomPacketPayload {
         });
     }
 
+    @Override
+    public void write(RegistryFriendlyByteBuf buf) {
+        buf.writeInt(this.entityID);
+    }
 }
