@@ -43,6 +43,10 @@ public class ModConfiguredFeatureRegistry {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_CATTAILS = create("patch_cattails");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_REEDS = create("patch_reeds");
 
+	//Waterlogged
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_REEDS = create("waterlogged_reeds");
+
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
 	@SuppressWarnings("deprecation")
@@ -79,6 +83,8 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, PATCH_REEDS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
 				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get()))
 		));
+		FeatureUtils.register(context, WATERLOGGED_CATTAILS, ModFeatures.HALF_WATERLOGGED_TALL_FLOWER, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get())));
+		FeatureUtils.register(context, WATERLOGGED_REEDS, ModFeatures.HALF_WATERLOGGED_TALL_FLOWER, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get())));
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}
 
