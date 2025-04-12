@@ -28,6 +28,10 @@ public class ModPlacedFeatureRegistry {
 	public static final ResourceKey<PlacedFeature> PATCH_CATTAILS = create("patch_cattails");
 	public static final ResourceKey<PlacedFeature> PATCH_REEDS = create("patch_reeds");
 
+	//Waterlogged
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_REEDS = create("waterlogged_reeds");
+
 	//Quicksand
 	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
 	public static final ResourceKey<PlacedFeature> RED_QUICKSAND = create("red_quicksand");
@@ -94,6 +98,20 @@ public class ModPlacedFeatureRegistry {
 				RarityFilter.onAverageOnceEvery(8),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP,
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_CATTAILS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_CATTAILS),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(36),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_REEDS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_REEDS),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(48),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(

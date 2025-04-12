@@ -23,6 +23,8 @@ public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> SILT = create("silt");
 	public static final ResourceKey<BiomeModifier> PATCH_CATTAILS = create("patch_cattails");
 	public static final ResourceKey<BiomeModifier> PATCH_REEDS = create("patch_reeds");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_REEDS = create("waterlogged_reeds");
 	public static final ResourceKey<BiomeModifier> ASH = create("ash");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
@@ -61,6 +63,16 @@ public class ModBiomeModifierRegistry {
 		context.register(PATCH_REEDS, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.PATCH_REEDS)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_CATTAILS, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_CATTAILS)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_REEDS, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_REEDS)),
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));
 		context.register(ASH, new BiomeModifiers.AddFeaturesBiomeModifier(
