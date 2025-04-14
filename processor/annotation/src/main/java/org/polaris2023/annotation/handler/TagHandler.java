@@ -1,4 +1,4 @@
-package org.polaris2023.annotation.tag;
+package org.polaris2023.annotation.handler;
 
 import org.polaris2023.annotation.enums.TagType;
 
@@ -7,10 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author : baka4n
- * {@code @Date : 2025/03/29 20:38:27}
+ * {@code @Date : 2025/04/14 14:27:23}
  */
 @Retention(RetentionPolicy.SOURCE)
-public @interface CTag {
-    String[] names();
-    TagType type();
+public @interface TagHandler {
+    TagType value() default TagType.None;
 }

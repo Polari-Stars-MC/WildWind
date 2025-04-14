@@ -12,7 +12,8 @@ import com.sun.tools.javac.parser.ParserFactory;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.Context;
-import org.polaris2023.annotation.register.RegistryHandler;
+import org.polaris2023.annotation.enums.TagType;
+import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.processor.clazz.ClassProcessor;
 import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
@@ -20,7 +21,7 @@ import org.polaris2023.processor.clazz.datagen.ModelProcessor;
 import org.polaris2023.processor.clazz.registry.AttachmentRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.BlockRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.ItemRegistryProcessor;
-import org.polaris2023.processor.clazz.registry.RegistryHandlerProcessor;
+import org.polaris2023.processor.clazz.handler.HandlerProcessor;
 import org.polaris2023.processor.pack.PackageProcessor;
 import org.polaris2023.utils.Codes;
 import org.polaris2023.utils.Unsafe;
@@ -47,8 +48,9 @@ public class InitProcessor extends AbstractProcessor {
 
     public static final Map<String, StringBuilder> SERVICES = new HashMap<>();
     public static final AtomicBoolean ONLY_ONCE = new AtomicBoolean(true);
-    public static final Map<RegistryHandler.Type, Optional<? extends VariableTree>> REGISTRY_MAP = new HashMap<>();
-    public static final Map<RegistryHandler.Type, ClassTree> REGISTRY_CLASS_MAP = new HashMap<>();
+    public static final Map<RegType, Optional<? extends VariableTree>> REGISTRY_MAP = new HashMap<>();
+    public static final Map<RegType, ClassTree> REGISTRY_CLASS_MAP = new HashMap<>();
+    public static final Map<TagType, MethodTree> TAG_MAP = new HashMap<>();
     public JavacProcessingEnvironment environment;
 
     public Trees trees;
@@ -112,7 +114,7 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new AutoConfigProcessor(environment));
         classProcessors.add(new I18nProcessor(environment));
         classProcessors.add(new ModelProcessor(environment));
-        classProcessors.add(new RegistryHandlerProcessor(environment));
+        classProcessors.add(new HandlerProcessor(environment));
         classProcessors.add(new BlockRegistryProcessor(environment));
         classProcessors.add(new ItemRegistryProcessor(environment));
         classProcessors.add(new AttachmentRegistryProcessor(environment));

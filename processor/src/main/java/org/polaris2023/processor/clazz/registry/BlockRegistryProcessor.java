@@ -1,8 +1,7 @@
 package org.polaris2023.processor.clazz.registry;
 
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
-import org.polaris2023.annotation.register.RegistryHandler;
-import org.polaris2023.processor.clazz.ClassProcessor;
+import org.polaris2023.annotation.enums.RegType;
 
 /**
  * @author : baka4n
@@ -10,8 +9,8 @@ import org.polaris2023.processor.clazz.ClassProcessor;
  */
 public class BlockRegistryProcessor extends RegistryProcessor {
     @Override
-    public RegistryHandler.Type defaultType() {
-        return RegistryHandler.Type.Block;
+    public RegType defaultType() {
+        return RegType.Block;
     }
 
     public BlockRegistryProcessor(JavacProcessingEnvironment environment) {

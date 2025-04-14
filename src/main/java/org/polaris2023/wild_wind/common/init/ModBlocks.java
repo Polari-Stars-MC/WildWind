@@ -18,12 +18,13 @@ import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.register.RegistryBlockItem;
-import org.polaris2023.annotation.register.RegistryHandler;
+import org.polaris2023.annotation.handler.RegistryHandler;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
@@ -37,7 +38,7 @@ import static org.polaris2023.wild_wind.common.init.ModInitializer.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry.*;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
-@RegistryHandler(RegistryHandler.Type.Block)
+@RegistryHandler(RegType.Block)
 @SuppressWarnings("unused")
 public class ModBlocks {
     public static final DeferredRegister.Blocks REGISTER =
