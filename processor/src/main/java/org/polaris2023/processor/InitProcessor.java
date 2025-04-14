@@ -18,6 +18,7 @@ import org.polaris2023.processor.clazz.ClassProcessor;
 import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
 import org.polaris2023.processor.clazz.datagen.ModelProcessor;
+import org.polaris2023.processor.clazz.datagen.TagProcessor;
 import org.polaris2023.processor.clazz.registry.AttachmentRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.BlockRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.ItemRegistryProcessor;
@@ -61,37 +62,46 @@ public class InitProcessor extends AbstractProcessor {
     public static ClassTree wildWindClientProvider;
 
     public static void modelGen(Context context,String code) {
-        gen(modelInit, context, code);
+        modelInit.ifPresent(tree -> {
+            gen(tree, context, code);
+        });
+
     }
 
-    public static void modelGen(Context context, JCTree.JCStatement code) {
-        gen(modelInit, context, code);
+    public static <T extends JCTree.JCStatement> void modelGen(T code) {
+        modelInit.ifPresent(tree -> {
+            gen(tree, code);
+        });
     }
 
     public static void languageGen(Context context, String code) {
-        gen(languageInit, context, code);
+        languageInit.ifPresent(tree -> {
+            gen(tree, context, code);
+        });
+
     }
 
-    public static <T extends JCTree.JCStatement> void languageGen(Context context, T code) {
-        gen(languageInit, context, code);
+    public static <T extends JCTree.JCStatement> void languageGen(T code) {
+        languageInit.ifPresent(tree -> {
+            gen(tree, code);
+        });
+
     }
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public static void gen(Optional<? extends MethodTree> optional, Context context, String code) {
+
+    public static void gen(MethodTree tree, Context context, String code) {
         ParserFactory parserFactory = ParserFactory.instance(context);
         JavacParser javacParser = parserFactory.newParser(code, false, false, false);
         JCTree.JCStatement jcStatement = javacParser.parseStatement();
-        gen(optional, context, jcStatement);
+        gen(tree, jcStatement);
     }
 
-    @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
-    public static void gen(Optional<? extends MethodTree> optional, Context context, JCTree.JCStatement statement) {
-        optional.ifPresent(tree -> {
-            var jcMethodDecl = (JCTree.JCMethodDecl) tree;
-            if(jcMethodDecl.body != null) {
-                jcMethodDecl.body.stats = jcMethodDecl.body.stats.append(statement);
-            }
-        });
+
+    public static void gen(MethodTree tree, JCTree.JCStatement statement) {
+        var jcMethodDecl = (JCTree.JCMethodDecl) tree;
+        if(jcMethodDecl.body != null) {
+            jcMethodDecl.body.stats = jcMethodDecl.body.stats.append(statement);
+        }
     }
 
     public static void add(String serviceName, String name) {
@@ -118,6 +128,7 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new BlockRegistryProcessor(environment));
         classProcessors.add(new ItemRegistryProcessor(environment));
         classProcessors.add(new AttachmentRegistryProcessor(environment));
+        classProcessors.add(new TagProcessor(environment));
     }
 
     /**

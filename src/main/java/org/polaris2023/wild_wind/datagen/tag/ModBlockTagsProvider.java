@@ -4,6 +4,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
@@ -11,6 +12,8 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.annotation.enums.TagType;
+import org.polaris2023.annotation.handler.TagHandler;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
@@ -36,19 +39,19 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     protected IntrinsicTagAppender<Block> tag(Supplier<TagKey<Block>> tag) {
         return super.tag(tag.get());
     }
-
+    @TagHandler(TagType.Block)
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+
         var firefly_roost = tag(ModBlockTags.FIREFLY_ROOST_BLOCK.get());
         firefly_roost.add(Blocks.TALL_GRASS, Blocks.SHORT_GRASS,
                 Blocks.FERN, Blocks.LARGE_FERN,
                 Blocks.POTTED_FERN, Blocks.MANGROVE_PROPAGULE,
                 Blocks.POTTED_MANGROVE_PROPAGULE);
         firefly_roost.addTag(BlockTags.FLOWERS);
-        tag(BlockTags.SNOW_LAYER_CANNOT_SURVIVE_ON).add(ModBlocks.BRITTLE_ICE.get());
 
         //Mineable
-        tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
+//        tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
                 ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get(),
                 ModBlocks.CONCRETE.get(), ModBlocks.GLAZED_TERRACOTTA.get(),
@@ -100,20 +103,18 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
         tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
 
-        tag(BlockTags.ENDERMAN_HOLDABLE).add(ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.AZALEA_GROWS_ON).add(ModBlocks.SILT.get());
         tag(BlockTags.AZALEA_ROOT_REPLACEABLE).add(ModBlocks.SILT.get());
 
         tag(BlockTags.REPLACEABLE).add(ModBlocks.ASH.get());
 
         tag(Tags.Blocks.GLAZED_TERRACOTTAS).add(ModBlocks.GLAZED_TERRACOTTA.get());
-        tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
+//        tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
         tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
-        tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
-        tag(BlockTags.BEDS).add(ModBlocks.BED.get());
-        for(Block banner : ModDyedArray.BANNER_BLOCK) {
-            tag(BANNER).add(banner);
-        }
+//        tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
+//        for(Block banner : ModDyedArray.BANNER_BLOCK) {
+//            tag(BANNER).add(banner);
+//        }
         for(Block wallBanner : ModDyedArray.WALL_BANNER_BLOCK) {
             tag(WALL_BANNER).add(wallBanner);
         }
@@ -129,10 +130,12 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     }
 
     public static TagKey<Block> create(String namespace, String tagName) {
+
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, tagName));
     }
 
     public static TagKey<Block> createCTag(String tagName) {
+
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
     }
 

@@ -12,6 +12,8 @@ import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
+import org.polaris2023.annotation.enums.TagType;
+import org.polaris2023.annotation.handler.TagHandler;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
@@ -31,6 +33,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         super(output, lookupProvider, blockTags, WildWindMod.MOD_ID, existingFileHelper);
     }
 
+    @TagHandler(TagType.Item)
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         IntrinsicTagAppender<Item> firefly_food = tag(ModItemTags.FIREFLY_FOOD);

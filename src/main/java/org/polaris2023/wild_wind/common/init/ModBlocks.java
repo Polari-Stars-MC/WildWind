@@ -19,12 +19,15 @@ import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.annotation.enums.RegType;
+import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.language.I18n;
 
 import org.polaris2023.annotation.modelgen.block.*;
 import org.polaris2023.annotation.modelgen.item.*;
 import org.polaris2023.annotation.register.RegistryBlockItem;
 import org.polaris2023.annotation.handler.RegistryHandler;
+import org.polaris2023.annotation.tag.CTag;
+import org.polaris2023.annotation.tag.VanillaTag;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
@@ -84,12 +87,15 @@ public class ModBlocks {
 
     @I18n(en_us = "Bed", zh_cn = "床", zh_tw = "床")
     @RegistryBlockItem
+    @VanillaTag(names = "beds", type = TagType.Block)
     public static final DeferredBlock<NeoBedBlock> BED = register("bed", NeoBedBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACK_BED));
 
     public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITIES = DeferredRegister.create(Registries.BLOCK_ENTITY_TYPE, WildWindMod.MOD_ID);
 
     @I18n(en_us = "Banner", zh_cn = "旗帜", zh_tw = "旗幟")
+    @VanillaTag(names = "banners", type = TagType.Block)
     public static final DeferredBlock<ModBannerBlock> BANNER = register("banner", (p) -> new ModBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_BANNER));
+    @VanillaTag(names = "banners", type = TagType.Block)
     public static final DeferredBlock<ModWallBannerBlock> WALL_BANNER = register("wall_banner", (p) -> new ModWallBannerBlock(13419950, p), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_BANNER));
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ModBannerBlockEntity>> BANNER_BE =
             entity("banner", DSL.remainderType(), (pos, blockState) -> new ModBannerBlockEntity(pos, blockState, 13419950), BANNER, WALL_BANNER);
@@ -146,8 +152,8 @@ public class ModBlocks {
             min = 0,
             max = 3,
             def = "wild_wind:block/brittle_ice"
-    )
-    @RegistryBlockItem
+    ) @RegistryBlockItem
+    @VanillaTag(names = "snow_layer_cannot_survive_on", type = TagType.Block)
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
 
@@ -178,8 +184,8 @@ public class ModBlocks {
 
 
     @I18n(en_us = "Concrete", zh_cn = "混凝土", zh_tw = "混凝土")
-    @BasicBlock
-    @RegistryBlockItem
+    @BasicBlock @RegistryBlockItem
+    @CTag(names = "concretes", type = TagType.Block)
     public static final DeferredBlock<Block> CONCRETE = register("concrete", BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE).strength(0.8F).ignitedByLava());
 
     @I18n(en_us = "Concrete Powder", zh_cn = "混凝土粉末", zh_tw = "混凝土粉末")
@@ -223,6 +229,7 @@ public class ModBlocks {
             bottom = "wild_wind:block/glistering_melon_side",
             top = "wild_wind:block/glistering_melon_top")
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
+    @VanillaTag(names = {"sword_efficient", "enderman_holdable"}, type = TagType.Block)
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
 
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
