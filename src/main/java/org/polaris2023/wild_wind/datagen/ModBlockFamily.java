@@ -1,14 +1,11 @@
 package org.polaris2023.wild_wind.datagen;
 
-import net.minecraft.core.HolderGetter;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -17,11 +14,8 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
-import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.util.Helpers;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -50,19 +44,19 @@ public record ModBlockFamily(Block baseBlock, Block wood, Block log, Block strip
 	}
 
 	public void addCreativeTab(CreativeModeTab.Output output) {
-		output.accept(baseBlock);
-		output.accept(wood);
-		output.accept(log);
-		output.accept(strippedWood);
-		output.accept(strippedLog);
-		output.accept(stair);
-		output.accept(slab);
-		output.accept(fence);
-		output.accept(fenceGate);
-		output.accept(door);
-		output.accept(trapdoor);
-		output.accept(pressurePlate);
-		output.accept(button);
+		output.accept(this.log);
+		output.accept(this.wood);
+		output.accept(this.strippedLog);
+		output.accept(this.strippedWood);
+		output.accept(this.baseBlock);
+		output.accept(this.stair);
+		output.accept(this.slab);
+		output.accept(this.fence);
+		output.accept(this.fenceGate);
+		output.accept(this.door);
+		output.accept(this.trapdoor);
+		output.accept(this.pressurePlate);
+		output.accept(this.button);
 	}
 
 	public void generateBlockLoot(Consumer<Block> dropSelf, Consumer<SlabBlock> dropSlab) {
