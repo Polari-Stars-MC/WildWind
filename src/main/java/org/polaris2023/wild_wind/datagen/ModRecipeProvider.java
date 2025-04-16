@@ -1,6 +1,5 @@
 package org.polaris2023.wild_wind.datagen;
 
-import com.google.common.collect.ImmutableList;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -51,9 +50,7 @@ public class ModRecipeProvider extends RecipeProvider {
         addShapedRecipe();
         addShapelessRecipe();
         addCookingPotRecipes();
-        list.forEach((s, b) -> {
-            b.save(recipeOutput, s);
-        });
+        list.forEach((s, b) -> b.save(recipeOutput, s));
     }
 
     protected void addCookingPotRecipes() {
@@ -123,8 +120,6 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 2), "stonecutting/");
     }
-
-    public static final ImmutableList<ItemLike> IRON_SMELTABLES = ImmutableList.of(Items.RAW_IRON_BLOCK);
 
     protected void addSmeltingRecipes() {
 
@@ -396,11 +391,11 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.APPLE_CAKE.get(), 1, apple_cake -> {
-            unlockedBy(apple_cake, Items.APPLE);
-            unlockedBy(apple_cake, Items.SUGAR);
-            unlockedBy(apple_cake, Items.EGG);
-            apple_cake
+        add(shapeless(RecipeCategory.FOOD, ModBaseFoods.APPLE_PIE.get(), 1, apple_pie -> {
+            unlockedBy(apple_pie, Items.APPLE);
+            unlockedBy(apple_pie, Items.SUGAR);
+            unlockedBy(apple_pie, Items.EGG);
+            apple_pie
                     .requires(Items.APPLE)
                     .requires(Items.SUGAR)
                     .requires(Items.EGG);
