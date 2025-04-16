@@ -7,6 +7,7 @@ import com.sun.tools.javac.util.Context;
 import org.polaris2023.annotation.tag.CTag;
 import org.polaris2023.annotation.tag.Tag;
 import org.polaris2023.annotation.tag.VanillaTag;
+import org.polaris2023.annotation.tag.WildWindTag;
 import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
@@ -29,7 +30,7 @@ public class TagProcessor extends ClassProcessor {
         CTag cTag = variableElement.getAnnotation(CTag.class);
         VanillaTag vanillaTag = variableElement.getAnnotation(VanillaTag.class);
         Tag tag = variableElement.getAnnotation(Tag.class);
-
+        WildWindTag wildWindTag = variableElement.getAnnotation(WildWindTag.class);
         if (cTag != null && InitProcessor.TAG_MAP.containsKey(cTag.type())) {
             MethodTree tree = InitProcessor.TAG_MAP.get(cTag.type());
 
@@ -47,6 +48,15 @@ public class TagProcessor extends ClassProcessor {
                 }
             }
         }
+        if (wildWindTag != null && InitProcessor.TAG_MAP.containsKey(wildWindTag.type())) {
+            MethodTree tree = InitProcessor.TAG_MAP.get(wildWindTag.type());
+            switch (wildWindTag.type()) {
+                default -> {
+                    tagGen("minecraft", wildWindTag.names(), typeElement, variableElement, tree, context);
+                }
+            }
+        }
+
 
         if (tag != null && InitProcessor.TAG_MAP.containsKey(tag.type())) {
             MethodTree tree = InitProcessor.TAG_MAP.get(tag.type());
@@ -86,8 +96,9 @@ public class TagProcessor extends ClassProcessor {
                               VariableElement variableElement,
                               MethodTree tree,
                               Context context) {
-        StringBuilder sb = new StringBuilder();
+
         for (String name : tagNames) {
+            StringBuilder sb = new StringBuilder();
             sb
                     .append("tag(net.minecraft.tags.BlockTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(\"")
                     .append(modid)
@@ -99,7 +110,8 @@ public class TagProcessor extends ClassProcessor {
                     .append(".")
                     .append(variableElement.getSimpleName())
                     .append(".get());");
+            InitProcessor.gen(tree, context, sb.toString());
         }
-        InitProcessor.gen(tree, context, sb.toString());
+
     }
 }

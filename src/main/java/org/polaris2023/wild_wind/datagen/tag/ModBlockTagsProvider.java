@@ -4,11 +4,9 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.TagBuilder;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
-import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -31,11 +29,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
         super(output, lookupProvider, WildWindMod.MOD_ID, existingFileHelper);
     }
 
-    public static final TagKey<Block> CONCRETE_POWDERS = createCTag("concrete_powders");
-    public static final TagKey<Block> BANNER = create("banners");
-    public static final TagKey<Block> WALL_BANNER = create("wall_banners");
-
-
     protected IntrinsicTagAppender<Block> tag(Supplier<TagKey<Block>> tag) {
         return super.tag(tag.get());
     }
@@ -50,18 +43,7 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 Blocks.POTTED_MANGROVE_PROPAGULE);
         firefly_roost.addTag(BlockTags.FLOWERS);
 
-        //Mineable
-//        tag(BlockTags.SWORD_EFFICIENT).add(ModBlocks.GLISTERING_MELON.get());
-        tag(BlockTags.MINEABLE_WITH_PICKAXE).add(
-                ModBlocks.BRITTLE_ICE.get(), ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get(),
-                ModBlocks.CONCRETE.get(), ModBlocks.GLAZED_TERRACOTTA.get(),
-                ModBlocks.STONE_WALL.get(),
-                ModBlocks.POLISHED_STONE.get(), ModBlocks.POLISHED_STONE_SLAB.get(), ModBlocks.POLISHED_STONE_STAIRS.get(), ModBlocks.POLISHED_STONE_WALL.get(),
-                ModBlocks.ANDESITE_BRICKS.get(), ModBlocks.CRACKED_ANDESITE_BRICKS.get(), ModBlocks.ANDESITE_BRICK_SLAB.get(), ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.ANDESITE_BRICK_WALL.get(),
-                ModBlocks.DIORITE_BRICKS.get(), ModBlocks.CRACKED_DIORITE_BRICKS.get(), ModBlocks.DIORITE_BRICK_SLAB.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_WALL.get(),
-                ModBlocks.GRANITE_BRICKS.get(), ModBlocks.CRACKED_GRANITE_BRICKS.get(), ModBlocks.GRANITE_BRICK_SLAB.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_WALL.get(),
-                ModBlocks.BLUE_ICE_BRICKS.get(), ModBlocks.CRACKED_BLUE_ICE_BRICKS.get(), ModBlocks.BLUE_ICE_BRICK_SLAB.get(), ModBlocks.BLUE_ICE_BRICK_STAIRS.get(), ModBlocks.BLUE_ICE_BRICK_WALL.get()
-        );
+
         tag(BlockTags.MINEABLE_WITH_AXE).add(ModBlocks.PALM_CROWN.get(), ModBlocks.GLISTERING_MELON.get());
         tag(BlockTags.MINEABLE_WITH_SHOVEL).add(ModBlocks.ASH_BLOCK.get(), ModBlocks.ASH.get(),
                 ModBlocks.SILT.get(), ModBlocks.QUICKSAND.get(), ModBlocks.RED_QUICKSAND.get(),
@@ -83,42 +65,36 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
                 Blocks.DIRT, Blocks.PODZOL, Blocks.GRASS_BLOCK, Blocks.MYCELIUM, Blocks.COARSE_DIRT, Blocks.FARMLAND,
                 Blocks.MUD, Blocks.CLAY, Blocks.GRAVEL, Blocks.SAND, Blocks.RED_SAND
         );
-        tag(BlockTags.STAIRS).add(
-                ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(),
-                ModBlocks.BLUE_ICE_BRICK_STAIRS.get()
-        );
-        tag(BlockTags.SLABS).add(
-                ModBlocks.ANDESITE_BRICK_SLAB.get(), ModBlocks.DIORITE_BRICK_SLAB.get(), ModBlocks.GRANITE_BRICK_SLAB.get(),
-                ModBlocks.BLUE_ICE_BRICK_SLAB.get()
-        );
-        tag(BlockTags.WALLS).add(
-                ModBlocks.STONE_WALL.get(), ModBlocks.POLISHED_STONE_WALL.get(),
-                ModBlocks.ANDESITE_BRICK_WALL.get(), ModBlocks.DIORITE_BRICK_WALL.get(), ModBlocks.GRANITE_BRICK_WALL.get(),
-                ModBlocks.BLUE_ICE_BRICK_WALL.get()
-        );
+//        tag(BlockTags.STAIRS).add(
+//                ModBlocks.ANDESITE_BRICK_STAIRS.get(), ModBlocks.DIORITE_BRICK_STAIRS.get(), ModBlocks.GRANITE_BRICK_STAIRS.get(),
+//                ModBlocks.BLUE_ICE_BRICK_STAIRS.get()
+//        );
+//        tag(BlockTags.SLABS).add(
+//                ModBlocks.ANDESITE_BRICK_SLAB.get(), ModBlocks.DIORITE_BRICK_SLAB.get(), ModBlocks.GRANITE_BRICK_SLAB.get(),
+//                ModBlocks.BLUE_ICE_BRICK_SLAB.get()
+//        );
 
-        tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
-        tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
+//        tag(BlockTags.WOOL).add(ModBlocks.WOOL.get());
+//        tag(BlockTags.WOOL_CARPETS).add(ModBlocks.CARPET.get());
 
-        tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
-        tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
+//        tag(BlockTags.CONVERTABLE_TO_MUD).add(ModBlocks.SILT.get());
+//        tag(BlockTags.MOSS_REPLACEABLE).add(ModBlocks.SILT.get());
 
-        tag(BlockTags.AZALEA_GROWS_ON).add(ModBlocks.SILT.get());
-        tag(BlockTags.AZALEA_ROOT_REPLACEABLE).add(ModBlocks.SILT.get());
+//        tag(BlockTags.AZALEA_GROWS_ON).add(ModBlocks.SILT.get());
+//        tag(BlockTags.AZALEA_ROOT_REPLACEABLE).add(ModBlocks.SILT.get());
 
-        tag(BlockTags.REPLACEABLE).add(ModBlocks.ASH.get());
+//        tag(BlockTags.REPLACEABLE).add(ModBlocks.ASH.get());
 
-        tag(Tags.Blocks.GLAZED_TERRACOTTAS).add(ModBlocks.GLAZED_TERRACOTTA.get());
-//        tag(Tags.Blocks.CONCRETES).add(ModBlocks.CONCRETE.get());
-        tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
-//        tag(BlockTags.BANNERS).add(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
-//        for(Block banner : ModDyedArray.BANNER_BLOCK) {
-//            tag(BANNER).add(banner);
-//        }
-        for(Block wallBanner : ModDyedArray.WALL_BANNER_BLOCK) {
-            tag(WALL_BANNER).add(wallBanner);
+//        tag(Tags.Blocks.GLAZED_TERRACOTTAS).add(ModBlocks.GLAZED_TERRACOTTA.get());
+
+//        tag(CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get());
+        for (Block block : ModDyedArray.BANNER_BLOCK) {
+            tag(ModBlockTags.BANNERS).add(block);
         }
-        DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(CONCRETE_POWDERS).add(block));
+        for(Block wallBanner : ModDyedArray.WALL_BANNER_BLOCK) {
+            tag(ModBlockTags.WALL_BANNERS).add(wallBanner);
+        }
+        DyedBlockMap.getDyedBlock("CONCRETE_POWDER").forEach((color, block) -> tag(ModBlockTags.CONCRETE_POWDERS).add(block));
 
         ModBlockFamilies.AZALEA.generateBlockTags(this::tag);
         ModBlockFamilies.PALM.generateBlockTags(this::tag);
@@ -132,11 +108,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     public static TagKey<Block> create(String namespace, String tagName) {
 
         return BlockTags.create(ResourceLocation.fromNamespaceAndPath(namespace, tagName));
-    }
-
-    public static TagKey<Block> createCTag(String tagName) {
-
-        return BlockTags.create(ResourceLocation.fromNamespaceAndPath("c", tagName));
     }
 
     @SafeVarargs
