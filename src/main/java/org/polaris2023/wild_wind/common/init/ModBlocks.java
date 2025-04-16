@@ -224,6 +224,7 @@ public class ModBlocks {
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
 
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
 
     @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")
