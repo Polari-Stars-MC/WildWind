@@ -32,11 +32,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
     @TagHandler(TagType.Block)
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-
-
-        ModBlockFamilies.AZALEA.generateBlockTags(this::tag);
-        ModBlockFamilies.PALM.generateBlockTags(this::tag);
-        ModBlockFamilies.BAOBAB.generateBlockTags(this::tag);
     }
 
     public static TagKey<Block> create(String tagName) {

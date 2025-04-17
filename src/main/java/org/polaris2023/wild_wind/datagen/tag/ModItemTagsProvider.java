@@ -152,9 +152,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 Items.SNIFFER_EGG, Items.DRAGON_EGG);
         tag(ModItemTags.SWEET_COMPONENT_1F).add(Items.SUGAR, Items.HONEY_BOTTLE);
         tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
-        ModBlockFamilies.AZALEA.generateItemTags(this::tag);
-        ModBlockFamilies.PALM.generateItemTags(this::tag);
-        ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
+//        ModBlockFamilies.AZALEA.generateItemTags(this::tag);
+//        ModBlockFamilies.PALM.generateItemTags(this::tag);
+//        ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
         tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.FROG_LEG.get(),
                 ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());

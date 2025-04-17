@@ -3,8 +3,6 @@ package org.polaris2023.wild_wind.util.data;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -81,34 +79,18 @@ public record ModBlockFamily(Block baseBlock, Block wood, Block log, Block strip
 		dropSelf.accept(this.trapdoor);
 	}
 
-	public void generateBlockTags(Function<TagKey<Block>, IntrinsicHolderTagsProvider.IntrinsicTagAppender<Block>> tag) {
-		tag.apply(BlockTags.PLANKS).add(this.baseBlock);
-		tag.apply(BlockTags.LOGS_THAT_BURN).add(this.log);
-		tag.apply(BlockTags.WOODEN_BUTTONS).add(this.button);
-		tag.apply(BlockTags.WOODEN_FENCES).add(this.fence);
-		tag.apply(BlockTags.FENCE_GATES).add(this.fenceGate);
-		tag.apply(BlockTags.WOODEN_PRESSURE_PLATES).add(this.pressurePlate);
-		tag.apply(BlockTags.STANDING_SIGNS).add(this.standingSign);
-		tag.apply(BlockTags.WALL_SIGNS).add(this.wallSign);
-		tag.apply(BlockTags.CEILING_HANGING_SIGNS).add(this.ceilingHangingSign);
-		tag.apply(BlockTags.WALL_HANGING_SIGNS).add(this.wallHangingSign);
-		tag.apply(BlockTags.WOODEN_SLABS).add(this.slab);
-		tag.apply(BlockTags.WOODEN_STAIRS).add(this.stair);
-		tag.apply(BlockTags.WOODEN_DOORS).add(this.door);
-		tag.apply(BlockTags.WOODEN_TRAPDOORS).add(this.trapdoor);
-	}
 	public void generateItemTags(Function<TagKey<Item>, IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item>> tag) {
-		tag.apply(ItemTags.PLANKS).add(this.baseBlock.asItem());
-		tag.apply(ItemTags.WOODEN_BUTTONS).add(this.button.asItem());
-		tag.apply(ItemTags.WOODEN_FENCES).add(this.fence.asItem());
-		tag.apply(ItemTags.FENCE_GATES).add(this.fenceGate.asItem());
-		tag.apply(ItemTags.WOODEN_PRESSURE_PLATES).add(this.pressurePlate.asItem());
-		tag.apply(ItemTags.SIGNS).add(this.standingSign.asItem(), this.wallSign.asItem());
-		tag.apply(ItemTags.HANGING_SIGNS).add(this.ceilingHangingSign.asItem(), this.wallHangingSign.asItem());
-		tag.apply(ItemTags.WOODEN_SLABS).add(this.slab.asItem());
-		tag.apply(ItemTags.WOODEN_STAIRS).add(this.stair.asItem());
-		tag.apply(ItemTags.WOODEN_DOORS).add(this.door.asItem());
-		tag.apply(ItemTags.WOODEN_TRAPDOORS).add(this.trapdoor.asItem());
+//		tag.apply(ItemTags.PLANKS).add(this.baseBlock.asItem());
+//		tag.apply(ItemTags.WOODEN_BUTTONS).add(this.button.asItem());
+//		tag.apply(ItemTags.WOODEN_FENCES).add(this.fence.asItem());
+//		tag.apply(ItemTags.FENCE_GATES).add(this.fenceGate.asItem());
+//		tag.apply(ItemTags.WOODEN_PRESSURE_PLATES).add(this.pressurePlate.asItem());
+//		tag.apply(ItemTags.SIGNS).add(this.standingSign.asItem(), this.wallSign.asItem());
+//		tag.apply(ItemTags.HANGING_SIGNS).add(this.ceilingHangingSign.asItem(), this.wallHangingSign.asItem());
+//		tag.apply(ItemTags.WOODEN_SLABS).add(this.slab.asItem());
+//		tag.apply(ItemTags.WOODEN_STAIRS).add(this.stair.asItem());
+//		tag.apply(ItemTags.WOODEN_DOORS).add(this.door.asItem());
+//		tag.apply(ItemTags.WOODEN_TRAPDOORS).add(this.trapdoor.asItem());
 	}
 
 	public void generateFlammable() {
