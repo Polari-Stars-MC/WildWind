@@ -103,7 +103,7 @@ public class ModBlocks {
     @I18n(en_us = "Silt", zh_cn = "淤泥", zh_tw = "淤泥")
     @BasicBlock
     @RegistryBlockItem
-    @VanillaTag(names = {"convertable_to_mud", "moss_replaceable", "azalea_grows_on", "azalea_root_replaceable"}, type = TagType.Block)
+    @VanillaTag(names = {"convertable_to_mud", "moss_replaceable", "azalea_grows_on", "azalea_root_replaceable", "mineable/shovel"}, type = TagType.Block)
     public static final DeferredBlock<Block> SILT = register("silt", SiltBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
                     .sound(SoundType.MUD)
@@ -118,6 +118,7 @@ public class ModBlocks {
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
     @BasicBlock
     @RegistryBlockItem
+    @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f, 0.35f)
                     .sound(SoundType.SAND)
@@ -128,6 +129,7 @@ public class ModBlocks {
     @I18n(en_us = "Red Quicksand", zh_cn = "红沙流沙", zh_tw = "紅沙流沙")
     @BasicBlock
     @RegistryBlockItem
+    @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<QuicksandBlock> RED_QUICKSAND = register("red_quicksand", p -> new QuicksandBlock(p, Blocks.RED_SAND.defaultBlockState()),
             BlockBehaviour.Properties.ofFullCopy(Blocks.POWDER_SNOW).strength(0.35f).sound(SoundType.SAND).isSuffocating((state, level, pos) -> true).pushReaction(PushReaction.DESTROY));
 
@@ -161,11 +163,12 @@ public class ModBlocks {
     @I18n(en_us = "Ash Block", zh_cn = "灰烬块", zh_tw = "灰烬块")
     @BasicBlock
     @RegistryBlockItem
+    @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<Block> ASH_BLOCK = register("ash_block", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
 
 
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
-    @VanillaTag(names = "replaceable", type = TagType.Block)
+    @VanillaTag(names = {"replaceable", "mineable/shovel"}, type = TagType.Block)
     public static final DeferredBlock<AshLayerBlock> ASH = register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
 
   
@@ -196,6 +199,7 @@ public class ModBlocks {
     @I18n(en_us = "Concrete Powder", zh_cn = "混凝土粉末", zh_tw = "混凝土粉末")
     @BasicBlock
     @CTag(names = "concrete_powders", type = TagType.Block)
+    @VanillaTag(names = {"mineable/shovel", "camel_sand_step_sound_blocks"}, type = TagType.Block)
     public static final DeferredBlock<Block> CONCRETE_POWDER = register("concrete_powder", properties -> new ConcretePowderBlock(CONCRETE.get(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.WHITE_CONCRETE_POWDER).ignitedByLava());
     public static final DeferredItem<BlockItem> CONCRETE_POWDER_ITEM = register("concrete_powder", CONCRETE_POWDER);
     @I18n(en_us ="Glazed Terracotta", zh_cn = "带釉陶瓦", zh_tw = "带釉陶瓦")
@@ -239,7 +243,7 @@ public class ModBlocks {
             bottom = "wild_wind:block/glistering_melon_side",
             top = "wild_wind:block/glistering_melon_top")
     @I18n(en_us = "Glistering Melon", zh_cn = "闪烁的西瓜", zh_tw = "閃爍的西瓜")
-    @VanillaTag(names = {"sword_efficient", "enderman_holdable"}, type = TagType.Block)
+    @VanillaTag(names = {"sword_efficient", "enderman_holdable", "mineable/axe"}, type = TagType.Block)
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
 
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
@@ -397,6 +401,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Palm Crown", zh_cn = "棕榈树冠", zh_tw = "棕櫚樹冠")
     @BasicBlock
+    @VanillaTag(names = "mineable/axe", type = TagType.Block)
     public static final DeferredBlock<Block> PALM_CROWN = register("palm_crown", Block::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STRIPPED_SPRUCE_WOOD));
     public static final DeferredItem<BlockItem> PALM_CROWN_ITEM = register("palm_crown", p -> new BlockItem(PALM_CROWN.get(), p) {
         @Override

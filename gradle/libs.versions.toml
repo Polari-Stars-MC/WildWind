@@ -18,6 +18,7 @@ CurseMaven -> https://www.cursemaven.com/
     --> curse.maven
 Modonomicon -> https://dl.cloudsmith.io/public/klikli-dev/mods/maven/
     --> com.klikli_dev
+Fabric -> https://maven.fabricmc.net/
 """
 
 [libraries]

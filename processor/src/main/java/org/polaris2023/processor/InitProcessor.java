@@ -19,6 +19,7 @@ import org.polaris2023.processor.clazz.config.AutoConfigProcessor;
 import org.polaris2023.processor.clazz.datagen.I18nProcessor;
 import org.polaris2023.processor.clazz.datagen.ModelProcessor;
 import org.polaris2023.processor.clazz.datagen.TagProcessor;
+import org.polaris2023.processor.clazz.other.RemovedProcessor;
 import org.polaris2023.processor.clazz.registry.AttachmentRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.BlockRegistryProcessor;
 import org.polaris2023.processor.clazz.registry.ItemRegistryProcessor;
@@ -31,6 +32,8 @@ import javax.annotation.processing.*;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.*;
 import javax.tools.Diagnostic;
+import javax.tools.FileObject;
+import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.Writer;
@@ -111,7 +114,6 @@ public class InitProcessor extends AbstractProcessor {
 
     public static final List<ClassProcessor> classProcessors = new ArrayList<>();
 
-
     public Filer filer;
     @Override
     public synchronized void init(ProcessingEnvironment processingEnv) {
@@ -129,6 +131,7 @@ public class InitProcessor extends AbstractProcessor {
         classProcessors.add(new ItemRegistryProcessor(environment));
         classProcessors.add(new AttachmentRegistryProcessor(environment));
         classProcessors.add(new TagProcessor(environment));
+        classProcessors.add(new RemovedProcessor(environment));
     }
 
     /**
@@ -167,6 +170,26 @@ public class InitProcessor extends AbstractProcessor {
             Codes.ModelProvider.saveAndAddServiceCode(filer, "org.polaris2023.wild_wind.util.interfaces.IModel", ModelProcessor.MODEL);
             servicesSave();
             ONLY_ONCE.set(false);
+        }
+        if (roundEnv.processingOver()) {
+            StringBuilder sb = new StringBuilder();
+            for (String name : RemovedProcessor.REMOVED) {
+                sb.append(name).append("\n");
+            }
+            try {
+
+
+                FileObject resource = environment.getFiler().createResource(
+                        StandardLocation.CLASS_OUTPUT,
+                        "",
+                        "META-INF/include.classes.output"
+                );
+                try(Writer writer = resource.openWriter()) {
+                    writer.append(sb.toString());
+                }
+            } catch (IOException ignored) {}
+            RemovedProcessor.deleteClassFiles(environment);
+            return false;
         }
         return true;
     }

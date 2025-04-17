@@ -14,4 +14,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface Tag {
     String[] names();
     TagType type();
+    boolean mixin() default false;
+    boolean tag() default false;
 }

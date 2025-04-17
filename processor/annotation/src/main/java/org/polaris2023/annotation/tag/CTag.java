@@ -13,4 +13,6 @@ import java.lang.annotation.RetentionPolicy;
 public @interface CTag {
     String[] names();
     TagType type();
+    boolean mixin() default false;
+    boolean tag() default false;
 }
