@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Shadow;
  * @author : baka4n
  * {@code @Date : 2025/04/16 22:01:27}
  */
-@SuppressWarnings("UnusedMixin")
+@SuppressWarnings({"UnusedMixin", "unused"})
 @Mixin(BlockTags.class)
 @MixinDefine(value = "net.minecraft.tags.BlockTags")
 @Removed

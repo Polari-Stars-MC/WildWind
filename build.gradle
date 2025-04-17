@@ -37,18 +37,10 @@ if (!System.getenv("git_act").equals("true")) {
     }
 }
 
-def e = rootProject.file("build/classes/java/main/META-INF/include.classes.output")
 
-jar {
-    exclude("META-INF/include.classes.output")
-    doFirst {
-        if (e.exists()) {
-            e.eachLine { className ->
-                exclude "${className.replace('.', '/')}.class"
-            }
-        }
-    }
-}
+
+
+
 
 
 
