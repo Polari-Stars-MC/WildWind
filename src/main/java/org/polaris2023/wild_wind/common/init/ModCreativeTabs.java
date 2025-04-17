@@ -12,7 +12,7 @@ import org.polaris2023.wild_wind.common.init.items.entity.ModBoats;
 import org.polaris2023.wild_wind.common.init.items.entity.ModMobBuckets;
 import org.polaris2023.wild_wind.common.init.items.entity.ModSpawnEggs;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
-import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 import org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry;
 
 import java.util.Locale;

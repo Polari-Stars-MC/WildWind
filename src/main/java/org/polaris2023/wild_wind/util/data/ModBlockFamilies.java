@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.datagen;
+package org.polaris2023.wild_wind.util.data;
 
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.level.block.*;

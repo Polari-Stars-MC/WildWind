@@ -35,7 +35,7 @@ import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
-import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import java.util.Set;

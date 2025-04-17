@@ -94,8 +94,10 @@ neoForge {
 
         data {
             data()
+            environment("wild-wind-datagen", "true")
             programArguments.addAll '--mod', project.name, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
             gameDirectory.set(file("run/data"))
+
         }
 
         configureEach {
@@ -167,6 +169,8 @@ if (at.readBytes().length != 0) {
     neoForge.setAccessTransformers(at)
 }
 
+def e = rootProject.file("build/classes/java/main/META-INF/include.classes.output")
+
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
@@ -184,6 +188,17 @@ jar {
     exclude(".cache")
     if (at.readBytes().length == 0) {
         exclude("META-INF/accesstransformer.cfg")
+    }
+    exclude("META-INF/include.classes.output")
+    doFirst {
+        if (e.exists()) {
+            e.eachLine { className ->
+                exclude "${className.replace('.', '/')}.class"
+            }
+        }
+        if (System.getenv("wild-wind-datagen") != "true") {
+            exclude("org/polaris2023/wild_wind/datagen/**")
+        }
     }
 }
 

@@ -107,46 +107,6 @@ public class ModDyedArray {
             ModBlocks.CONCRETE_POWDER.get()
     };
 
-    public static final Block[] BANNER_BLOCK = {
-            Blocks.BLACK_BANNER,
-            Blocks.BLUE_BANNER,
-            Blocks.BROWN_BANNER,
-            Blocks.GRAY_BANNER,
-            Blocks.GREEN_BANNER,
-            Blocks.CYAN_BANNER,
-            Blocks.LIGHT_BLUE_BANNER,
-            Blocks.LIGHT_GRAY_BANNER,
-            Blocks.LIME_BANNER,
-            Blocks.MAGENTA_BANNER,
-            Blocks.ORANGE_BANNER,
-            Blocks.PINK_BANNER,
-            Blocks.PURPLE_BANNER,
-            Blocks.RED_BANNER,
-            Blocks.WHITE_BANNER,
-            Blocks.YELLOW_BANNER,
-            ModBlocks.BANNER.get()
-    };
-
-    public static final Block[] WALL_BANNER_BLOCK = {
-            Blocks.BLACK_WALL_BANNER,
-            Blocks.BLUE_WALL_BANNER,
-            Blocks.BROWN_WALL_BANNER,
-            Blocks.GRAY_WALL_BANNER,
-            Blocks.GREEN_WALL_BANNER,
-            Blocks.CYAN_WALL_BANNER,
-            Blocks.LIGHT_BLUE_WALL_BANNER,
-            Blocks.LIGHT_GRAY_WALL_BANNER,
-            Blocks.LIME_WALL_BANNER,
-            Blocks.MAGENTA_WALL_BANNER,
-            Blocks.ORANGE_WALL_BANNER,
-            Blocks.PINK_WALL_BANNER,
-            Blocks.PURPLE_WALL_BANNER,
-            Blocks.RED_WALL_BANNER,
-            Blocks.WHITE_WALL_BANNER,
-            Blocks.YELLOW_WALL_BANNER,
-            ModBlocks.WALL_BANNER.get()
-    };
-
     public static final Item[] DYE = {
             Items.BLACK_DYE,
             Items.BLUE_DYE,

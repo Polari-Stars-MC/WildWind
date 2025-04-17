@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.FireBlock;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.event.furnace.FurnaceFuelBurnTimeEvent;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
-import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
+import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 
 import java.util.HashMap;
 import java.util.Map;

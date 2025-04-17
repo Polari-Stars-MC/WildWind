@@ -21,7 +21,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
-import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 
 public class RightClickHandler {
     public static void rightClick(Player player, Level level, ItemStack itemStack, BlockPos pos, BlockState blockState, PlayerInteractEvent.RightClickBlock event) {
