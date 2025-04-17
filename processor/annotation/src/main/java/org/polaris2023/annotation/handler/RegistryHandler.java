@@ -1,4 +1,6 @@
-package org.polaris2023.annotation.register;
+package org.polaris2023.annotation.handler;
+
+import org.polaris2023.annotation.enums.RegType;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -10,8 +12,6 @@ import java.lang.annotation.RetentionPolicy;
  */
 @Retention(RetentionPolicy.SOURCE)
 public @interface RegistryHandler {
-    Type value() default Type.NONE;
-    enum Type {
-        NONE,Item, Block, Entity,AttachmentType
-    }
+    RegType value() default RegType.NONE;
+
 }

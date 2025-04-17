@@ -1,17 +1,16 @@
 package org.polaris2023.annotation.tag;
 
 import org.polaris2023.annotation.enums.TagType;
-import org.polaris2023.annotation.register.ResourceLocation;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 /**
  * @author : baka4n
- * {@code @Date : 2025/03/29 20:40:20}
+ * {@code @Date : 2025/04/16 17:59:05}
  */
 @Retention(RetentionPolicy.SOURCE)
-public @interface Tag {
+public @interface WildWindTag {
     String[] names();
     TagType type();
     boolean mixin() default false;

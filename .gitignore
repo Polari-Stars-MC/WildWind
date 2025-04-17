@@ -9,6 +9,8 @@ src/generated/resources/.cache
 
 src/main/info
 
+build.done
+
 # idea
 out
 *.ipr

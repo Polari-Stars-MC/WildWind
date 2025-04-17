@@ -8,6 +8,7 @@ on : [push, pull_request]
 env:
   ## set env
   git_sha: ${{github.sha}}
+  git_act: "true"
 
 jobs:
   build:

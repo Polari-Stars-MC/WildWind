@@ -8,6 +8,7 @@ on : [workflow_dispatch]
 env:
   ## set env
   git_sha: ${{github.sha}}
+  git_act: "true"
 
 
 jobs:

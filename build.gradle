@@ -15,5 +15,41 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.36'
 }
 
+tasks.register("testBatTask", Exec.class) {
+    workingDir file("./")
+    commandLine 'cmd',"/c","gradlew build"
+}
+
+def down = file("build.done")
+
+if (!System.getenv("git_act").equals("true")) {
+
+    if (!down.exists()) {
+        down.createNewFile()
+        down.write("true")
+
+        tasks.neoForgeIdeSync.dependsOn(tasks.build)
+        //init generated annotation processor and javac
+    } else if (down.readLines("UTF-8").get(0) != "true") {
+        down.deleteOnExit()
+        down.createNewFile()
+        down.write("true")
+    }
+}
+
+def e = rootProject.file("build/classes/java/main/META-INF/include.classes.output")
+
+jar {
+    exclude("META-INF/include.classes.output")
+    doFirst {
+        if (e.exists()) {
+            e.eachLine { className ->
+                exclude "${className.replace('.', '/')}.class"
+            }
+        }
+    }
+}
+
+
 
 

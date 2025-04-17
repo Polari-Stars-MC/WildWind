@@ -20,6 +20,7 @@ import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import org.polaris2023.wild_wind.common.block.entity.ModBannerBlockEntity;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
+import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.datagen.tag.ModBlockTagsProvider;
 
 public class RightClickHandler {
@@ -156,7 +157,7 @@ public class RightClickHandler {
         if (blockState.is(Tags.Blocks.CONCRETES)){
             return "CONCRETE";
         }
-        if (blockState.is(ModBlockTagsProvider.CONCRETE_POWDERS)){
+        if (blockState.is(ModBlockTags.CONCRETE_POWDERS.get())){
             return "CONCRETE_POWDER";
         }
         if (blockState.is(Tags.Blocks.GLAZED_TERRACOTTAS)){
@@ -174,10 +175,10 @@ public class RightClickHandler {
         if (blockState.is(BlockTags.CANDLES)){
             return "CANDLE";
         }
-        if (blockState.is(ModBlockTagsProvider.BANNER)){
+        if (blockState.is(ModBlockTags.BANNERS.get())){
             return "BANNER";
         }
-        if (blockState.is(ModBlockTagsProvider.WALL_BANNER)){
+        if (blockState.is(ModBlockTags.WALL_BANNERS.get())){
             return "WALL_BANNER";
         }
         if (blockState.is(BlockTags.BEDS)){

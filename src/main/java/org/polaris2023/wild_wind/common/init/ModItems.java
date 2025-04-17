@@ -8,11 +8,12 @@ import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
-import org.polaris2023.annotation.register.RegistryHandler;
+import org.polaris2023.annotation.handler.RegistryHandler;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.*;
@@ -23,7 +24,7 @@ import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
 
-@RegistryHandler(RegistryHandler.Type.Item)
+@RegistryHandler(RegType.Item)
 public class ModItems {
     public static final DeferredRegister.Items REGISTER = DeferredRegister.createItems(MOD_ID);
 

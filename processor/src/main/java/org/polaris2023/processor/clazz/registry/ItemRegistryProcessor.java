@@ -1,19 +1,15 @@
 package org.polaris2023.processor.clazz.registry;
 
-import com.sun.source.tree.ClassTree;
-import com.sun.source.tree.VariableTree;
 import com.sun.tools.javac.code.Flags;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.List;
+import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.register.RegistryBlockItem;
-import org.polaris2023.annotation.register.RegistryHandler;
-import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.utils.JCUtils;
 
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import java.util.Optional;
 
 /**
  * @author : baka4n
@@ -22,8 +18,8 @@ import java.util.Optional;
 public class ItemRegistryProcessor extends RegistryProcessor {
 
     @Override
-    public RegistryHandler.Type defaultType() {
-        return RegistryHandler.Type.Item;
+    public RegType defaultType() {
+        return RegType.Item;
     }
 
     public ItemRegistryProcessor(JavacProcessingEnvironment environment) {
