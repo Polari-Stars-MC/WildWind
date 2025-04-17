@@ -246,6 +246,7 @@ public class ModBlocks {
     @VanillaTag(names = {"sword_efficient", "enderman_holdable", "mineable/axe"}, type = TagType.Block)
     public static final DeferredBlock<Block> GLISTERING_MELON = register("glistering_melon", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.GOLD));
 
+    @BasicBlockItem
     public static final DeferredItem<BlockItem> GLISTERING_MELON_ITEM = register("glistering_melon", GLISTERING_MELON);
 
     @I18n(en_us = "Stone Wall", zh_tw = "石牆", zh_cn = "石墙")

@@ -104,14 +104,14 @@ public class ModPlacedFeatureRegistry {
 				context, WATERLOGGED_CATTAILS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_CATTAILS),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(36),
+				CountPlacement.of(12),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, WATERLOGGED_REEDS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_REEDS),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(48),
+				CountPlacement.of(16),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
