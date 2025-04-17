@@ -121,9 +121,39 @@ public class BlocksMixin {
     @Shadow @Final public static Block WHITE_WALL_BANNER;
     @WildWindTag(names = "wall_banners", type = TagType.Block, mixin = true)
     @Shadow @Final public static Block YELLOW_WALL_BANNER;
-
-
-
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block BLACK_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block BLUE_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block BROWN_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block CYAN_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block GRAY_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block GREEN_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block LIGHT_BLUE_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block LIGHT_GRAY_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block LIME_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block MAGENTA_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block ORANGE_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block PINK_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block PURPLE_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block RED_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block WHITE_CONCRETE_POWDER;
+    @CTag(names = "concrete_powder", type = TagType.Block, mixin = true)
+    @Shadow @Final public static Block YELLOW_CONCRETE_POWDER;
+    
     static {
 
     }
