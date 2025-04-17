@@ -25,12 +25,15 @@ import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
+import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import static org.polaris2023.wild_wind.datagen.ModDyedArray.*;
+import static org.polaris2023.wild_wind.util.data.RecipeUtil.shaped;
+import static org.polaris2023.wild_wind.util.data.RecipeUtil.unlockedBy;
 
 
 public class ModRecipeProvider extends RecipeProvider {
@@ -160,11 +163,7 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.VENISON, RecipeCategory.FOOD, ModBaseFoods.COOKED_VENISON, 0.35F);
     }
 
-    public static Criterion<InventoryChangeTrigger.TriggerInstance> has(ItemLike... likes) {
-        return inventoryTrigger(ItemPredicate.Builder
-                .item()
-                .of(likes).build());
-    }
+
 
     protected void addShapedRecipe() {
         add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
@@ -288,29 +287,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
     }
 
-    protected static <T extends RecipeBuilder> void unlockedBy(T t, ItemLike... likes) {
-        StringBuilder sb = new StringBuilder("has");
-        switch (likes.length) {
-            case 0 -> {
-            }
-            case 1 -> {
-                ItemLike like = likes[0];
-                t.unlockedBy(sb.append("_").append(BuiltInRegistries.ITEM.getKey(like.asItem())).toString().toLowerCase(Locale.ROOT), has(like));
-            }
-            default -> {
-                for (ItemLike like : likes) {
-                    ResourceLocation key = BuiltInRegistries.ITEM.getKey(like.asItem());
-                    sb.append("_").append(key);
-                }
-                t.unlockedBy(sb.toString().toLowerCase(Locale.ROOT), has(likes));
-            }
-        }
 
-    }
 
-    protected static <T extends RecipeBuilder> void unlockedBy(T t, TagKey<Item> tag) {
-        t.unlockedBy(("has" + "_" + tag.location()).toLowerCase(Locale.ROOT), has(tag));
-    }
+
 
     protected void addShapelessRecipe() {
         add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
@@ -452,15 +431,10 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Blocks.SAND, 4)
                     .requires(Blocks.GRAVEL, 4);
         }));
+
     }
 
-    public static ShapedRecipeBuilder shaped(
-            RecipeCategory category, ItemLike result, int count, Consumer<ShapedRecipeBuilder> consumer
-    ) {
-        ShapedRecipeBuilder shaped = ShapedRecipeBuilder.shaped(category, result, count);
-        consumer.accept(shaped);
-        return shaped;
-    }
+
 
     public static ShapelessRecipeBuilder shapeless(RecipeCategory category, ItemStack result, Consumer<ShapelessRecipeBuilder> consumer) {
         ShapelessRecipeBuilder shapeless = ShapelessRecipeBuilder.shapeless(category, result);

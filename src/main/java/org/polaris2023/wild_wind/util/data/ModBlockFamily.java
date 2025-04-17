@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.datagen;
+package org.polaris2023.wild_wind.util.data;
 
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
@@ -19,7 +19,10 @@ import org.polaris2023.wild_wind.util.Helpers;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.*;
+import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.shapeless;
+import static org.polaris2023.wild_wind.util.data.RecipeUtil.shaped;
+import static org.polaris2023.wild_wind.util.data.RecipeUtil.unlockedBy;
+
 
 public record ModBlockFamily(Block baseBlock, Block wood, Block log, Block strippedWood, Block strippedLog,
 							 BoatItem boat, BoatItem chestBoat, ButtonBlock button, FenceBlock fence, FenceGateBlock fenceGate,

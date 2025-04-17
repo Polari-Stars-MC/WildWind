@@ -6,7 +6,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
@@ -14,14 +13,10 @@ import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.handler.TagHandler;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.dyed.DyedBlockMap;
-import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
-import org.polaris2023.wild_wind.datagen.ModBlockFamilies;
-import org.polaris2023.wild_wind.datagen.ModDyedArray;
+import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 import org.polaris2023.wild_wind.util.Helpers;
 
-import java.lang.ref.Reference;
-import java.lang.ref.SoftReference;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 

@@ -22,7 +22,8 @@ import org.polaris2023.wild_wind.util.MinMaxValue;
 import java.util.*;
 import java.util.function.Consumer;
 
-import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.has;
+import static org.polaris2023.wild_wind.util.data.RecipeUtil.has;
+
 
 public class CookingPotRecipeBuilder implements RecipeBuilder {
 
