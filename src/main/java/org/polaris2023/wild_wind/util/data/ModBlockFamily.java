@@ -1,12 +1,9 @@
 package org.polaris2023.wild_wind.util.data;
 
 import net.minecraft.data.recipes.*;
-import net.minecraft.data.tags.IntrinsicHolderTagsProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.BoatItem;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.*;
@@ -15,7 +12,6 @@ import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static org.polaris2023.wild_wind.datagen.ModRecipeProvider.shapeless;
 import static org.polaris2023.wild_wind.util.data.RecipeUtil.shaped;
@@ -77,20 +73,6 @@ public record ModBlockFamily(Block baseBlock, Block wood, Block log, Block strip
 		dropSlab.accept(this.slab);
 		dropSelf.accept(this.stair);
 		dropSelf.accept(this.trapdoor);
-	}
-
-	public void generateItemTags(Function<TagKey<Item>, IntrinsicHolderTagsProvider.IntrinsicTagAppender<Item>> tag) {
-//		tag.apply(ItemTags.PLANKS).add(this.baseBlock.asItem());
-//		tag.apply(ItemTags.WOODEN_BUTTONS).add(this.button.asItem());
-//		tag.apply(ItemTags.WOODEN_FENCES).add(this.fence.asItem());
-//		tag.apply(ItemTags.FENCE_GATES).add(this.fenceGate.asItem());
-//		tag.apply(ItemTags.WOODEN_PRESSURE_PLATES).add(this.pressurePlate.asItem());
-//		tag.apply(ItemTags.SIGNS).add(this.standingSign.asItem(), this.wallSign.asItem());
-//		tag.apply(ItemTags.HANGING_SIGNS).add(this.ceilingHangingSign.asItem(), this.wallHangingSign.asItem());
-//		tag.apply(ItemTags.WOODEN_SLABS).add(this.slab.asItem());
-//		tag.apply(ItemTags.WOODEN_STAIRS).add(this.stair.asItem());
-//		tag.apply(ItemTags.WOODEN_DOORS).add(this.door.asItem());
-//		tag.apply(ItemTags.WOODEN_TRAPDOORS).add(this.trapdoor.asItem());
 	}
 
 	public void generateFlammable() {
