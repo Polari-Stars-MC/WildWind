@@ -92,7 +92,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
         tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES_ITEM.get(), ModBlocks.BAOBAB_LEAVES_ITEM.get());
+        tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES.get().asItem(), ModBlocks.BAOBAB_LEAVES.get().asItem());
         tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
         tag(ModItemTags.POISON_SEEDS_COMPONENT_SEED)
                 .addTag(Tags.Items.SEEDS_TORCHFLOWER)
@@ -160,7 +160,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
         tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
-        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER_ITEM.get());
+        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get().asItem());
         tag(ItemTags.BANNERS).add(ModBlocks.BANNER.get().asItem());
         tag(ItemTags.STAIRS).add(
                 ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS_ITEM.get(),
@@ -171,7 +171,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
                 ModBlocks.BLUE_ICE_BRICK_SLAB_ITEM.get()
         );
         tag(ItemTags.WALLS).add(
-                ModBlocks.STONE_WALL_ITEM.get(), ModBlocks.POLISHED_STONE_WALL_ITEM.get(),
+                ModBlocks.STONE_WALL.asItem(), ModBlocks.POLISHED_STONE_WALL_ITEM.get(),
                 ModBlocks.ANDESITE_BRICK_WALL_ITEM.get(), ModBlocks.DIORITE_BRICK_WALL_ITEM.get(), ModBlocks.GRANITE_BRICK_WALL_ITEM.get(),
                 ModBlocks.BLUE_ICE_BRICK_WALL_ITEM.get()
         );

@@ -390,7 +390,7 @@ public class ModelProcessor extends ClassProcessor {
                 .append(typeElement.getQualifiedName())
                 .append(".")
                 .append(variableElement.getSimpleName())
-                .append(".get())");
+                .append(".get().asItem())");
 
         if (!basicBlockItem.suffix().isEmpty()) {
             sb

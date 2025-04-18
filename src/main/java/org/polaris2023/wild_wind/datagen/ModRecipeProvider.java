@@ -158,7 +158,7 @@ public class ModRecipeProvider extends RecipeProvider {
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
 
-        smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE_ITEM.get(), ModBlocks.DEEPSLATE_SALT_ORE_ITEM.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
+        smeltingAndBlasting(Ingredient.of(ModBlocks.SALT_ORE.get(), ModBlocks.DEEPSLATE_SALT_ORE.get()), RecipeCategory.MISC, ModBaseItems.SALT.get(), 0.7F);
 
         smeltingSmokingAndCampfire(ModBaseFoods.VENISON, RecipeCategory.FOOD, ModBaseFoods.COOKED_VENISON, 0.35F);
     }
@@ -384,13 +384,13 @@ public class ModRecipeProvider extends RecipeProvider {
             wool
                     .requires(ItemTags.WOOL);
         }));
-        add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK_ITEM, 1, salt_block -> {
+        add(shapeless(RecipeCategory.MISC, ModBlocks.SALT_BLOCK.asItem(), 1, salt_block -> {
             unlockedBy(salt_block, ModBaseItems.SALT);
             salt_block.requires(ModBaseItems.SALT, 9);
         }));
         add(shapeless(RecipeCategory.MISC, ModBaseItems.SALT, 9, salt -> {
-            unlockedBy(salt, ModBlocks.SALT_BLOCK_ITEM);
-            salt.requires(ModBlocks.SALT_BLOCK_ITEM);
+            unlockedBy(salt, ModBlocks.SALT_BLOCK);
+            salt.requires(ModBlocks.SALT_BLOCK);
         }));
 
         add(shapeless(RecipeCategory.MISC, Blocks.PUMPKIN, 1, pumpkin -> {
