@@ -1,15 +1,11 @@
 package org.polaris2023.wild_wind.datagen;
 
-import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
-import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -122,6 +118,23 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_STONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_STONE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.POLISHED_GRANITE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_GRANITE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_ANDESITE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DIORITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DIORITE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_GRANITE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE_BRICKS, 1), "stonecutting/");
     }
 
     protected void addSmeltingRecipes() {
@@ -277,6 +290,142 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .define('S', Blocks.STONE);
                 }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_GRANITE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, Blocks.POLISHED_GRANITE);
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', Blocks.POLISHED_GRANITE);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.ANDESITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.ANDESITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.ANDESITE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.ANDESITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.ANDESITE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.ANDESITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.ANDESITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_ANDESITE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.ANDESITE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.ANDESITE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DIORITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DIORITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DIORITE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DIORITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DIORITE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DIORITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DIORITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DIORITE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DIORITE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.DIORITE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.GRANITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.GRANITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.GRANITE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.GRANITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.GRANITE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.GRANITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.GRANITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_GRANITE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.GRANITE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.GRANITE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BLUE_ICE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.BLUE_ICE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BLUE_ICE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.BLUE_ICE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BLUE_ICE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.BLUE_ICE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.BLUE_ICE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.BLUE_ICE_BRICK_SLAB);
+                }));
 
         add(shaped(RecipeCategory.MISC, ModBlocks.ASH.get(), 6,
                 builder -> {
@@ -286,10 +435,6 @@ public class ModRecipeProvider extends RecipeProvider {
                             .define('S', ModBlocks.ASH_BLOCK.get());
                 }));
     }
-
-
-
-
 
     protected void addShapelessRecipe() {
         add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
