@@ -280,6 +280,12 @@ public class ModBlocks {
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB = register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
     public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM = register("polished_stone_slab", POLISHED_STONE_SLAB);
 
+    @I18n(en_us = "Polished Granite Wall",zh_cn = "磨制花岗岩墙",zh_tw = "磨製花崗岩牆")
+    @Wall(wall = "minecraft:block/polished_granite")
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> POLISHED_GRANITE_WALL = register("polished_granite_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE)), EMPTY);
+    public static final DeferredItem<BlockItem> POLISHED_GRANITE_WALL_ITEM = register("polished_granite_wall", POLISHED_GRANITE_WALL);
+
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
     @VanillaTag(names = "planks", type = TagType.Block)
@@ -565,11 +571,17 @@ public class ModBlocks {
     @I18n(en_us = "Andesite Brick Wall", zh_cn = "安山岩砖墙", zh_tw = "安山岩磚墻")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> ANDESITE_BRICK_WALL = register("andesite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.STONE));
+    @I18n(en_us = "Chiseled Andesite Bricks", zh_cn = "雕纹安山岩砖", zh_tw = "浮雕安山岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_ANDESITE_BRICKS = register("chiseled_andesite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.STONE));
     public static final DeferredItem<BlockItem> ANDESITE_BRICKS_ITEM = register("andesite_bricks", ANDESITE_BRICKS);
     public static final DeferredItem<BlockItem> CRACKED_ANDESITE_BRICKS_ITEM = register("cracked_andesite_bricks", CRACKED_ANDESITE_BRICKS);
     public static final DeferredItem<BlockItem> ANDESITE_BRICK_STAIRS_ITEM = register("andesite_brick_stairs", ANDESITE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> ANDESITE_BRICK_SLAB_ITEM = register("andesite_brick_slab", ANDESITE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> ANDESITE_BRICK_WALL_ITEM = register("andesite_brick_wall", ANDESITE_BRICK_WALL);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CHISELED_ANDESITE_BRICKS_ITEM = register("chiseled_andesite_bricks", CHISELED_ANDESITE_BRICKS);
 
     @AllBrick
     @I18n(en_us = "Diorite Bricks", zh_cn = "闪长岩砖", zh_tw = "閃長岩磚")
@@ -587,11 +599,17 @@ public class ModBlocks {
     @I18n(en_us = "Diorite Brick Wall", zh_cn = "闪长岩砖墙", zh_tw = "閃長岩磚墻")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> DIORITE_BRICK_WALL = register("diorite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.QUARTZ));
+    @I18n(en_us = "Chiseled Diorite Bricks", zh_cn = "雕纹闪长岩砖", zh_tw = "浮雕閃長岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_DIORITE_BRICKS = register("chiseled_diorite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.QUARTZ));
     public static final DeferredItem<BlockItem> DIORITE_BRICKS_ITEM = register("diorite_bricks", DIORITE_BRICKS);
     public static final DeferredItem<BlockItem> CRACKED_DIORITE_BRICKS_ITEM = register("cracked_diorite_bricks", CRACKED_DIORITE_BRICKS);
     public static final DeferredItem<BlockItem> DIORITE_BRICK_STAIRS_ITEM = register("diorite_brick_stairs", DIORITE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> DIORITE_BRICK_SLAB_ITEM = register("diorite_brick_slab", DIORITE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> DIORITE_BRICK_WALL_ITEM = register("diorite_brick_wall", DIORITE_BRICK_WALL);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CHISELED_DIORITE_BRICKS_ITEM = register("chiseled_diorite_bricks", CHISELED_DIORITE_BRICKS);
 
     @AllBrick
     @I18n(en_us = "Granite Bricks", zh_cn = "花岗岩砖", zh_tw = "花崗岩磚")
@@ -609,11 +627,17 @@ public class ModBlocks {
     @I18n(en_us = "Granite Brick Wall", zh_cn = "花岗岩砖墙", zh_tw = "花崗岩磚墻")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> GRANITE_BRICK_WALL = register("granite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Chiseled Granite Bricks", zh_cn = "雕纹花岗岩砖", zh_tw = "浮雕花崗岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_GRANITE_BRICKS = register("chiseled_granite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
     public static final DeferredItem<BlockItem> GRANITE_BRICKS_ITEM = register("granite_bricks", GRANITE_BRICKS);
     public static final DeferredItem<BlockItem> CRACKED_GRANITE_BRICKS_ITEM = register("cracked_granite_bricks", CRACKED_GRANITE_BRICKS);
     public static final DeferredItem<BlockItem> GRANITE_BRICK_STAIRS_ITEM = register("granite_brick_stairs", GRANITE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> GRANITE_BRICK_SLAB_ITEM = register("granite_brick_slab", GRANITE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> GRANITE_BRICK_WALL_ITEM = register("granite_brick_wall", GRANITE_BRICK_WALL);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CHISELED_GRANITE_BRICKS_ITEM = register("chiseled_granite_bricks", CHISELED_GRANITE_BRICKS);
 
     @AllBrick
     @I18n(en_us = "Blue Ice Bricks", zh_cn = "蓝冰砖", zh_tw = "藍冰磚")
@@ -631,11 +655,18 @@ public class ModBlocks {
     @I18n(en_us = "Blue Ice Brick Wall", zh_cn = "蓝冰砖墙", zh_tw = "藍冰磚墻")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> BLUE_ICE_BRICK_WALL = register("blue_ice_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.ICE));
+    @I18n(en_us = "Chiseled Blue Ice Bricks", zh_cn = "雕纹蓝冰砖", zh_tw = "浮雕藍冰磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @CubeColumn(side = "wild_wind:block/chiseled_blue_ice_bricks_side",
+            end = "wild_wind:block/chiseled_blue_ice_bricks_top")
+    public static final DeferredBlock<Block> CHISELED_BLUE_ICE_BRICKS = register("chiseled_blue_ice_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.ICE));
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICKS_ITEM = register("blue_ice_bricks", BLUE_ICE_BRICKS);
     public static final DeferredItem<BlockItem> CRACKED_BLUE_ICE_BRICKS_ITEM = register("cracked_blue_ice_bricks", CRACKED_BLUE_ICE_BRICKS);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_STAIRS_ITEM = register("blue_ice_brick_stairs", BLUE_ICE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_SLAB_ITEM = register("blue_ice_brick_slab", BLUE_ICE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_WALL_ITEM = register("blue_ice_brick_wall", BLUE_ICE_BRICK_WALL);
+    @BasicBlockItem
+    public static final DeferredItem<BlockItem> CHISELED_BLUE_ICE_BRICKS_ITEM = register("chiseled_blue_ice_bricks", CHISELED_BLUE_ICE_BRICKS);
 
     public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
