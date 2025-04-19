@@ -3,6 +3,7 @@ package org.polaris2023.processor.clazz.datagen;
 import com.sun.source.tree.MethodTree;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import com.sun.tools.javac.util.Context;
+import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.handler.MixinDefine;
 import org.polaris2023.annotation.tag.CTag;
 import org.polaris2023.annotation.tag.Tag;
@@ -36,7 +37,7 @@ public class TagProcessor extends ClassProcessor {
 
             switch (cTag.type()) {
                 default -> {
-                    tagGen("c", cTag.names(), typeElement, variableElement, tree, context, cTag.mixin(), cTag.tag());
+                    tagGen("c", cTag.names(), typeElement, variableElement, tree, context, cTag.mixin(), cTag.tag(), cTag.type());
                 }
             }
         }
@@ -44,7 +45,7 @@ public class TagProcessor extends ClassProcessor {
             MethodTree tree = InitProcessor.TAG_MAP.get(vanillaTag.type());
             switch (vanillaTag.type()) {
                 default -> {
-                    tagGen("minecraft", vanillaTag.names(), typeElement, variableElement, tree, context, vanillaTag.mixin(), vanillaTag.tag());
+                    tagGen("minecraft", vanillaTag.names(), typeElement, variableElement, tree, context, vanillaTag.mixin(), vanillaTag.tag(), vanillaTag.type());
                 }
             }
         }
@@ -52,7 +53,7 @@ public class TagProcessor extends ClassProcessor {
             MethodTree tree = InitProcessor.TAG_MAP.get(wildWindTag.type());
             switch (wildWindTag.type()) {
                 default -> {
-                    tagGen("wild_wind", wildWindTag.names(), typeElement, variableElement, tree, context, wildWindTag.mixin(), wildWindTag.tag());
+                    tagGen("wild_wind", wildWindTag.names(), typeElement, variableElement, tree, context, wildWindTag.mixin(), wildWindTag.tag(), wildWindTag.type());
                 }
             }
         }
@@ -83,7 +84,7 @@ public class TagProcessor extends ClassProcessor {
                         }
                     }
                     for (Map.Entry<String, List<String>> entry : names.entrySet()) {
-                        tagGen(entry.getKey(), entry.getValue().toArray(new String[0]), typeElement, variableElement, tree, context, tag.mixin(), tag.tag());
+                        tagGen(entry.getKey(), entry.getValue().toArray(new String[0]), typeElement, variableElement, tree, context, tag.mixin(), tag.tag(), tag.type());
                     }
                 }
             }
@@ -96,12 +97,12 @@ public class TagProcessor extends ClassProcessor {
                               VariableElement variableElement,
                               MethodTree tree,
                               Context context,
-                              boolean mixin, boolean tag) {
+                              boolean mixin, boolean tag, TagType type) {
         MixinDefine mixinDefine = typeElement.getAnnotation(MixinDefine.class);
         for (String name : tagNames) {
             StringBuilder sb = new StringBuilder();
             sb
-                    .append("tag(net.minecraft.tags.BlockTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(\"")
+                    .append("tag(net.minecraft.tags.%sTags.create(net.minecraft.resources.ResourceLocation.fromNamespaceAndPath(\"".formatted(type.name()))
                     .append(modid)
                     .append("\",\"")
                     .append(name)

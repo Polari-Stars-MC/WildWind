@@ -20,7 +20,6 @@ import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.items.foods.ModBaseFoods;
 import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
-import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 
 import java.util.Arrays;
 import java.util.concurrent.CompletableFuture;
@@ -36,16 +35,7 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     @TagHandler(TagType.Item)
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        IntrinsicTagAppender<Item> firefly_food = tag(ModItemTags.FIREFLY_FOOD);
-        firefly_food.add(Items.GLOW_BERRIES, Items.GLOW_LICHEN);
-        IntrinsicTagAppender<Item> meat_food = tag(ModItemTags.MEAT_FOOD);
-        meat_food.add(
-                Items.BEEF, Items.COOKED_BEEF,
-                Items.PORKCHOP, Items.COOKED_PORKCHOP,
-                Items.MUTTON, Items.COOKED_MUTTON,
-                Items.RABBIT, Items.COOKED_RABBIT,
-                Items.CHICKEN, Items.COOKED_CHICKEN
-        );
+        
         IntrinsicTagAppender<Item> vegetable_food = tag(ModItemTags.VEGETABLE_FOOD);
         add(vegetable_food,
                 Items.CARROT, ModBaseFoods.BAKED_CARROT, Items.GOLDEN_CARROT,

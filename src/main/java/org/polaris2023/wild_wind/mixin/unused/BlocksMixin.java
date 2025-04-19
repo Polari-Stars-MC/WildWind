@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.Shadow;
 * @author : baka4n
 * {@code @Date : 2025/04/16 21:45:30}
 */
-@SuppressWarnings({"UnusedMixin", "unused", "EmptyClassInitializer"})
+@SuppressWarnings("ALL")
 @Mixin(Blocks.class)
 @MixinDefine("net.minecraft.world.level.block.Blocks")
 @Removed
