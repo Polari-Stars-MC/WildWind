@@ -35,66 +35,9 @@ public class ModItemTagsProvider extends ItemTagsProvider {
     @TagHandler(TagType.Item)
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        
-        IntrinsicTagAppender<Item> vegetable_food = tag(ModItemTags.VEGETABLE_FOOD);
-        add(vegetable_food,
-                Items.CARROT, ModBaseFoods.BAKED_CARROT, Items.GOLDEN_CARROT,
-                Items.BEETROOT, ModBaseFoods.BAKED_BEETROOT,
-                Items.POTATO, Items.BAKED_POTATO,
-                ModBaseFoods.PUMPKIN_SLICE, ModBaseFoods.BAKED_PUMPKIN_SLICE,
-                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM, ModBaseFoods.BAKED_MUSHROOM,
-                Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS,
-                ModItems.LIVING_TUBER, ModBaseFoods.BAKED_LIVING_TUBER
-        );
-        IntrinsicTagAppender<Item> fruit_food = tag(ModItemTags.FRUIT_FOOD);
-        add(fruit_food,
-                Items.APPLE, ModBaseFoods.BAKED_APPLE, Items.GOLDEN_APPLE, Items.ENCHANTED_GOLDEN_APPLE,
-                Items.CHORUS_FRUIT, Items.POPPED_CHORUS_FRUIT,
-                Items.MELON_SLICE, ModBaseFoods.BAKED_MELON_SLICE, Items.GLISTERING_MELON_SLICE,
-                Items.SWEET_BERRIES, Items.GLOW_BERRIES,ModBaseFoods.BAKED_BERRIES,
-                Items.SUGAR_CANE
-        );
-        IntrinsicTagAppender<Item> protein_food = tag(ModItemTags.PROTEIN_FOOD);
-        add(protein_food,
-                Items.EGG,
-                Items.TURTLE_EGG,
-                Items.SNIFFER_EGG,
-                Items.DRAGON_EGG,
-                ModBaseFoods.COOKED_EGG
-        );
-        IntrinsicTagAppender<Item> fish_food = tag(ModItemTags.FISH_FOOD);
-        add(fish_food,
-                Items.COD, Items.COOKED_COD,
-                Items.SALMON, Items.COOKED_SALMON,
-                ModBaseFoods.RAW_TROUT, ModBaseFoods.COOKED_TROUT,
-                Items.KELP, Items.DRIED_KELP
-        );
-        IntrinsicTagAppender<Item> monster_food = tag(ModItemTags.MONSTER_FOOD);
-        add(monster_food,
-                Items.RABBIT_FOOT,
-                Items.SPIDER_EYE, Items.FERMENTED_SPIDER_EYE,
-                Items.TROPICAL_FISH, Items.PUFFERFISH,
-                Items.ROTTEN_FLESH
-        );
-        add(tag(ItemTags.WOOL), ModBlocks.WOOL);
-        add(tag(ItemTags.WOOL_CARPETS), ModBlocks.CARPET);
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.LOGS_THAT_BURN).addTag(ModItemTags.AZALEA_LOGS.get()).addTag(ModItemTags.PALM_LOGS.get()).addTag(ModItemTags.BAOBAB_LOGS.get());
-        tag(ItemTags.LEAVES).add(ModBlocks.PALM_LEAVES.get().asItem(), ModBlocks.BAOBAB_LEAVES.get().asItem());
-        tag(ItemTags.SAPLINGS).add(ModBlocks.PALM_SAPLING_ITEM.get(), ModBlocks.BAOBAB_SAPLING_ITEM.get());
-        tag(ModItemTags.POISON_SEEDS_COMPONENT_SEED)
-                .addTag(Tags.Items.SEEDS_TORCHFLOWER)
-                .add(Items.PITCHER_POD);
-        tag(ModItemTags.SEEDS_COMPONENT_FOOD)
-                .addTag(Tags.Items.SEEDS_PUMPKIN)
-                .addTag(Tags.Items.SEEDS_MELON)
-                .addTag(Tags.Items.SEEDS_BEETROOT)
-                .addTag(Tags.Items.SEEDS_WHEAT);
-        tag(ModItemTags.EGG_COMPONENT_FOOD)
-                .addTag(Tags.Items.EGGS)
-                .add(Items.TURTLE_EGG);
         tag(ModItemTags.VEGETABLE_COMPONENT_OP5F).add(
                 Items.KELP, Items.DRIED_KELP,
                 Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,
