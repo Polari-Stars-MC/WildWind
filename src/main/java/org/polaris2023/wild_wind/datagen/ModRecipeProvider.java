@@ -138,7 +138,6 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addSmeltingRecipes() {
-
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
@@ -155,6 +154,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.BAT_WING, RecipeCategory.FOOD, ModBaseFoods.COOKED_BAT_WING, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.GLOWING_CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F);
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), WildWindMod.MOD_ID + "/");
 
