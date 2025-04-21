@@ -36,6 +36,26 @@ public class ModGlobalLootModifierProvider extends GlobalLootModifierProvider {
                         EntityType.SNIFFER.getDefaultLootTable()
                 )
         }, ModEntityExtraLootSubProvider.DROP_FUR));
+        this.add("bats_drop_wing", new AddTableLootModifier(new LootItemCondition[] {
+                anyOf(
+                        EntityType.BAT.getDefaultLootTable()
+                )
+        }, ModEntityExtraLootSubProvider.DROP_BAT_WING));
+        this.add("squids_drop_calamari", new AddTableLootModifier(new LootItemCondition[] {
+                anyOf(
+                        EntityType.SQUID.getDefaultLootTable()
+                )
+        }, ModEntityExtraLootSubProvider.DROP_CALAMARI));
+        this.add("glow_squids_drop_glowing_calamari", new AddTableLootModifier(new LootItemCondition[] {
+                anyOf(
+                        EntityType.GLOW_SQUID.getDefaultLootTable()
+                )
+        }, ModEntityExtraLootSubProvider.DROP_GLOWING_CALAMARI));
+        this.add("wither_skeleton_drop_charred_bone", new AddTableLootModifier(new LootItemCondition[] {
+                anyOf(
+                        EntityType.WITHER_SKELETON.getDefaultLootTable()
+                )
+        }, ModEntityExtraLootSubProvider.DROP_CHARRED_BONE));
     }
 
     @SafeVarargs
