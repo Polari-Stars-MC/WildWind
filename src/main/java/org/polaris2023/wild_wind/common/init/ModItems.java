@@ -57,6 +57,7 @@ public class ModItems {
 
     @BasicItem
     @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
+    @CTag(names = "wild_wind_invisible", type = TagType.Item)
     public static final DeferredItem<AshDustItem> ASH_DUST =
             register("ash_dust", p -> new AshDustItem(p.stacksTo(64)));
 

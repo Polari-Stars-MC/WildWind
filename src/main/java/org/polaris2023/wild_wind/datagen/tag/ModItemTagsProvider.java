@@ -38,63 +38,52 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         this.copy(ModBlockTags.AZALEA_LOGS.get(), ModItemTags.AZALEA_LOGS.get());
         this.copy(ModBlockTags.PALM_LOGS.get(), ModItemTags.PALM_LOGS.get());
         this.copy(ModBlockTags.BAOBAB_LOGS.get(), ModItemTags.BAOBAB_LOGS.get());
-        tag(ModItemTags.VEGETABLE_COMPONENT_OP5F).add(
-                Items.KELP, Items.DRIED_KELP,
-                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,
-                Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS);
-        tag(ModItemTags.VEGETABLE_COMPONENT_1F).add(
-                Items.CARROT, Items.GOLDEN_CARROT,
-                Items.BEETROOT, Items.POTATO,
-                Items.BAKED_POTATO, Items.POISONOUS_POTATO
-        );
-        tag(ModItemTags.MEAT_COMPONENT_OP5F).add(
-                Items.MUTTON, Items.COOKED_MUTTON,
-                Items.CHICKEN, Items.COOKED_CHICKEN,
-                Items.RABBIT, Items.RABBIT_FOOT,
-                Items.COOKED_RABBIT, Items.ROTTEN_FLESH,
-                Items.SPIDER_EYE, Items.FERMENTED_SPIDER_EYE,
-                Items.COD, Items.COOKED_COD,
-                Items.SALMON, Items.COOKED_SALMON,
-                Items.TROPICAL_FISH, Items.PUFFERFISH
-        );
-        tag(ModItemTags.MEAT_COMPONENT_1F).add(
-                Items.BEEF, Items.COOKED_BEEF,
-                Items.PORKCHOP, Items.COOKED_PORKCHOP
-        );
-        tag(ModItemTags.FISH_COMPONENT_1F).add(
-                Items.COD, Items.COOKED_COD,
-                Items.SALMON, Items.COOKED_SALMON,
-                Items.TROPICAL_FISH, Items.PUFFERFISH
-        );
-        tag(ModItemTags.MONSTER_COMPONENT_1F).add(
-                Items.POISONOUS_POTATO, Items.RABBIT_FOOT,
-                Items.ROTTEN_FLESH, Items.SPIDER_EYE,
-                Items.FERMENTED_SPIDER_EYE, Items.TROPICAL_FISH,
-                Items.PUFFERFISH
-        );
-        tag(ModItemTags.FRUIT_COMPONENT_1F).add(
-                Items.APPLE, Items.GOLDEN_APPLE,
-                Items.ENCHANTED_GOLDEN_APPLE, Items.CHORUS_FRUIT,
-                Items.POPPED_CHORUS_FRUIT, Items.SUGAR_CANE
-        );
-        tag(ModItemTags.FRUIT_COMPONENT_0P5F).add(
-                Items.MELON_SLICE, Items.GLISTERING_MELON_SLICE,
-                Items.SWEET_BERRIES, Items.GLOW_BERRIES
-        );
-        tag(ModItemTags.PROTEIN_COMPONENT_1F).add(Items.EGG, Items.TURTLE_EGG,
-                Items.SNIFFER_EGG, Items.DRAGON_EGG);
-        tag(ModItemTags.SWEET_COMPONENT_1F).add(Items.SUGAR, Items.HONEY_BOTTLE);
-        tag(ModItemTags.WILD_WIND_INVISIBLE.get()).add(ModItems.ASH_DUST.get());
-//        ModBlockFamilies.AZALEA.generateItemTags(this::tag);
-//        ModBlockFamilies.PALM.generateItemTags(this::tag);
-//        ModBlockFamilies.BAOBAB.generateItemTags(this::tag);
-        tag(ItemTags.WOLF_FOOD).add(ModBaseFoods.COOKED_TROUT.get(), ModBaseFoods.RAW_TROUT.get(), ModBaseFoods.COOKED_FROG_LEG.get(), ModBaseFoods.FROG_LEG.get(),
-                ModBaseFoods.COOKED_PIRANHA.get(), ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.CAT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.OCELOT_FOOD).add(ModBaseFoods.RAW_PIRANHA.get());
-        tag(ItemTags.FISHES).add(ModBaseFoods.RAW_PIRANHA.get(), ModBaseFoods.COOKED_PIRANHA.get());
-        tag(Tags.Items.CONCRETE_POWDERS).add(ModBlocks.CONCRETE_POWDER.get().asItem());
-        tag(ItemTags.BANNERS).add(ModBlocks.BANNER.get().asItem());
+//        tag(ModItemTags.VEGETABLE_COMPONENT_OP5F).add(
+//                Items.KELP, Items.DRIED_KELP,
+//                Items.BROWN_MUSHROOM, Items.RED_MUSHROOM,
+//                Items.CRIMSON_FUNGUS, Items.WARPED_FUNGUS);
+//        tag(ModItemTags.VEGETABLE_COMPONENT_1F).add(
+//                Items.CARROT, Items.GOLDEN_CARROT,
+//                Items.BEETROOT, Items.POTATO,
+//                Items.BAKED_POTATO, Items.POISONOUS_POTATO
+//        );
+//        tag(ModItemTags.MEAT_COMPONENT_OP5F).add(
+//                Items.MUTTON, Items.COOKED_MUTTON,
+//                Items.CHICKEN, Items.COOKED_CHICKEN,
+//                Items.RABBIT, Items.RABBIT_FOOT,
+//                Items.COOKED_RABBIT, Items.ROTTEN_FLESH,
+//                Items.SPIDER_EYE, Items.FERMENTED_SPIDER_EYE,
+//                Items.COD, Items.COOKED_COD,
+//                Items.SALMON, Items.COOKED_SALMON,
+//                Items.TROPICAL_FISH, Items.PUFFERFISH
+//        );
+//        tag(ModItemTags.MEAT_COMPONENT_1F).add(
+//                Items.BEEF, Items.COOKED_BEEF,
+//                Items.PORKCHOP, Items.COOKED_PORKCHOP
+//        );
+//        tag(ModItemTags.FISH_COMPONENT_1F).add(
+//                Items.COD, Items.COOKED_COD,
+//                Items.SALMON, Items.COOKED_SALMON,
+//                Items.TROPICAL_FISH, Items.PUFFERFISH
+//        );
+//        tag(ModItemTags.MONSTER_COMPONENT_1F).add(
+//                Items.POISONOUS_POTATO, Items.RABBIT_FOOT,
+//                Items.ROTTEN_FLESH, Items.SPIDER_EYE,
+//                Items.FERMENTED_SPIDER_EYE, Items.TROPICAL_FISH,
+//                Items.PUFFERFISH
+//        );
+//        tag(ModItemTags.FRUIT_COMPONENT_1F).add(
+//                Items.APPLE, Items.GOLDEN_APPLE,
+//                Items.ENCHANTED_GOLDEN_APPLE, Items.CHORUS_FRUIT,
+//                Items.POPPED_CHORUS_FRUIT, Items.SUGAR_CANE
+//        );
+//        tag(ModItemTags.FRUIT_COMPONENT_0P5F).add(
+//                Items.MELON_SLICE, Items.GLISTERING_MELON_SLICE,
+//                Items.SWEET_BERRIES, Items.GLOW_BERRIES
+//        );
+//        tag(ModItemTags.PROTEIN_COMPONENT_1F).add(Items.EGG, Items.TURTLE_EGG,
+//                Items.SNIFFER_EGG, Items.DRAGON_EGG);
+//        tag(ModItemTags.SWEET_COMPONENT_1F).add(Items.SUGAR, Items.HONEY_BOTTLE);
         tag(ItemTags.STAIRS).add(
                 ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS_ITEM.get(),
                 ModBlocks.BLUE_ICE_BRICK_STAIRS_ITEM.get()
