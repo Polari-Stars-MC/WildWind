@@ -3,11 +3,9 @@ package org.polaris2023.wild_wind.common;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.NonNullList;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -22,7 +20,6 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.*;
@@ -53,6 +50,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.EventHooks;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
@@ -64,12 +62,12 @@ import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import net.neoforged.neoforge.event.tick.EntityTickEvent;
 import net.neoforged.neoforge.event.village.VillagerTradesEvent;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.registries.DeferredHolder;
 import org.jetbrains.annotations.NotNull;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.entity.Firefly;
 import org.polaris2023.wild_wind.common.init.*;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
+import org.polaris2023.wild_wind.common.init.items.ModBaseItems;
 import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
 import org.polaris2023.wild_wind.common.network.packets.EggShootPacket;
@@ -245,27 +243,61 @@ public class WildWindGameEventHandler {
     }
 
     @SubscribeEvent
-    public static void playerUseItem(LivingEntityUseItemEvent.Finish event) {
-        if (!(event.getEntity() instanceof Player player)) return;
+    public static void onUseItem(LivingEntityUseItemEvent.Finish event) {
+        ItemStack itemStack = event.getItem();
+        Item item = itemStack.getItem();
+        LivingEntity livingEntity = event.getEntity();
         //common code
 
 
         // end common code
-        if (!(player.level() instanceof ServerLevel serverLevel)) return;
+        if (!(livingEntity.level() instanceof ServerLevel serverLevel)) return;
         // server code
-        ItemStack resultStack = event.getResultStack();
-        if (resultStack.has(DataComponents.DAMAGE) && EnchantmentHelper.hasEnchantment(serverLevel, resultStack, ModEnchantments.RUSTY.get())) {
-            ItemEnchantments enchantments = resultStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
-            if (!enchantments.isEmpty()) {
-                for (var entry : enchantments.entrySet()) {
-                    ResourceKey<Enchantment> key = entry.getKey().getKey();
-                    if (key != null && key.isFor(ModEnchantments.RUSTY.get().registryKey())) {
-                        int level = entry.getIntValue();// 0 1 2
-                        resultStack.setDamageValue(resultStack.getDamageValue() + level + 1);
+        // player use
+        if(event.getEntity() instanceof Player player) {
+            ItemStack resultStack = event.getResultStack();
+            if (resultStack.has(DataComponents.DAMAGE) && EnchantmentHelper.hasEnchantment(serverLevel, resultStack, ModEnchantments.RUSTY.get())) {
+                ItemEnchantments enchantments = resultStack.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY);
+                if (!enchantments.isEmpty()) {
+                    for (var entry : enchantments.entrySet()) {
+                        ResourceKey<Enchantment> key = entry.getKey().getKey();
+                        if (key != null && key.isFor(ModEnchantments.RUSTY.get().registryKey())) {
+                            int level = entry.getIntValue();// 0 1 2
+                            resultStack.setDamageValue(resultStack.getDamageValue() + level + 1);
+                        }
                     }
                 }
             }
+        }
+        // end player use
 
+        if(item.equals(Items.POPPED_CHORUS_FRUIT)) {
+            if(TeleportUtil.tryTeleportToSurface(livingEntity, serverLevel, livingEntity.getOnPos()) || TeleportUtil.randomTeleportAround(livingEntity, serverLevel)) {
+                serverLevel.gameEvent(GameEvent.TELEPORT, livingEntity.position(), GameEvent.Context.of(livingEntity));
+                SoundSource soundsource;
+                SoundEvent soundevent;
+                if (livingEntity instanceof Fox) {
+                    soundevent = SoundEvents.FOX_TELEPORT;
+                    soundsource = SoundSource.NEUTRAL;
+                } else {
+                    soundevent = SoundEvents.CHORUS_FRUIT_TELEPORT;
+                    soundsource = SoundSource.PLAYERS;
+                }
+
+                serverLevel.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundevent, soundsource);
+                livingEntity.resetFallDistance();
+            }
+
+            if (livingEntity instanceof Player player) {
+                player.resetCurrentImpulseContext();
+                player.getCooldowns().addCooldown(item, 20);
+            }
+        } else if(item.equals(Items.GLISTERING_MELON_SLICE)) {
+            livingEntity.heal(1.0F);
+        } else if(itemStack.is(Tags.Items.FOODS_COOKED_FISH) || itemStack.is(Tags.Items.FOODS_RAW_FISH)) {
+            if (livingEntity instanceof Player player) {
+                player.addItem(new ItemStack(ModBaseItems.FISH_BONE));
+            }
         }
     }
 
@@ -411,40 +443,6 @@ public class WildWindGameEventHandler {
                     frame.setData(vanillaInvisible, frame.isInvisible());
                     frame.setInvisible(true);
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onFinishUsingItem(LivingEntityUseItemEvent.Finish event) {
-        Item item = event.getItem().getItem();
-        LivingEntity livingEntity = event.getEntity();
-        if(item.equals(Items.POPPED_CHORUS_FRUIT)) {
-            if(livingEntity.level() instanceof ServerLevel serverLevel) {
-                if(TeleportUtil.tryTeleportToSurface(livingEntity, serverLevel, livingEntity.getOnPos()) || TeleportUtil.randomTeleportAround(livingEntity, serverLevel)) {
-                    serverLevel.gameEvent(GameEvent.TELEPORT, livingEntity.position(), GameEvent.Context.of(livingEntity));
-                    SoundSource soundsource;
-                    SoundEvent soundevent;
-                    if (livingEntity instanceof Fox) {
-                        soundevent = SoundEvents.FOX_TELEPORT;
-                        soundsource = SoundSource.NEUTRAL;
-                    } else {
-                        soundevent = SoundEvents.CHORUS_FRUIT_TELEPORT;
-                        soundsource = SoundSource.PLAYERS;
-                    }
-
-                    serverLevel.playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), soundevent, soundsource);
-                    livingEntity.resetFallDistance();
-                }
-
-                if (livingEntity instanceof Player player) {
-                    player.resetCurrentImpulseContext();
-                    player.getCooldowns().addCooldown(item, 20);
-                }
-            }
-        } else if(item.equals(Items.GLISTERING_MELON_SLICE)) {
-            if(!livingEntity.level().isClientSide) {
-                livingEntity.heal(1.0F);
             }
         }
     }
