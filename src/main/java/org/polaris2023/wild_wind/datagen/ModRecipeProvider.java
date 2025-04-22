@@ -156,7 +156,8 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.BAT_WING, RecipeCategory.FOOD, ModBaseFoods.COOKED_BAT_WING, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.GLOWING_CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.GLOWING_CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F, "_from_glowing_calamari");
+        add(smelting(Items.BONE, RecipeCategory.MISC, ModBaseItems.CHARRED_BONE, 0.35F));
 
         add(smelting(ModBlocks.PALM_CROWN, RecipeCategory.MISC, Items.CHARCOAL, 0.35F), WildWindMod.MOD_ID + "/");
 
@@ -579,6 +580,10 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(Blocks.GRAVEL, 4);
         }));
 
+        add(shapeless(RecipeCategory.MISC, Items.BONE_MEAL, 1, bone_meal -> {
+            unlockedBy(bone_meal, ModBaseItems.FISH_BONE);
+            bone_meal.requires(ModBaseItems.FISH_BONE);
+        }), "", "_from_fish_bone");
     }
 
 
@@ -730,6 +735,12 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(input, category, result, exp));
         add(smoking(input, category, result, exp), "smoking/");
         add(campfire(input, category, result, exp), "campfire/");
+    }
+
+    public void smeltingSmokingAndCampfire(ItemLike input, RecipeCategory category, ItemLike result, float exp, String suffix) {
+        add(smelting(input, category, result, exp), "", suffix);
+        add(smoking(input, category, result, exp), "smoking/", suffix);
+        add(campfire(input, category, result, exp), "campfire/", suffix);
     }
 
     public static SimpleCookingRecipeBuilder smelting(
