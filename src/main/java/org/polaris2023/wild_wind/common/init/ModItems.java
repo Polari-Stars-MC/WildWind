@@ -63,6 +63,7 @@ public class ModItems {
     @I18n(en_us = "Magic Flute", zh_cn = "魔笛", zh_tw = "魔笛")
     public static final DeferredItem<Item> MAGIC_FLUTE = ITEMS.register("magic_flute",
             () -> new MagicFluteItem(STACK_1.durability(100).rarity(Rarity.UNCOMMON)));
+    public static final DeferredItem<Item> FANGS = ITEMS.registerSimpleItem("fangs");
 
     //Food Item
     @BasicItem

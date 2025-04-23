@@ -114,6 +114,7 @@ public class ModCreativeModeTab {
                 output.accept(ModItems.GLOW_POWDER.get());
                 output.accept(ModItems.ASH_DUST.get());
                 output.accept(ModItems.SALT.get());
+                output.accept(ModItems.FANGS);
             }), FOOD_AND_DRINK.getId());
 
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
