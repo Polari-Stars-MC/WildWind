@@ -50,6 +50,8 @@ public class ModBlocks {
 
     public static final BlockBehaviour.Properties EMPTY = BlockBehaviour.Properties.of();
     @I18n(en_us = "Glow Mucus", zh_cn = "萤光黏液", zh_tw = "螢光黏液")
+    @BasicItem
+    @RegistryBlockItem
     public static final DeferredBlock<GlowMucusBlock> GLOW_MUCUS = register("glow_mucus", GlowMucusBlock::new, BlockBehaviour.Properties.of());
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
@@ -58,9 +60,13 @@ public class ModBlocks {
 
 
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
+    @RegistryBlockItem
+    @BasicItem
     public static final DeferredBlock<Block> GLAREFLOWER = register("glareflower");
 
     @I18n(en_us = "Glare Flower Seeds", zh_cn = "怒目花种子", zh_tw = "怒目花種子")
+    @BasicItem
+    @RegistryBlockItem
     public static final DeferredBlock<Block> GLAREFLOWER_SEEDS = register("glareflower_seeds");
 
     @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
@@ -74,9 +80,13 @@ public class ModBlocks {
     public static final DeferredBlock<Block> COBWEB_MUCOSA = register("cobweb_mucosa", BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Reeds", zh_cn = "芦苇", zh_tw = "蘆葦")
+    @RegistryBlockItem
+    @BasicItem
     public static final DeferredBlock<ReedsBlock> REEDS = register("reeds", ReedsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
 
     @I18n(en_us = "Cattails", zh_cn = "香蒲", zh_tw = "水燭")
+    @BasicItem
+    @RegistryBlockItem
     public static final DeferredBlock<CattailsBlock> CATTAILS = register("cattails", CattailsBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ROSE_BUSH));
 
     @I18n(en_us = "Present", zh_cn = "礼物盒", zh_tw = "禮物盒")
@@ -115,6 +125,8 @@ public class ModBlocks {
 
     @Cross(item = false)
     @I18n(en_us = "Tiny Cactus", zh_cn = "仙人球", zh_tw = "仙人球")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
@@ -146,7 +158,8 @@ public class ModBlocks {
     public static final DeferredBlock<SculkJawBlock> SCULK_JAW = register("sculk_jaw", SculkJawBlock::new, BlockBehaviour.Properties.of());
 
     @I18n(en_us = "Duckweed", zh_cn = "浮萍", zh_tw = "浮萍")
-
+    @RegistryBlockItem
+    @BasicItem
     public static final DeferredBlock<DuckweedBlock> DUCKWEED = register("duckweed", DuckweedBlock::new, BlockBehaviour.Properties.of());
     public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<DuckweedBlockEntity>> DUCKWEED_TILE =
             entity("duckweed", DSL.remainderType(), DuckweedBlockEntity::new, DUCKWEED);
@@ -172,6 +185,8 @@ public class ModBlocks {
 
     @I18n(en_us = "Ash", zh_cn = "灰烬", zh_tw = "灰烬")
     @VanillaTag(names = {"replaceable", "mineable/shovel"}, type = TagType.Block)
+    @ParentItem(parent = "wild_wind:block/ash_1")
+    @RegistryBlockItem
     public static final DeferredBlock<AshLayerBlock> ASH = register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
 
   
