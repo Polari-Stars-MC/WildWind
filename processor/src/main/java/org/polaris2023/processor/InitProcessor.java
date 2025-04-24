@@ -50,6 +50,8 @@ public class InitProcessor extends AbstractProcessor {
         Unsafe.exportJdkModule();
     }
 
+    public static boolean DEBUG = Boolean.getBoolean("codegen-debug");
+
     public static final Map<String, StringBuilder> SERVICES = new HashMap<>();
     public static final AtomicBoolean ONLY_ONCE = new AtomicBoolean(true);
     public static final Map<RegType, Optional<? extends VariableTree>> REGISTRY_MAP = new HashMap<>();
@@ -171,6 +173,12 @@ public class InitProcessor extends AbstractProcessor {
             servicesSave();
             ONLY_ONCE.set(false);
         }
+
+        if (DEBUG) {
+            modelInit.ifPresentOrElse(System.out::println, () -> System.out.println("ModelInit not found"));
+            languageInit.ifPresentOrElse(System.out::println, () -> System.out.println("LanguageInit not found"));
+        }
+
         if (roundEnv.processingOver()) {
             StringBuilder sb = new StringBuilder();
             for (String name : RemovedProcessor.REMOVED) {

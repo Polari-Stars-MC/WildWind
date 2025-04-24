@@ -107,6 +107,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.POLISHED_STONE_WALL.get());
         this.add(ModBlocks.POLISHED_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_STONE_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
+        this.dropSelf(ModBlocks.POLISHED_GRANITE_WALL.get());
 
         ModBlockFamilies.AZALEA.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
         ModBlockFamilies.PALM.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
@@ -126,21 +127,25 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.ANDESITE_BRICK_STAIRS.get());
         this.add(ModBlocks.ANDESITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.ANDESITE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.ANDESITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_ANDESITE_BRICKS.get());
         this.dropSelf(ModBlocks.DIORITE_BRICKS.get());
         this.dropSelf(ModBlocks.CRACKED_DIORITE_BRICKS.get());
         this.dropSelf(ModBlocks.DIORITE_BRICK_STAIRS.get());
         this.add(ModBlocks.DIORITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.DIORITE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.DIORITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_DIORITE_BRICKS.get());
         this.dropSelf(ModBlocks.GRANITE_BRICKS.get());
         this.dropSelf(ModBlocks.CRACKED_GRANITE_BRICKS.get());
         this.dropSelf(ModBlocks.GRANITE_BRICK_STAIRS.get());
         this.add(ModBlocks.GRANITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.GRANITE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.GRANITE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_GRANITE_BRICKS.get());
         this.dropSelf(ModBlocks.BLUE_ICE_BRICKS.get());
         this.dropSelf(ModBlocks.CRACKED_BLUE_ICE_BRICKS.get());
         this.dropSelf(ModBlocks.BLUE_ICE_BRICK_STAIRS.get());
         this.add(ModBlocks.BLUE_ICE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.BLUE_ICE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.BLUE_ICE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_BLUE_ICE_BRICKS.get());
     }
 
     protected LootTable.Builder createBedDrops(Block block) {

@@ -19,12 +19,12 @@ public final class ModFeatures {
 	public static final ResourceLocation SILT_ID = Helpers.location("silt");
 	public static final ResourceLocation ASH_ID = Helpers.location("ash");
 	public static final ResourceLocation HALF_WATERLOGGED_TALL_FLOWER_ID = Helpers.location("half_waterlogged_tall_flower");
-	public static final Feature<NoneFeatureConfiguration> BRITTLE_ICE = registerFeature(BRITTLE_ICE_ID, new BrittleIceFeature(NoneFeatureConfiguration.CODEC));
+	public static final Feature<NoneFeatureConfiguration> BRITTLE_ICE = new BrittleIceFeature(NoneFeatureConfiguration.CODEC);
 	@SuppressWarnings("deprecation")
-	public static final Feature<LakeFeature.Configuration> QUICKSAND_LAKE = registerFeature(QUICKSAND_LAKE_ID, new QuickSandLakeFeature(LakeFeature.Configuration.CODEC));
-	public static final Feature<NoneFeatureConfiguration> SILT = registerFeature(SILT_ID, new SiltFeature(NoneFeatureConfiguration.CODEC));
-	public static final Feature<NoneFeatureConfiguration> ASH = registerFeature(ASH_ID, new AshFeature(NoneFeatureConfiguration.CODEC));
-	public static final Feature<SimpleBlockConfiguration> HALF_WATERLOGGED_TALL_FLOWER = registerFeature(HALF_WATERLOGGED_TALL_FLOWER_ID, new HalfWaterloggedTallFlowerFeature(SimpleBlockConfiguration.CODEC));
+	public static final Feature<LakeFeature.Configuration> QUICKSAND_LAKE = new QuickSandLakeFeature(LakeFeature.Configuration.CODEC);
+	public static final Feature<NoneFeatureConfiguration> SILT = new SiltFeature(NoneFeatureConfiguration.CODEC);
+	public static final Feature<NoneFeatureConfiguration> ASH = new AshFeature(NoneFeatureConfiguration.CODEC);
+	public static final Feature<SimpleBlockConfiguration> HALF_WATERLOGGED_TALL_FLOWER = new HalfWaterloggedTallFlowerFeature(SimpleBlockConfiguration.CODEC);
 
 	private static <C extends FeatureConfiguration, F extends Feature<C>> F registerFeature(ResourceLocation key, F value) {
 		return Registry.register(BuiltInRegistries.FEATURE, key, value);

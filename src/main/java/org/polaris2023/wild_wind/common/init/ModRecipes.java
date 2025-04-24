@@ -1,5 +1,6 @@
 package org.polaris2023.wild_wind.common.init;
 
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -13,6 +14,6 @@ public class ModRecipes {
 
 
     private static <T extends Recipe<?>> DeferredHolder<RecipeType<?>,RecipeType<T>> register(String name) {
-        return RECIPES.register(name, () -> RecipeType.register(name));
+        return RECIPES.register(name, () -> RecipeType.simple(ResourceLocation.withDefaultNamespace(name)));
     }
 }

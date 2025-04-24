@@ -109,6 +109,16 @@ public interface IBlockModel extends DatagenClient {
         return cubeAllModel(key.getPath(), renderType, all.isEmpty() ? blockTexture(b) : ResourceLocation.parse(all));
     }
 
+    default <T extends Block> BlockModelBuilder cubeColumn(String path, ResourceLocation side, ResourceLocation end) {
+        return self().blockModelProvider.cubeColumn(path, side, end);
+    }
+
+    default <T extends Block> BlockModelBuilder cubeColumn(Supplier<T> block, String side, String end) {
+        T b = block.get();
+        ResourceLocation key = self().key(b);
+        return cubeColumn(key.getPath(), ResourceLocation.parse(side), ResourceLocation.parse(end));
+    }
+
     default <T extends Block> ResourceLocation key(T block) {
         return BuiltInRegistries.BLOCK.getKey(block);
     }
