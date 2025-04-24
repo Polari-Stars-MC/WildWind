@@ -37,11 +37,7 @@ if (!System.getenv("git_act").equals("true")) {
     }
 }
 
-
-
-
-
-
-
-
-
+tasks.register("cleanGeneratedData", Delete) {
+    description = "Remove the entire 'generated' source sets. For testing only."
+    delete(files("src/generated"))
+}
