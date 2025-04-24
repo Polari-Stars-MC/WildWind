@@ -69,7 +69,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.GLAZED_TERRACOTTA);
     }),
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
-    NATURAL_BLOCKS(ModBlocks.SALT_ORE_ITEM::toStack, () -> (__, output) -> {
+    NATURAL_BLOCKS(ModBlocks.SALT_ORE::toStack, () -> (__, output) -> {
         output.accept(ModBlocks.BRITTLE_ICE);
         output.accept(ModBlocks.SILT);
         output.accept(ModBlocks.QUICKSAND);

@@ -9,11 +9,13 @@ import net.minecraft.world.level.block.entity.BannerPatternLayers;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.enums.RegType;
+import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.language.I18n;
 import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.annotation.handler.RegistryHandler;
+import org.polaris2023.annotation.tag.CTag;
 import org.polaris2023.wild_wind.common.block.item.PresentBlockItem;
 import org.polaris2023.wild_wind.common.block.item.TrappedPresentBlockItem;
 import org.polaris2023.wild_wind.common.item.*;
@@ -30,6 +32,7 @@ public class ModItems {
 
     @BasicItem
     @I18n(en_us = "Living Tuber", zh_cn = "活根", zh_tw = "活根")
+    @CTag(names = "vegetable_food",type = TagType.Item)
     public static final DeferredItem<LivingTuberItem> LIVING_TUBER =
             register("living_tuber", properties -> new LivingTuberItem(properties
                     .stacksTo(16)
@@ -54,6 +57,7 @@ public class ModItems {
 
     @BasicItem
     @I18n(en_us = "Ash Dust", zh_cn = "灰烬粉末", zh_tw = "灰烬粉末")
+    @CTag(names = "wild_wind_invisible", type = TagType.Item)
     public static final DeferredItem<AshDustItem> ASH_DUST =
             register("ash_dust", p -> new AshDustItem(p.stacksTo(64)));
 
