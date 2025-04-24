@@ -183,7 +183,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapedRecipe() {
         add(shaped(RecipeCategory.BUILDING_BLOCKS, Items.ICE, 1, builder -> {
-            unlockedBy(builder, ModBlocks.BRITTLE_ICE);
+            unlockedBy(builder, Items.ICE);
             builder
                     .pattern("III")
                     .pattern("III")
