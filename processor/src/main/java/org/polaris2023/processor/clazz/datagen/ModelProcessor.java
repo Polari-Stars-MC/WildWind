@@ -9,7 +9,6 @@ import org.polaris2023.annotation.register.ResourceLocation;
 import org.polaris2023.processor.InitProcessor;
 import org.polaris2023.processor.clazz.ClassProcessor;
 
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import java.lang.Override;
@@ -70,24 +69,25 @@ public class ModelProcessor extends ClassProcessor {
         return code + "(" + typeElement.getQualifiedName() + "." + element.getSimpleName() + ".get())";
     }
 
-    public void spawnEggItem(TypeElement typeElement, VariableElement variableElement) {
+    public void addCodeSpawnEggItem(TypeElement typeElement, VariableElement variableElement) {
         SpawnEggItem spawnEggItem = variableElement.getAnnotation(SpawnEggItem.class);
         if (spawnEggItem == null) return;
         InitProcessor.modelGen(context, merge("itemModelProvider.spawnEggItem", typeElement, variableElement));
     }
 
-    public final List<BiConsumer<TypeElement, VariableElement>> runs = List.of(
-            this::spawnEggItem,
-            this::basicBlock,
-            this::cubeBottomTop,
-            this::parentItem,
-            this::cubeAllFor,
-            this::cross,
-            this::carpet,
-            this::basicItem
+    public final List<BiConsumer<TypeElement, VariableElement>> codeAdderList = List.of(
+            this::addCodeSpawnEggItem,
+            this::addCodeBasicBlock,
+            this::addCodeCubeBottomTop,
+            this::addCodeParentItem,
+            this::addCodeCubeAllFor,
+            this::addCodeCross,
+            this::addCodeCarpet,
+            this::addCodeBasicItem,
+            this::addCodeCubeColumn
     );
 
-    private void basicItem(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeBasicItem(TypeElement typeElement, VariableElement variableElement) {
         BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
         if (basicItem != null && basicItem.used()) {
             StringBuilder sb =
@@ -181,7 +181,7 @@ public class ModelProcessor extends ClassProcessor {
         AllDoor allDoor = register(variableElement.getAnnotation(AllDoor.class));
         AllBrick allBrick = register(variableElement.getAnnotation(AllBrick.class));
         //item model gen
-        runs.forEach(run -> run.accept(typeElement, variableElement));
+        codeAdderList.forEach(run -> run.accept(typeElement, variableElement));
 
         if (basicBlockItem != null) {
             blockItem(variableElement, typeElement, basicBlockItem);
@@ -259,7 +259,7 @@ public class ModelProcessor extends ClassProcessor {
         return "ResourceLocation.fromNamespaceAndPath(\"" + location.namespace() + "\", \"" + location.path() + "\")";
     }
 
-    private void cubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeCubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
         CubeBottomTop cubeBottomTop = variableElement.getAnnotation(CubeBottomTop.class);
         if (cubeBottomTop != null) {
 //            StringBuilder sb = new StringBuilder();
@@ -273,7 +273,7 @@ public class ModelProcessor extends ClassProcessor {
     }
 
 
-    private void cubeAllFor(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeCubeAllFor(TypeElement typeElement, VariableElement variableElement) {
         CubeAllFor cubeAllFor = variableElement.getAnnotation(CubeAllFor.class);
         if (cubeAllFor != null) {
             CubeAll cube = cubeAllFor.cube();
@@ -315,7 +315,7 @@ public class ModelProcessor extends ClassProcessor {
         Wall annotation = variableElement.getAnnotation(Wall.class);
     }
 
-    private void cross(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeCross(TypeElement typeElement, VariableElement variableElement) {
         Cross cross = variableElement.getAnnotation(Cross.class);
         if (cross != null) {
             String sb = "cross(%s.%s, %s, \"%s\", \"%s\");".formatted(
@@ -329,7 +329,7 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
-    private void carpet(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeCarpet(TypeElement typeElement, VariableElement variableElement) {
         Carpet carpet = variableElement.getAnnotation(Carpet.class);
         if (carpet != null) {
             String sb = "carpet(%s.%s, %s, \"%s\", \"%s\");".formatted(
@@ -343,7 +343,7 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
-    private void basicBlock(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeBasicBlock(TypeElement typeElement, VariableElement variableElement) {
         BasicBlock basicBlock = variableElement.getAnnotation(BasicBlock.class);
         CubeAll cubeAll = variableElement.getAnnotation(CubeAll.class);
 
@@ -360,7 +360,7 @@ public class ModelProcessor extends ClassProcessor {
         }
     }
 
-    private void parentItem(TypeElement typeElement, VariableElement variableElement) {
+    private void addCodeParentItem(TypeElement typeElement, VariableElement variableElement) {
         ParentItem parentItem = variableElement.getAnnotation(ParentItem.class);
         if (parentItem != null) {
             StringBuilder sb = new StringBuilder();
@@ -379,6 +379,20 @@ public class ModelProcessor extends ClassProcessor {
             sb.append(";");
             InitProcessor.modelGen(context, sb.toString());
 
+        }
+    }
+
+    private void addCodeCubeColumn(TypeElement typeElement, VariableElement variableElement) {
+        CubeColumn cubeColumn = variableElement.getAnnotation(CubeColumn.class);
+        if (cubeColumn != null) {
+            String template = "cubeColumn(%s.%s, \"%s\", \"%s\");";
+            String code = template.formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    cubeColumn.side(),
+                    cubeColumn.end()
+            );
+            InitProcessor.modelGen(context, code);
         }
     }
 
