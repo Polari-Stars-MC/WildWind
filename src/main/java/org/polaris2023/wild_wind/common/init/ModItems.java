@@ -84,20 +84,6 @@ public class ModItems {
     public static final DeferredItem<NetherMushroomStewItem> NETHER_MUSHROOM_STEW =
             register("nether_mushroom_stew", properties -> 
                     new NetherMushroomStewItem(properties.stacksTo(1), ModFoods.NETHER_MUSHROOM_STEW));
-    @BasicItem
-    public static final DeferredItem<BlockItem> GLOW_MUCUS_ITEM = register("glow_mucus", ModBlocks.GLOW_MUCUS);
-
-    @BasicItem
-    public static final DeferredItem<BlockItem> GLAREFLOWER_ITEM = register("glareflower", ModBlocks.GLAREFLOWER);
-
-    @BasicItem
-    public static final DeferredItem<BlockItem> GLAREFLOWER_SEEDS_ITEM = register("glareflower_seeds", ModBlocks.GLAREFLOWER_SEEDS, ModFoods.GLAREFLOWER_SEEDS);
-
-    @BasicItem
-    public static final DeferredItem<BlockItem> REEDS_ITEM = register("reeds", ModBlocks.REEDS);
-
-    @BasicItem
-    public static final DeferredItem<BlockItem> CATTAILS_ITEM = register("cattails", ModBlocks.CATTAILS);
 
     public static final DeferredItem<PresentBlockItem> PRESENT_ITEM = register("present", p -> new PresentBlockItem(ModBlocks.PRESENT.get(), p));
 
@@ -105,19 +91,5 @@ public class ModItems {
 
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
 
-
-    @BasicBlockLocatedItem
-    public static final DeferredItem<BlockItem> TINY_CACTUS_ITEM = register("tiny_cactus", ModBlocks.TINY_CACTUS);
-
-    @BasicItem
-    public static final DeferredItem<BlockItem> DUCKWEED_ITEM = register("duckweed", ModBlocks.DUCKWEED);
-
-    @ParentItem(parent = "wild_wind:block/ash_1")
-    public static final DeferredItem<BlockItem> ASH_ITEM = register("ash", ModBlocks.ASH);
-
-
-//    static {
-//        REGISTER.registerSimpleBlockItem(ModBlocks.ASH_BLOCK)
-//    }
 
 }

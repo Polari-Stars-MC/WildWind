@@ -84,8 +84,11 @@ public class ModelProcessor extends ClassProcessor {
             this::addCodeCross,
             this::addCodeCarpet,
             this::addCodeBasicItem,
-            this::addCodeCubeColumn
+            this::addCodeCubeColumn,
+            this::addCodeBasicBlockLocatedItem
     );
+
+
 
     private void addCodeBasicItem(TypeElement typeElement, VariableElement variableElement) {
         BasicItem basicItem = variableElement.getAnnotation(BasicItem.class);
@@ -165,8 +168,7 @@ public class ModelProcessor extends ClassProcessor {
     @Override
     public void fieldDef(VariableElement variableElement, TypeElement typeElement) {
         BasicBlockItem basicBlockItem = register(variableElement.getAnnotation(BasicBlockItem.class));
-        BasicBlockLocatedItem basicBlockLocatedItem = register(variableElement.getAnnotation(BasicBlockLocatedItem.class));
-        CubeColumn cubeColumn = register(variableElement.getAnnotation(CubeColumn.class));
+
         Stairs stairs = register(variableElement.getAnnotation(Stairs.class));
         Slab slab = register(variableElement.getAnnotation(Slab.class));
         Wall wall = register(variableElement.getAnnotation(Wall.class));
@@ -186,9 +188,6 @@ public class ModelProcessor extends ClassProcessor {
         if (basicBlockItem != null) {
             blockItem(variableElement, typeElement, basicBlockItem);
         }
-        else if (basicBlockLocatedItem != null) {
-            checkAppend(typeElement, variableElement,"basicBlockLocatedItem");
-        }
 
 //        if (basicItem != null && basicItem.used()) {
 //            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
@@ -197,9 +196,7 @@ public class ModelProcessor extends ClassProcessor {
 //        }
         //block model gen
 
-        else if (cubeColumn != null) {
-            checkAppend(typeElement, variableElement, "cubeColumn", cubeColumn.end(), cubeColumn.side(), cubeColumn.item(), cubeColumn.horizontal(), cubeColumn.suffix());
-        }
+
         else if (log != null) {
             checkAppend(typeElement, variableElement, "logBlock", log.item());
         }
@@ -257,6 +254,12 @@ public class ModelProcessor extends ClassProcessor {
 
     private String location(ResourceLocation location) {
         return "ResourceLocation.fromNamespaceAndPath(\"" + location.namespace() + "\", \"" + location.path() + "\")";
+    }
+
+    private void addCodeBasicBlockLocatedItem(TypeElement typeElement, VariableElement variableElement) {
+        BasicBlockLocatedItem basicBlockLocatedItem = variableElement.getAnnotation(BasicBlockLocatedItem.class);
+        if (basicBlockLocatedItem == null) return;
+        InitProcessor.modelGen(context, merge("basicBlockLocatedItem", typeElement, variableElement));
     }
 
     private void addCodeCubeBottomTop(TypeElement typeElement, VariableElement variableElement) {
@@ -369,7 +372,7 @@ public class ModelProcessor extends ClassProcessor {
                     .append(typeElement.getQualifiedName())
                     .append(".")
                     .append(variableElement.getSimpleName())
-                    .append(".get()).toString()")
+                    .append(".get().asItem()).toString()")
                     .append(", \"")
                     .append(parentItem.parent())
                     .append("\")");

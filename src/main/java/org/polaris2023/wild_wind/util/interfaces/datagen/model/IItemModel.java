@@ -16,11 +16,12 @@ import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
  */
 public interface IItemModel extends DatagenClient {
     default ItemModelBuilder basicBlockLocatedItem(ResourceLocation block) {
+
         return self().itemModelProvider.getBuilder(block.toString()).parent(new ModelFile.UncheckedModelFile("item/generated")).texture("layer0", ResourceLocation.fromNamespaceAndPath(block.getNamespace(), "block/" + block.getPath()));
     }
 
-    default ItemModelBuilder basicBlockLocatedItem(Item blockItem) {
-        return basicBlockLocatedItem(BuiltInRegistries.ITEM.getKey(blockItem));
+    default <T extends ItemLike> ItemModelBuilder basicBlockLocatedItem(T blockItem) {
+        return basicBlockLocatedItem(BuiltInRegistries.ITEM.getKey(blockItem.asItem()));
     }
 
     default <T extends ItemLike> ItemModelBuilder basicItem(T like) {
