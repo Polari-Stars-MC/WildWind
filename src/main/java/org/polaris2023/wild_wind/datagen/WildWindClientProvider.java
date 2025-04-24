@@ -12,6 +12,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
+import org.polaris2023.wild_wind.common.block.CrispyBasaltBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
@@ -105,6 +106,15 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
                 );
             }
         }
+        VariantBlockStateBuilder crispyBasaltStates = stateProvider.getVariantBuilder(ModBlocks.CRISPY_BASALT.get());
+        for(int age : CrispyBasaltBlock.AGE.getPossibleValues()) {
+            for(boolean unstable : CrispyBasaltBlock.UNSTABLE.getPossibleValues()) {
+                crispyBasaltStates.addModels(
+                        crispyBasaltStates.partialState().with(CrispyBasaltBlock.AGE, age).with(CrispyBasaltBlock.UNSTABLE, unstable),
+                        new ConfiguredModel(blockModelProvider.getExistingFile(Helpers.location("block/crispy_basalt_" + age)))
+                );
+            }
+        }
         VariantBlockStateBuilder ashStates = stateProvider.getVariantBuilder(ModBlocks.ASH.get());
         for(int layer : AshLayerBlock.LAYERS.getPossibleValues()) {
             ashStates.addModels(
@@ -158,6 +168,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
     public void item() {
         itemModelProvider.simpleBlockItem(ModBlocks.BRITTLE_ICE.get());
+        itemModelProvider.simpleBlockItem(ModBlocks.CRISPY_BASALT.get());
 
     }
 
