@@ -199,7 +199,7 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<AshLayerBlock> ASH = register("ash", AshLayerBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW));
 
-  
+
     @I18n(en_us = "wool", zh_cn = "羊毛", zh_tw = "羊毛")
     @BasicBlock
     @RegistryBlockItem
@@ -695,6 +695,895 @@ public class ModBlocks {
 
     public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
+    @I18n(en_us = "Mossy Granite Bricks", zh_cn = "苔花岗岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_GRANITE_BRICKS = copyStoneBricks("mossy_granite_bricks");
+    @I18n(en_us = "Mossy Granite Brick Stairs", zh_cn = "苔花岗岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_GRANITE_BRICK_STAIRS = stairs("mossy_granite_brick_stairs", MOSSY_GRANITE_BRICKS);
+    @I18n(en_us = "Mossy Granite Brick Slab", zh_cn = "苔花岗岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Slab
+    public static final DeferredBlock<Block> MOSSY_GRANITE_BRICK_SLAB = slabs("mossy_granite_brick_slab");
+    @I18n(en_us = "Mossy Granite Brick Wall", zh_cn = "苔花岗岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_GRANITE_BRICK_WALL = walls("mossy_granite_brick_wall");
+    @I18n(en_us = "Polished Diorite Wall", zh_cn = "磨制闪长岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_DIORITE_WALL = walls("polished_diorite_wall");
+    @I18n(en_us = "Mossy Diorite Bricks", zh_cn = "苔闪长岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DIORITE_BRICKS = copyStoneBricks("mossy_diorite_bricks");
+    @I18n(en_us = "Mossy Diorite Brick Stairs", zh_cn = "苔闪长岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DIORITE_BRICK_STAIRS = stairs("mossy_diorite_brick_stairs", MOSSY_DIORITE_BRICKS);
+    @I18n(en_us = "Mossy Diorite Brick Slab", zh_cn = "苔闪长岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DIORITE_BRICK_SLAB = slabs("mossy_diorite_brick_slab");
+    @I18n(en_us = "Mossy Diorite Brick Wall", zh_cn = "苔闪长岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DIORITE_BRICK_WALL = walls("mossy_diorite_brick_wall");
+    @I18n(en_us = "Polished Andesite Wall", zh_cn = "磨制安山岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_ANDESITE_WALL = walls("polished_andesite_wall");
+    @I18n(en_us = "Mossy Andesite Bricks", zh_cn = "苔安山岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_ANDESITE_BRICKS = copyStoneBricks("mossy_andesite_bricks");
+    @I18n(en_us = "Mossy Andesite Brick Stairs", zh_cn = "苔安山岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_ANDESITE_BRICK_STAIRS = stairs("mossy_andesite_brick_stairs", MOSSY_ANDESITE_BRICKS);
+    @I18n(en_us = "Mossy Andesite Brick Slab", zh_cn = "苔安山岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_ANDESITE_BRICK_SLAB = slabs("mossy_andesite_brick_slab");
+    @I18n(en_us = "Mossy Andesite Brick Wall", zh_cn = "苔安山岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_ANDESITE_BRICK_WALL = walls("mossy_andesite_brick_wall");
+    @I18n(en_us = "Mossy Cobbled Deepslate", zh_cn = "苔深板岩圆石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_COBBLED_DEEPSLATE = copyStoneBricks("mossy_cobbled_deepslate");
+    @I18n(en_us = "Mossy Cobbled Deepslate", zh_cn = "苔深板岩圆石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_COBBLED_DEEPSLATE_STAIRS = stairs("mossy_cobbled_deepslate_stairs", MOSSY_COBBLED_DEEPSLATE);
+    @I18n(en_us = "Mossy Cobbled Deepslate", zh_cn = "苔深板岩圆石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_COBBLED_DEEPSLATE_SLAB = slabs("mossy_cobbled_deepslate_slab");
+    @I18n(en_us = "Mossy Cobbled Deepslate", zh_cn = "苔深板岩圆石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_COBBLED_DEEPSLATE_WALL = walls("mossy_cobbled_deepslate_wall");
+    @I18n(en_us = "Chiseled Deepslate Bricks", zh_cn = "雕纹深板岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_DEEPSLATE_BRICKS = copyStoneBricks("chiseled_deepslate_bricks");
+    @I18n(en_us = "Mossy Deepslate Bricks", zh_cn = "苔深板岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_BRICKS = copyStoneBricks("mossy_deepslate_bricks");
+    @I18n(en_us = "Mossy Deepslate Brick Stairs", zh_cn = "苔深板岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_BRICK_STAIRS = stairs("mossy_deepslate_brick_stairs", MOSSY_DEEPSLATE_BRICKS);
+    @I18n(en_us = "Mossy Deepslate Brick Slab", zh_cn = "苔深板岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_BRICK_SLAB = slabs("mossy_deepslate_brick_slab");
+    @I18n(en_us = "Mossy Deepslate Brick Wall", zh_cn = "苔深板岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_BRICK_WALL = walls("mossy_deepslate_brick_wall");
+    @I18n(en_us = "Chiseled Deepslate Tiles", zh_cn = "雕纹深板岩瓦", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_DEEPSLATE_TILES = copyStoneBricks("chiseled_deepslate_tiles");
+    @I18n(en_us = "Mossy Deepslate Tiles", zh_cn = "苔深板岩瓦", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_TILES = copyStoneBricks("mossy_deepslate_tiles");
+    @I18n(en_us = "Mossy Deepslate Tiles Stairs", zh_cn = "苔深板岩瓦楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_TILES_STAIRS = stairs("mossy_deepslate_tiles_stairs", MOSSY_DEEPSLATE_TILES);
+    @I18n(en_us = "Mossy Deepslate Tiles Slab", zh_cn = "苔深板岩瓦台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_TILES_SLAB = slabs("mossy_deepslate_tiles_slab");
+    @I18n(en_us = "Mossy Deepslate Tiles Wall", zh_cn = "苔深板岩瓦墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_TILES_WALL = walls("mossy_deepslate_tiles_wall");
+    @I18n(en_us = "Cracked Tuff Bricks", zh_cn = "裂纹凝灰岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_TUFF_BRICKS = copyStoneBricks("cracked_tuff_bricks");
+    @I18n(en_us = "Mossy Tuff Bricks", zh_cn = "苔凝灰岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_TUFF_BRICKS = copyStoneBricks("mossy_tuff_bricks");
+    @I18n(en_us = "Mossy Tuff Brick Stairs", zh_cn = "苔凝灰岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_TUFF_BRICK_STAIRS = stairs("mossy_tuff_brick_stairs", MOSSY_TUFF_BRICKS);
+    @I18n(en_us = "Mossy Tuff Brick Slab", zh_cn = "苔凝灰岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_TUFF_BRICK_SLAB = slabs("mossy_tuff_brick_slab");
+    @I18n(en_us = "Mossy Tuff Brick Wall", zh_cn = "苔凝灰岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_TUFF_BRICK_WALL = walls("mossy_tuff_brick_wall");
+    @I18n(en_us = "Cracked Bricks", zh_cn = "裂纹红砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_BRICKS = copyStoneBricks("cracked_bricks");
+    @I18n(en_us = "Chiseled Bricks", zh_cn = "雕纹红砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_BRICKS = copyStoneBricks("chiseled_bricks");
+    @I18n(en_us = "Mossy Bricks", zh_cn = "苔红砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BRICKS = copyStoneBricks("mossy_bricks");
+    @I18n(en_us = "Mossy Brick Stairs", zh_cn = "苔红砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_BRICK_STAIRS = stairs("mossy_brick_stairs", MOSSY_BRICKS);
+    @I18n(en_us = "Mossy Brick Slab", zh_cn = "苔红砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BRICK_SLAB = slabs("mossy_brick_slab");
+    @I18n(en_us = "Mossy Brick Wall", zh_cn = "苔红砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_BRICK_WALL = walls("mossy_brick_wall");
+    @I18n(en_us = "Polished Mud", zh_cn = "磨制泥巴", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_MUD = copyStoneBricks("polished_mud");
+    @I18n(en_us = "Polished Mud Stairs", zh_cn = "磨制泥巴楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_MUD_STAIRS = stairs("polished_mud_stairs", POLISHED_MUD);
+    @I18n(en_us = "Polished Mud Slab", zh_cn = "磨制泥巴台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_MUD_SLAB = slabs("polished_mud_slab");
+    @I18n(en_us = "Polished Mud Wall", zh_cn = "磨制泥巴墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_MUD_WALL = walls("polished_mud_wall");
+    @I18n(en_us = "Cracked Mud Bricks", zh_cn = "裂纹泥砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_MUD_BRICKS = copyStoneBricks("cracked_mud_bricks");
+    @I18n(en_us = "Chiseled Mud Bricks", zh_cn = "雕纹泥砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_MUD_BRICKS = copyStoneBricks("chiseled_mud_bricks");
+    @I18n(en_us = "Mossy Mud Bricks", zh_cn = "苔泥砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_MUD_BRICKS = copyStoneBricks("mossy_mud_bricks");
+    @I18n(en_us = "Mossy Mud Brick Stairs", zh_cn = "苔泥砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_MUD_BRICK_STAIRS = stairs("mossy_mud_brick_stairs", MOSSY_MUD_BRICKS);
+    @I18n(en_us = "Mossy Mud Brick Slab", zh_cn = "苔泥砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_MUD_BRICK_SLAB = slabs("mossy_mud_brick_slab");
+    @I18n(en_us = "Mossy Mud Bricks Wall", zh_cn = "苔泥砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_MUD_BRICKS_WALL = walls("mossy_mud_bricks_wall");
+    @I18n(en_us = "Mossy Sandstone", zh_cn = "苔砂岩", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE = copyStoneBricks("mossy_sandstone");
+    @I18n(en_us = "Mossy Sandstone Stairs", zh_cn = "苔砂岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_STAIRS = stairs("mossy_sandstone_stairs", MOSSY_SANDSTONE);
+    @I18n(en_us = "Mossy Sandstone Slab", zh_cn = "苔砂岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_SLAB = slabs("mossy_sandstone_slab");
+    @I18n(en_us = "Mossy Sandstone Wall", zh_cn = "苔砂岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_WALL = walls("mossy_sandstone_wall");
+    @I18n(en_us = "Smooth Sandstone", zh_cn = "平滑砂岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SMOOTH_SANDSTONE = copyStoneBricks("smooth_sandstone");
+    @I18n(en_us = "Sandstone Bricks", zh_cn = "砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SANDSTONE_BRICKS = copyStoneBricks("sandstone_bricks");
+    @I18n(en_us = "Cracked Sandstone Bricks", zh_cn = "裂纹砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_SANDSTONE_BRICKS = copyStoneBricks("cracked_sandstone_bricks");
+    @I18n(en_us = "Sandstone Brick Stairs", zh_cn = "砂岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> SANDSTONE_BRICK_STAIRS = stairs("sandstone_brick_stairs", SANDSTONE_BRICKS);
+    @I18n(en_us = "Sandstone Brick Slab", zh_cn = "砂岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SANDSTONE_BRICK_SLAB = slabs("sandstone_brick_slab");
+    @I18n(en_us = "Sandstone Brick Wall", zh_cn = "砂岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> SANDSTONE_BRICK_WALL = walls("sandstone_brick_wall");
+    @I18n(en_us = "Chiseled Sandstone Bricks", zh_cn = "雕纹砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_SANDSTONE_BRICKS = copyStoneBricks("chiseled_sandstone_bricks");
+    @I18n(en_us = "Mossy Sandstone Bricks", zh_cn = "苔砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_BRICKS = copyStoneBricks("mossy_sandstone_bricks");
+    @I18n(en_us = "Mossy Sandstone Brick Stairs", zh_cn = "苔砂岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_BRICK_STAIRS = stairs("mossy_sandstone_brick_stairs", MOSSY_SANDSTONE_BRICKS);
+    @I18n(en_us = "Mossy Sandstone Brick Slab", zh_cn = "苔砂岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_BRICK_SLAB = slabs("mossy_sandstone_brick_slab");
+    @I18n(en_us = "Mossy Sandstone Brick Wall", zh_cn = "苔砂岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_SANDSTONE_BRICK_WALL = walls("mossy_sandstone_brick_wall");
+    @I18n(en_us = "Mossy Red Sandstone", zh_cn = "苔红砂岩", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE = copyStoneBricks("mossy_red_sandstone");
+    @I18n(en_us = "Mossy Red Sandstone Stairs", zh_cn = "苔红砂岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_STAIRS = stairs("mossy_red_sandstone_stairs", MOSSY_RED_SANDSTONE);
+    @I18n(en_us = "Mossy Red Sandstone Slab", zh_cn = "苔红砂岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_SLAB = slabs("mossy_red_sandstone_slab");
+    @I18n(en_us = "Mossy Red Sandstone Wall", zh_cn = "苔红砂岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_WALL = walls("mossy_red_sandstone_wall");
+    @I18n(en_us = "Smooth Red Sandstone", zh_cn = "平滑红砂岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SMOOTH_RED_SANDSTONE = copyStoneBricks("smooth_red_sandstone");
+    @I18n(en_us = "Red Sandstone Bricks", zh_cn = "红砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> RED_SANDSTONE_BRICKS = copyStoneBricks("red_sandstone_bricks");
+    @I18n(en_us = "Cracked Red Sandstone Bricks", zh_cn = "裂纹红砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_RED_SANDSTONE_BRICKS = copyStoneBricks("cracked_red_sandstone_bricks");
+    @I18n(en_us = "Red Sandstone Brick Stairs", zh_cn = "红砂岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> RED_SANDSTONE_BRICK_STAIRS = stairs("red_sandstone_brick_stairs", RED_SANDSTONE_BRICKS);
+    @I18n(en_us = "Red Sandstone Brick Slab", zh_cn = "红砂岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> RED_SANDSTONE_BRICK_SLAB = slabs("red_sandstone_brick_slab");
+    @I18n(en_us = "Red Sandstone Brick Wall", zh_cn = "红砂岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> RED_SANDSTONE_BRICK_WALL = walls("red_sandstone_brick_wall");
+    @I18n(en_us = "Chiseled Red Sandstone Bricks", zh_cn = "雕纹红砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_RED_SANDSTONE_BRICKS = copyStoneBricks("chiseled_red_sandstone_bricks");
+    @I18n(en_us = "Mossy Red Sandstone Bricks", zh_cn = "苔红砂岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_BRICKS = copyStoneBricks("mossy_red_sandstone_bricks");
+    @I18n(en_us = "Mossy Red Sandstone Brick Stairs", zh_cn = "苔红砂岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_BRICK_STAIRS = stairs("mossy_red_sandstone_brick_stairs", MOSSY_RED_SANDSTONE_BRICKS);
+    @I18n(en_us = "Mossy Red Sandstone Brick Slab", zh_cn = "苔红砂岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_BRICK_SLAB = slabs("mossy_red_sandstone_brick_slab");
+    @I18n(en_us = "Mossy Red Sandstone Brick Wall", zh_cn = "苔红砂岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE_BRICK_WALL = walls("mossy_red_sandstone_brick_wall");
+    @I18n(en_us = "Mossy Prismarine", zh_cn = "苔海晶石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE = copyStoneBricks("mossy_prismarine");
+    @I18n(en_us = "Mossy Prismarine Stairs", zh_cn = "苔海晶石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_STAIRS = stairs("mossy_prismarine_stairs", MOSSY_PRISMARINE);
+    @I18n(en_us = "Mossy Prismarine Slab", zh_cn = "苔海晶石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_SLAB = slabs("mossy_prismarine_slab");
+    @I18n(en_us = "Mossy Prismarine Wall", zh_cn = "苔海晶石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_WALL = walls("mossy_prismarine_wall");
+    @I18n(en_us = "Polished Prismarine", zh_cn = "磨制海晶石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_PRISMARINE = copyStoneBricks("polished_prismarine");
+    @I18n(en_us = "Polished Prismarine Stairs", zh_cn = "磨制海晶石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_PRISMARINE_STAIRS = stairs("polished_prismarine_stairs", POLISHED_PRISMARINE);
+    @I18n(en_us = "Polished Prismarine Slab", zh_cn = "磨制海晶石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_PRISMARINE_SLAB = slabs("polished_prismarine_slab");
+    @I18n(en_us = "Polished Prismarine Wall", zh_cn = "磨制海晶石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_PRISMARINE_WALL = walls("polished_prismarine_wall");
+    @I18n(en_us = "Cracked Prismarine Bricks", zh_cn = "裂纹海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_PRISMARINE_BRICKS = copyStoneBricks("cracked_prismarine_bricks");
+    @I18n(en_us = "Chiseled Prismarine Bricks", zh_cn = "雕纹海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_PRISMARINE_BRICKS = copyStoneBricks("chiseled_prismarine_bricks");
+    @I18n(en_us = "Mossy Prismarine Bricks", zh_cn = "苔海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_BRICKS = copyStoneBricks("mossy_prismarine_bricks");
+    @I18n(en_us = "Mossy Prismarine Brick Stairs", zh_cn = "苔海晶石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_BRICK_STAIRS = stairs("mossy_prismarine_brick_stairs", MOSSY_PRISMARINE_BRICKS);
+    @I18n(en_us = "Mossy Prismarine Brick Slab", zh_cn = "苔海晶石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_BRICK_SLAB = slabs("mossy_prismarine_brick_slab");
+    @I18n(en_us = "Mossy Prismarine Brick Wall", zh_cn = "苔海晶石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_PRISMARINE_BRICK_WALL = walls("mossy_prismarine_brick_wall");
+    @I18n(en_us = "Ocean Lantern", zh_cn = "暗海晶灯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> OCEAN_LANTERN = copyStoneBricks("ocean_lantern");
+    @I18n(en_us = "Mossy Dark Prismarine", zh_cn = "苔暗海晶石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE = copyStoneBricks("mossy_dark_prismarine");
+    @I18n(en_us = "Mossy Dark Prismarine Stairs", zh_cn = "苔暗海晶石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_STAIRS = stairs("mossy_dark_prismarine_stairs", MOSSY_DARK_PRISMARINE);
+    @I18n(en_us = "Mossy Dark Prismarine Slab", zh_cn = "苔暗海晶石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_SLAB = slabs("mossy_dark_prismarine_slab");
+    @I18n(en_us = "Mossy Dark Prismarine Wall", zh_cn = "苔暗海晶石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_WALL = walls("mossy_dark_prismarine_wall");
+    @I18n(en_us = "Polished Dark Prismarine", zh_cn = "磨制暗海晶石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_DARK_PRISMARINE = copyStoneBricks("polished_dark_prismarine");
+    @I18n(en_us = "Polished Dark Prismarine Stairs", zh_cn = "磨制暗海晶石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_DARK_PRISMARINE_STAIRS = stairs("polished_dark_prismarine_stairs", POLISHED_DARK_PRISMARINE);
+    @I18n(en_us = "Polished Dark Prismarine Slab", zh_cn = "磨制暗海晶石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_DARK_PRISMARINE_SLAB = slabs("polished_dark_prismarine_slab");
+    @I18n(en_us = "Polished Dark Prismarine Wall", zh_cn = "磨制暗海晶石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_DARK_PRISMARINE_WALL = walls("polished_dark_prismarine_wall");
+    @I18n(en_us = "Dark Prismarine Bricks", zh_cn = "暗海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> DARK_PRISMARINE_BRICKS = copyStoneBricks("dark_prismarine_bricks");
+    @I18n(en_us = "Cracked Dark Prismarine Bricks", zh_cn = "裂纹暗海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_DARK_PRISMARINE_BRICKS = copyStoneBricks("cracked_dark_prismarine_bricks");
+    @I18n(en_us = "Dark Prismarine Brick Stairs", zh_cn = "暗海晶石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> DARK_PRISMARINE_BRICK_STAIRS = stairs("dark_prismarine_brick_stairs", DARK_PRISMARINE_BRICKS);
+    @I18n(en_us = "Dark Prismarine Brick Slab", zh_cn = "暗海晶石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> DARK_PRISMARINE_BRICK_SLAB = slabs("dark_prismarine_brick_slab");
+    @I18n(en_us = "Dark Prismarine Brick Wall", zh_cn = "暗海晶石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> DARK_PRISMARINE_BRICK_WALL = walls("dark_prismarine_brick_wall");
+    @I18n(en_us = "Chiseled Dark Prismarine Bricks", zh_cn = "雕纹暗海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_DARK_PRISMARINE_BRICKS = copyStoneBricks("chiseled_dark_prismarine_bricks");
+    @I18n(en_us = "Mossy Dark Prismarine Bricks", zh_cn = "苔暗海晶石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_BRICKS = copyStoneBricks("mossy_dark_prismarine_bricks");
+    @I18n(en_us = "Mossy Dark Prismarine Brick Stairs", zh_cn = "苔暗海晶石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_BRICK_STAIRS = stairs("mossy_dark_prismarine_brick_stairs", MOSSY_DARK_PRISMARINE_BRICKS);
+    @I18n(en_us = "Mossy Dark Prismarine Brick Slab", zh_cn = "苔暗海晶石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_BRICK_SLAB = slabs("mossy_dark_prismarine_brick_slab");
+    @I18n(en_us = "Mossy Dark Prismarine Brick Wall", zh_cn = "苔暗海晶石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DARK_PRISMARINE_BRICK_WALL = walls("mossy_dark_prismarine_brick_wall");
+    @I18n(en_us = "Polished Netherrack", zh_cn = "磨制下界岩", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_NETHERRACK = copyStoneBricks("polished_netherrack");
+    @I18n(en_us = "Polished Netherrack Stairs", zh_cn = "磨制下界岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_NETHERRACK_STAIRS = stairs("polished_netherrack_stairs", POLISHED_NETHERRACK);
+    @I18n(en_us = "Polished Netherrack Slab", zh_cn = "磨制下界岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_NETHERRACK_SLAB = slabs("polished_netherrack_slab");
+    @I18n(en_us = "Polished Netherrack Wall", zh_cn = "磨制下界岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_NETHERRACK_WALL = walls("polished_netherrack_wall");
+    @I18n(en_us = "Mossy Nether Bricks", zh_cn = "苔下界砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_NETHER_BRICKS = copyStoneBricks("mossy_nether_bricks");
+    @I18n(en_us = "Mossy Nether Brick Stairs", zh_cn = "苔下界砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_NETHER_BRICK_STAIRS = stairs("mossy_nether_brick_stairs", MOSSY_NETHER_BRICKS);
+    @I18n(en_us = "Mossy Nether Brick Slab", zh_cn = "苔下界砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_NETHER_BRICK_SLAB = slabs("mossy_nether_brick_slab");
+    @I18n(en_us = "Mossy Nether Brick Wall", zh_cn = "苔下界砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_NETHER_BRICK_WALL = walls("mossy_nether_brick_wall");
+    @I18n(en_us = "Red Nether Brick Fence", zh_cn = "红色下界砖栅栏", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Fence
+    public static final DeferredBlock<Block> RED_NETHER_BRICK_FENCE = register("red_nether_brick_fence", FenceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.NETHER_BRICK_FENCE));
+    @I18n(en_us = "Cracked Red Nether Bricks", zh_cn = "裂纹红色下界砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_RED_NETHER_BRICKS = copyStoneBricks("cracked_red_nether_bricks");
+    @I18n(en_us = "Mossy Red Nether Bricks", zh_cn = "苔红色下界砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_NETHER_BRICKS = copyStoneBricks("mossy_red_nether_bricks");
+    @I18n(en_us = "Mossy Red Nether Brick Stairs", zh_cn = "苔红色下界砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_RED_NETHER_BRICK_STAIRS = stairs("mossy_red_nether_brick_stairs", MOSSY_RED_NETHER_BRICKS);
+    @I18n(en_us = "Mossy Red Nether Brick Slab", zh_cn = "苔红色下界砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_RED_NETHER_BRICK_SLAB = slabs("mossy_red_nether_brick_slab");
+    @I18n(en_us = "Mossy Red Nether Brick Wall", zh_cn = "苔红色下界砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_RED_NETHER_BRICK_WALL = walls("mossy_red_nether_brick_wall");
+    @I18n(en_us = "Chiseled Red Nether Bricks", zh_cn = "雕纹红色下界砖块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_RED_NETHER_BRICKS = copyStoneBricks("chiseled_red_nether_bricks");
+    @I18n(en_us = "Basalt Stairs", zh_cn = "玄武岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BASALT_STAIRS = register("basalt_stairs", prop -> new StairBlock(Blocks.BASALT.defaultBlockState(), prop), BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT));
+    @I18n(en_us = "Basalt Slab", zh_cn = "玄武岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BASALT_SLAB = slabs("basalt_slab");
+    @I18n(en_us = "Basalt Wall", zh_cn = "玄武岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> BASALT_WALL = walls("basalt_wall");
+    @I18n(en_us = "Smooth Basalt Stairs", zh_cn = "平滑玄武岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SMOOTH_BASALT_STAIRS = register("smooth_basalt_stairs", prop -> new StairBlock(Blocks.BASALT.defaultBlockState(), prop), BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT));
+    @I18n(en_us = "Smooth Basalt Slab", zh_cn = "平滑玄武岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SMOOTH_BASALT_SLAB = slabs("smooth_basalt_slab");
+    @I18n(en_us = "Smooth Basalt Wall", zh_cn = "平滑玄武岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> SMOOTH_BASALT_WALL = walls("smooth_basalt_wall");
+    @I18n(en_us = "Polished Basalt Stairs", zh_cn = "磨制玄武岩楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_BASALT_STAIRS = register("polished_basalt_stairs", prop -> new StairBlock(Blocks.BASALT.defaultBlockState(), prop), BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT));
+    @I18n(en_us = "Polished Basalt Slab", zh_cn = "磨制玄武岩台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_BASALT_SLAB = slabs("polished_basalt_slab");
+    @I18n(en_us = "Polished Basalt Wall", zh_cn = "磨制玄武岩墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_BASALT_WALL = walls("polished_basalt_wall");
+    @I18n(en_us = "Basalt Bricks", zh_cn = "玄武岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BASALT_BRICKS = copyStoneBricks("basalt_bricks");
+    @I18n(en_us = "Cracked Basalt Bricks", zh_cn = "裂纹玄武岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_BASALT_BRICKS = copyStoneBricks("cracked_basalt_bricks");
+    @I18n(en_us = "Basalt Brick Stairs", zh_cn = "玄武岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> BASALT_BRICK_STAIRS = stairs("basalt_brick_stairs", BASALT_BRICKS);
+    @I18n(en_us = "Basalt Brick Slab", zh_cn = "玄武岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BASALT_BRICK_SLAB = slabs("basalt_brick_slab");
+    @I18n(en_us = "Basalt Brick Wall", zh_cn = "玄武岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> BASALT_BRICK_WALL = walls("basalt_brick_wall");
+    @I18n(en_us = "Chiseled Basalt Bricks", zh_cn = "雕纹玄武岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_BASALT_BRICKS = copyStoneBricks("chiseled_basalt_bricks");
+    @I18n(en_us = "Mossy Basalt Bricks", zh_cn = "苔玄武岩砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BASALT_BRICKS = copyStoneBricks("mossy_basalt_bricks");
+    @I18n(en_us = "Mossy Basalt Brick Stairs", zh_cn = "苔玄武岩砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_BASALT_BRICK_STAIRS = stairs("mossy_basalt_brick_stairs", MOSSY_BASALT_BRICKS);
+    @I18n(en_us = "Mossy Basalt Brick Slab", zh_cn = "苔玄武岩砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BASALT_BRICK_SLAB = slabs("mossy_basalt_brick_slab");
+    @I18n(en_us = "Mossy Basalt Brick Wall", zh_cn = "苔玄武岩砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_BASALT_BRICK_WALL = walls("mossy_basalt_brick_wall");
+    @I18n(en_us = "Blackstone", zh_cn = "黑石圆石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BLACKSTONE = copyStoneBricks("blackstone");
+    @I18n(en_us = "Blackstone Stairs", zh_cn = "黑石圆石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> BLACKSTONE_STAIRS = stairs("blackstone_stairs", BLACKSTONE);
+    @I18n(en_us = "Blackstone Slab", zh_cn = "黑石圆石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BLACKSTONE_SLAB = slabs("blackstone_slab");
+    @I18n(en_us = "Blackstone Wall", zh_cn = "黑石圆石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> BLACKSTONE_WALL = walls("blackstone_wall");
+    @I18n(en_us = "Mossy Blackstone", zh_cn = "苔黑石圆石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BLACKSTONE = copyStoneBricks("mossy_blackstone");
+    @I18n(en_us = "Mossy Blackstone Stairs", zh_cn = "苔黑石圆石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_BLACKSTONE_STAIRS = stairs("mossy_blackstone_stairs", MOSSY_BLACKSTONE);
+    @I18n(en_us = "Mossy Blackstone Slab", zh_cn = "苔黑石圆石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_BLACKSTONE_SLAB = slabs("mossy_blackstone_slab");
+    @I18n(en_us = "Mossy Blackstone Wall", zh_cn = "苔黑石圆石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_BLACKSTONE_WALL = walls("mossy_blackstone_wall");
+    @I18n(en_us = "Chiseled Polished Blackstone Bricks", zh_cn = "雕纹磨制黑石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_POLISHED_BLACKSTONE_BRICKS = copyStoneBricks("chiseled_polished_blackstone_bricks");
+    @I18n(en_us = "Mossy Polished Blackstone Bricks", zh_cn = "苔磨制黑石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_POLISHED_BLACKSTONE_BRICKS = copyStoneBricks("mossy_polished_blackstone_bricks");
+    @I18n(en_us = "Mossy Polished Blackstone Brick Stairs", zh_cn = "苔磨制黑石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_POLISHED_BLACKSTONE_BRICK_STAIRS = stairs("mossy_polished_blackstone_brick_stairs", MOSSY_POLISHED_BLACKSTONE_BRICKS);
+    @I18n(en_us = "Mossy Polished Blackstone Brick Slab", zh_cn = "苔磨制黑石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_POLISHED_BLACKSTONE_BRICK_SLAB = slabs("mossy_polished_blackstone_brick_slab");
+    @I18n(en_us = "Mossy Polished Blackstone Brick Wall", zh_cn = "苔磨制黑石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_POLISHED_BLACKSTONE_BRICK_WALL = walls("mossy_polished_blackstone_brick_wall");
+    @I18n(en_us = "End Stone Stairs", zh_cn = "末地石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> END_STONE_STAIRS = register("end_stone_stairs", prop -> new StairBlock(Blocks.END_STONE.defaultBlockState(), prop), BlockBehaviour.Properties.ofFullCopy(Blocks.END_STONE));
+    @I18n(en_us = "End Stone Slab", zh_cn = "末地石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> END_STONE_SLAB = slabs("end_stone_slab");
+    @I18n(en_us = "End Stone Wall", zh_cn = "末地石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> END_STONE_WALL = walls("end_stone_wall");
+    @I18n(en_us = "Polished End Stone", zh_cn = "磨制末地石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_END_STONE = copyStoneBricks("polished_end_stone");
+    @I18n(en_us = "Polished End Stone Stairs", zh_cn = "磨制末地石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_END_STONE_STAIRS = stairs("polished_end_stone_stairs", POLISHED_END_STONE);
+    @I18n(en_us = "Polished End Stone Slab", zh_cn = "磨制末地石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_END_STONE_SLAB = slabs("polished_end_stone_slab");
+    @I18n(en_us = "Polished End Stone Wall", zh_cn = "磨制末地石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_END_STONE_WALL = walls("polished_end_stone_wall");
+    @I18n(en_us = "Cracked End Stone Bricks", zh_cn = "裂纹末地石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_END_STONE_BRICKS = copyStoneBricks("cracked_end_stone_bricks");
+    @I18n(en_us = "Chiseled End Stone Bricks", zh_cn = "雕纹末地石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_END_STONE_BRICKS = copyStoneBricks("chiseled_end_stone_bricks");
+    @I18n(en_us = "Mossy End Stone Bricks", zh_cn = "苔末地石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_END_STONE_BRICKS = copyStoneBricks("mossy_end_stone_bricks");
+    @I18n(en_us = "Mossy End Stone Brick Stairs", zh_cn = "苔末地石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_END_STONE_BRICK_STAIRS = stairs("mossy_end_stone_brick_stairs", MOSSY_END_STONE_BRICKS);
+    @I18n(en_us = "Mossy End Stone Brick Slab", zh_cn = "苔末地石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_END_STONE_BRICK_SLAB = slabs("mossy_end_stone_brick_slab");
+    @I18n(en_us = "Mossy End Stone Brick Wall", zh_cn = "苔末地石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_END_STONE_BRICK_WALL = walls("mossy_end_stone_brick_wall");
+    @I18n(en_us = "Purpur Wall", zh_cn = "紫珀墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> PURPUR_WALL = walls("purpur_wall");
+    @I18n(en_us = "Quartz Block Wall", zh_cn = "石英墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> QUARTZ_BLOCK_WALL = walls("quartz_block_wall");
+    @I18n(en_us = "Cracked Quartz Bricks", zh_cn = "裂纹石英砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_QUARTZ_BRICKS = copyStoneBricks("cracked_quartz_bricks");
+    @I18n(en_us = "Quartz Brick Stairs", zh_cn = "石英砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> QUARTZ_BRICK_STAIRS = register("quartz_brick_stairs", prop -> new StairBlock(Blocks.QUARTZ_BRICKS.defaultBlockState(), prop), BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BRICKS));
+    @I18n(en_us = "Quartz Brick Slab", zh_cn = "石英砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> QUARTZ_BRICK_SLAB = slabs("quartz_brick_slab");
+    @I18n(en_us = "Quartz Brick Wall", zh_cn = "石英砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> QUARTZ_BRICK_WALL = walls("quartz_brick_wall");
+    @I18n(en_us = "Chiseled Quartz Bricks", zh_cn = "雕纹石英砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_QUARTZ_BRICKS = copyStoneBricks("chiseled_quartz_bricks");
+    @I18n(en_us = "Mossy Quartz Bricks", zh_cn = "苔石英砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_QUARTZ_BRICKS = copyStoneBricks("mossy_quartz_bricks");
+    @I18n(en_us = "Mossy Quartz Brick Stairs", zh_cn = "苔石英砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_QUARTZ_BRICK_STAIRS = stairs("mossy_quartz_brick_stairs", MOSSY_QUARTZ_BRICKS);
+    @I18n(en_us = "Mossy Quartz Brick Slab", zh_cn = "苔石英砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_QUARTZ_BRICK_SLAB = slabs("mossy_quartz_brick_slab");
+    @I18n(en_us = "Mossy Quartz Brick Wall", zh_cn = "苔石英砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_QUARTZ_BRICK_WALL = walls("mossy_quartz_brick_wall");
+    @I18n(en_us = "Smooth Bricks Wall", zh_cn = "平滑石英墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> SMOOTH_BRICKS_WALL = walls("smooth_bricks_wall");
+    @I18n(en_us = "Polished Blue Ice", zh_cn = "磨制蓝冰", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_BLUE_ICE = copyStoneBricks("polished_blue_ice");
+    @I18n(en_us = "Polished Blue Ice Stairs", zh_cn = "磨制蓝冰楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_BLUE_ICE_STAIRS = stairs("polished_blue_ice_stairs", POLISHED_BLUE_ICE);
+    @I18n(en_us = "Polished Blue Ice Slab", zh_cn = "磨制蓝冰台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_BLUE_ICE_SLAB = slabs("polished_blue_ice_slab");
+    @I18n(en_us = "Polished Blue Ice Wall", zh_cn = "磨制蓝冰墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_BLUE_ICE_WALL = walls("polished_blue_ice_wall");
+    @I18n(en_us = "Snow Bricks", zh_cn = "雪砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SNOW_BRICKS = copyStoneBricks("snow_bricks");
+    @I18n(en_us = "Cracked Snow Bricks", zh_cn = "裂纹雪砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_SNOW_BRICKS = copyStoneBricks("cracked_snow_bricks");
+    @I18n(en_us = "Snow Brick Stairs", zh_cn = "雪砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> SNOW_BRICK_STAIRS = stairs("snow_brick_stairs", SNOW_BRICKS);
+    @I18n(en_us = "Snow Brick Slab", zh_cn = "雪砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SNOW_BRICK_SLAB = slabs("snow_brick_slab");
+    @I18n(en_us = "Snow Brick Wall", zh_cn = "雪砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> SNOW_BRICK_WALL = walls("snow_brick_wall");
+    @I18n(en_us = "Chiseled Snow Bricks", zh_cn = "雕纹雪砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_SNOW_BRICKS = copyStoneBricks("chiseled_snow_bricks");
+    @I18n(en_us = "Polished Calcite", zh_cn = "磨制方解石", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_CALCITE = copyStoneBricks("polished_calcite");
+    @I18n(en_us = "Polished Calcite Stairs", zh_cn = "磨制方解石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_CALCITE_STAIRS = stairs("polished_calcite_stairs", POLISHED_CALCITE);
+    @I18n(en_us = "Polished Calcite Slab", zh_cn = "磨制方解石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_CALCITE_SLAB = slabs("polished_calcite_slab");
+    @I18n(en_us = "Polished Calcite Wall", zh_cn = "磨制方解石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_CALCITE_WALL = walls("polished_calcite_wall");
+    @I18n(en_us = "Calcite Bricks", zh_cn = "方解石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CALCITE_BRICKS = copyStoneBricks("calcite_bricks");
+    @I18n(en_us = "Cracked Calcite Bricks", zh_cn = "裂纹方解石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_CALCITE_BRICKS = copyStoneBricks("cracked_calcite_bricks");
+    @I18n(en_us = "Calcite Brick Stairs", zh_cn = "方解石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> CALCITE_BRICK_STAIRS = stairs("calcite_brick_stairs", CALCITE_BRICKS);
+    @I18n(en_us = "Calcite Brick Slab", zh_cn = "方解石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CALCITE_BRICK_SLAB = slabs("calcite_brick_slab");
+    @I18n(en_us = "Calcite Brick Wall", zh_cn = "方解石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> CALCITE_BRICK_WALL = walls("calcite_brick_wall");
+    @I18n(en_us = "Chiseled Calcite Bricks", zh_cn = "雕纹方解石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_CALCITE_BRICKS = copyStoneBricks("chiseled_calcite_bricks");
+    @I18n(en_us = "Mossy Calcite Bricks", zh_cn = "苔方解石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_CALCITE_BRICKS = copyStoneBricks("mossy_calcite_bricks");
+    @I18n(en_us = "Mossy Calcite Brick Stairs", zh_cn = "苔方解石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_CALCITE_BRICK_STAIRS = stairs("mossy_calcite_brick_stairs", MOSSY_CALCITE_BRICKS);
+    @I18n(en_us = "Mossy Calcite Brick Slab", zh_cn = "苔方解石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_CALCITE_BRICK_SLAB = slabs("mossy_calcite_brick_slab");
+    @I18n(en_us = "Mossy Calcite Brick Wall", zh_cn = "苔方解石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_CALCITE_BRICK_WALL = walls("mossy_calcite_brick_wall");
+    @I18n(en_us = "Polished Dripstone Block", zh_cn = "磨制滴水石块", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_DRIPSTONE_BLOCK = copyStoneBricks("polished_dripstone_block");
+    @I18n(en_us = "Polished Dripstone Stairs", zh_cn = "磨制滴水石楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> POLISHED_DRIPSTONE_STAIRS = stairs("polished_dripstone_stairs", POLISHED_DRIPSTONE_BLOCK);
+    @I18n(en_us = "Polished Dripstone Slab", zh_cn = "磨制滴水石台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> POLISHED_DRIPSTONE_SLAB = slabs("polished_dripstone_slab");
+    @I18n(en_us = "Polished Dripstone Wall", zh_cn = "磨制滴水石墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> POLISHED_DRIPSTONE_WALL = walls("polished_dripstone_wall");
+    @I18n(en_us = "Dripstone Bricks", zh_cn = "滴水石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> DRIPSTONE_BRICKS = copyStoneBricks("dripstone_bricks");
+    @I18n(en_us = "Cracked Dripstone Bricks", zh_cn = "裂纹滴水石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CRACKED_DRIPSTONE_BRICKS = copyStoneBricks("cracked_dripstone_bricks");
+    @I18n(en_us = "Dripstone Brick Stairs", zh_cn = "滴水石砖楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> DRIPSTONE_BRICK_STAIRS = stairs("dripstone_brick_stairs", DRIPSTONE_BRICKS);
+    @I18n(en_us = "Dripstone Brick Slab", zh_cn = "滴水石砖台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> DRIPSTONE_BRICK_SLAB = slabs("dripstone_brick_slab");
+    @I18n(en_us = "Dripstone Brick Wall", zh_cn = "滴水石砖墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> DRIPSTONE_BRICK_WALL = walls("dripstone_brick_wall");
+    @I18n(en_us = "Chiseled Dripstone Bricks", zh_cn = "雕纹滴水石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> CHISELED_DRIPSTONE_BRICKS = copyStoneBricks("chiseled_dripstone_bricks");
+    @I18n(en_us = "Mossy Dripstone Bricks", zh_cn = "苔滴水石砖", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DRIPSTONE_BRICKS = copyStoneBricks("mossy_dripstone_bricks");
+    @I18n(en_us = "Mossy Dripstone Brick Stairs", zh_cn = "苔滴水石块楼梯", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Stairs
+    public static final DeferredBlock<Block> MOSSY_DRIPSTONE_BRICK_STAIRS = stairs("mossy_dripstone_brick_stairs", MOSSY_DRIPSTONE_BRICKS);
+    @I18n(en_us = "Mossy Dripstone Brick Slab", zh_cn = "苔滴水石块台阶", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> MOSSY_DRIPSTONE_BRICK_SLAB = slabs("mossy_dripstone_brick_slab");
+    @I18n(en_us = "Mossy Dripstone Brick Wall", zh_cn = "苔滴水石块墙", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @Wall
+    public static final DeferredBlock<Block> MOSSY_DRIPSTONE_BRICK_WALL = walls("mossy_dripstone_brick_wall");
+
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
              Type<?> type,
@@ -702,5 +1591,25 @@ public class ModBlocks {
              DeferredBlock<?>... blocks) {
 
         return TILES.register(name, () -> BlockEntityType.Builder.of(factory, Arrays.stream(blocks).map(DeferredBlock::get).toArray(Block[]::new)).build(type));
+    }
+
+    private static DeferredBlock<Block> copyStoneBricks(String name) {
+        return register(name, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS));
+    }
+
+    private static DeferredBlock<Block> stairs(String name, DeferredBlock<Block> baseBlockHolder) {
+        return stairs(name, baseBlockHolder, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
+    }
+
+    private static DeferredBlock<Block> stairs(String name, DeferredBlock<Block> baseBlockHolder, BlockBehaviour.Properties prop) {
+        return register(name, p -> new StairBlock(baseBlockHolder.get().defaultBlockState(), p), prop);
+    }
+
+    private static DeferredBlock<Block> walls(String name) {
+        return register(name, WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL));
+    }
+
+    private static DeferredBlock<Block> slabs(String name) {
+        return register(name, SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB));
     }
 }
