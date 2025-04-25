@@ -31,19 +31,19 @@ import org.polaris2023.wild_wind.util.EnchantmentHelper;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class CrispyBasaltBlock extends Block {
-	public static final MapCodec<CrispyBasaltBlock> CODEC = simpleCodec(CrispyBasaltBlock::new);
+public class PyroclastBlock extends Block {
+	public static final MapCodec<PyroclastBlock> CODEC = simpleCodec(PyroclastBlock::new);
 	public static final int MAX_AGE = 4;
 	public static final IntegerProperty AGE = BlockStateProperties.AGE_4;
 	public static final BooleanProperty UNSTABLE = BlockStateProperties.UNSTABLE;
 
-	public CrispyBasaltBlock(Properties properties) {
+	public PyroclastBlock(Properties properties) {
 		super(properties);
 		this.registerDefaultState(this.stateDefinition.any().setValue(AGE, 0).setValue(UNSTABLE, false));
 	}
 
 	@Override
-	public MapCodec<? extends CrispyBasaltBlock> codec() {
+	public MapCodec<? extends PyroclastBlock> codec() {
 		return CODEC;
 	}
 
