@@ -1584,6 +1584,75 @@ public class ModBlocks {
     @Wall
     public static final DeferredBlock<Block> MOSSY_DRIPSTONE_BRICK_WALL = walls("mossy_dripstone_brick_wall");
 
+    @I18n(en_us = "Vesicular Pyroclast", zh_cn = "多孔熔屑岩", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> VESICULAR_PYROCLAST = copyStoneBricks("vesicular_pyroclast");
+    @I18n(en_us = "Scorch Pyroclast", zh_cn = "灼热熔屑岩", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SCORCH_PYROCLAST = copyStoneBricks("Scorch_pyroclast");
+
+    @I18n(en_us = "Tumbleweed", zh_cn = "风滚草", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> TUMBLEWEED = copyStoneBricks("tumbleweed");
+    @I18n(en_us = "Shelf Fungus", zh_cn = "层孔菌", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> SHELF_FUNGUS = copyStoneBricks("shelf_fungus");
+    @I18n(en_us = "Beach Grass", zh_cn = "沙滩草", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> BEACH_GRASS = copyStoneBricks("beach_grass");
+    @I18n(en_us = "Thorn", zh_cn = "荆棘", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> THORN = copyStoneBricks("thorn");
+    @I18n(en_us = "Flowering Dandelion", zh_cn = "盛开的蒲公英", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> FLOWERING_DANDELION = copyStoneBricks("flowering_dandelion");
+    @I18n(en_us = "Rose", zh_cn = "玫瑰", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> ROSE = copyStoneBricks("rose");
+    @I18n(en_us = "Wither Rose Bush", zh_cn = "凋零玫瑰丛", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> WITHER_ROSE_BUSH = copyStoneBricks("wither_rose_bush");
+
+    @I18n(en_us = "Large Cactus", zh_cn = "大型仙人掌", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> LARGE_CACTUS = copyStoneBricks("large_cactus");
+    @I18n(en_us = "Tall Beach Grass", zh_cn = "高沙滩草", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> TALL_BEACH_GRASS = copyStoneBricks("tall_beach_grass");
+    @I18n(en_us = "Tall Dead Bush", zh_cn = "枯死的高灌木", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> TALL_DEAD_BUSH = copyStoneBricks("tall_dead_bush");
+    @I18n(en_us = "Large Thorn", zh_cn = "大型荆棘", zh_tw = "")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    public static final DeferredBlock<Block> LARGE_THORN = copyStoneBricks("large_thorn");
+
+    @I18n(en_us = "Soul Jack O Lantern", zh_cn = "灵魂南瓜灯", zh_tw = "")
+    @BasicBlock
+    public static final DeferredBlock<Block> SOUL_JACK_O_LANTERN = copyStoneBricks("soul_jack_o_lantern");
+
+    @I18n(en_us = "Short Sculk Grass", zh_cn = "幽匿矮草丛", zh_tw = "")
+    @BasicBlock
+    public static final DeferredBlock<Block> SHORT_SCULK_GRASS = copyStoneBricks("short_sculk_grass");
+    @I18n(en_us = "Tall Sculk Grass", zh_cn = "幽匿高草丛", zh_tw = "")
+    @BasicBlock
+    public static final DeferredBlock<Block> TALL_SCULK_GRASS = copyStoneBricks("tall_sculk_grass");
+    @I18n(en_us = "Sculk Vine", zh_cn = "幽匿藤蔓", zh_tw = "")
+    @BasicBlock
+    public static final DeferredBlock<Block> SCULK_VINE = copyStoneBricks("sculk_vine");
+
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,
              Type<?> type,
