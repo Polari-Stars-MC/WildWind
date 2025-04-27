@@ -1591,7 +1591,7 @@ public class ModBlocks {
     @I18n(en_us = "Scorch Pyroclast", zh_cn = "灼热熔屑岩", zh_tw = "")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @BasicBlock
-    public static final DeferredBlock<Block> SCORCH_PYROCLAST = copyStoneBricks("Scorch_pyroclast");
+    public static final DeferredBlock<Block> SCORCH_PYROCLAST = copyStoneBricks("scorch_pyroclast");
 
     @I18n(en_us = "Tumbleweed", zh_cn = "风滚草", zh_tw = "")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
