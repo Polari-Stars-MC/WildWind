@@ -178,7 +178,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Pyroclast", zh_cn = "熔屑岩", zh_tw = "熔屑岩")
     @CubeAllFor(
-            cube = @CubeAll(all = "wild_wind:block/pyroclast_0"),
+            cube = @CubeAll(all = "wild_wind:block/pyroclast_1"),
             min = 0,
             max = 4,
             def = "wild_wind:block/pyroclast"
