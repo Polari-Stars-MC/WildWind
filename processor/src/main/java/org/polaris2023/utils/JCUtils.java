@@ -14,10 +14,13 @@ public class JCUtils {
         ModConfigSpec("net.neoforged.neoforge.common.ModConfigSpec"),
         ModConfigSpecBuilder(ModConfigSpec, "Builder"),
         Item("net.minecraft.world.item.Item"),
+        ItemProperties(Item, "Properties"),
+        Block("net.minecraft.world.level.block.Block"),
         BlockItem("net.minecraft.world.item.BlockItem"),
         DeferredItem("net.neoforged.neoforge.registries.DeferredItem"),
         AttachmentType("net.neoforged.neoforge.attachment.AttachmentType"),
-        Codec("com.mojang.serialization.Codec")
+        Codec("com.mojang.serialization.Codec"),
+        ResourceLocation("net.minecraft.resources.ResourceLocation")
         ;
 
         private final Ident ident;
