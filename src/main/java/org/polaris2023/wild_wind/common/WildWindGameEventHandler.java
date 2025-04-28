@@ -420,17 +420,6 @@ public class WildWindGameEventHandler {
                 level.addParticle(ParticleTypes.GLOW, squid.getRandomX(0.6), squid.getRandomY(), squid.getRandomZ(0.6), 0.0F, 0.0F, 0.0F);
             }
 
-        } else if (entity instanceof ItemEntity item) {
-            if (item.getItem().is(ModItems.LIVING_TUBER)) {
-                RandomSource random = item.getRandom();
-                Level level = item.level();
-                int j = random.nextInt(20, 200);
-                if (level.getGameTime() % j == 0) {
-                    int i = random.nextInt(1, 13);
-                    ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
-                }
-            }
         } else if (entity instanceof ItemFrame frame) {
             AttachmentType<Boolean> isInvisible = ModAttachmentTypes.IS_INVISIBLE.get();
             AttachmentType<Boolean> vanillaInvisible = ModAttachmentTypes.VANILLA_INVISIBLE_SAVE.get();

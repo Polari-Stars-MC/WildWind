@@ -1,8 +1,15 @@
 package org.polaris2023.wild_wind.util;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public final class RandomUtil {
+
+	private static final Random RANDOM = new Random();
+
 	public static class GaussianMixture2D {
 		private final double[][] pdf;
 		private final int length;
@@ -65,6 +72,27 @@ public final class RandomUtil {
 			}
 			return this.pdf[x][y];
 		}
+	}
+
+	public static int nextInt(int bound) {
+		return RANDOM.nextInt(bound);
+	}
+
+	public static boolean nextBoolean(int chance) {
+		return nextInt(100) < chance;
+	}
+
+	public static <T> T random(List<T> list) {
+		var index = RANDOM.nextInt(list.size());
+		return list.get(index);
+	}
+
+	public static <K, V> Map.Entry<K, V> random(Map<K, V> map) {
+		return random(Lists.newArrayList(map.entrySet()));
+	}
+
+	public static <K, V> V randomValue(Map<K, V> map) {
+		return random(Lists.newArrayList(map.values()));
 	}
 
 	private RandomUtil() {
