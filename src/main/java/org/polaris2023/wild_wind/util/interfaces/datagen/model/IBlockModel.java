@@ -16,6 +16,17 @@ import java.util.function.Supplier;
  */
 public interface IBlockModel extends DatagenClient {
 
+    default <T extends Block> void cubeColumn(Supplier<T> block, String side, String end, boolean item) {
+        T b = block.get();
+        ResourceLocation key = self().key(b);
+        BlockModelBuilder blockModelBuilder = cubeColumnModel(block, side, end);
+        if (item) {
+            self().stateProvider.simpleBlockWithItem(b, blockModelBuilder);
+        } else {
+            self().stateProvider.simpleBlock(b, blockModelBuilder);
+        }
+    }
+
     default <T extends Block> void cubeBottomTop(Supplier<T> block, boolean item, String render_type, String side, String bottom, String top) {
         T b = block.get();
         ResourceLocation key = key(b);
@@ -109,14 +120,14 @@ public interface IBlockModel extends DatagenClient {
         return cubeAllModel(key.getPath(), renderType, all.isEmpty() ? blockTexture(b) : ResourceLocation.parse(all));
     }
 
-    default <T extends Block> BlockModelBuilder cubeColumn(String path, ResourceLocation side, ResourceLocation end) {
+    default <T extends Block> BlockModelBuilder cubeColumnModel(String path, ResourceLocation side, ResourceLocation end) {
         return self().blockModelProvider.cubeColumn(path, side, end);
     }
 
-    default <T extends Block> BlockModelBuilder cubeColumn(Supplier<T> block, String side, String end) {
+    default <T extends Block> BlockModelBuilder cubeColumnModel(Supplier<T> block, String side, String end) {
         T b = block.get();
         ResourceLocation key = self().key(b);
-        return cubeColumn(key.getPath(), ResourceLocation.parse(side), ResourceLocation.parse(end));
+        return cubeColumnModel(key.getPath(), ResourceLocation.parse(side), ResourceLocation.parse(end));
     }
 
     default <T extends Block> ResourceLocation key(T block) {

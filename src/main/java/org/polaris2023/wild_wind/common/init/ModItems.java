@@ -88,8 +88,6 @@ public class ModItems {
     public static final DeferredItem<TrappedPresentBlockItem> TRAPPED_PRESENT_ITEM = register("trapped_present", p -> new TrappedPresentBlockItem(ModBlocks.TRAPPED_PRESENT.get(), p));
 
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
-
-
     @I18n(en_us = "Ancient Codex", zh_cn = "远古典籍", zh_tw = "遠古典籍", descriptionId = "item.wild_wind.patchouli.ancient_codex")
     public static final Object ANCIENT_CODEX = new Object();
 
@@ -108,4 +106,5 @@ public class ModItems {
     @I18n(en_us = "Torn Pages", zh_cn = "残破书页", zh_tw = "")
     @BasicItem
     public static final DeferredItem<Item> TORN_PAGES = simpleItem("torn_pages");
+
 }

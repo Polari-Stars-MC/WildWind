@@ -188,15 +188,6 @@ public class ModelProcessor extends ClassProcessor {
         if (basicBlockItem != null) {
             blockItem(variableElement, typeElement, basicBlockItem);
         }
-
-//        if (basicItem != null && basicItem.used()) {
-//            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), basicItem, basicItem.value(), true, "");
-//        } else if (typeBasicItem != null && typeBasicItem.used() && variableElement.getModifiers().contains(Modifier.STATIC)) {
-//            basicSet(typeElement.getQualifiedName() + "." + variableElement.getSimpleName(), typeBasicItem, typeBasicItem.value(), true, "");
-//        }
-        //block model gen
-
-
         else if (log != null) {
             checkAppend(typeElement, variableElement, "logBlock", log.item());
         }
@@ -388,12 +379,13 @@ public class ModelProcessor extends ClassProcessor {
     private void addCodeCubeColumn(TypeElement typeElement, VariableElement variableElement) {
         CubeColumn cubeColumn = variableElement.getAnnotation(CubeColumn.class);
         if (cubeColumn != null) {
-            String template = "cubeColumn(%s.%s, \"%s\", \"%s\");";
+            String template = "cubeColumn(%s.%s, \"%s\", \"%s\", %s);";
             String code = template.formatted(
                     typeElement.getQualifiedName(),
                     variableElement.getSimpleName(),
                     cubeColumn.side(),
-                    cubeColumn.end()
+                    cubeColumn.end(),
+                    cubeColumn.item()
             );
             InitProcessor.modelGen(context, code);
         }

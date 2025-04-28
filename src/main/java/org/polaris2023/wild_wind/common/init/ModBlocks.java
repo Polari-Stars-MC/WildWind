@@ -245,7 +245,6 @@ public class ModBlocks {
                     .requiresCorrectToolForDrops()
                     .isRedstoneConductor((_0, _1, _2) -> true));
 
-//    public static final DeferredItem<BlockItem> SALT_BLOCK_ITEM = register("salt_block", SALT_BLOCK);
     @I18n(en_us = "Salt Ore", zh_cn = "盐矿石", zh_tw = "鹽礦石")
     @BasicBlock
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
@@ -286,30 +285,30 @@ public class ModBlocks {
     @I18n(en_us = "Polished Stone",zh_cn = "磨制石头",zh_tw = "磨製石頭")
     @BasicBlock
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
     public static final DeferredBlock<Block> POLISHED_STONE = register("polished_stone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
-    public static final DeferredItem<BlockItem> POLISHED_STONE_ITEM = register("polished_stone", POLISHED_STONE);
     @I18n(en_us = "Polished Stone Wall",zh_cn = "磨制石墙",zh_tw = "磨製石牆")
     @Wall(wall = "wild_wind:block/polished_stone")
+    @RegistryBlockItem
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> POLISHED_STONE_WALL = register("polished_stone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_STONE.get())), EMPTY);
-    public static final DeferredItem<BlockItem> POLISHED_STONE_WALL_ITEM = register("polished_stone_wall", POLISHED_STONE_WALL);
     @I18n(en_us = "Polished Stone Stairs",zh_cn = "磨制石楼梯",zh_tw = "磨製石樓梯")
     @Stairs(type = "stone", bottom = "wild_wind:block/polished_stone", top = "wild_wind:block/polished_stone", side = "wild_wind:block/polished_stone")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
     public static final DeferredBlock<StairBlock> POLISHED_STONE_STAIRS = register("polished_stone_stairs", properties -> new StairBlock(POLISHED_STONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
-    public static final DeferredItem<BlockItem> POLISHED_STONE_STAIRS_ITEM = register("polished_stone_stairs", POLISHED_STONE_STAIRS);
 
     @I18n(en_us = "Polished Stone Slab",zh_cn = "磨制石台阶",zh_tw = "磨製石半磚")
     @Slab(type = "stone", bottom = "wild_wind:block/polished_stone", side = "wild_wind:block/polished_stone", top = "wild_wind:block/polished_stone")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> POLISHED_STONE_SLAB = register("polished_stone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
-    public static final DeferredItem<BlockItem> POLISHED_STONE_SLAB_ITEM = register("polished_stone_slab", POLISHED_STONE_SLAB);
 
     @I18n(en_us = "Polished Granite Wall",zh_cn = "磨制花岗岩墙",zh_tw = "磨製花崗岩牆")
     @Wall(wall = "minecraft:block/polished_granite")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    @RegistryBlockItem
     public static final DeferredBlock<WallBlock> POLISHED_GRANITE_WALL = register("polished_granite_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.POLISHED_GRANITE)), EMPTY);
-    public static final DeferredItem<BlockItem> POLISHED_GRANITE_WALL_ITEM = register("polished_granite_wall", POLISHED_GRANITE_WALL);
 
     @AllWood
     @I18n(en_us = "Azalea Planks", zh_cn = "杜鹃木板", zh_tw = "杜鵑木材")
@@ -690,7 +689,7 @@ public class ModBlocks {
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_STAIRS_ITEM = register("blue_ice_brick_stairs", BLUE_ICE_BRICK_STAIRS);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_SLAB_ITEM = register("blue_ice_brick_slab", BLUE_ICE_BRICK_SLAB);
     public static final DeferredItem<BlockItem> BLUE_ICE_BRICK_WALL_ITEM = register("blue_ice_brick_wall", BLUE_ICE_BRICK_WALL);
-    @BasicBlockItem
+
     public static final DeferredItem<BlockItem> CHISELED_BLUE_ICE_BRICKS_ITEM = register("chiseled_blue_ice_bricks", CHISELED_BLUE_ICE_BRICKS);
 
     public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
