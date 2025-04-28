@@ -2,21 +2,14 @@ package org.polaris2023.wild_wind.common.init;
 
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
-import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.MapColor;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.language.I18n;
-import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.annotation.handler.RegistryHandler;
@@ -27,7 +20,6 @@ import org.polaris2023.wild_wind.common.item.*;
 import org.polaris2023.wild_wind.common.item.food.CheeseItem;
 import org.polaris2023.wild_wind.common.item.food.NetherMushroomStewItem;
 import org.polaris2023.wild_wind.common.item.modified.ModBannerItem;
-import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 import static org.polaris2023.wild_wind.util.interfaces.registry.ItemRegistry.*;
