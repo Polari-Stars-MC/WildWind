@@ -55,6 +55,7 @@ public class WildWindEventHandler {
     @SubscribeEvent
     public static void register(RegisterEvent event) {
         event.register(Registries.FEATURE, helper -> ModFeatures.init(helper::register));
+        event.register(Registries.ITEM, helper -> ModBlocks.registerBlockItem(helper::register));
         event.register(Registries.ITEM, helper -> ModVanillaCompat.setup());
     }
 

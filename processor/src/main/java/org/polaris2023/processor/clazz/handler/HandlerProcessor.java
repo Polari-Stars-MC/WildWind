@@ -6,6 +6,7 @@ import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
 import com.sun.tools.javac.processing.JavacProcessingEnvironment;
 import org.polaris2023.annotation.enums.RegType;
+import org.polaris2023.annotation.handler.RegistryBlockItemHandler;
 import org.polaris2023.annotation.handler.RegistryHandler;
 import org.polaris2023.annotation.handler.TagHandler;
 import org.polaris2023.processor.InitProcessor;
@@ -45,6 +46,10 @@ public class HandlerProcessor extends ClassProcessor {
         TagHandler tagHandler = executableElement.getAnnotation(TagHandler.class);
         if (tagHandler != null) {
             InitProcessor.TAG_MAP.put(tagHandler.value(), trees.getTree(executableElement));
+        }
+        RegistryBlockItemHandler blockItemHandler = executableElement.getAnnotation(RegistryBlockItemHandler.class);
+        if (blockItemHandler != null) {
+            InitProcessor.REGISTRY_BLOCK_ITEM = trees.getTree(executableElement);
         }
     }
 }

@@ -56,6 +56,7 @@ public class InitProcessor extends AbstractProcessor {
     public static final AtomicBoolean ONLY_ONCE = new AtomicBoolean(true);
     public static final Map<RegType, Optional<? extends VariableTree>> REGISTRY_MAP = new HashMap<>();
     public static final Map<RegType, ClassTree> REGISTRY_CLASS_MAP = new HashMap<>();
+    public static MethodTree REGISTRY_BLOCK_ITEM;
     public static final Map<TagType, MethodTree> TAG_MAP = new HashMap<>();
     public JavacProcessingEnvironment environment;
 
