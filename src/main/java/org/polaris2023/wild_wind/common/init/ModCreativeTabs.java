@@ -108,27 +108,34 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     }, NATURAL_BLOCKS),
     @I18n(en_us = "Wild wind: Tools and Utilities", zh_cn = "原野之风：工具与实用物品", zh_tw = "原野之風：工具與實用物品")
     TOOLS_AND_UTILITIES(ModItems.MAGIC_FLUTE::toStack, () -> (__, output) -> {
-        output.accept(ModBoats.AZALEA_BOAT);
-        output.accept(ModBoats.AZALEA_CHEST_BOAT);
-        output.accept(ModBoats.PALM_BOAT);
-        output.accept(ModBoats.PALM_CHEST_BOAT);
-        output.accept(ModBoats.BAOBAB_BOAT);
-        output.accept(ModBoats.BAOBAB_CHEST_BOAT);
+        output.accept(ModBlocks.BED);
+        output.accept(ModBlocks.BANNER);
+        output.accept(ModBlocks.FIREFLY_JAR);
+        output.accept(ModBlocks.GLOW_MUCUS);
+//        output.accept(ModBlocks.NEST);
+//        output.accept(ModBlocks.FEEDING_TROUGH);
+//        output.accept(ModBlocks.KILN);
+        output.accept(ModBlocks.COOKING_POT);
+        output.accept(ModBlocks.PRESENT);
+        output.accept(ModBlocks.TRAPPED_PRESENT);
         output.accept(ModBlocks.AZALEA_SIGN);
         output.accept(ModBlocks.AZALEA_HANGING_SIGN);
         output.accept(ModBlocks.PALM_SIGN);
         output.accept(ModBlocks.PALM_HANGING_SIGN);
         output.accept(ModBlocks.BAOBAB_SIGN);
         output.accept(ModBlocks.BAOBAB_HANGING_SIGN);
-        output.accept(ModBlocks.PRESENT);
-        output.accept(ModBlocks.TRAPPED_PRESENT);
-        output.accept(ModBlocks.BED);
-        output.accept(ModBlocks.BANNER);
-        output.accept(ModBlocks.FIREFLY_JAR);
-        output.accept(ModBlocks.GLOW_MUCUS);
         output.accept(ModMobBuckets.TROUT_BUCKET);
         output.accept(ModMobBuckets.PIRANHA_BUCKET);
+//        output.accept(ModItems.ANCIENT_CODEX);
+        output.accept(ModBoats.AZALEA_BOAT);
+        output.accept(ModBoats.AZALEA_CHEST_BOAT);
+        output.accept(ModBoats.PALM_BOAT);
+        output.accept(ModBoats.PALM_CHEST_BOAT);
+        output.accept(ModBoats.BAOBAB_BOAT);
+        output.accept(ModBoats.BAOBAB_CHEST_BOAT);
         output.accept(ModItems.MAGIC_FLUTE);
+//        output.accept(ModItems.CHAINMAIL_HORSE_ARMOR);
+//        output.accept(ModItems.NETHERITE_HORSE_ARMOR);
     }, SPAWN_EGGS),
     @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")
     FOOD_AND_DRINK(ModBaseFoods.BAKED_CARROT.entry::toStack,
@@ -158,7 +165,6 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.RAW_PIRANHA);
                 output.accept(ModBaseFoods.COOKED_PIRANHA);
                 output.accept(ModBaseFoods.DOUGH);
-                output.accept(ModBaseItems.CANDY);
                 output.accept(ModBaseFoods.BERRY_PIE);
                 output.accept(ModBaseFoods.APPLE_PIE);
                 output.accept(ModBaseFoods.GOLDEN_APPLE_PIE);
@@ -167,14 +173,26 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModItems.CHEESE);
                 output.accept(ModBaseFoods.FAILED_CUISINE);
                 output.accept(ModBaseFoods.CHARRED_CUISINE);
+//                output.accept(ModItems.MILK_BOTTLE);
+//                output.accept(ModItems.SPLASH_MILK_BOTTLE);
+//                output.accept(ModItems.LINGERING_MILK_BOTTLE);
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {
         output.accept(ModBaseFoods.FLOUR);
-        output.accept(ModItems.GLOW_POWDER);
+//        output.accept(ModItems.CHARRED_BONE);
+//        output.accept(ModItems.FISH_BONE);
+//        output.accept(ModItems.FANGS);
         output.accept(ModItems.ASH_DUST);
+        output.accept(ModItems.FUR);
+        output.accept(ModItems.GLOW_POWDER);
         output.accept(ModBaseItems.SALT);
-
+//        output.accept(ModItems.TORN_PAGES);
+//        output.accept(ModItems.AUTO_SMELTING);
+//        output.accept(ModItems.CURSE_OF_RUSTING_1);
+//        output.accept(ModItems.CURSE_OF_RUSTING_2);
+//        output.accept(ModItems.CURSE_OF_RUSTING_3);
+        output.accept(ModBaseItems.CANDY);
     }, FOOD_AND_DRINK),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT::toStack,
@@ -191,7 +209,6 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                         output.accept(item.get());
                     }
                 }
-                //肉食
                 ItemStack stack = new ItemStack(Items.SLIME_BALL);
                 stack.set(ModComponents.SLIME_COLOR, 100);
                 output.accept(stack);
