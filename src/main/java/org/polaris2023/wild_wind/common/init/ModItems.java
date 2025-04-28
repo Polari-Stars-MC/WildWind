@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.common.init;
 
 
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
@@ -11,7 +10,6 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.language.I18n;
-import org.polaris2023.annotation.modelgen.item.BasicBlockLocatedItem;
 import org.polaris2023.annotation.modelgen.item.BasicItem;
 import org.polaris2023.annotation.modelgen.item.ParentItem;
 import org.polaris2023.annotation.handler.RegistryHandler;
@@ -92,4 +90,22 @@ public class ModItems {
     public static final DeferredItem<ModBannerItem> BANNER_ITEM = register("banner", p -> new ModBannerItem(ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get(), p.stacksTo(16).component(DataComponents.BANNER_PATTERNS, BannerPatternLayers.EMPTY)));
 
 
+    @I18n(en_us = "Ancient Codex", zh_cn = "远古典籍", zh_tw = "遠古典籍", descriptionId = "item.wild_wind.patchouli.ancient_codex")
+    public static final Object ANCIENT_CODEX = new Object();
+
+    @I18n(en_us = "Fangs", zh_cn = "尖牙", zh_tw = "")
+    @BasicItem
+    public static final DeferredItem<Item> FANGS = simpleItem("fangs");
+
+    @I18n(en_us = "Netherite Apple", zh_cn = "下界合金苹果", zh_tw = "")
+    @BasicItem
+    public static final DeferredItem<Item> NETHERITE_APPLE = simpleItem("netherite_apple");
+
+    @I18n(en_us = "Netherite Apple Pie", zh_cn = "下界合金苹果派", zh_tw = "")
+    @BasicItem
+    public static final DeferredItem<Item> NETHERITE_APPLE_PIE = simpleItem("netherite_apple_pie");
+
+    @I18n(en_us = "Torn Pages", zh_cn = "残破书页", zh_tw = "")
+    @BasicItem
+    public static final DeferredItem<Item> TORN_PAGES = simpleItem("torn_pages");
 }
