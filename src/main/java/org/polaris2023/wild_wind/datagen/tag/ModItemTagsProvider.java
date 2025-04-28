@@ -85,16 +85,16 @@ public class ModItemTagsProvider extends ItemTagsProvider {
 //                Items.SNIFFER_EGG, Items.DRAGON_EGG);
 //        tag(ModItemTags.SWEET_COMPONENT_1F).add(Items.SUGAR, Items.HONEY_BOTTLE);
         tag(ItemTags.STAIRS).add(
-                ModBlocks.ANDESITE_BRICK_STAIRS_ITEM.get(), ModBlocks.DIORITE_BRICK_STAIRS_ITEM.get(), ModBlocks.GRANITE_BRICK_STAIRS.get().asItem(),
+                ModBlocks.ANDESITE_BRICK_STAIRS.get().asItem(), ModBlocks.DIORITE_BRICK_STAIRS.get().asItem(), ModBlocks.GRANITE_BRICK_STAIRS.get().asItem(),
                 ModBlocks.BLUE_ICE_BRICK_STAIRS.get().asItem()
         );
         tag(ItemTags.SLABS).add(
-                ModBlocks.ANDESITE_BRICK_SLAB_ITEM.get(), ModBlocks.DIORITE_BRICK_SLAB_ITEM.get(), ModBlocks.GRANITE_BRICK_SLAB.get().asItem(),
+                ModBlocks.ANDESITE_BRICK_SLAB.get().asItem(), ModBlocks.DIORITE_BRICK_SLAB.get().asItem(), ModBlocks.GRANITE_BRICK_SLAB.get().asItem(),
                 ModBlocks.BLUE_ICE_BRICK_SLAB.get().asItem()
         );
         tag(ItemTags.WALLS).add(
                 ModBlocks.STONE_WALL.asItem(), ModBlocks.POLISHED_STONE_WALL.get().asItem(),
-                ModBlocks.ANDESITE_BRICK_WALL_ITEM.get(), ModBlocks.DIORITE_BRICK_WALL_ITEM.get(), ModBlocks.GRANITE_BRICK_WALL.get().asItem(),
+                ModBlocks.ANDESITE_BRICK_WALL.get().asItem(), ModBlocks.DIORITE_BRICK_WALL.get().asItem(), ModBlocks.GRANITE_BRICK_WALL.get().asItem(),
                 ModBlocks.BLUE_ICE_BRICK_WALL.get().asItem()
         );
     }
