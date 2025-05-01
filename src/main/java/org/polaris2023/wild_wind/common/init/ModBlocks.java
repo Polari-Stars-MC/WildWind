@@ -130,7 +130,6 @@ public class ModBlocks {
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
-    @BasicBlock
     @RegistryBlockItem
     @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
@@ -178,7 +177,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Pyroclast", zh_cn = "熔屑岩", zh_tw = "熔屑岩")
     @CubeAllFor(
-            cube = @CubeAll(all = "wild_wind:block/pyroclast_1"),
+            cube = @CubeAll(all = "wild_wind:block/pyroclast_0"),
             min = 0,
             max = 4,
             def = "wild_wind:block/pyroclast"
