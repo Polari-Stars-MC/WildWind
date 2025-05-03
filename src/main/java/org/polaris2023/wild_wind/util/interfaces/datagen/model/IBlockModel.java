@@ -4,7 +4,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.BlockModelBuilder;
-import org.polaris2023.wild_wind.datagen.WildWindClientProvider;
 import org.polaris2023.wild_wind.util.Helpers;
 import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
 
@@ -18,7 +17,6 @@ public interface IBlockModel extends DatagenClient {
 
     default <T extends Block> void cubeColumn(Supplier<T> block, String side, String end, boolean item) {
         T b = block.get();
-        ResourceLocation key = self().key(b);
         BlockModelBuilder blockModelBuilder = cubeColumnModel(block, side, end);
         if (item) {
             self().stateProvider.simpleBlockWithItem(b, blockModelBuilder);
@@ -44,7 +42,16 @@ public interface IBlockModel extends DatagenClient {
         }
     }
 
-    default <T extends Block> BlockModelBuilder cubeBottomTopModel(String path, String renderType, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
+    default <T extends Block> void cubeOrientable(Supplier<T> block, String side, String front, String top, boolean item) {
+        T b = block.get();
+        BlockModelBuilder blockModelBuilder = cubeOrientableModel(block, side, front, top);
+        self().stateProvider.horizontalBlock(b, blockModelBuilder);
+        if (item) {
+            self().stateProvider.simpleBlockItem(b, blockModelBuilder);
+        }
+    }
+
+    default BlockModelBuilder cubeBottomTopModel(String path, String renderType, ResourceLocation side, ResourceLocation bottom, ResourceLocation top) {
         BlockModelBuilder cm = self().blockModelProvider.cubeBottomTop(path, side, bottom, top);
         if (!renderType.isEmpty()) cm.renderType(renderType);
         return cm;
@@ -86,19 +93,19 @@ public interface IBlockModel extends DatagenClient {
         return model;
     }
 
-    default <T extends Block> BlockModelBuilder carpetModel(String path, String renderType, ResourceLocation carpet) {
+    default BlockModelBuilder carpetModel(String path, String renderType, ResourceLocation carpet) {
         BlockModelBuilder cm = self().blockModelProvider.carpet(path, carpet);
         if (!renderType.isEmpty()) cm.renderType(renderType);
         return cm;
     }
 
-    default <T extends Block> BlockModelBuilder crossModel(String path, String renderType, ResourceLocation cross) {
+    default BlockModelBuilder crossModel(String path, String renderType, ResourceLocation cross) {
         BlockModelBuilder cm = self().blockModelProvider.cross(path, cross);
         if (!renderType.isEmpty()) cm.renderType(renderType);
         return cm;
     }
 
-    default <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, String all) {
+    default BlockModelBuilder cubeAllModel(String path, String renderType, String all) {
         return cubeAllModel(path, renderType, all.isEmpty() ? Helpers.location(path) : ResourceLocation.parse(all));
     }
 
@@ -108,7 +115,7 @@ public interface IBlockModel extends DatagenClient {
         return cubeAllModel(key.getPath() + "_" + index, renderType, all.isEmpty() ? blockTexture(b).withSuffix("_" + index).toString() : all + "_" + index);
     }
 
-    default <T extends Block> BlockModelBuilder cubeAllModel(String path, String renderType, ResourceLocation all) {
+    default BlockModelBuilder cubeAllModel(String path, String renderType, ResourceLocation all) {
         BlockModelBuilder bm = self().blockModelProvider.cubeAll(path, all);
         if (!renderType.isEmpty()) bm.renderType(renderType);
         return bm;
@@ -120,7 +127,7 @@ public interface IBlockModel extends DatagenClient {
         return cubeAllModel(key.getPath(), renderType, all.isEmpty() ? blockTexture(b) : ResourceLocation.parse(all));
     }
 
-    default <T extends Block> BlockModelBuilder cubeColumnModel(String path, ResourceLocation side, ResourceLocation end) {
+    default BlockModelBuilder cubeColumnModel(String path, ResourceLocation side, ResourceLocation end) {
         return self().blockModelProvider.cubeColumn(path, side, end);
     }
 
@@ -128,6 +135,16 @@ public interface IBlockModel extends DatagenClient {
         T b = block.get();
         ResourceLocation key = self().key(b);
         return cubeColumnModel(key.getPath(), ResourceLocation.parse(side), ResourceLocation.parse(end));
+    }
+
+    default BlockModelBuilder cubeOrientableModel(String path, ResourceLocation side, ResourceLocation front, ResourceLocation top) {
+        return self().blockModelProvider.orientable(path, side, front, top);
+    }
+
+    default <T extends Block> BlockModelBuilder cubeOrientableModel(Supplier<T> block, String side, String front, String top) {
+        T b = block.get();
+        ResourceLocation key = self().key(b);
+        return cubeOrientableModel(key.getPath(), ResourceLocation.parse(side), ResourceLocation.parse(front), ResourceLocation.parse(top));
     }
 
     default <T extends Block> ResourceLocation key(T block) {
