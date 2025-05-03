@@ -251,6 +251,30 @@ public enum Codes {
                     return this;
                 }
             
+                private <T extends Block> %%classname%% cubeOrientable(Supplier<T> block, String front, String side, String top, boolean isItem) {
+                    ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
+                    ResourceLocation blockKey = key.withPrefix("block/");
+                    MODELS.put(blockKey, Map.of(
+                        "parent", "minecraft:block/orientable",
+                        "textures", Map.of(
+                            "front", front,
+                            "side", side,
+                            "top", top
+                        )
+                    ));
+                    BLOCKSTATES.put(key, Map.of(
+                        "variants", Map.of(
+                            "facing=east", model(blockKey, null, 90, null, false),
+                            "facing=north", model(blockKey, null, null, null, false),
+                            "facing=south", model(blockKey, null, 180, null, false),
+                            "facing=west", model(blockKey, null, 270, null, false)
+                        )
+                    ));
+                    if(isItem)
+                        basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
+                    return this;
+                }
+            
                 private <T extends Block> %%classname%% cubeAll(Supplier<T> block, String texture, String renderType, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
