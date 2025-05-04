@@ -11,6 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.polaris2023.wild_wind.common.init.ModSounds;
+import org.polaris2023.wild_wind.common.init.tags.ModSoundEventTags;
+import org.polaris2023.wild_wind.util.RandomUtil;
 
 public class LivingTuberItem extends Item {
     public LivingTuberItem(Properties properties) {
@@ -21,21 +23,26 @@ public class LivingTuberItem extends Item {
     @Override
     public void inventoryTick(ItemStack stack, Level level, Entity entity, int slotId, boolean isSelected) {
         super.inventoryTick(stack, level, entity, slotId, isSelected);
-        int j = entity.getRandom().nextInt(20, 200);
+        RandomSource random = entity.getRandom();
+        int j = random.nextInt(20, 200);
         if (level.getGameTime() % j == 0) {
-            int i = entity.getRandom().nextInt(1, 13);
-            ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-            level.playLocalSound(entity.getX(), entity.getY(), entity.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
+
+            ModSoundEventTags.GLARE_AMBIENT.tagFor(named -> {
+                level.playLocalSound(entity.getX(), entity.getY(), entity.getZ(), named.get(random.nextInt(named.size())).value(), SoundSource.AMBIENT, 1F, 1F, true);
+            });
+//            level.playLocalSound(entity.getX(), entity.getY(), entity.getZ(), ModSounds.AMBIENT_S.get(random.nextInt(ModSounds.AMBIENT_S.size())).get(), SoundSource.HOSTILE, 1F, 1F, true);
         }
     }
 
     @Override
     public void onUseTick(Level level, LivingEntity livingEntity, ItemStack stack, int remainingUseDuration) {
         super.onUseTick(level, livingEntity, stack, remainingUseDuration);
+        RandomSource random = livingEntity.getRandom();
         if (remainingUseDuration % 20 == 0) {
-            int i = livingEntity.getRandom().nextInt(1, 13);
-            ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-            level.playLocalSound(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
+            ModSoundEventTags.GLARE_AMBIENT.tagFor(named -> {
+                level.playLocalSound(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), named.get(random.nextInt(named.size())).value(), SoundSource.AMBIENT, 1F, 1F, true);
+            });
+//            level.playLocalSound(livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), ModSounds.AMBIENT_S.get(random.nextInt(ModSounds.AMBIENT_S.size())).get(), SoundSource.AMBIENT, 1F, 1F, true);
         }
     }
 
@@ -44,10 +51,10 @@ public class LivingTuberItem extends Item {
              */
     @Override
     public void onDestroyed(ItemEntity itemEntity, DamageSource damageSource) {
-        RandomSource random = itemEntity.getRandom();
-        int i = random.nextInt(1, 3);
-        ModSounds sounds = ModSounds.DEATH_S.getOrDefault(i, ModSounds.GLARE_DEATH_1);
-        itemEntity.playSound(sounds.get());
         super.onDestroyed(itemEntity, damageSource);
+        ModSoundEventTags.GLARE_AMBIENT.tagFor(named -> {
+            itemEntity.playSound(named.get(itemEntity.getRandom().nextInt(named.size())).value());
+        });
+//        itemEntity.playSound(ModSounds.DEATH_S.get(itemEntity.getRandom().nextInt(ModSounds.DEATH_S.size())).get());
     }
 }
