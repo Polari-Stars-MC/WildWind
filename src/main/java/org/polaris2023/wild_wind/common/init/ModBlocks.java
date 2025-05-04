@@ -130,7 +130,6 @@ public class ModBlocks {
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
-    @BasicBlock
     @RegistryBlockItem
     @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
@@ -178,7 +177,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Pyroclast", zh_cn = "熔屑岩", zh_tw = "熔屑岩")
     @CubeAllFor(
-            cube = @CubeAll(all = "wild_wind:block/pyroclast_1"),
+            cube = @CubeAll(all = "wild_wind:block/pyroclast_0"),
             min = 0,
             max = 4,
             def = "wild_wind:block/pyroclast"
@@ -684,6 +683,23 @@ public class ModBlocks {
 
     public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
+    @I18n(en_us = "Soul Jack o'Lantern", zh_cn = "灵魂南瓜灯", zh_tw = "靈魂南瓜燈")
+    @VanillaTag(names = {"mineable/pickaxe", "sword_efficient"}, type = TagType.Block)
+    @CubeOrientable(side = "minecraft:block/pumpkin_side",
+            front = "wild_wind:block/soul_jack_o_lantern",
+            top = "minecraft:block/pumpkin_top")
+    @RegistryBlockItem
+    public static final DeferredBlock<CarvedPumpkinBlock> SOUL_JACK_O_LANTERN = register(
+            "soul_jack_o_lantern",
+            CarvedPumpkinBlock::new,
+            BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.COLOR_ORANGE)
+                    .strength(1.0F)
+                    .sound(SoundType.WOOD)
+                    .lightLevel(blockState -> 10)
+                    .isValidSpawn(Blocks::always)
+                    .pushReaction(PushReaction.DESTROY)
+    );
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

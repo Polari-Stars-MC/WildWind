@@ -85,6 +85,7 @@ public class ModelProcessor extends ClassProcessor {
             this::addCodeCarpet,
             this::addCodeBasicItem,
             this::addCodeCubeColumn,
+            this::addCodeCubeOrientable,
             this::addCodeBasicBlockLocatedItem
     );
 
@@ -386,6 +387,22 @@ public class ModelProcessor extends ClassProcessor {
                     cubeColumn.side(),
                     cubeColumn.end(),
                     cubeColumn.item()
+            );
+            InitProcessor.modelGen(context, code);
+        }
+    }
+
+    private void addCodeCubeOrientable(TypeElement typeElement, VariableElement variableElement) {
+        CubeOrientable cubeOrientable = variableElement.getAnnotation(CubeOrientable.class);
+        if (cubeOrientable != null) {
+            String template = "cubeOrientable(%s.%s, \"%s\", \"%s\", \"%s\", %s);";
+            String code = template.formatted(
+                    typeElement.getQualifiedName(),
+                    variableElement.getSimpleName(),
+                    cubeOrientable.side(),
+                    cubeOrientable.front(),
+                    cubeOrientable.top(),
+                    cubeOrientable.item()
             );
             InitProcessor.modelGen(context, code);
         }
