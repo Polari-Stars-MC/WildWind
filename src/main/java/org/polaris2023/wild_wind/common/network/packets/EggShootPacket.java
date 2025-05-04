@@ -7,9 +7,10 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import org.polaris2023.wild_wind.common.WildWindGameEventHandler;
 import org.polaris2023.wild_wind.util.Helpers;
 import org.polaris2023.wild_wind.util.interfaces.INetPacket;
+
+import static org.polaris2023.wild_wind.util.EventsHandler.eggShoot;
 
 /**
  * @author : baka4n
@@ -27,7 +28,7 @@ public record EggShootPacket() implements CustomPacketPayload, INetPacket {
             ItemStack mainHandItem = player.getMainHandItem();
             ItemStack offHandItem = player.getOffhandItem();
 
-            WildWindGameEventHandler.eggShoot(mainHandItem.is(Items.EGG) ? mainHandItem : offHandItem, player, player.level());
+            eggShoot(mainHandItem.is(Items.EGG) ? mainHandItem : offHandItem, player, player.level());
         });
     }
 
