@@ -681,8 +681,6 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_BLUE_ICE_BRICKS = register("chiseled_blue_ice_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.ICE));
 
-    public static final DeferredBlock<LiquidBlock> MILK_BLOCK = REGISTER.register("milk", () -> new LiquidBlock(ModFluids.MILK.get(), BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
-
     @I18n(en_us = "Soul Jack o'Lantern", zh_cn = "灵魂南瓜灯", zh_tw = "靈魂南瓜燈")
     @VanillaTag(names = {"mineable/pickaxe", "sword_efficient"}, type = TagType.Block)
     @CubeOrientable(side = "minecraft:block/pumpkin_side",
