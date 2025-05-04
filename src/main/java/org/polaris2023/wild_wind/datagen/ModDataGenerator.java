@@ -54,6 +54,7 @@ public class ModDataGenerator {
         gen.addProvider(event.includeServer(), new ModLootTableProvider(output, provider));
         gen.addProvider(event.includeServer(), new ModEnchantTagsProvider(output, datapackProvider.getRegistryProvider(), helper));
         gen.addProvider(event.includeServer(), new ModInstrumentTagsProvider(output, provider, helper));
+        gen.addProvider(event.includeServer(), new ModSoundEventTagsProvider(output, provider, helper));
         gen.addProvider(event.includeServer(), new ModCompostMapProvider(output, provider));
         gen.addProvider(event.includeServer(), new ModDamageTypeTagsProvider(output, lookupProvider, helper));
         gen.addProvider(event.includeServer(), new ModGlobalLootModifierProvider(output, provider));

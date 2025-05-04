@@ -1,6 +1,10 @@
 package org.polaris2023.wild_wind.common.event.game;
 
+import net.minecraft.core.HolderSet;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -22,6 +26,9 @@ import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.init.ModAttachmentTypes;
 import org.polaris2023.wild_wind.common.init.ModItems;
 import org.polaris2023.wild_wind.common.init.ModSounds;
+import org.polaris2023.wild_wind.common.init.tags.ModSoundEventTags;
+
+import java.util.function.Consumer;
 
 /**
  * @author : baka4n
@@ -61,9 +68,10 @@ public class EntityEvents {
                 Level level = item.level();
                 int j = random.nextInt(20, 200);
                 if (level.getGameTime() % j == 0) {
-                    int i = random.nextInt(1, 13);
-                    ModSounds sounds = ModSounds.AMBIENT_S.getOrDefault(i, ModSounds.GLARE_AMBIENT_1);
-                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), sounds.get(), SoundSource.HOSTILE, 1F, 1F, true);
+                    ModSoundEventTags.GLARE_AMBIENT.tagFor(named -> {
+                        level.playLocalSound(item.getX(), item.getY(), item.getZ(), named.get(random.nextInt(named.size())).value(), SoundSource.AMBIENT, 1.0F, 1.0F, true);
+                    });
+//                    level.playLocalSound(item.getX(), item.getY(), item.getZ(), ModSounds.AMBIENT_S.get(random.nextInt(ModSounds.AMBIENT_S.size())).get(), SoundSource.AMBIENT, 1F, 1F, true);
                 }
             }
         } else if (entity instanceof ItemFrame frame) {
