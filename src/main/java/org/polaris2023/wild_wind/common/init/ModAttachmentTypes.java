@@ -24,5 +24,7 @@ public class ModAttachmentTypes {
     public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> IS_INVISIBLE;
     @AttachmentBoolean
     public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> VANILLA_INVISIBLE_SAVE;
+    @AttachmentBoolean
+    public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SPLIT_MAGMA_CUBE;
 
 }
