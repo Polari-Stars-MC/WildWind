@@ -1,6 +1,8 @@
 package org.polaris2023.wild_wind.common.event.game;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
@@ -23,11 +25,14 @@ import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -52,6 +57,28 @@ import static org.polaris2023.wild_wind.util.EventsHandler.*;
  */
 @EventBusSubscriber(modid = WildWindMod.MOD_ID)
 public class PlayerEvents {
+
+    @SubscribeEvent
+    public static void rightClickEventBlock(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
+        Player player = event.getEntity();
+        Level level = event.getLevel();
+        Direction face = event.getHitVec().getDirection();
+        if (stack.is(Items.MILK_BUCKET) && !player.isCrouching()) {
+            BlockPos pos = event.getPos();
+            BlockState state = level.getBlockState(pos);
+            if (state.canBeReplaced()) {
+                Block.popResource(level, pos, ItemStack.EMPTY);
+            } else {
+                pos = pos.relative(face);
+            }
+
+            level.setBlockAndUpdate(pos, BuiltInRegistries.BLOCK.get(NeoForgeMod.MILK.getId()).defaultBlockState());
+            stack.shrink(1);
+            player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
+
+        }
+    }
 
     @SubscribeEvent
     public static void playerBreakBlock(BlockEvent.BreakEvent event) {

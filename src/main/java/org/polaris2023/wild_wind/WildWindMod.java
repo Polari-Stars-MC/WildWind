@@ -31,11 +31,12 @@ public class WildWindMod {
     public static final String MOD_VERSION = ModList.get().getModFileById(MOD_ID).versionString();
 
     public WildWindMod(IEventBus modEventBus, ModContainer modContainer) {
+        NeoForgeMod.enableMilkFluid();
         ModInitializer.init(modEventBus);
         ModPotions.register(modEventBus);
         ModVanillaCompat.register(NeoForge.EVENT_BUS);
         ModAttachmentTypes.REGISTER.register(modEventBus);
-        NeoForgeMod.enableMilkFluid();
+
 
         for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
             iConfig.register(modContainer);
