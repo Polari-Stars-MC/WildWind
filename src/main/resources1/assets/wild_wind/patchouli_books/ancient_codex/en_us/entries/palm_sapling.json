@@ -1,0 +1,17 @@
+{
+  "name": "item.wild_wind.palm_sapling",
+  "category": "wild_wind:trees",
+  "icon": "wild_wind:palm_sapling",
+  "sortnum": 3,
+  "pages": [
+    "item.wild_wind.palm_sapling",
+    {
+      "type": "patchouli:image",
+      "text": "patchouli.book.wild_wind.trees.palm_sapling",
+      "border": true,
+      "images": [
+        "wild_wind:textures/block/palm_sapling.png"
+      ]
+    }
+  ]
+}
