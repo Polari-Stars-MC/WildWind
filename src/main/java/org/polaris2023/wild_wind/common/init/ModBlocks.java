@@ -700,6 +700,22 @@ public class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)
     );
 
+    @Cross
+    @I18n(en_us = "Sculk Vines", zh_cn = "幽匿藤蔓", zh_tw = "伏聆藤蔓")
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<SculkVinesBlock> SCULK_VINES = register(
+            "sculk_vines",
+            SculkVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Sculk Vines Plant", zh_cn = "幽匿藤蔓植株", zh_tw = "伏聆藤蔓植株")
+    public static final DeferredBlock<SculkVinesPlantBlock> SCULK_VINES_PLANT = register(
+            "sculk_vines_plant",
+            SculkVinesPlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES_PLANT)
+    );
+
     @Cross(item = false)
     @I18n(en_us = "Fluffy Dandelion", zh_cn = "絮绒蒲公英", zh_tw = "絮絨蒲公英")
     @BasicBlockLocatedItem
