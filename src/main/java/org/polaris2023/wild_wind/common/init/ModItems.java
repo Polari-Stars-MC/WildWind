@@ -107,4 +107,33 @@ public class ModItems {
     @BasicItem
     public static final DeferredItem<Item> TORN_PAGES = simpleItem("torn_pages");
 
+    @BasicItem
+    @I18n(en_us = "Milk Bottle", zh_cn = "奶瓶", zh_tw = "奶瓶")
+    public static final DeferredItem<Item> MILK_BOTTLE =
+            simpleItem("milk_bottle", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Splash Milk Bottle", zh_cn = "喷溅型奶瓶", zh_tw = "噴濺型奶瓶")
+    public static final DeferredItem<Item> SPLASH_MILK_BOTTLE =
+            simpleItem("splash_milk_bottle", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Lingering Milk Bottle", zh_cn = "滞留型奶瓶", zh_tw = "滯留型奶瓶")
+    public static final DeferredItem<Item> LINGERING_MILK_BOTTLE =
+            simpleItem("lingering_milk_bottle", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Splash Honey Bottle", zh_cn = "喷溅型蜂蜜瓶", zh_tw = "噴濺型蜂蜜瓶")
+    public static final DeferredItem<Item> SPLASH_HONEY_BOTTLE =
+            simpleItem("splash_honey_bottle", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Lingering Honey Bottle", zh_cn = "滞留型蜂蜜瓶", zh_tw = "滞留型蜂蜜瓶")
+    public static final DeferredItem<Item> LINGERING_HONEY_BOTTLE =
+            simpleItem("lingering_honey_bottle", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Honey Bucket", zh_cn = "蜂蜜桶", zh_tw = "蜂蜜桶")
+    public static final DeferredItem<Item> HONEY_BUCKET =
+            simpleItem("honey_bucket", p -> p.stacksTo(1));
 }

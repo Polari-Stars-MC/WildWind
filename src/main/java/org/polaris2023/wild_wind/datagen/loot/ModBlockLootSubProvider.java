@@ -148,6 +148,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.BLUE_ICE_BRICK_WALL.get());
         this.dropSelf(ModBlocks.CHISELED_BLUE_ICE_BRICKS.get());
         this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.get());
+        this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
+        this.dropSelf(ModBlocks.ROSE.get());
     }
 
     protected LootTable.Builder createBedDrops(Block block) {

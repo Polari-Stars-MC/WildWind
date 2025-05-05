@@ -98,6 +98,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBaseItems.COBWEB_MUCOSA);
         output.accept(ModBaseItems.SPIDER_EGG);
         output.accept(ModBlocks.TINY_CACTUS);
+        output.accept(ModBlocks.FLUFFY_DANDELION);
+        output.accept(ModBlocks.ROSE);
     }, BUILDING_BLOCK),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")
     SPAWN_EGGS(ModSpawnEggs.FIREFLY_SPAWN_EGG.entry::toStack, () -> (__, output) -> {
@@ -173,9 +175,12 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModItems.CHEESE);
                 output.accept(ModBaseFoods.FAILED_CUISINE);
                 output.accept(ModBaseFoods.CHARRED_CUISINE);
-//                output.accept(ModItems.MILK_BOTTLE);
-//                output.accept(ModItems.SPLASH_MILK_BOTTLE);
-//                output.accept(ModItems.LINGERING_MILK_BOTTLE);
+                output.accept(ModItems.MILK_BOTTLE);
+                output.accept(ModItems.SPLASH_MILK_BOTTLE);
+                output.accept(ModItems.LINGERING_MILK_BOTTLE);
+                output.accept(ModItems.SPLASH_HONEY_BOTTLE);
+                output.accept(ModItems.LINGERING_HONEY_BOTTLE);
+                output.accept(ModItems.HONEY_BUCKET);
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {
