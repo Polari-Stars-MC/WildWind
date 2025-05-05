@@ -32,7 +32,9 @@ import static org.polaris2023.wild_wind.util.EventsHandler.componentAdd;
 public class BlockEvents {
     @SubscribeEvent
     public static void cropGrowPost(CropGrowEvent.Post event) {
+
         LevelAccessor level = event.getLevel();
+
         if (level instanceof ServerLevel serverLevel) {
             BlockPos pos = event.getPos();
             if (serverLevel.getBlockState(pos).is(Blocks.ATTACHED_MELON_STEM)) {

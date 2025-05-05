@@ -4,8 +4,6 @@
   "compatibilityLevel": "JAVA_17",
   "refmap": "wild_wind.refmap.json",
   "mixins": [
-    "NeoForgeModMixin",
-    "accessor.BaseFlowingFluidPropertiesAccessor"
   ],
   "minVersion": "0.8",
   "client": [
