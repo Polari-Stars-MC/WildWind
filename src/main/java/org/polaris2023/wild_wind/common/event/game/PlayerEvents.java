@@ -77,7 +77,7 @@ public class PlayerEvents {
                 pos = pos.relative(face);
             }
 
-            level.setBlockAndUpdate(pos, ModBlocks.MILK.get().defaultBlockState());
+            level.setBlockAndUpdate(pos, NeoForgeMod.MILK.get().defaultFluidState().createLegacyBlock());
             stack.shrink(1);
             player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
 
