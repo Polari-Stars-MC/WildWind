@@ -50,7 +50,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return BlockRegistry.entry().stream().filter(holder -> !holder.get().asItem().equals(Items.AIR)).map(holder -> (Block)holder.get()).toList();
+        return BlockRegistry.entry().stream().map(holder -> (Block)holder.get()).toList();
     }
 
     @Override
@@ -148,6 +148,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.BLUE_ICE_BRICK_WALL.get());
         this.dropSelf(ModBlocks.CHISELED_BLUE_ICE_BRICKS.get());
         this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.get());
+        this.addNetherVinesDropTable(ModBlocks.SCULK_VINES.get(), ModBlocks.SCULK_VINES_PLANT.get());
         this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
         this.dropSelf(ModBlocks.ROSE.get());
     }
