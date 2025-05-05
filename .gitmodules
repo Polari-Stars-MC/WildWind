@@ -1,4 +1,0 @@
-[submodule "src/main/upload-res"]
-	path = src/main/upload-res
-	url = https://github.com/Polari-Stars-MC/WildWind
-	branch = resources
