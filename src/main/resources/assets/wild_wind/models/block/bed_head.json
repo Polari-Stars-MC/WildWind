@@ -1,0 +1,6 @@
+{
+  "parent": "wild_wind:block/template_bed_head",
+  "textures": {
+    "bed": "wild_wind:block/bed"
+  }
+}
