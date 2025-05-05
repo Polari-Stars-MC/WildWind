@@ -5,6 +5,7 @@ import com.mojang.datafixers.types.Type;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.valueproviders.UniformInt;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.block.*;
@@ -699,6 +700,26 @@ public class ModBlocks {
                     .lightLevel(blockState -> 10)
                     .isValidSpawn(Blocks::always)
                     .pushReaction(PushReaction.DESTROY)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Fluffy Dandelion", zh_cn = "絮绒蒲公英", zh_tw = "絮絨蒲公英")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<FlowerBlock> FLUFFY_DANDELION = register(
+            "fluffy_dandelion",
+            properties -> new FlowerBlock(MobEffects.SATURATION,
+                    0.35F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Rose", zh_cn = "玫瑰", zh_tw = "玫瑰")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> ROSE = register(
+            "rose",
+            properties -> new FlowerBlock(MobEffects.NIGHT_VISION,
+                    5.0F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
     );
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
