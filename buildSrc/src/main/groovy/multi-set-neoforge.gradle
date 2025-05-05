@@ -116,7 +116,7 @@ neoForge {
 
 sourceSets.main.resources { 
 	srcDir 'src/generated/resources'
-	srcDir 'src/main/upload-rec'
+	srcDir 'src/main/upload-res'
 }
 
 configurations {
