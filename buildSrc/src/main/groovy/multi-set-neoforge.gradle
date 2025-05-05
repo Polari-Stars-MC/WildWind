@@ -95,7 +95,7 @@ neoForge {
         data {
             data()
             environment("wild-wind-datagen", "true")
-            programArguments.addAll '--mod', project.name, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+            programArguments.addAll '--mod', project.name, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath(), '--existing', file('src/main/upload-res/').getAbsolutePath()
             gameDirectory.set(file("run/data"))
 
         }
