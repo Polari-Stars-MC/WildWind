@@ -1,0 +1,4 @@
+        this.dropSelf(ModBlocks.${NAME}_BRICKS.get());
+        this.dropSelf(ModBlocks.${NAME}_BRICK_STAIRS.get());
+        this.add(ModBlocks.${NAME}_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.${NAME}_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.${NAME}_BRICK_WALL.get());
