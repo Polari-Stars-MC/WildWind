@@ -331,7 +331,6 @@ public enum Codes {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation finalKey1 = key;
                     cubeAll(block, "", "", true);
-                    cubeAll(() -> BuiltInRegistries.BLOCK.get(prefix(key, "cracked")), "", "", true);
                     slabBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "slab")), "", "", "", true, "bricks");
                     stairsBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "stairs")), "", "", "", true, "bricks");
                     wallBlock(() -> BuiltInRegistries.BLOCK.get(replaceBricks(finalKey1, "wall")), "", true, true);

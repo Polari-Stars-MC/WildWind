@@ -1,0 +1,17 @@
+    @AllBrick
+    @I18n(en_us = "${Name} Bricks", zh_cn = "${zh_cn_Name}砖", zh_tw = "${zh_tw_Name}磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> ${NAME}_BRICKS = register("${name}_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.${COLOR}));
+    @I18n(en_us = "${Name} Brick Stairs", zh_cn = "${zh_cn_Name}砖楼梯", zh_tw = "${zh_tw_Name}磚樓梯")
+    @VanillaTag(names = {"mineable/pickaxe", "stairs"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> ${NAME}_BRICK_STAIRS = register("${name}_brick_stairs", props -> new StairBlock(${NAME}_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.${COLOR}));
+    @I18n(en_us = "${Name} Brick Slab", zh_cn = "${zh_cn_Name}砖台阶", zh_tw = "${zh_tw_Name}磚臺階")
+    @VanillaTag(names = {"mineable/pickaxe", "slabs"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> ${NAME}_BRICK_SLAB = register("${name}_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.${COLOR}));
+    @I18n(en_us = "${Name} Brick Wall", zh_cn = "${zh_cn_Name}砖墙", zh_tw = "${zh_tw_Name}磚墻")
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<WallBlock> ${NAME}_BRICK_WALL = register("${name}_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.${COLOR}));

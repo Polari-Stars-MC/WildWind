@@ -1,0 +1,3 @@
+        add(stonecutting(Ingredient.of(ModBlocks.${NAME}_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.${NAME}_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.${NAME}_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.${NAME}_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.${NAME}_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.${NAME}_BRICK_SLAB, 2), "stonecutting/");

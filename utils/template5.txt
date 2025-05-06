@@ -1,0 +1,4 @@
+        output.accept(ModBlocks.${NAME}_BRICKS);
+        output.accept(ModBlocks.${NAME}_BRICK_STAIRS);
+        output.accept(ModBlocks.${NAME}_BRICK_SLAB);
+        output.accept(ModBlocks.${NAME}_BRICK_WALL);
