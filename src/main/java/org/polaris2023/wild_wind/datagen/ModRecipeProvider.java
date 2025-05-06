@@ -144,9 +144,9 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_ANDESITE_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_ANDESITE_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_ANDESITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_ANDESITE_BRICK_SLAB, 2), "stonecutting/");
-        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_WALL, 1), "stonecutting/");
-        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_STAIRS, 1), "stonecutting/");
-        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB, 2), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_TUFF_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_TUFF_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_TUFF_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_TUFF_BRICK_SLAB, 2), "stonecutting/");
@@ -528,29 +528,29 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .define('S', ModBlocks.MOSSY_ANDESITE_BRICKS.get());
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_SLAB.get(), 6,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                    unlockedBy(builder, ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                     builder
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                            .define('S', ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_STAIRS.get(), 4,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get(), 4,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                    unlockedBy(builder, ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                     builder
                             .pattern(("S  "))
                             .pattern(("SS "))
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                            .define('S', ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                 }));
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_WALL.get(), 6,
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get(), 6,
                 builder -> {
-                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                    unlockedBy(builder, ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                     builder
                             .pattern(("SSS"))
                             .pattern(("SSS"))
-                            .define('S', ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
+                            .define('S', ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
                 }));
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_TUFF_BRICK_SLAB.get(), 6,
                 builder -> {

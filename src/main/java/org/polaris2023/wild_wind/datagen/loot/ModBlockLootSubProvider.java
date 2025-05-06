@@ -159,10 +159,10 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_ANDESITE_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_ANDESITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_ANDESITE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_ANDESITE_BRICK_WALL.get());
-        this.dropSelf(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICKS.get());
-        this.dropSelf(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_STAIRS.get());
-        this.add(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_SLAB.get()));
-        this.dropSelf(ModBlocks.MOSSY_COBBLED_DEEPSLATE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get());
         this.dropSelf(ModBlocks.MOSSY_TUFF_BRICKS.get());
         this.dropSelf(ModBlocks.MOSSY_TUFF_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_TUFF_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_TUFF_BRICK_SLAB.get()));

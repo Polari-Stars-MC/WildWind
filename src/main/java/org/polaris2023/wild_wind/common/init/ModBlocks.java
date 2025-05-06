@@ -739,22 +739,22 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> MOSSY_ANDESITE_BRICK_WALL = register("mossy_andesite_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.STONE));
     @AllBrick
-    @I18n(en_us = "Mossy Cobbled Deepslate Bricks", zh_cn = "苔深板岩砖", zh_tw = "青苔深板岩磚")
+    @I18n(en_us = "Mossy Deepslate Bricks", zh_cn = "苔深板岩砖", zh_tw = "青苔深板岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
-    public static final DeferredBlock<Block> MOSSY_COBBLED_DEEPSLATE_BRICKS = register("mossy_cobbled_deepslate_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
-    @I18n(en_us = "Mossy Cobbled Deepslate Brick Stairs", zh_cn = "苔深板岩砖楼梯", zh_tw = "青苔深板岩磚樓梯")
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_BRICKS = register("mossy_deepslate_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Brick Stairs", zh_cn = "苔深板岩砖楼梯", zh_tw = "青苔深板岩磚樓梯")
     @VanillaTag(names = {"mineable/pickaxe", "stairs"}, type = TagType.Block)
     @RegistryBlockItem
-    public static final DeferredBlock<StairBlock> MOSSY_COBBLED_DEEPSLATE_BRICK_STAIRS = register("mossy_cobbled_deepslate_brick_stairs", props -> new StairBlock(MOSSY_COBBLED_DEEPSLATE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.DEEPSLATE));
-    @I18n(en_us = "Mossy Cobbled Deepslate Brick Slab", zh_cn = "苔深板岩砖台阶", zh_tw = "青苔深板岩磚臺階")
+    public static final DeferredBlock<StairBlock> MOSSY_DEEPSLATE_BRICK_STAIRS = register("mossy_deepslate_brick_stairs", props -> new StairBlock(MOSSY_DEEPSLATE_BRICKS.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Brick Slab", zh_cn = "苔深板岩砖台阶", zh_tw = "青苔深板岩磚臺階")
     @VanillaTag(names = {"mineable/pickaxe", "slabs"}, type = TagType.Block)
     @RegistryBlockItem
-    public static final DeferredBlock<SlabBlock> MOSSY_COBBLED_DEEPSLATE_BRICK_SLAB = register("mossy_cobbled_deepslate_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.DEEPSLATE));
-    @I18n(en_us = "Mossy Cobbled Deepslate Brick Wall", zh_cn = "苔深板岩砖墙", zh_tw = "青苔深板岩磚墻")
+    public static final DeferredBlock<SlabBlock> MOSSY_DEEPSLATE_BRICK_SLAB = register("mossy_deepslate_brick_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Brick Wall", zh_cn = "苔深板岩砖墙", zh_tw = "青苔深板岩磚墻")
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     @RegistryBlockItem
-    public static final DeferredBlock<WallBlock> MOSSY_COBBLED_DEEPSLATE_BRICK_WALL = register("mossy_cobbled_deepslate_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DEEPSLATE));
+    public static final DeferredBlock<WallBlock> MOSSY_DEEPSLATE_BRICK_WALL = register("mossy_deepslate_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DEEPSLATE));
     @AllBrick
     @I18n(en_us = "Mossy Tuff Bricks", zh_cn = "苔凝灰岩砖", zh_tw = "青苔凝灰岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
