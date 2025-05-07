@@ -1,0 +1,36 @@
+# eclipse
+bin
+src/generated/resources/.cache
+*.launch
+.settings
+.metadata
+.classpath
+.project
+
+src/main/info
+
+build.done
+
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
+
+# gradle
+build
+.gradle
+
+# other
+eclipse
+run
+runs
+run-data
+
+repo
+
+/.xcodemap/
+/design/
+
+src/generated/
