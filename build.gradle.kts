@@ -107,9 +107,9 @@ subprojects {
     groupDir.mkdirs()
 
     resourceDir.mkdirs()
-    val rootTemplate = rootProject.file("src/templates")
+    val rootTemplate = rootProject.file("src/templates/rootProject")
     rootTemplate.mkdirs()
-    val projectTemplate = rootProject.file("src/${project.name}/templates")
+    val projectTemplate = rootProject.file("src//templates/${project.name}")
     projectTemplate.mkdirs()
     val libsDir = rootProject.file("libs/${project.name}")
     libsDir.mkdirs()
@@ -223,7 +223,7 @@ subprojects {
                                 "--mod", base.archivesName.get(),
                                 "--all",
                                 "--output", datagenDir.absolutePath,
-                                "--existing", rootProject.file("src/${project.name}/resources/").absolutePath
+                                "--existing", resourceDir.absolutePath
                             ))
                             environment("datagen", "true")
                         }
