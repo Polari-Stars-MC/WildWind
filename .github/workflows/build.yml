@@ -43,3 +43,4 @@ jobs:
         with:
           name: wild-wind-artiface
           path: build/libs/
+          compression-level: 0
