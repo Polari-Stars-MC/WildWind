@@ -28,11 +28,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.FluidState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 import net.neoforged.neoforge.event.level.BlockEvent;
@@ -40,6 +42,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.common.init.ModAttachmentTypes;
+import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModEnchantments;
 import org.polaris2023.wild_wind.common.init.tags.ModEntityTypeTags;
 import org.polaris2023.wild_wind.common.init.tags.ModItemTags;
@@ -63,6 +66,7 @@ public class PlayerEvents {
         ItemStack stack = event.getItemStack();
         Player player = event.getEntity();
         Level level = event.getLevel();
+
         Direction face = event.getHitVec().getDirection();
         if (stack.is(Items.MILK_BUCKET) && !player.isCrouching()) {
             BlockPos pos = event.getPos();
@@ -73,10 +77,19 @@ public class PlayerEvents {
                 pos = pos.relative(face);
             }
 
-            level.setBlockAndUpdate(pos, BuiltInRegistries.BLOCK.get(NeoForgeMod.MILK.getId()).defaultBlockState());
+            level.setBlockAndUpdate(pos, NeoForgeMod.MILK.get().defaultFluidState().createLegacyBlock());
             stack.shrink(1);
             player.setItemInHand(event.getHand(), Items.BUCKET.getDefaultInstance());
 
+        } else if (stack.is(Items.BUCKET) && !player.isCrouching()) {
+            BlockPos pos = event.getPos();
+            BlockState blockState = level.getBlockState(pos);
+            FluidState fluidState = blockState.getFluidState();
+            if (fluidState.is(Tags.Fluids.MILK)) {
+                level.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
+                stack.shrink(1);
+                player.setItemInHand(event.getHand(), Items.MILK_BUCKET.getDefaultInstance());
+            }
         }
     }
 

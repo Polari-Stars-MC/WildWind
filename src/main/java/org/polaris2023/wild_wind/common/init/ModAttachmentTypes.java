@@ -25,4 +25,7 @@ public class ModAttachmentTypes {
     @AttachmentBoolean
     public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> VANILLA_INVISIBLE_SAVE;
 
+    @AttachmentBoolean//岩浆怪分裂
+    public static DeferredHolder<AttachmentType<?>, AttachmentType<Boolean>> SPLIT_MAGMA_CUBE;
+
 }

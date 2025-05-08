@@ -13,8 +13,10 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
+import net.neoforged.neoforge.common.NeoForgeMod;
 import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.annotation.enums.RegType;
@@ -59,6 +61,10 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
 
+    @CTag(names = "milk", type = TagType.Block)
+    public static final DeferredBlock<LiquidBlock> MILK = REGISTER.register("milk",
+            () -> new LiquidBlock((FlowingFluid) NeoForgeMod.MILK.get(),
+                    BlockBehaviour.Properties.of().mapColor(MapColor.SNOW).noCollission().replaceable().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 
     @I18n(en_us = "Glare Flower", zh_cn = "怒目花", zh_tw = "怒目花")
     @RegistryBlockItem
