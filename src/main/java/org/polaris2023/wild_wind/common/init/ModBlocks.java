@@ -697,6 +697,22 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_BLUE_ICE_BRICKS = register("chiseled_blue_ice_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.ICE));
 
+    @I18n(en_us = "Cracked Tuff Bricks", zh_cn = "裂纹凝灰岩砖", zh_tw = "裂紋凝灰岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_TUFF_BRICKS = register("cracked_tuff_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS));
+    @I18n(en_us = "Cracked Bricks", zh_cn = "裂纹红砖块", zh_tw = "裂紋紅磚塊")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_BRICKS = register("cracked_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_RED));
+    @I18n(en_us = "Chiseled Bricks", zh_cn = "雕纹红砖块", zh_tw = "浮雕紅磚塊")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_BRICKS = register("chiseled_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_RED));
+
     @AllBrick
     @I18n(en_us = "Mossy Granite Bricks", zh_cn = "苔花岗岩砖", zh_tw = "青苔花崗岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
