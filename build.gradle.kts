@@ -96,7 +96,7 @@ subprojects {
         dependsOn(copyJar.get())
     }
 
-    val datagenDir = rootProject.file("src/${project.name}/generated")
+    val datagenDir = rootProject.file("src/a_generated/${project.name}")
     datagenDir.mkdirs()
     val resourceDir = rootProject.file("src/${project.name}/resources")
     val javaDir = rootProject.file("src/${project.name}/java")
