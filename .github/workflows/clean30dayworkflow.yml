@@ -9,7 +9,7 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
-    permission:
+    permissions:
       actions: write
       contents: read
     steps:
