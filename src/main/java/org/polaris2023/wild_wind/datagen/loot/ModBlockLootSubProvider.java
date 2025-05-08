@@ -109,6 +109,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.POLISHED_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_STONE_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
         this.dropSelf(ModBlocks.POLISHED_GRANITE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_DIORITE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_ANDESITE_WALL.get());
 
         ModBlockFamilies.AZALEA.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
         ModBlockFamilies.PALM.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
@@ -147,6 +149,9 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.BLUE_ICE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.BLUE_ICE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.BLUE_ICE_BRICK_WALL.get());
         this.dropSelf(ModBlocks.CHISELED_BLUE_ICE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_TUFF_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_BRICKS.get());
         this.dropSelf(ModBlocks.MOSSY_GRANITE_BRICKS.get());
         this.dropSelf(ModBlocks.MOSSY_GRANITE_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_GRANITE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_GRANITE_BRICK_SLAB.get()));
