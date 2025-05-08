@@ -1,0 +1,7 @@
+[versions]
+mod-dev-gradle-version="2.0.86"
+[plugins]
+mod-dev-gradle={id="net.neoforged.moddev", version.ref="mod-dev-gradle-version"}
+[libraries]
+
+[bundles]

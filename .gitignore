@@ -1,6 +1,5 @@
 # eclipse
 bin
-src/generated/resources/.cache
 *.launch
 .settings
 .metadata
@@ -10,6 +9,8 @@ src/generated/resources/.cache
 src/main/info
 
 build.done
+
+.idea/
 
 # idea
 out
@@ -33,4 +34,4 @@ repo
 /.xcodemap/
 /design/
 
-src/generated/
+**/src/generated/
