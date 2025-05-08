@@ -9,7 +9,14 @@ pluginManagement {
 plugins {
     id("org.gradle.toolchains.foojay-resolver-convention").version("0.9.0")
 }
-val projectNames = listOf("Construction", "Material")
+val projectNames = listOf(
+    "Construction",
+    "Material",
+    "Adventure",
+    "Agricultural",
+    "Vanilla Plus Plus",
+    "All In All"
+    )
 projectNames.forEach {
     include(it)
     project(":$it").projectDir = file("modules/$it")

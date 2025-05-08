@@ -170,6 +170,19 @@ subprojects {
         if (!project.name.equals("Material")) {
             implementation(project(":Material"))
         }
+        if (project.name.equals("All In All")) {
+            val projectNames = listOf(
+                "Construction",
+                "Material",
+                "Adventure",
+                "Agricultural",
+                "Vanilla Plus Plus"
+            )
+            projectNames.forEach {
+                implementation(project(":$it"))
+                jarJar(project(":$it"))
+            }
+        }
     }
 
     tasks.jar {
