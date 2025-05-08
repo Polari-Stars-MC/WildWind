@@ -254,7 +254,10 @@ subprojects {
 
 val dataAll by tasks.registering {
     subprojects.forEach {
-        dependsOn(it.tasks.getByName("runData"))
+        if (!project.name.equals("All In All")) {
+            dependsOn(it.tasks.getByName("runData"))
+        }
+
     }
 }
 
