@@ -54,10 +54,11 @@ subprojects {
         targetFile.appendText(sourceFile.readText(Charsets.UTF_8), Charsets.UTF_8)
     }
 
-    fun processFolder(sourceFolder: File, outputFolder: File, b: Boolean = false) {
+    fun processFolder(sourceFolder: File, outputFolder: File) {
         if(sourceFolder.exists().not().or(sourceFolder.isDirectory.not())) {
             return
         }
+
         sourceFolder.walk().filter { it.isFile }.forEach {
             val relativePath = sourceFolder.toPath().relativize(it.toPath())
             val targetFile = outputFolder.toPath().resolve(relativePath).toFile()
@@ -65,11 +66,7 @@ subprojects {
             targetFile.parentFile.mkdirs()
 
             if (targetFile.exists()) {
-                if(b) {
-                    appendFileContent(it, targetFile)
-                } else {
-                    it.copyTo(targetFile, overwrite = true)
-                }
+                appendFileContent(it, targetFile)
             } else {
                 it.copyTo(targetFile)
             }
@@ -78,10 +75,10 @@ subprojects {
 
     fun mergePath(rootFile: File, projectFile: File): File {
         val tFile =file("build/neo")
+        tFile.deleteRecursively()
         tFile.mkdirs()
-
         processFolder(rootFile, tFile)
-        processFolder(projectFile, tFile, true)
+        processFolder(projectFile, tFile)
         return tFile
     }
 
