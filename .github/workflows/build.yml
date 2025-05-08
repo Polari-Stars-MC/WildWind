@@ -46,7 +46,7 @@ jobs:
             build/libs/
             !build/libs/?all_in_all.jar
       - name: Upload All In All
-        uses: actions/upload-artiface@v4
+        uses: actions/upload-artifact@v4
         with:
           name: All In All
           path: build/libs/?all_in_all.jar
