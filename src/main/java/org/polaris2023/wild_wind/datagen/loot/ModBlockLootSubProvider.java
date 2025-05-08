@@ -109,6 +109,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.POLISHED_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_STONE_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_STONE_STAIRS.get());
         this.dropSelf(ModBlocks.POLISHED_GRANITE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_DIORITE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_ANDESITE_WALL.get());
 
         ModBlockFamilies.AZALEA.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
         ModBlockFamilies.PALM.generateBlockLoot(this::dropSelf, slab -> this.add(slab, this.createSlabItemTable(slab)));
