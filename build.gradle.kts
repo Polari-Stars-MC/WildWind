@@ -86,10 +86,10 @@ subprojects {
         archivesName = modid
     }
     description = modName
-    version = modVersion
+    version = "1.21.1-$modVersion"
     group = modGroupId
     val copyJar = tasks.register<Copy>("copyToRootLibs") {
-        into(rootProject.tasks.jar.get().outputs.files)
+        into("${rootProject.file("build")}/libs")
         from(tasks.jar.get().outputs.files)
     }
     tasks.build {
