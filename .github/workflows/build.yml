@@ -38,9 +38,15 @@ jobs:
         run: ./gradlew dataAll
       - name: Build All
         run: ./gradlew buildAll
-      - name: Upload Material
+      - name: Upload All Include All In All
         uses: actions/upload-artifact@v4
         with:
           name: wild-wind-artiface
-          path: build/libs/
-          compression-level: 0
+          path: |
+            build/libs/
+            !build/libs/?all_in_all.jar
+      - name: Upload All In All
+        uses: actions/upload-artiface@v4
+        with:
+          name: All In All
+          path: build/libs/?all_in_all.jar
