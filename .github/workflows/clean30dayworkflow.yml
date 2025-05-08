@@ -28,9 +28,9 @@ jobs:
               workflow_id: workflow.id,
               per_page: 100
             });
-            // 计算 10 天前的日期
+            // 计算 30 天前的日期
             const cutoffDate = new Date();
-            cutoffDate.setDate(cutoffDate.getDate() - 10);
+            cutoffDate.setDate(cutoffDate.getDate() - 30);
             
             // 遍历删除
             for(const run of runs.workflow_runs) {
