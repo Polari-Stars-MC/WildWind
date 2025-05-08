@@ -1,0 +1,19 @@
+# make by baka4n
+
+name: Cleanuo Old Workflow Runs
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs for current repo
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          retain_days: 30
+          keep_minimum_runs: 6
+          workflow_name: 'build'
