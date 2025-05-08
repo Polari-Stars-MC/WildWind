@@ -9,11 +9,14 @@ on:
 jobs:
   cleanup:
     runs-on: ubuntu-latest
+    permission:
+      actions: write
+      contents: read
     steps:
       - name: Delete workflow runs for current repo
         uses: Mattraks/delete-workflow-runs@v2
         with:
-          token: ${{ secrets.TOKEN_GH }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           retain_days: 30
           keep_minimum_runs: 6
           workflow_name: 'build'
