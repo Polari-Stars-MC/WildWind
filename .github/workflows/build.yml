@@ -21,7 +21,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle
       - name: Checkout repository
-        uses: action/chechout@v4
+        uses: actions/chechout@v4
         with:
           fetch-depth: 0
           fetch-tags: true
