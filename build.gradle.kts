@@ -252,6 +252,12 @@ subprojects {
     }
 }
 
+val dataAll by tasks.registering {
+    subprojects.forEach {
+        dependsOn(it.tasks.getByName("runData"))
+    }
+}
+
 val buildAll by tasks.registering {
     subprojects.forEach {
         dependsOn(it.tasks.build)
