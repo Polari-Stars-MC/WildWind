@@ -45,7 +45,7 @@ val lib = libs
 
 subprojects {
     apply(plugin = lib.plugins.mod.dev.gradle.get().pluginId)
-    val modid = "${rootProject.name}_${project.name.lowercase()}"
+    val modid = "${rootProject.name.lowercase().replace(" ", "_")}_${project.name.lowercase().replace(" ", "_")}"
     val modName = "$modRootName: ${project.name}"
     val modVersion: String by project
 
@@ -87,6 +87,7 @@ subprojects {
     }
     description = modName
     version = modVersion
+    group = modGroupId
     val copyJar = tasks.register<Copy>("copyToRootLibs") {
         into(rootProject.tasks.jar.get().outputs.files)
         from(tasks.jar.get().outputs.files)
@@ -99,15 +100,26 @@ subprojects {
     datagenDir.mkdirs()
     val resourceDir = rootProject.file("src/${project.name}/resources")
     val javaDir = rootProject.file("src/${project.name}/java")
-    javaDir.mkdirs()
+    val groupDir = javaDir
+        .resolve(group.toString().replace(".", "/"))
+        .resolve(rootProject.name.lowercase().replace(" ", ""))
+        .resolve(project.name.lowercase().replace(" ", ""))
+    groupDir.mkdirs()
+
     resourceDir.mkdirs()
     val rootTemplate = rootProject.file("src/templates")
     rootTemplate.mkdirs()
     val projectTemplate = rootProject.file("src/${project.name}/templates")
     projectTemplate.mkdirs()
+    val libsDir = rootProject.file("libs/${project.name}")
+    libsDir.mkdirs()
+    val jarJarDir = libsDir.resolve("jarJar")
+    jarJarDir.mkdirs()
 
-    val rootAt = rootTemplate.resolve("META-INF/accesstransformer.cfg")
-    val projectAt = projectTemplate.resolve("META-INF/accesstransformer.cfg")
+    tasks.jarJar {
+        enabled = true
+    }
+
     val tFile = mergePath(rootTemplate, projectTemplate)
     val at = tFile.resolve("META-INF/accesstransformer.cfg")
     file("build/generated/sources/modMetadata").deleteRecursively()
@@ -135,15 +147,37 @@ subprojects {
         into("build/generated/sources/modMetadata")
     }
 
-//    if (at.readBytes().isNotEmpty()) {
-//        neoForge.setAccessTransformers(at)
-//    }
-//    tasks.jar {
-//        exclude(".cache")
-//        if (at.readBytes().isEmpty()) {
-//            exclude("META-INF/accesstransformer.cfg")
-//        }
-//    }
+    if (at.readBytes().isNotEmpty()) {
+        neoForge.setAccessTransformers(at)
+    }
+    repositories {
+        flatDir {
+            dir(libsDir.absolutePath)
+        }
+    }
+
+    dependencies {
+        if (libsDir.listFiles()!!.isNotEmpty()) {
+            implementation(fileTree(baseDir = libsDir.absolutePath) {
+                include("*.jar")
+            })
+        }
+        if (jarJarDir.listFiles()!!.isNotEmpty()) {
+            jarJar(fileTree(baseDir = jarJarDir.absolutePath) {
+                include("*.jar")
+            })
+        }
+        if (!project.name.equals("Material")) {
+            implementation(project(":Material"))
+        }
+    }
+
+    tasks.jar {
+        exclude(".cache")
+        if (at.readBytes().isEmpty()) {
+            exclude("META-INF/accesstransformer.cfg")
+        }
+    }
     neoForge.ideSyncTask(generateModMetadata)
     sourceSets.main {
         java {
@@ -202,5 +236,11 @@ subprojects {
                 sourceSet(sourceSets.main.get())
             }
         }
+    }
+}
+
+val buildAll by tasks.registering {
+    subprojects.forEach {
+        dependsOn(it.tasks.build)
     }
 }
