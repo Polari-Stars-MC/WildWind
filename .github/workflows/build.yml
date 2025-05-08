@@ -42,4 +42,4 @@ jobs:
           - uses: actions/upload-artiface@v4
           with:
             name: wild-wind-artiface
-            path: build/libs
+            path: build/libs/
