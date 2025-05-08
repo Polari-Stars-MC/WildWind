@@ -38,3 +38,8 @@ jobs:
         run: ./gradlew dataAll
       - name: Build All
         run: ./gradlew buildAll
+      - name: Upload Material
+          - uses: actions/upload-artiface@v4
+          with:
+            name: wild-wind-artiface
+            path: build/libs
