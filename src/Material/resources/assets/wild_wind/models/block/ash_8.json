@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "particle": "wild_wind:block/ash_block",
+    "all": "wild_wind:block/ash_block"
+  }
+}
