@@ -48,11 +48,30 @@ subprojects {
     val modid = "${rootProject.name.lowercase().replace(" ", "_")}_${project.name.lowercase().replace(" ", "_")}"
     val modName = "$modRootName: ${project.name}"
     val modVersion: String by project
-
+    base {
+        archivesName = modid
+    }
+    description = modName
+    version = "1.21.1-$modVersion"
+    group = modGroupId
     fun appendFileContent(sourceFile: File, targetFile: File) {
         targetFile.appendText("\n\n")
         targetFile.appendText(sourceFile.readText(Charsets.UTF_8), Charsets.UTF_8)
     }
+
+    val replaceProperties = mapOf(
+        "minecraft_version" to mcVersion,
+        "minecraft_version_range" to mcVersionRange,
+        "neo_version" to neoVersion,
+        "neo_version_range" to neoVersionRange,
+        "loader_version_range" to loaderVersionRange,
+        "mod_id" to base.archivesName.get(),
+        "mod_name" to project.description,
+        "mod_license" to modLicense,
+        "mod_version" to project.version.toString(),
+        "mod_authors" to modAuthors,
+        "mod_description" to base.archivesName.get()
+    )
 
     fun processFolder(sourceFolder: File, outputFolder: File) {
         if(sourceFolder.exists().not().or(sourceFolder.isDirectory.not())) {
@@ -60,7 +79,12 @@ subprojects {
         }
 
         sourceFolder.walk().filter { it.isFile }.forEach {
-            val relativePath = sourceFolder.toPath().relativize(it.toPath())
+            var t = it.absolutePath
+            replaceProperties.forEach { k, v ->
+                t = t.replace("\${$k}", v!!)
+            }
+            val relativePath = sourceFolder.toPath().relativize(File(t).toPath())
+
             val targetFile = outputFolder.toPath().resolve(relativePath).toFile()
 
             targetFile.parentFile.mkdirs()
@@ -73,6 +97,8 @@ subprojects {
         }
     }
 
+
+
     fun mergePath(rootFile: File, projectFile: File): File {
         val tFile =file("build/neo")
         tFile.deleteRecursively()
@@ -82,12 +108,7 @@ subprojects {
         return tFile
     }
 
-    base {
-        archivesName = modid
-    }
-    description = modName
-    version = "1.21.1-$modVersion"
-    group = modGroupId
+
     val copyJar = tasks.register<Copy>("copyToRootLibs") {
         into("${rootProject.file("build")}/libs")
         from(tasks.jar.get().outputs.files)
@@ -95,6 +116,7 @@ subprojects {
     tasks.build {
         dependsOn(copyJar.get())
     }
+
 
     val datagenDir = rootProject.file("src/a_generated/${project.name}")
     datagenDir.mkdirs()
@@ -123,24 +145,31 @@ subprojects {
     val tFile = mergePath(rootTemplate, projectTemplate)
     val at = tFile.resolve("META-INF/accesstransformer.cfg")
     file("build/generated/sources/modMetadata").deleteRecursively()
+    val templateJavaCode = rootProject.file("src/templates/basejava")
+    val targetJavaCode = file("build/java/javaModMetadata")
+    val genetatedTemplateJava by tasks.registering {
+        targetJavaCode.deleteRecursively()
+        targetJavaCode.mkdirs()
+        if (templateJavaCode.exists().and(templateJavaCode.isDirectory)) {
+            templateJavaCode.walk().filter { it.isFile }.forEach {
+                var t = it.absolutePath
+                replaceProperties.forEach { k, v ->
+                    t = t.replace("\${$k}", v!!)
+                }
+                val relativePath = templateJavaCode.toPath().relativize(File(t).toPath())
+                val outputPath = targetJavaCode.toPath().resolve(relativePath).toFile()
+                outputPath.parentFile.mkdirs()
+                var s = it.readText(Charsets.UTF_8)
+                replaceProperties.forEach { k, v ->
+                    s = s.replace("\${$k}", v!!)
+                }
+                outputPath.writeText(s)
+            }
+        }
+    }
+    neoForge.ideSyncTask(genetatedTemplateJava)
     val generateModMetadata = tasks.register<ProcessResources>("generateMetadata") {
-        val replaceProperties = mapOf(
-            "minecraft_version" to mcVersion,
-            "minecraft_version_range" to mcVersionRange,
-            "neo_version" to neoVersion,
-            "neo_version_range" to neoVersionRange,
-            "loader_version_range" to loaderVersionRange,
-            "mod_id" to base.archivesName.get(),
-            "mod_name" to project.description,
-            "mod_license" to modLicense,
-            "mod_version" to project.version.toString(),
-            "mod_authors" to modAuthors,
-            "mod_description" to base.archivesName.get(),
-            "accessTransformers" to if(at.readBytes().isEmpty()) "" else """
-                [[accessTransformers]]
-                file="META-INF/accesstransformer.cfg"
-            """.trimIndent()
-        )
+
         inputs.properties(replaceProperties)
         expand(replaceProperties)
         from(tFile)
@@ -195,6 +224,7 @@ subprojects {
     sourceSets.main {
         java {
             srcDir(javaDir)
+            srcDir(targetJavaCode.absolutePath)
         }
         resources {
             srcDir(resourceDir)

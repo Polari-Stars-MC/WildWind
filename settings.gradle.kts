@@ -21,4 +21,4 @@ projectNames.forEach {
     include(it)
     project(":$it").projectDir = file("modules/$it")
 }
-rootProject.name = "Wild Wind"
+rootProject.name = "ww"
