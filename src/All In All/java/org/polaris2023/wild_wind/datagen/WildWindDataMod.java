@@ -11,6 +11,8 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 import org.polaris2023.wild_wind.utils.Helper;
 
+import java.util.Optional;
+
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD, modid = Helper.MOD_ID)
 public class WildWindDataMod {
     @SubscribeEvent

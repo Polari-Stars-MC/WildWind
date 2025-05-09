@@ -138,7 +138,6 @@ subprojects {
 
     val existsGeneratedTemplateJava = tasks.register<Copy>("existsGeneratedTemplateJava") {
         val templateExistsJavaCode = rootProject.file("src/templates/basecheckjava")
-        val templateExistsJavaCodePre = file("src/templates/basecheckjava-pre")
         if (templateExistsJavaCode.exists().and(templateJavaCode.isDirectory)) {
             templateExistsJavaCode.walk().filter { it.isFile }.forEach {
                 var t = it.absolutePath
@@ -146,7 +145,7 @@ subprojects {
                     t = t.replace("\${$k}", v)
                 }
                 val relativePath = templateExistsJavaCode.toPath().relativize(File(t).toPath())
-                val outputPath = templateExistsJavaCodePre.toPath().resolve(relativePath).toFile()
+                val outputPath = javaDir.toPath().resolve(relativePath).toFile()
                 if (outputPath.exists().not()) {
                     outputPath.parentFile.mkdirs()
                     var s = it.readText(Charsets.UTF_8)
@@ -157,7 +156,6 @@ subprojects {
                 }
             }
         }
-        from(templateExistsJavaCodePre)
         into(javaDir)
     }
     val genetatedTemplateJava = tasks.register<Copy>("genetatedTemplateJava") {
