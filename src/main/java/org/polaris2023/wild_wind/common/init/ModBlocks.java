@@ -859,6 +859,23 @@ public class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)
     );
 
+    @Cross(item = false)
+    @I18n(en_us = "Short Sculk Grass", zh_cn = "幽匿矮草丛", zh_tw = "幽匿矮草叢")
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> SHORT_SCULK_GRASS = register(
+            "short_sculk_grass",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @I18n(en_us = "Tall Sculk Grass", zh_cn = "幽匿高草丛", zh_tw = "幽匿高草叢")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> TALL_SCULK_GRASS = register(
+            "tall_sculk_grass",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
     @Cross
     @I18n(en_us = "Sculk Vines", zh_cn = "幽匿藤蔓", zh_tw = "伏聆藤蔓")
     @BasicBlockItem
@@ -886,10 +903,46 @@ public class ModBlocks {
     );
 
     @Cross(item = false)
+    @I18n(en_us = "Short Beach Grass", zh_cn = "矮沙滩草", zh_tw = "矮沙灘草")
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> SHORT_BEACH_GRASS = register(
+            "short_beach_grass",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Thorn", zh_cn = "荆棘丛", zh_tw = "荊棘叢")
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> THORN = register(
+            "thorn",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Short Aquatic Grass", zh_cn = "矮水生草", zh_tw = "矮水生草")
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<SeagrassBlock> SHORT_AQUATIC_GRASS = register(
+            "short_aquatic_grass",
+            SeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
+    );
+
+    @I18n(en_us = "Pointed Icicle", zh_cn = "冰锥", zh_tw = "冰錐")
+    @VanillaTag(names = {"mineable/pickaxe"}, type = TagType.Block)
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<PointedDripstoneBlock> POINTED_ICICLE = register(
+            "pointed_icicle",
+            PointedDripstoneBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE).mapColor(MapColor.ICE)
+    );
+
+    @Cross(item = false)
     @I18n(en_us = "Rose", zh_cn = "玫瑰", zh_tw = "玫瑰")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<Block> ROSE = register(
+    public static final DeferredBlock<FlowerBlock> ROSE = register(
             "rose",
             properties -> new FlowerBlock(MobEffects.NIGHT_VISION,
                     5.0F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
