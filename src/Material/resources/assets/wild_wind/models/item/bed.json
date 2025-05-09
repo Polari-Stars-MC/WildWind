@@ -1,6 +1,0 @@
-{
-  "parent": "wild_wind:item/template_bed",
-  "textures": {
-    "bed": "wild_wind:block/bed"
-  }
-}

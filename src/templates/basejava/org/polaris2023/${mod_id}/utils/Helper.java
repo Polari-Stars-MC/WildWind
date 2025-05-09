@@ -3,7 +3,7 @@ package org.polaris2023.${mod_id}.utils;
 import java.lang.String;
 
 public class Helper {
-    public static final String MODID = "${mod_id}";
+    public static final String MOD_ID = "${mod_id}";
     public static final String MOD_NAME = "${mod_name}";
     public static final String MOD_VERSION = "${mod_version}";
     public static final String AUTHORS = "${mod_authors}";

@@ -1,4 +1,5 @@
 import org.slf4j.event.Level
+import java.util.Properties
 
 plugins {
     `java-library`
@@ -6,11 +7,10 @@ plugins {
     idea
     base
     alias(libs.plugins.mod.dev.gradle)
+    id("tasks-merge")
 }
-
 val mcVersion: String by rootProject
 val mcVersionRange: String by rootProject
-val modRootName: String by rootProject
 val modGroupId: String by rootProject
 val modAuthors: String by rootProject
 val modLicense: String by rootProject
@@ -45,19 +45,37 @@ val lib = libs
 
 subprojects {
     apply(plugin = lib.plugins.mod.dev.gradle.get().pluginId)
-    val modid = "${rootProject.name.lowercase().replace(" ", "_")}_${project.name.lowercase().replace(" ", "_")}"
-    val modName = "$modRootName: ${project.name}"
+
+    val props = Properties()
+    val propsRoot = Properties()
+    val pp = file("gradle.properties")
+    val ppRoot = rootProject.file("gradle.properties")
+    if (pp.exists()) {
+        pp.bufferedReader(Charsets.UTF_8).use {
+            props.load(it)
+        }
+    }
+    if (ppRoot.exists()) {
+        ppRoot.bufferedReader(Charsets.UTF_8).use {
+            propsRoot.load(it)
+        }
+    }
+
+
+
+
+    val modId: String by project
+    val modName: String by project
     val modVersion: String by project
+    val modClassPrefix: String by project
+
+
     base {
-        archivesName = modid
+        archivesName = modId
     }
     description = modName
-    version = "1.21.1-$modVersion"
+    version = "$mcVersion-$modVersion"
     group = modGroupId
-    fun appendFileContent(sourceFile: File, targetFile: File) {
-        targetFile.appendText("\n\n")
-        targetFile.appendText(sourceFile.readText(Charsets.UTF_8), Charsets.UTF_8)
-    }
 
     val replaceProperties = mapOf(
         "minecraft_version" to mcVersion,
@@ -66,47 +84,16 @@ subprojects {
         "neo_version_range" to neoVersionRange,
         "loader_version_range" to loaderVersionRange,
         "mod_id" to base.archivesName.get(),
-        "mod_name" to project.description,
+        "mod_name" to project.description!!,
         "mod_license" to modLicense,
         "mod_version" to project.version.toString(),
         "mod_authors" to modAuthors,
-        "mod_description" to base.archivesName.get()
+        "mod_description" to base.archivesName.get(),
+        "mod_class_prefix" to modClassPrefix,
     )
 
-    fun processFolder(sourceFolder: File, outputFolder: File) {
-        if(sourceFolder.exists().not().or(sourceFolder.isDirectory.not())) {
-            return
-        }
-
-        sourceFolder.walk().filter { it.isFile }.forEach {
-            var t = it.absolutePath
-            replaceProperties.forEach { k, v ->
-                t = t.replace("\${$k}", v!!)
-            }
-            val relativePath = sourceFolder.toPath().relativize(File(t).toPath())
-
-            val targetFile = outputFolder.toPath().resolve(relativePath).toFile()
-
-            targetFile.parentFile.mkdirs()
-
-            if (targetFile.exists()) {
-                appendFileContent(it, targetFile)
-            } else {
-                it.copyTo(targetFile)
-            }
-        }
-    }
 
 
-
-    fun mergePath(rootFile: File, projectFile: File): File {
-        val tFile =file("build/neo")
-        tFile.deleteRecursively()
-        tFile.mkdirs()
-        processFolder(rootFile, tFile)
-        processFolder(projectFile, tFile)
-        return tFile
-    }
 
 
     val copyJar = tasks.register<Copy>("copyToRootLibs") {
@@ -117,15 +104,14 @@ subprojects {
         dependsOn(copyJar.get())
     }
 
-
+    // val a: KFunction1<File, Any> = rootProject::file
     val datagenDir = rootProject.file("src/a_generated/${project.name}")
     datagenDir.mkdirs()
     val resourceDir = rootProject.file("src/${project.name}/resources")
     val javaDir = rootProject.file("src/${project.name}/java")
     val groupDir = javaDir
         .resolve(group.toString().replace(".", "/"))
-        .resolve(rootProject.name.lowercase().replace(" ", ""))
-        .resolve(project.name.lowercase().replace(" ", ""))
+        .resolve(base.archivesName.get())
     groupDir.mkdirs()
 
     resourceDir.mkdirs()
@@ -142,38 +128,81 @@ subprojects {
         enabled = true
     }
 
-    val tFile = mergePath(rootTemplate, projectTemplate)
-    val at = tFile.resolve("META-INF/accesstransformer.cfg")
+
+    val templateResourceMergeDir = replaceProperties
+        .mergePath(file("build/ww"),rootTemplate, projectTemplate)
+
+    val at = templateResourceMergeDir.resolve("META-INF/accesstransformer.cfg")
     file("build/generated/sources/modMetadata").deleteRecursively()
     val templateJavaCode = rootProject.file("src/templates/basejava")
-    val targetJavaCode = file("build/java/javaModMetadata")
-    val genetatedTemplateJava by tasks.registering {
+
+    val existsGeneratedTemplateJava = tasks.register<Copy>("existsGeneratedTemplateJava") {
+        val templateExistsJavaCode = rootProject.file("src/templates/basecheckjava")
+        val templateExistsJavaCodePre = file("src/templates/basecheckjava-pre")
+        if (templateExistsJavaCode.exists().and(templateJavaCode.isDirectory)) {
+            templateExistsJavaCode.walk().filter { it.isFile }.forEach {
+                var t = it.absolutePath
+                replaceProperties.forEach { (k, v) ->
+                    t = t.replace("\${$k}", v)
+                }
+                val relativePath = templateExistsJavaCode.toPath().relativize(File(t).toPath())
+                val outputPath = templateExistsJavaCodePre.toPath().resolve(relativePath).toFile()
+                if (outputPath.exists().not()) {
+                    outputPath.parentFile.mkdirs()
+                    var s = it.readText(Charsets.UTF_8)
+                    replaceProperties.forEach { k, v ->
+                        s = s.replace("\${$k}", v)
+                    }
+                    outputPath.writeText(s)
+                }
+            }
+        }
+        from(templateExistsJavaCodePre)
+        into(javaDir)
+    }
+    val genetatedTemplateJava = tasks.register<Copy>("genetatedTemplateJava") {
+
+        val targetJavaCode = project.file("build/java-pre/javaModMetadata")
         targetJavaCode.deleteRecursively()
         targetJavaCode.mkdirs()
         if (templateJavaCode.exists().and(templateJavaCode.isDirectory)) {
             templateJavaCode.walk().filter { it.isFile }.forEach {
                 var t = it.absolutePath
                 replaceProperties.forEach { k, v ->
-                    t = t.replace("\${$k}", v!!)
+                    t = t.replace("\${$k}", v)
                 }
                 val relativePath = templateJavaCode.toPath().relativize(File(t).toPath())
                 val outputPath = targetJavaCode.toPath().resolve(relativePath).toFile()
                 outputPath.parentFile.mkdirs()
                 var s = it.readText(Charsets.UTF_8)
                 replaceProperties.forEach { k, v ->
-                    s = s.replace("\${$k}", v!!)
+                    s = s.replace("\${$k}", v)
                 }
                 outputPath.writeText(s)
             }
         }
+        from(targetJavaCode.absolutePath)
+        into("build/java/javaModMetadata")
     }
-    neoForge.ideSyncTask(genetatedTemplateJava)
+
     val generateModMetadata = tasks.register<ProcessResources>("generateMetadata") {
 
         inputs.properties(replaceProperties)
         expand(replaceProperties)
-        from(tFile)
+        from(templateResourceMergeDir)
         into("build/generated/sources/modMetadata")
+    }
+
+    sourceSets.main {
+        java {
+            srcDir(javaDir)
+            srcDir(genetatedTemplateJava)
+        }
+        resources {
+            srcDir(resourceDir)
+            srcDir(datagenDir)
+            srcDir(generateModMetadata)
+        }
     }
 
     if (at.readBytes().isNotEmpty()) {
@@ -196,13 +225,12 @@ subprojects {
                 include("*.jar")
             })
         }
-        if (!project.name.equals("Material")) {
-            implementation(project(":Material"))
+        if (!project.name.equals("Agricultural")) {
+            implementation(project(":Agricultural"))
         }
         if (project.name.equals("All In All")) {
             val projectNames = listOf(
-                "Construction",
-                "Material",
+                "Deco",
                 "Adventure",
                 "Agricultural",
                 "Vanilla Plus Plus"
@@ -220,18 +248,10 @@ subprojects {
             exclude("META-INF/accesstransformer.cfg")
         }
     }
+    neoForge.ideSyncTask(genetatedTemplateJava)
     neoForge.ideSyncTask(generateModMetadata)
-    sourceSets.main {
-        java {
-            srcDir(javaDir)
-            srcDir(targetJavaCode.absolutePath)
-        }
-        resources {
-            srcDir(resourceDir)
-            srcDir(datagenDir)
-            srcDir(generateModMetadata)
-        }
-    }
+    neoForge.ideSyncTask(existsGeneratedTemplateJava)
+
 
     neoForge {
         version = neoVersion
@@ -282,17 +302,3 @@ subprojects {
     }
 }
 
-val dataAll by tasks.registering {
-    subprojects.forEach {
-        if (!project.name.equals("All In All")) {
-            dependsOn(it.tasks.getByName("runData"))
-        }
-
-    }
-}
-
-val buildAll by tasks.registering {
-    subprojects.forEach {
-        dependsOn(it.tasks.build)
-    }
-}

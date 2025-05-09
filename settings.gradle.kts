@@ -10,8 +10,7 @@ plugins {
     id("org.gradle.toolchains.foojay-resolver-convention").version("0.9.0")
 }
 val projectNames = listOf(
-    "Construction",
-    "Material",
+    "Deco",
     "Adventure",
     "Agricultural",
     "Vanilla Plus Plus",
