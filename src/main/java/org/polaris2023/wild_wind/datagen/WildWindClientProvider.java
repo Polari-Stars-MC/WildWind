@@ -152,18 +152,20 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
-        VariantBlockStateBuilder tallSculkGrassStates = stateProvider.getVariantBuilder(ModBlocks.TALL_SCULK_GRASS.get());
-        tallSculkGrassStates.forAllStates(state -> {
-            if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
-                return ConfiguredModel.builder()
-                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/tall_sculk_grass_top")))
-                        .build();
-            } else {
-                return ConfiguredModel.builder()
-                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/tall_sculk_grass_bottom")))
-                        .build();
-            }
-        });
+        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_SCULK_GRASS.get()),
+                "tall_sculk_grass");
+
+        // tall_beach_grass
+        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_BEACH_GRASS.get()),
+                "tall_beach_grass");
+
+        // tall_dead_bush
+        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_DEAD_BUSH.get()),
+                "tall_dead_bush");
+
+        // large_thorn
+        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.LARGE_THORN.get()),
+                "large_thorn");
 
         //glistering_melon
 
@@ -181,6 +183,20 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 //        }
 
     } // 手写模型生成塞这块
+
+    private void doublePlantBlockStates(VariantBlockStateBuilder stateBuilder, String blockName) {
+        stateBuilder.forAllStates(state -> {
+            if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+                return ConfiguredModel.builder()
+                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/" + blockName + "_top")))
+                        .build();
+            } else {
+                return ConfiguredModel.builder()
+                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/" + blockName + "_bottom")))
+                        .build();
+            }
+        });
+    }
 
     public void block() {
         //glistering_melon
@@ -204,9 +220,22 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
+        doublePlantBlockModels("tall_sculk_grass");
+
+        // tall_beach_grass
+        doublePlantBlockModels("tall_beach_grass");
+
+        // tall_dead_bush
+        doublePlantBlockModels("tall_dead_bush");
+
+        // large_thorn
+        doublePlantBlockModels("large_thorn");
+    }
+
+    private void doublePlantBlockModels(String blockName) {
         String[] halves = {"bottom", "top"};
         for (String half : halves) {
-            String modelName = "tall_sculk_grass_" + half;
+            String modelName = blockName + "_" + half;
             blockModelProvider.cross(modelName, Helpers.location("block/" + modelName)).renderType("cutout");
         }
     }

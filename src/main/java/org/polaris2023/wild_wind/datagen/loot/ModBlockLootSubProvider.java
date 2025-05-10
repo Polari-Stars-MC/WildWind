@@ -189,9 +189,12 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
         this.dropSelf(ModBlocks.ROSE.get());
         this.dropSelf(ModBlocks.SHORT_BEACH_GRASS.get());
+        this.dropSelf(ModBlocks.TALL_BEACH_GRASS.get());
+        this.dropSelf(ModBlocks.TALL_DEAD_BUSH.get());
         this.dropSelf(ModBlocks.SHORT_SCULK_GRASS.get());
         this.dropSelf(ModBlocks.TALL_SCULK_GRASS.get());
         this.dropSelf(ModBlocks.THORN.get());
+        this.dropSelf(ModBlocks.LARGE_THORN.get());
         this.dropSelf(ModBlocks.SHORT_AQUATIC_GRASS.get());
         this.dropSelf(ModBlocks.POINTED_ICICLE.get());
     }
