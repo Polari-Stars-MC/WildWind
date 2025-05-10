@@ -77,7 +77,7 @@ subprojects {
     version = "$mcVersion-$modVersion"
     group = modGroupId
 
-    val replaceProperties = mapOf(
+    val replaceProperties: Map<String, String> = mapOf(
         "minecraft_version" to mcVersion,
         "minecraft_version_range" to mcVersionRange,
         "neo_version" to neoVersion,
@@ -132,30 +132,22 @@ subprojects {
     val templateResourceMergeDir = replaceProperties
         .mergePath(file("build/ww"),rootTemplate, projectTemplate)
 
+
     val at = templateResourceMergeDir.resolve("META-INF/accesstransformer.cfg")
     file("build/generated/sources/modMetadata").deleteRecursively()
     val templateJavaCode = rootProject.file("src/templates/basejava")
 
+    val templateExistsJavaCode = rootProject.file("src/templates/basecheckjava")
+    val templateExistsJavaCodePre = file("build/templates/basecheckjava")
+    val templateExistsJavaCodePrePre = file("build/templates/basecheckjava-pre")
+    println(templateExistsJavaCodePrePre)
+    replaceProperties.processFolder(templateExistsJavaCode, templateExistsJavaCodePre, false)
+    templateExistsJavaCodePre.discrepancy(templateExistsJavaCodePrePre)
+
     val existsGeneratedTemplateJava = tasks.register<Copy>("existsGeneratedTemplateJava") {
-        val templateExistsJavaCode = rootProject.file("src/templates/basecheckjava")
-        if (templateExistsJavaCode.exists().and(templateJavaCode.isDirectory)) {
-            templateExistsJavaCode.walk().filter { it.isFile }.forEach {
-                var t = it.absolutePath
-                replaceProperties.forEach { (k, v) ->
-                    t = t.replace("\${$k}", v)
-                }
-                val relativePath = templateExistsJavaCode.toPath().relativize(File(t).toPath())
-                val outputPath = javaDir.toPath().resolve(relativePath).toFile()
-                if (outputPath.exists().not()) {
-                    outputPath.parentFile.mkdirs()
-                    var s = it.readText(Charsets.UTF_8)
-                    replaceProperties.forEach { k, v ->
-                        s = s.replace("\${$k}", v)
-                    }
-                    outputPath.writeText(s)
-                }
-            }
-        }
+        from(templateExistsJavaCodePre)
+        inputs.properties(replaceProperties)
+        expand(replaceProperties)
         into(javaDir)
     }
     val genetatedTemplateJava = tasks.register<Copy>("genetatedTemplateJava") {

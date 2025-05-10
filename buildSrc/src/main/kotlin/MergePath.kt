@@ -5,7 +5,25 @@ fun File.appendFileContent(targetFile: File) {
     targetFile.appendText(this.readText(Charsets.UTF_8), Charsets.UTF_8)
 }
 
-fun Map<String, String>.processFolder(sourceFolder: File, outputFolder: File) {
+fun File.discrepancy(targetFile: File) {
+    if(this.exists().not().or(this.isDirectory.not())) {
+        return
+    }
+    targetFile.mkdirs()
+    this.walk().filter { it.isFile }.forEach {
+        val relativePath =this.toPath().relativize(it.toPath())
+        val path = targetFile.toPath().resolve(relativePath).toFile()
+
+        if (path.exists()) {
+            it.deleteRecursively()
+        } else {
+            path.parentFile.mkdirs()
+            it.copyTo(path)
+        }
+    }
+}
+
+fun Map<String, String>.processFolder(sourceFolder: File, outputFolder: File, isAppend: Boolean = true) {
     if(sourceFolder.exists().not().or(sourceFolder.isDirectory.not())) {
         return
     }
@@ -20,11 +38,10 @@ fun Map<String, String>.processFolder(sourceFolder: File, outputFolder: File) {
         val targetFile = outputFolder.toPath().resolve(relativePath).toFile()
 
         targetFile.parentFile.mkdirs()
-
-        if (targetFile.exists()) {
-            it.appendFileContent(targetFile)
-        } else {
+        if(targetFile.exists().not()) {
             it.copyTo(targetFile)
+        } else if(isAppend) {
+            it.appendFileContent(targetFile)
         }
     }
 }
