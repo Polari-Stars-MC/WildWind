@@ -4,16 +4,17 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
+import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.neoforged.neoforge.client.model.generators.*;
-
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.LanguageProvider;
 import org.polaris2023.wild_wind.common.block.AshLayerBlock;
 import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
-import org.polaris2023.wild_wind.common.block.PyroclastBlock;
 import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
+import org.polaris2023.wild_wind.common.block.PyroclastBlock;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
 import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
@@ -21,7 +22,8 @@ import org.polaris2023.wild_wind.util.interfaces.datagen.ILanguage;
 import org.polaris2023.wild_wind.util.interfaces.datagen.model.IBlockModel;
 import org.polaris2023.wild_wind.util.interfaces.datagen.model.IItemModel;
 
-import java.util.*;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -137,6 +139,37 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
                     .addModels(new ConfiguredModel(blockModelProvider.getBuilder("glazed_terracotta"), 0, yRotation, false));
         }
 
+        // pointed_icicle
+        VariantBlockStateBuilder pointedIcicleStates = stateProvider.getVariantBuilder(ModBlocks.POINTED_ICICLE.get());
+        for (DripstoneThickness thickness : DripstoneThickness.values()) {
+            for (Direction direction : List.of(Direction.DOWN, Direction.UP)) {
+                pointedIcicleStates.partialState()
+                        .with(BlockStateProperties.VERTICAL_DIRECTION, direction)
+                        .with(BlockStateProperties.DRIPSTONE_THICKNESS, thickness)
+                        .addModels(ConfiguredModel.builder().modelFile(
+                        blockModelProvider.getExistingFile(Helpers.location("block/pointed_icicle_" +
+                                direction.getName() + "_" + thickness.getSerializedName()))).build());
+            }
+        }
+
+        // tall_sculk_grass
+        doublePlantBlockStates(ModBlocks.TALL_SCULK_GRASS.get(), "tall_sculk_grass");
+
+        // tall_beach_grass
+        doublePlantBlockStates(ModBlocks.TALL_BEACH_GRASS.get(), "tall_beach_grass");
+
+        // tall_dead_bush
+        doublePlantBlockStates(ModBlocks.TALL_DEAD_BUSH.get(), "tall_dead_bush");
+
+        // large_thorn
+        doublePlantBlockStates(ModBlocks.LARGE_THORN.get(), "large_thorn");
+
+        // wither_rose_bush
+        doublePlantBlockStates(ModBlocks.WITHER_ROSE_BUSH.get(), "wither_rose_bush");
+
+        // tall_aquatic_grass
+        doublePlantBlockStates(ModBlocks.TALL_AQUATIC_GRASS.get(), "tall_aquatic_grass");
+
         //glistering_melon
 
 
@@ -154,6 +187,21 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
     } // 手写模型生成塞这块
 
+    private void doublePlantBlockStates(Block block, String blockName) {
+        VariantBlockStateBuilder stateBuilder = stateProvider.getVariantBuilder(block);
+        stateBuilder.forAllStates(state -> {
+            if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
+                return ConfiguredModel.builder()
+                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/" + blockName + "_top")))
+                        .build();
+            } else {
+                return ConfiguredModel.builder()
+                        .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/" + blockName + "_bottom")))
+                        .build();
+            }
+        });
+    }
+
     public void block() {
         //glistering_melon
         blockModelProvider.cubeBottomTop(
@@ -164,6 +212,42 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         );
         blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta"));
 
+        // pointed_icicle
+        String[] thicknesses = {"base", "frustum", "middle", "tip", "tip_merge"};
+        String[] directions = {"up", "down"};
+
+        for (String dir : directions) {
+            for (String thick : thicknesses) {
+                String modelName = "pointed_icicle_" + dir + "_" + thick;
+                blockModelProvider.cross(modelName, Helpers.location("block/" + modelName)).renderType("cutout");
+            }
+        }
+
+        // tall_sculk_grass
+        doublePlantBlockModels("tall_sculk_grass");
+
+        // tall_beach_grass
+        doublePlantBlockModels("tall_beach_grass");
+
+        // tall_dead_bush
+        doublePlantBlockModels("tall_dead_bush");
+
+        // large_thorn
+        doublePlantBlockModels("large_thorn");
+
+        // wither_rose_bush
+        doublePlantBlockModels("wither_rose_bush");
+
+        // tall_aquatic_grass
+        doublePlantBlockModels("tall_aquatic_grass");
+    }
+
+    private void doublePlantBlockModels(String blockName) {
+        String[] halves = {"bottom", "top"};
+        for (String half : halves) {
+            String modelName = blockName + "_" + half;
+            blockModelProvider.cross(modelName, Helpers.location("block/" + modelName)).renderType("cutout");
+        }
     }
 
     public void item() {

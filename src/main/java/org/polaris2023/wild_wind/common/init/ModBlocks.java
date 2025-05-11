@@ -911,9 +911,26 @@ public class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)
     );
 
+    @Cross(item = false)
+    @I18n(en_us = "Short Sculk Grass", zh_cn = "幽匿矮草丛", zh_tw = "幽匿矮草叢")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> SHORT_SCULK_GRASS = register(
+            "short_sculk_grass",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @I18n(en_us = "Tall Sculk Grass", zh_cn = "幽匿高草丛", zh_tw = "幽匿高草叢")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> TALL_SCULK_GRASS = register(
+            "tall_sculk_grass",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
     @Cross
     @I18n(en_us = "Sculk Vines", zh_cn = "幽匿藤蔓", zh_tw = "伏聆藤蔓")
-    @BasicBlockItem
+    @BasicBlockLocatedItem
     @RegistryBlockItem
     public static final DeferredBlock<SculkVinesBlock> SCULK_VINES = register(
             "sculk_vines",
@@ -937,11 +954,87 @@ public class ModBlocks {
                     0.35F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
     );
 
+    @I18n(en_us = "Wither Rose Bush", zh_cn = "凋零玫瑰丛", zh_tw = "凋零玫瑰叢")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> WITHER_ROSE_BUSH = register(
+            "wither_rose_bush",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Short Beach Grass", zh_cn = "矮沙滩草", zh_tw = "矮沙灘草")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> SHORT_BEACH_GRASS = register(
+            "short_beach_grass",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @I18n(en_us = "Tall Beach Grass", zh_cn = "高沙滩草", zh_tw = "高沙灘草")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> TALL_BEACH_GRASS = register(
+            "tall_beach_grass",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
+    @I18n(en_us = "Tall Dead Bush", zh_cn = "枯死的高灌木", zh_tw = "枯死的高灌木")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> TALL_DEAD_BUSH = register(
+            "tall_dead_bush",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Thorn", zh_cn = "荆棘丛", zh_tw = "荊棘叢")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallGrassBlock> THORN = register(
+            "thorn",
+            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+    );
+
+    @I18n(en_us = "Large Thorn", zh_cn = "大型荆棘丛", zh_tw = "大型荊棘叢")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> LARGE_THORN = register(
+            "large_thorn",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
+    @Cross(item = false)
+    @I18n(en_us = "Short Aquatic Grass", zh_cn = "矮水生草", zh_tw = "矮水生草")
+    @BasicBlockLocatedItem
+    @RegistryBlockItem
+    public static final DeferredBlock<SeagrassBlock> SHORT_AQUATIC_GRASS = register(
+            "short_aquatic_grass",
+            SeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
+    );
+
+    @I18n(en_us = "Tall Aquatic Grass", zh_cn = "高水生草", zh_tw = "高水生草")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallSeagrassBlock> TALL_AQUATIC_GRASS = register(
+            "tall_aquatic_grass",
+            TallSeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS)
+    );
+
+    @I18n(en_us = "Pointed Icicle", zh_cn = "冰锥", zh_tw = "冰錐")
+    @VanillaTag(names = {"mineable/pickaxe"}, type = TagType.Block)
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<PointedDripstoneBlock> POINTED_ICICLE = register(
+            "pointed_icicle",
+            PointedDripstoneBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+    );
+
     @Cross(item = false)
     @I18n(en_us = "Rose", zh_cn = "玫瑰", zh_tw = "玫瑰")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<Block> ROSE = register(
+    public static final DeferredBlock<FlowerBlock> ROSE = register(
             "rose",
             properties -> new FlowerBlock(MobEffects.NIGHT_VISION,
                     5.0F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
