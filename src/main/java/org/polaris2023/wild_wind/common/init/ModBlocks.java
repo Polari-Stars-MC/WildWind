@@ -902,6 +902,14 @@ public class ModBlocks {
                     0.35F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
     );
 
+    @I18n(en_us = "Wither Rose Bush", zh_cn = "凋零玫瑰丛", zh_tw = "凋零玫瑰叢")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<DoublePlantBlock> WITHER_ROSE_BUSH = register(
+            "wither_rose_bush",
+            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+    );
+
     @Cross(item = false)
     @I18n(en_us = "Short Beach Grass", zh_cn = "矮沙滩草", zh_tw = "矮沙灘草")
     @BasicBlockLocatedItem
@@ -951,6 +959,14 @@ public class ModBlocks {
     public static final DeferredBlock<SeagrassBlock> SHORT_AQUATIC_GRASS = register(
             "short_aquatic_grass",
             SeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
+    );
+
+    @I18n(en_us = "Tall Aquatic Grass", zh_cn = "高水生草", zh_tw = "高水生草")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<TallSeagrassBlock> TALL_AQUATIC_GRASS = register(
+            "tall_aquatic_grass",
+            TallSeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS)
     );
 
     @I18n(en_us = "Pointed Icicle", zh_cn = "冰锥", zh_tw = "冰錐")

@@ -188,6 +188,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.addNetherVinesDropTable(ModBlocks.SCULK_VINES.get(), ModBlocks.SCULK_VINES_PLANT.get());
         this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
         this.dropSelf(ModBlocks.ROSE.get());
+        this.dropSelf(ModBlocks.WITHER_ROSE_BUSH.get());
         this.dropSelf(ModBlocks.SHORT_BEACH_GRASS.get());
         this.dropSelf(ModBlocks.TALL_BEACH_GRASS.get());
         this.dropSelf(ModBlocks.TALL_DEAD_BUSH.get());
@@ -196,6 +197,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.THORN.get());
         this.dropSelf(ModBlocks.LARGE_THORN.get());
         this.dropSelf(ModBlocks.SHORT_AQUATIC_GRASS.get());
+        this.dropSelf(ModBlocks.TALL_AQUATIC_GRASS.get());
         this.dropSelf(ModBlocks.POINTED_ICICLE.get());
     }
 

@@ -4,6 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
 import net.minecraft.world.level.block.state.properties.DripstoneThickness;
@@ -152,20 +153,22 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
-        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_SCULK_GRASS.get()),
-                "tall_sculk_grass");
+        doublePlantBlockStates(ModBlocks.TALL_SCULK_GRASS.get(), "tall_sculk_grass");
 
         // tall_beach_grass
-        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_BEACH_GRASS.get()),
-                "tall_beach_grass");
+        doublePlantBlockStates(ModBlocks.TALL_BEACH_GRASS.get(), "tall_beach_grass");
 
         // tall_dead_bush
-        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.TALL_DEAD_BUSH.get()),
-                "tall_dead_bush");
+        doublePlantBlockStates(ModBlocks.TALL_DEAD_BUSH.get(), "tall_dead_bush");
 
         // large_thorn
-        doublePlantBlockStates(stateProvider.getVariantBuilder(ModBlocks.LARGE_THORN.get()),
-                "large_thorn");
+        doublePlantBlockStates(ModBlocks.LARGE_THORN.get(), "large_thorn");
+
+        // wither_rose_bush
+        doublePlantBlockStates(ModBlocks.WITHER_ROSE_BUSH.get(), "wither_rose_bush");
+
+        // tall_aquatic_grass
+        doublePlantBlockStates(ModBlocks.TALL_AQUATIC_GRASS.get(), "tall_aquatic_grass");
 
         //glistering_melon
 
@@ -184,7 +187,8 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
     } // 手写模型生成塞这块
 
-    private void doublePlantBlockStates(VariantBlockStateBuilder stateBuilder, String blockName) {
+    private void doublePlantBlockStates(Block block, String blockName) {
+        VariantBlockStateBuilder stateBuilder = stateProvider.getVariantBuilder(block);
         stateBuilder.forAllStates(state -> {
             if (state.getValue(BlockStateProperties.DOUBLE_BLOCK_HALF) == DoubleBlockHalf.UPPER) {
                 return ConfiguredModel.builder()
@@ -230,6 +234,12 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
         // large_thorn
         doublePlantBlockModels("large_thorn");
+
+        // wither_rose_bush
+        doublePlantBlockModels("wither_rose_bush");
+
+        // tall_aquatic_grass
+        doublePlantBlockModels("tall_aquatic_grass");
     }
 
     private void doublePlantBlockModels(String blockName) {
