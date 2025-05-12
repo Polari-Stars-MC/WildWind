@@ -199,6 +199,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.SHORT_AQUATIC_GRASS.get());
         this.dropSelf(ModBlocks.TALL_AQUATIC_GRASS.get());
         this.dropSelf(ModBlocks.POINTED_ICICLE.get());
+        this.dropSelf(ModBlocks.WATER_LILY.get());
     }
 
     protected LootTable.Builder createBedDrops(Block block) {

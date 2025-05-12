@@ -149,6 +149,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.SHORT_AQUATIC_GRASS);
         output.accept(ModBlocks.TALL_AQUATIC_GRASS);
         output.accept(ModBlocks.POINTED_ICICLE);
+        output.accept(ModItems.WATER_LILY);
     }, BUILDING_BLOCK),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")
     SPAWN_EGGS(ModSpawnEggs.FIREFLY_SPAWN_EGG.entry::toStack, () -> (__, output) -> {

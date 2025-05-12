@@ -11,10 +11,7 @@ import net.minecraft.world.level.block.state.properties.DripstoneThickness;
 import net.neoforged.neoforge.client.model.generators.*;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.data.LanguageProvider;
-import org.polaris2023.wild_wind.common.block.AshLayerBlock;
-import org.polaris2023.wild_wind.common.block.BrittleIceBlock;
-import org.polaris2023.wild_wind.common.block.GlowMucusBlock;
-import org.polaris2023.wild_wind.common.block.PyroclastBlock;
+import org.polaris2023.wild_wind.common.block.*;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.util.Helpers;
 import org.polaris2023.wild_wind.util.interfaces.datagen.DatagenClient;
@@ -151,6 +148,42 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
                                 direction.getName() + "_" + thickness.getSerializedName()))).build());
             }
         }
+
+        // water_lily
+        VariantBlockStateBuilder waterLilyStates = stateProvider.getVariantBuilder(ModBlocks.WATER_LILY.get());
+        waterLilyStates.partialState()
+                .with(BlockStateProperties.OPEN, true)
+                .addModels(
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .rotationY(90).buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .rotationY(180).buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .rotationY(270).weight(10)
+                                .buildLast()
+                );
+        waterLilyStates.partialState()
+                .with(BlockStateProperties.OPEN, false)
+                .addModels(
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .rotationY(90).buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .rotationY(180).buildLast(),
+                        ConfiguredModel.builder()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .rotationY(270).buildLast()
+                );
 
         // tall_sculk_grass
         doublePlantBlockStates(ModBlocks.TALL_SCULK_GRASS.get(), "tall_sculk_grass");
