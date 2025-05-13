@@ -32,7 +32,7 @@ public class WildWindClientEventHandler {
     @SubscribeEvent
     public static void registerBlockColor(RegisterColorHandlersEvent.Block event) {
         event.register((state, world, pos, tintIndex) -> FastColor.ARGB32.opaque(13419950), ModBlocks.BANNER.get(), ModBlocks.WALL_BANNER.get());
-        event.register((state, world, pos, tintIndex) -> world != null && pos != null ? -14647248 : -9321636, ModBlocks.WATER_LILY.get());
+        event.register((state, world, pos, tintIndex) -> world != null && pos != null ? -14647248 : -9321636, ModBlocks.LOTUS.get());
 //        event.register((state, world, pos, tintIndex) ->
 //                        world != null && pos != null ? BiomeColors.getAverageGrassColor(
 //                                world, state.getValue(DoublePlantBlock.HALF) == DoubleBlockHalf.UPPER ? pos.below() : pos

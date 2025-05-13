@@ -4,8 +4,8 @@
 	"render_type": "cutout",
 	"textures": {
 		"1": "minecraft:block/lily_pad",
-		"2": "wild_wind:block/water_lily_closed",
-		"particle": "wild_wind:block/water_lily_closed"
+		"2": "wild_wind:block/lotus_closed",
+		"particle": "wild_wind:block/lotus_closed"
 	},
 	"elements": [
 		{

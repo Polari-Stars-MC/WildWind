@@ -1,0 +1,22 @@
+{
+    "variants": {
+        "": [
+            { "model": "wild_wind:block/remains_1", "weight": 10},
+            { "model": "wild_wind:block/remains_1", "y": 90, "weight": 10 },
+            { "model": "wild_wind:block/remains_1", "y": 180, "weight": 10 },
+            { "model": "wild_wind:block/remains_1", "y": 270, "weight": 10 },
+            { "model": "wild_wind:block/remains_2", "weight": 5},
+            { "model": "wild_wind:block/remains_2", "y": 90, "weight": 5 },
+            { "model": "wild_wind:block/remains_2", "y": 180, "weight": 5 },
+            { "model": "wild_wind:block/remains_2", "y": 270, "weight": 5 },
+            { "model": "wild_wind:block/remains_3", "weight": 5},
+            { "model": "wild_wind:block/remains_3", "y": 90, "weight": 5 },
+            { "model": "wild_wind:block/remains_3", "y": 180, "weight": 5 },
+            { "model": "wild_wind:block/remains_3", "y": 270, "weight": 5 },
+            { "model": "wild_wind:block/remains_4", "weight": 5 },
+            { "model": "wild_wind:block/remains_4", "y": 90, "weight": 20 },
+            { "model": "wild_wind:block/remains_4", "y": 180, "weight": 20 },
+            { "model": "wild_wind:block/remains_4", "y": 270, "weight": 20 }
+        ]
+    }
+}

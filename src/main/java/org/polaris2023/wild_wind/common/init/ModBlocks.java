@@ -989,10 +989,32 @@ public class ModBlocks {
     );
 
     @VanillaTag(names = {"frog_prefer_jump_to"}, type = TagType.Block)
-    public static final DeferredBlock<WaterLily> WATER_LILY = register(
-            "water_lily",
-            WaterLily::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(DyeColor.GREEN)
+    public static final DeferredBlock<LotusBlock> LOTUS = register(
+            "lotus",
+            LotusBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD)
     );
+
+    @I18n(en_us = "Remains",zh_cn = "遗骸",zh_tw = "遺骸")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<RemainsBlock> REMAINS = register("remains", RemainsBlock::new,
+            BlockBehaviour.Properties.of().strength(0.5f).noOcclusion().isValidSpawn((state, level, pos, type) -> false));
+
+
+    @I18n(en_us = "Brazier",zh_cn = "火盆",zh_tw = "火盆")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<BrazierBlock> BRAZIER = register("brazier",
+            properties -> new BrazierBlock(true, 1, properties),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.CAMPFIRE));
+
+    @I18n(en_us = "Soul Brazier",zh_cn = "灵魂火盆",zh_tw = "靈魂火盆")
+    @BasicItem
+    @RegistryBlockItem
+    public static final DeferredBlock<BrazierBlock> SOUL_BRAZIER = register("soul_brazier",
+            properties -> new BrazierBlock(false, 2, properties),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SOUL_CAMPFIRE));
+
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>
     entity(String name,

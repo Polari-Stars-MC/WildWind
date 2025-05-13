@@ -149,41 +149,64 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
             }
         }
 
-        // water_lily
-        VariantBlockStateBuilder waterLilyStates = stateProvider.getVariantBuilder(ModBlocks.WATER_LILY.get());
+        // lotus
+        VariantBlockStateBuilder waterLilyStates = stateProvider.getVariantBuilder(ModBlocks.LOTUS.get());
         waterLilyStates.partialState()
                 .with(BlockStateProperties.OPEN, true)
                 .addModels(
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_open")))
                                 .buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_open")))
                                 .rotationY(90).buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_open")))
                                 .rotationY(180).buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_open")))
-                                .rotationY(270).weight(10)
-                                .buildLast()
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_open")))
+                                .rotationY(270).buildLast()
                 );
         waterLilyStates.partialState()
                 .with(BlockStateProperties.OPEN, false)
                 .addModels(
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_closed")))
                                 .buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_closed")))
                                 .rotationY(90).buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_closed")))
                                 .rotationY(180).buildLast(),
                         ConfiguredModel.builder()
-                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/water_lily_closed")))
+                                .modelFile(blockModelProvider.getExistingFile(Helpers.location("block/lotus_closed")))
                                 .rotationY(270).buildLast()
                 );
+
+        // brazier
+        VariantBlockStateBuilder brazierStates = stateProvider.getVariantBuilder(ModBlocks.BRAZIER.get());
+        for (boolean lit : BlockStateProperties.LIT.getPossibleValues()) {
+            String litName = lit? "": "_off";
+            brazierStates.partialState()
+                    .with(BlockStateProperties.LIT, lit)
+                    .addModels(ConfiguredModel.builder()
+                            .modelFile(blockModelProvider.getExistingFile(
+                                    Helpers.location("block/brazier" + litName)))
+                            .build());
+        }
+
+        // soul_brazier
+        VariantBlockStateBuilder soulBrazierStates = stateProvider.getVariantBuilder(ModBlocks.SOUL_BRAZIER.get());
+        for (boolean lit : BlockStateProperties.LIT.getPossibleValues()) {
+            String litName = lit? "": "_off";
+            soulBrazierStates.partialState()
+                    .with(BlockStateProperties.LIT, lit)
+                    .addModels(ConfiguredModel.builder()
+                            .modelFile(blockModelProvider.getExistingFile(
+                                    Helpers.location("block/soul_brazier" + litName)))
+                            .build());
+        }
 
         // tall_sculk_grass
         doublePlantBlockStates(ModBlocks.TALL_SCULK_GRASS.get(), "tall_sculk_grass");

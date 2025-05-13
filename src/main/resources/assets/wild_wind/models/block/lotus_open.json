@@ -4,10 +4,10 @@
 	"render_type": "cutout",
 	"textures": {
 		"1": "minecraft:block/lily_pad",
-		"particle": "wild_wind:block/water_lily_outer",
-		"outer": "wild_wind:block/water_lily_outer",
-		"center": "wild_wind:block/water_lily_center",
-		"inner": "wild_wind:block/water_lily_inner"
+		"particle": "wild_wind:block/lotus_outer",
+		"outer": "wild_wind:block/lotus_outer",
+		"center": "wild_wind:block/lotus_center",
+		"inner": "wild_wind:block/lotus_inner"
 	},
 	"elements": [
 		{

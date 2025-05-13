@@ -188,6 +188,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModItems.MAGIC_FLUTE);
 //        output.accept(ModItems.CHAINMAIL_HORSE_ARMOR);
 //        output.accept(ModItems.NETHERITE_HORSE_ARMOR);
+        output.accept(ModBlocks.BRAZIER);
+        output.accept(ModBlocks.SOUL_BRAZIER);
     }, SPAWN_EGGS),
     @I18n(en_us = "Wild wind: Food & drink", zh_cn = "原野之风：食物与饮品", zh_tw = "原野之風：食物與飲品")
     FOOD_AND_DRINK(ModBaseFoods.BAKED_CARROT.entry::toStack,
@@ -267,6 +269,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 ItemStack stack = new ItemStack(Items.SLIME_BALL);
                 stack.set(ModComponents.SLIME_COLOR, 100);
                 output.accept(stack);
+                output.accept(ModBlocks.REMAINS);
             }),
 
     ;
