@@ -1016,9 +1016,9 @@ public class ModBlocks {
     @I18n(en_us = "Tall Aquatic Grass", zh_cn = "高水生草", zh_tw = "高水生草")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallSeagrassBlock> TALL_AQUATIC_GRASS = register(
+    public static final DeferredBlock<AquaticDoublePlantBlock> TALL_AQUATIC_GRASS = register(
             "tall_aquatic_grass",
-            TallSeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS)
+            AquaticDoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_SEAGRASS)
     );
 
     @I18n(en_us = "Pointed Icicle", zh_cn = "冰锥", zh_tw = "冰錐")
@@ -1038,6 +1038,12 @@ public class ModBlocks {
             "rose",
             properties -> new FlowerBlock(MobEffects.NIGHT_VISION,
                     5.0F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.POPPY)
+    );
+
+    @VanillaTag(names = {"frog_prefer_jump_to"}, type = TagType.Block)
+    public static final DeferredBlock<WaterLily> WATER_LILY = register(
+            "water_lily",
+            WaterLily::new, BlockBehaviour.Properties.ofFullCopy(Blocks.LILY_PAD).mapColor(DyeColor.GREEN)
     );
 
     private static <T extends BlockEntity> DeferredHolder<BlockEntityType<?>, BlockEntityType<T>>

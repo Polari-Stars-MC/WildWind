@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import net.neoforged.neoforge.registries.DeferredItem;
@@ -136,4 +137,10 @@ public class ModItems {
     @I18n(en_us = "Honey Bucket", zh_cn = "蜂蜜桶", zh_tw = "蜂蜜桶")
     public static final DeferredItem<Item> HONEY_BUCKET =
             simpleItem("honey_bucket", p -> p.stacksTo(1));
+
+    @BasicItem
+    @I18n(en_us = "Water Lily", zh_cn = "莲花", zh_tw = "蓮花")
+    public static final DeferredItem<Item> WATER_LILY =
+            register("water_lily",
+                    p -> new PlaceOnWaterBlockItem(ModBlocks.WATER_LILY.get(), new Item.Properties()));
 }
