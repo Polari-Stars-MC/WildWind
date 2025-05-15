@@ -154,13 +154,13 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     @BasicItem
     NETHERITE_APPLE(p -> p.rarity(Rarity.RARE)),
     @I18n(en_us = "Enchanted Netherite Apple", zh_cn = "附魔下界合金苹果", zh_tw = "附魔獄髓蘋果")
-    @BasicItem
+    @BasicItem(used = false)
     ENCHANTED_NETHERITE_APPLE(p -> p.rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)),
     @I18n(en_us = "Netherite Apple Pie", zh_cn = "下界合金苹果派", zh_tw = "獄髓蘋果派")
     @BasicItem
     NETHERITE_APPLE_PIE(p -> p.rarity(Rarity.RARE)),
     @I18n(en_us = "Enchanted Netherite Apple Pie", zh_cn = "附魔下界合金苹果派", zh_tw = "附魔獄髓蘋果派")
-    @BasicItem
+    @BasicItem(used = false)
     ENCHANTED_NETHERITE_APPLE_PIE(p -> p.rarity(Rarity.EPIC).component(DataComponents.ENCHANTMENT_GLINT_OVERRIDE, true)),
     @I18n(en_us = "Berry Pie", zh_cn = "浆果派", zh_tw = "莓果派")
     @BasicItem
