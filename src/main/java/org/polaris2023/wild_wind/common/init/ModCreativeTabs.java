@@ -115,15 +115,17 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     }),
     @I18n(en_us = "Wild wind: Natural block", zh_cn = "原野之风：自然方块", zh_tw = "原野之風：自然方塊")
     NATURAL_BLOCKS(ModBlocks.SALT_ORE::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.BRITTLE_ICE);
-        output.accept(ModBlocks.PYROCLAST);
         output.accept(ModBlocks.SILT);
         output.accept(ModBlocks.QUICKSAND);
         output.accept(ModBlocks.RED_QUICKSAND);
+        output.accept(ModBlocks.BRITTLE_ICE);
+        output.accept(ModBlocks.POINTED_ICICLE);
         output.accept(ModBlocks.ASH_BLOCK);
         output.accept(ModBlocks.ASH);
         output.accept(ModBlocks.SALT_ORE);
         output.accept(ModBlocks.DEEPSLATE_SALT_ORE);
+        output.accept(ModBlocks.PYROCLAST);
+
         output.accept(ModBlocks.AZALEA_LOG);
         output.accept(ModBlocks.PALM_LOG);
         output.accept(ModBlocks.PALM_CROWN);
@@ -132,68 +134,77 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.BAOBAB_LEAVES);
         output.accept(ModBlocks.PALM_SAPLING);
         output.accept(ModBlocks.BAOBAB_SAPLING);
+
+        output.accept(ModBlocks.SHORT_AQUATIC_GRASS);
+        output.accept(ModBlocks.TALL_AQUATIC_GRASS);
+        output.accept(ModBlocks.SHORT_BEACH_GRASS);
+        output.accept(ModBlocks.TALL_BEACH_GRASS);
+        output.accept(ModBlocks.THORN);
+        output.accept(ModBlocks.LARGE_THORN);
+        output.accept(ModBlocks.TALL_DEAD_BUSH);
+        output.accept(ModBlocks.FLUFFY_DANDELION);
+        output.accept(ModBlocks.ROSE);
+        output.accept(ModBlocks.WITHER_ROSE_BUSH);
+        output.accept(ModItems.LOTUS);
+        output.accept(ModBlocks.TINY_CACTUS);
+
         output.accept(ModBlocks.REEDS);
         output.accept(ModBlocks.CATTAILS);
         output.accept(ModBlocks.GLAREFLOWER);
         output.accept(ModBlocks.GLAREFLOWER_SEEDS);
         output.accept(ModBlocks.DUCKWEED);
+        output.accept(ModBlocks.SOUL_JACK_O_LANTERN);
         output.accept(ModBlocks.GLISTERING_MELON);
         output.accept(ModBlocks.SCULK_JAW);
+        output.accept(ModBlocks.SHORT_SCULK_GRASS);
+        output.accept(ModBlocks.TALL_SCULK_GRASS);
+        output.accept(ModBlocks.SCULK_VINES);
         output.accept(ModBlocks.COBWEB_COVER);
         output.accept(ModBaseItems.COBWEB_MUCOSA);
         output.accept(ModBaseItems.SPIDER_EGG);
-        output.accept(ModBlocks.TINY_CACTUS);
-        output.accept(ModBlocks.SOUL_JACK_O_LANTERN);
-        output.accept(ModBlocks.FLUFFY_DANDELION);
-        output.accept(ModBlocks.ROSE);
-        output.accept(ModBlocks.WITHER_ROSE_BUSH);
-        output.accept(ModBlocks.SCULK_VINES);
-        output.accept(ModBlocks.SHORT_BEACH_GRASS);
-        output.accept(ModBlocks.TALL_BEACH_GRASS);
-        output.accept(ModBlocks.TALL_DEAD_BUSH);
-        output.accept(ModBlocks.SHORT_SCULK_GRASS);
-        output.accept(ModBlocks.TALL_SCULK_GRASS);
-        output.accept(ModBlocks.THORN);
-        output.accept(ModBlocks.LARGE_THORN);
-        output.accept(ModBlocks.SHORT_AQUATIC_GRASS);
-        output.accept(ModBlocks.TALL_AQUATIC_GRASS);
-        output.accept(ModBlocks.POINTED_ICICLE);
-        output.accept(ModItems.WATER_LILY);
+        output.accept(ModBlocks.REMAINS);
     }, BUILDING_BLOCK),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")
     SPAWN_EGGS(ModSpawnEggs.FIREFLY_SPAWN_EGG.entry::toStack, () -> (__, output) -> {
         output.accept(ModSpawnEggs.FIREFLY_SPAWN_EGG);
-        output.accept(ModSpawnEggs.TROUT_SPAWN_EGG);
-        output.accept(ModSpawnEggs.PIRANHA_SPAWN_EGG);
         output.accept(ModSpawnEggs.GLARE_SPAWN_EGG);
+        output.accept(ModSpawnEggs.PIRANHA_SPAWN_EGG);
+        output.accept(ModSpawnEggs.TROUT_SPAWN_EGG);
     }, NATURAL_BLOCKS),
-    @I18n(en_us = "Wild wind: Tools and Utilities", zh_cn = "原野之风：工具与实用物品", zh_tw = "原野之風：工具與實用物品")
+    @I18n(en_us = "Wild wind: Tools and Utilities & Blocks", zh_cn = "原野之风：工具与实用物品&方块", zh_tw = "原野之風：工具與實用物品&方塊")
     TOOLS_AND_UTILITIES(ModItems.MAGIC_FLUTE::toStack, () -> (__, output) -> {
-        output.accept(ModBlocks.BED);
-        output.accept(ModBlocks.BANNER);
         output.accept(ModBlocks.FIREFLY_JAR);
+        output.accept(ModBlocks.BRAZIER);
+        output.accept(ModBlocks.SOUL_BRAZIER);
         output.accept(ModBlocks.GLOW_MUCUS);
-//        output.accept(ModBlocks.NEST);
-//        output.accept(ModBlocks.FEEDING_TROUGH);
-//        output.accept(ModBlocks.KILN);
+
         output.accept(ModBlocks.COOKING_POT);
-        output.accept(ModBlocks.PRESENT);
-        output.accept(ModBlocks.TRAPPED_PRESENT);
+
         output.accept(ModBlocks.AZALEA_SIGN);
         output.accept(ModBlocks.AZALEA_HANGING_SIGN);
         output.accept(ModBlocks.PALM_SIGN);
         output.accept(ModBlocks.PALM_HANGING_SIGN);
         output.accept(ModBlocks.BAOBAB_SIGN);
         output.accept(ModBlocks.BAOBAB_HANGING_SIGN);
+        output.accept(ModBlocks.PRESENT);
+        output.accept(ModBlocks.TRAPPED_PRESENT);
+        output.accept(ModBlocks.BED);
+        output.accept(ModBlocks.BANNER);
         output.accept(ModMobBuckets.TROUT_BUCKET);
         output.accept(ModMobBuckets.PIRANHA_BUCKET);
-//        output.accept(ModItems.ANCIENT_CODEX);
+        output.accept(ModItems.HONEY_BUCKET);
+//        output.accept(ModBlocks.NEST);
+//        output.accept(ModBlocks.FEEDING_TROUGH);
+//        output.accept(ModBlocks.KILN);
+
         output.accept(ModBoats.AZALEA_BOAT);
         output.accept(ModBoats.AZALEA_CHEST_BOAT);
         output.accept(ModBoats.PALM_BOAT);
         output.accept(ModBoats.PALM_CHEST_BOAT);
         output.accept(ModBoats.BAOBAB_BOAT);
         output.accept(ModBoats.BAOBAB_CHEST_BOAT);
+//        output.accept(ModItems.ANCIENT_CODEX);
+
         output.accept(ModItems.MAGIC_FLUTE);
 //        output.accept(ModItems.CHAINMAIL_HORSE_ARMOR);
 //        output.accept(ModItems.NETHERITE_HORSE_ARMOR);

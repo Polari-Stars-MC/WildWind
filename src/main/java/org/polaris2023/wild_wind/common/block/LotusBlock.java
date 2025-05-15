@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 
-public class WaterLily extends WaterlilyBlock {
+public class LotusBlock extends WaterlilyBlock {
     public static final BooleanProperty OPEN = BlockStateProperties.OPEN;
-    public WaterLily(BlockBehaviour.Properties properties) {
+    public LotusBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.stateDefinition.any().setValue(OPEN, false));
     }
