@@ -11,6 +11,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.Block;
@@ -19,6 +20,10 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 
@@ -31,6 +36,13 @@ public class BrazierBlock extends Block {
                     )
                     .apply(p_308808_, BrazierBlock::new)
     );
+    private static final VoxelShape INSIDE = box(2.0, 6.0, 2.0, 14.0, 16.0, 14.0);
+    protected static final VoxelShape SHAPE = Shapes.join(
+            Shapes.block(),
+            Shapes.or(box(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), box(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), box(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), INSIDE),
+            BooleanOp.ONLY_FIRST
+    );
+
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     private final boolean spawnParticles;
     private final int fireDamage;
@@ -44,7 +56,7 @@ public class BrazierBlock extends Block {
     @Override
     protected void entityInside(BlockState state, Level level, BlockPos pos, Entity entity) {
         if (state.getValue(LIT) && entity instanceof LivingEntity) {
-            entity.hurt(level.damageSources().campfire(), (float)this.fireDamage);
+            entity.hurt(level.damageSources().inFire(), (float)this.fireDamage);
         }
 
         super.entityInside(state, level, pos, entity);
@@ -93,6 +105,16 @@ public class BrazierBlock extends Block {
                 }
             }
         }
+    }
+
+    @Override
+    protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
+        return SHAPE;
+    }
+
+    @Override
+    protected VoxelShape getInteractionShape(BlockState state, BlockGetter level, BlockPos pos) {
+        return INSIDE;
     }
 
     @Override

@@ -131,6 +131,7 @@ public class ModBlocks {
     public static final DeferredBlock<FlowerBlock> TINY_CACTUS = register("tiny_cactus", TinyCactusBlock::new, BlockBehaviour.Properties.of().noLootTable());
 
     @I18n(en_us = "Quicksand", zh_cn = "流沙", zh_tw = "流沙")
+    @BasicBlock
     @RegistryBlockItem
     @VanillaTag(names = "mineable/shovel", type = TagType.Block)
     public static final DeferredBlock<QuicksandBlock> QUICKSAND = register("quicksand", p -> new QuicksandBlock(p, Blocks.SAND.defaultBlockState()),
@@ -1009,6 +1010,7 @@ public class ModBlocks {
             BlockBehaviour.Properties.ofFullCopy(Blocks.CAMPFIRE));
 
     @I18n(en_us = "Soul Brazier",zh_cn = "灵魂火盆",zh_tw = "靈魂火盆")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @BasicItem
     @RegistryBlockItem
     public static final DeferredBlock<BrazierBlock> SOUL_BRAZIER = register("soul_brazier",

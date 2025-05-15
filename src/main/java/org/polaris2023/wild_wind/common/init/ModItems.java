@@ -139,8 +139,8 @@ public class ModItems {
             simpleItem("honey_bucket", p -> p.stacksTo(1));
 
     @BasicItem
-    @I18n(en_us = "LOTUS", zh_cn = "莲花", zh_tw = "蓮花")
-    public static final DeferredItem<Item> WATER_LILY =
+    @I18n(en_us = "LOTUS", zh_cn = "睡莲花", zh_tw = "睡蓮花")
+    public static final DeferredItem<Item> LOTUS =
             register("lotus",
                     p -> new PlaceOnWaterBlockItem(ModBlocks.LOTUS.get(), new Item.Properties()));
 }
