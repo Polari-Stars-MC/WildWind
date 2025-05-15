@@ -213,6 +213,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     FOOD_AND_DRINK(ModBaseFoods.BAKED_CARROT.entry::toStack,
             () -> (__, output) -> {
                 output.accept(ModBaseFoods.BAKED_APPLE);
+                output.accept(ModBaseFoods.NETHERITE_APPLE);
+                output.accept(ModBaseFoods.ENCHANTED_NETHERITE_APPLE);
                 output.accept(ModBaseFoods.BAKED_MELON_SLICE);
                 output.accept(ModBaseFoods.PUMPKIN_SLICE);
                 output.accept(ModBaseFoods.BAKED_PUMPKIN_SLICE);
@@ -237,10 +239,13 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.RAW_PIRANHA);
                 output.accept(ModBaseFoods.COOKED_PIRANHA);
                 output.accept(ModBaseFoods.DOUGH);
+                output.accept(ModBaseItems.CANDY);
                 output.accept(ModBaseFoods.BERRY_PIE);
                 output.accept(ModBaseFoods.APPLE_PIE);
                 output.accept(ModBaseFoods.GOLDEN_APPLE_PIE);
                 output.accept(ModBaseFoods.ENCHANTED_GOLDEN_APPLE_PIE);
+                output.accept(ModBaseFoods.NETHERITE_APPLE_PIE);
+                output.accept(ModBaseFoods.ENCHANTED_NETHERITE_APPLE_PIE);
                 output.accept(ModBaseFoods.COOKED_EGG);
                 output.accept(ModItems.CHEESE);
                 output.accept(ModBaseFoods.FAILED_CUISINE);
@@ -254,20 +259,15 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
             }, TOOLS_AND_UTILITIES),
     @I18n(en_us = "Wild wind: Ingredients", zh_cn = "原野之风：原材料", zh_tw = "原野之風：原材料")
     INGREDIENTS(ModItems.GLOW_POWDER::toStack, () -> (__, output) -> {
-        output.accept(ModBaseFoods.FLOUR);
-//        output.accept(ModItems.CHARRED_BONE);
-//        output.accept(ModItems.FISH_BONE);
-//        output.accept(ModItems.FANGS);
+        output.accept(ModBaseItems.CHARRED_BONE);
+        output.accept(ModBaseItems.FISH_BONE);
+        output.accept(ModItems.FANGS);
         output.accept(ModItems.ASH_DUST);
         output.accept(ModItems.FUR);
+        output.accept(ModItems.TORN_PAGES);
         output.accept(ModItems.GLOW_POWDER);
+        output.accept(ModBaseFoods.FLOUR);
         output.accept(ModBaseItems.SALT);
-//        output.accept(ModItems.TORN_PAGES);
-//        output.accept(ModItems.AUTO_SMELTING);
-//        output.accept(ModItems.CURSE_OF_RUSTING_1);
-//        output.accept(ModItems.CURSE_OF_RUSTING_2);
-//        output.accept(ModItems.CURSE_OF_RUSTING_3);
-        output.accept(ModBaseItems.CANDY);
     }, FOOD_AND_DRINK),
     @I18n(en_us = "Wild wind: Misc", zh_cn = "原野之风：杂项", zh_tw = "原野之風：雜項")
     WILD_WIND(ModBlocks.COOKING_POT::toStack,

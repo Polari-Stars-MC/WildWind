@@ -96,10 +96,20 @@ public enum ModFoods implements Supplier<FoodProperties> {
     APPLE_PIE(6, 0.3F),
     BERRY_PIE(8, 0.1F,
             of(() -> new MobEffectInstance(MobEffects.DIG_SPEED, 6000, 0), 1.0F)),
+    NETHERITE_APPLE(5, 1.2F),
+    ENCHANTED_NETHERITE_APPLE(5, 1.2F),
     GOLDEN_APPLE_PIE(8, 1.2F,
             of(() -> new MobEffectInstance(MobEffects.ABSORPTION, 3600, 0), 1.0F),
             of(() -> new MobEffectInstance(MobEffects.REGENERATION, 140, 1), 1.0F)),
     ENCHANTED_GOLDEN_APPLE_PIE(8, 1.2F,
+            of(() -> new MobEffectInstance(MobEffects.ABSORPTION, 3600, 3), 1.0F),
+            of(() -> new MobEffectInstance(MobEffects.REGENERATION, 600, 1), 1.0F),
+            of(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 8400, 0), 1.0F),
+            of(() -> new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 8400, 0), 1.0F)),
+    NETHERITE_APPLE_PIE(10, 1.2F,
+            of(() -> new MobEffectInstance(MobEffects.ABSORPTION, 3600, 0), 1.0F),
+            of(() -> new MobEffectInstance(MobEffects.REGENERATION, 140, 1), 1.0F)),
+    ENCHANTED_NETHERITE_APPLE_PIE(10, 1.2F,
             of(() -> new MobEffectInstance(MobEffects.ABSORPTION, 3600, 3), 1.0F),
             of(() -> new MobEffectInstance(MobEffects.REGENERATION, 600, 1), 1.0F),
             of(() -> new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 8400, 0), 1.0F),
@@ -112,7 +122,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     COOKED_CALAMARI(4, 0.8F),
 
     ;
-    ;
+
     private final FoodProperties properties;
 
     @SafeVarargs
