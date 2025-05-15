@@ -1,6 +1,0 @@
-[[dependencies.${mod_id}]]
-modId="wild_wind_material"
-type="required"
-versionRange="[0,)"
-ordering="NONE"
-side="BOTH"
