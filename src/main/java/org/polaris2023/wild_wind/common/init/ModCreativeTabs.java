@@ -95,6 +95,8 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.POLISHED_PACKED_MUD_STAIRS);
         output.accept(ModBlocks.POLISHED_PACKED_MUD_SLAB);
         output.accept(ModBlocks.POLISHED_PACKED_MUD_WALL);
+        output.accept(ModBlocks.CRACKED_MUD_BRICKS);
+        output.accept(ModBlocks.CHISELED_MUD_BRICKS);
         output.accept(ModBlocks.MOSSY_MUD_BRICKS);
         output.accept(ModBlocks.MOSSY_MUD_BRICK_STAIRS);
         output.accept(ModBlocks.MOSSY_MUD_BRICK_SLAB);

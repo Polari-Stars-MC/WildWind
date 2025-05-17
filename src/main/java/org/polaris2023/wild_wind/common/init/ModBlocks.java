@@ -750,6 +750,16 @@ public class ModBlocks {
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> POLISHED_PACKED_MUD_SLAB = register("polished_packed_mud_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB).mapColor(MapColor.DIRT).strength(1.5F, 3.0F));
+    @I18n(en_us = "Cracked Mud Bricks", zh_cn = "裂纹泥砖", zh_tw = "裂紋泥磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_MUD_BRICKS = register("cracked_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Chiseled Mud Bricks", zh_cn = "雕纹泥砖", zh_tw = "浮雕泥磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_MUD_BRICKS = register("chiseled_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
 
     @AllBrick
     @I18n(en_us = "Mossy Granite Bricks", zh_cn = "苔花岗岩砖", zh_tw = "青苔花崗岩磚")
