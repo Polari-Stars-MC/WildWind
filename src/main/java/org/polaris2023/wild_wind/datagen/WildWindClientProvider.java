@@ -209,7 +209,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
-        doublePlantBlockStates(ModBlocks.TALL_SCULK_GRASS.get(), "tall_sculk_grass");
+        doublePlantBlockStates(ModBlocks.SCULK_TENDRIL.get(), "tall_sculk_grass");
 
         // tall_beach_grass
         doublePlantBlockStates(ModBlocks.TALL_BEACH_GRASS.get(), "tall_beach_grass");

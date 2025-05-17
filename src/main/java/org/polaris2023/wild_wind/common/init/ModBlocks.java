@@ -913,28 +913,28 @@ public class ModBlocks {
     );
 
     @Cross(item = false)
-    @I18n(en_us = "Short Sculk Grass", zh_cn = "幽匿矮草丛", zh_tw = "幽匿矮草叢")
+    @I18n(en_us = "Sculk Cilia", zh_cn = "幽匿纤芽", zh_tw = "伏聆纖芽")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SHORT_SCULK_GRASS = register(
-            "short_sculk_grass",
+    public static final DeferredBlock<TallGrassBlock> SCULK_CILIA = register(
+            "sculk_cilia",
             TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
-    @I18n(en_us = "Tall Sculk Grass", zh_cn = "幽匿高草丛", zh_tw = "幽匿高草叢")
+    @I18n(en_us = "Sculk Tendril", zh_cn = "幽匿卷须", zh_tw = "伏聆卷須")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> TALL_SCULK_GRASS = register(
-            "tall_sculk_grass",
+    public static final DeferredBlock<DoublePlantBlock> SCULK_TENDRIL = register(
+            "sculk_tendril",
             DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @Cross
-    @I18n(en_us = "Sculk Vines", zh_cn = "幽匿藤蔓", zh_tw = "伏聆藤蔓")
+    @I18n(en_us = "Sculk Artery", zh_cn = "幽匿脉管", zh_tw = "伏聆脈管")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<SculkVinesBlock> SCULK_VINES = register(
-            "sculk_vines",
+    public static final DeferredBlock<SculkVinesBlock> SCULK_ARTERY = register(
+            "sculk_artery",
             SculkVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES)
     );
 

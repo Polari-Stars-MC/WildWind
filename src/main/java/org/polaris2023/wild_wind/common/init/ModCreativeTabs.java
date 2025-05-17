@@ -156,9 +156,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.SOUL_JACK_O_LANTERN);
         output.accept(ModBlocks.GLISTERING_MELON);
         output.accept(ModBlocks.SCULK_JAW);
-        output.accept(ModBlocks.SHORT_SCULK_GRASS);
-        output.accept(ModBlocks.TALL_SCULK_GRASS);
-        output.accept(ModBlocks.SCULK_VINES);
+        output.accept(ModBlocks.SCULK_CILIA);
+        output.accept(ModBlocks.SCULK_TENDRIL);
+        output.accept(ModBlocks.SCULK_ARTERY);
         output.accept(ModBlocks.COBWEB_COVER);
         output.accept(ModBaseItems.COBWEB_MUCOSA);
         output.accept(ModBaseItems.SPIDER_EGG);

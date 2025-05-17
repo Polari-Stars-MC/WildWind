@@ -51,7 +51,7 @@ public class ModVanillaCompat{
         registerCompostable(0.3F, ModBlocks.PALM_LEAVES);
         registerCompostable(0.3F, ModBlocks.BAOBAB_SAPLING);
         registerCompostable(0.3F, ModBlocks.PALM_SAPLING);
-        registerCompostable(0.5F, ModBlocks.SCULK_VINES);
+        registerCompostable(0.5F, ModBlocks.SCULK_ARTERY);
         registerCompostable(0.3F, ModBlocks.FLUFFY_DANDELION);
         registerCompostable(0.3F, ModBlocks.ROSE);
     }
