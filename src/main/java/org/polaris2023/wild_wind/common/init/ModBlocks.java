@@ -757,7 +757,8 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CRACKED_MUD_BRICKS = register("cracked_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
     @I18n(en_us = "Chiseled Mud Bricks", zh_cn = "雕纹泥砖", zh_tw = "浮雕泥磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @BasicBlock
+    @CubeColumn(side = "wild_wind:block/chiseled_mud_bricks_side",
+            end = "wild_wind:block/chiseled_mud_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_MUD_BRICKS = register("chiseled_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
 
