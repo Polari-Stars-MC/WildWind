@@ -719,6 +719,17 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_BRICKS = register("chiseled_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_RED));
 
+    @I18n(en_us = "Chiseled Deepslate Bricks", zh_cn = "雕纹深板岩砖", zh_tw = "浮雕深板岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_DEEPSLATE_BRICKS = register("chiseled_deepslate_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Chiseled Deepslate Tiles", zh_cn = "雕纹深板岩瓦", zh_tw = "浮雕深板岩磚瓦")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_DEEPSLATE_TILES = register("chiseled_deepslate_tiles", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
+
     @I18n(en_us = "Polished Packed Mud",zh_cn = "磨制泥坯",zh_tw = "磨製泥坯")
     @BasicBlock
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
@@ -739,6 +750,17 @@ public class ModBlocks {
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> POLISHED_PACKED_MUD_SLAB = register("polished_packed_mud_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB).mapColor(MapColor.DIRT).strength(1.5F, 3.0F));
+    @I18n(en_us = "Cracked Mud Bricks", zh_cn = "裂纹泥砖", zh_tw = "裂紋泥磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_MUD_BRICKS = register("cracked_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
+    @I18n(en_us = "Chiseled Mud Bricks", zh_cn = "雕纹泥砖", zh_tw = "浮雕泥磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @CubeColumn(side = "wild_wind:block/chiseled_mud_bricks_side",
+            end = "wild_wind:block/chiseled_mud_bricks_top")
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_MUD_BRICKS = register("chiseled_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
 
     @AllBrick
     @I18n(en_us = "Mossy Granite Bricks", zh_cn = "苔花岗岩砖", zh_tw = "青苔花崗岩磚")
@@ -876,6 +898,17 @@ public class ModBlocks {
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> SANDSTONE_BRICK_WALL = register("sandstone_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.SAND));
+    @I18n(en_us = "Cracked Sandstone Bricks", zh_cn = "裂纹砂岩砖", zh_tw = "裂紋砂岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_SANDSTONE_BRICKS = register("cracked_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SAND));
+    @I18n(en_us = "Chiseled Sandstone Bricks", zh_cn = "雕纹砂岩砖", zh_tw = "浮雕砂岩磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @CubeColumn(side = "wild_wind:block/chiseled_sandstone_bricks_side",
+            end = "wild_wind:block/chiseled_sandstone_bricks_top")
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_SANDSTONE_BRICKS = register("chiseled_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SAND));
     @AllBrick
     @I18n(en_us = "Mossy Sandstone Bricks", zh_cn = "苔砂岩砖", zh_tw = "青苔砂岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
@@ -913,35 +946,35 @@ public class ModBlocks {
     );
 
     @Cross(item = false)
-    @I18n(en_us = "Short Sculk Grass", zh_cn = "幽匿矮草丛", zh_tw = "幽匿矮草叢")
+    @I18n(en_us = "Sculk Cilia", zh_cn = "幽匿纤芽", zh_tw = "伏聆纖芽")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SHORT_SCULK_GRASS = register(
-            "short_sculk_grass",
+    public static final DeferredBlock<TallGrassBlock> SCULK_CILIA = register(
+            "sculk_cilia",
             TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
-    @I18n(en_us = "Tall Sculk Grass", zh_cn = "幽匿高草丛", zh_tw = "幽匿高草叢")
+    @I18n(en_us = "Sculk Tendril", zh_cn = "幽匿卷须", zh_tw = "伏聆卷須")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> TALL_SCULK_GRASS = register(
-            "tall_sculk_grass",
+    public static final DeferredBlock<DoublePlantBlock> SCULK_TENDRIL = register(
+            "sculk_tendril",
             DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @Cross
-    @I18n(en_us = "Sculk Vines", zh_cn = "幽匿藤蔓", zh_tw = "伏聆藤蔓")
+    @I18n(en_us = "Sculk Artery", zh_cn = "幽匿脉管", zh_tw = "伏聆脈管")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<SculkVinesBlock> SCULK_VINES = register(
-            "sculk_vines",
+    public static final DeferredBlock<SculkVinesBlock> SCULK_ARTERY = register(
+            "sculk_artery",
             SculkVinesBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES)
     );
 
     @Cross(item = false)
-    @I18n(en_us = "Sculk Vines Plant", zh_cn = "幽匿藤蔓植株", zh_tw = "伏聆藤蔓植株")
-    public static final DeferredBlock<SculkVinesPlantBlock> SCULK_VINES_PLANT = register(
-            "sculk_vines_plant",
+    @I18n(en_us = "Sculk Artery Plant", zh_cn = "幽匿脉管植株", zh_tw = "伏聆脈管植株")
+    public static final DeferredBlock<SculkVinesPlantBlock> SCULK_ARTERY_PLANT = register(
+            "sculk_artery_plant",
             SculkVinesPlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.WEEPING_VINES_PLANT)
     );
 

@@ -138,6 +138,10 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_SLAB, 2), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(Blocks.BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.DEEPSLATE_TILES), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_TILES, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_MUD_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_SANDSTONE_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_SLAB, 2), "stonecutting/");
@@ -210,6 +214,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(ModBlocks.BLUE_ICE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_BLUE_ICE_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(Blocks.TUFF_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_TUFF_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(Blocks.BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(Blocks.MUD_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_MUD_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(ModBlocks.SANDSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_SANDSTONE_BRICKS, 0.1f, 200), "smelting/");
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -510,6 +516,30 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .define('S', ModBlocks.POLISHED_PACKED_MUD.get());
                 }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_MUD_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, Blocks.MUD_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', Blocks.MUD_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, Blocks.DEEPSLATE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', Blocks.DEEPSLATE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_TILES.get(), 1,
+                builder -> {
+                    unlockedBy(builder, Blocks.DEEPSLATE_TILE_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', Blocks.DEEPSLATE_TILE_SLAB);
+                }));
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_GRANITE_BRICK_SLAB.get(), 6,
                 builder -> {
@@ -702,6 +732,14 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .define('S', ModBlocks.SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_SANDSTONE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.SANDSTONE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.SANDSTONE_BRICK_SLAB);
                 }));
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB.get(), 6,
                 builder -> {
