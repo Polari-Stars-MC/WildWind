@@ -152,6 +152,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CRACKED_TUFF_BRICKS.get());
         this.dropSelf(ModBlocks.CRACKED_BRICKS.get());
         this.dropSelf(ModBlocks.CHISELED_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_DEEPSLATE_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_DEEPSLATE_TILES.get());
 
         this.dropSelf(ModBlocks.POLISHED_PACKED_MUD.get());
         this.dropSelf(ModBlocks.POLISHED_PACKED_MUD_WALL.get());
@@ -196,7 +198,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_BRICK_WALL.get());
 
         this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.get());
-        this.addNetherVinesDropTable(ModBlocks.SCULK_ARTERY.get(), ModBlocks.SCULK_VINES_PLANT.get());
+        this.addNetherVinesDropTable(ModBlocks.SCULK_ARTERY.get(), ModBlocks.SCULK_ARTERY_PLANT.get());
         this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
         this.dropSelf(ModBlocks.ROSE.get());
         this.dropSelf(ModBlocks.WITHER_ROSE_BUSH.get());

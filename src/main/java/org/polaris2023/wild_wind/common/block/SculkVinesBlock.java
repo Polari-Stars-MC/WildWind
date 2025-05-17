@@ -30,7 +30,7 @@ public class SculkVinesBlock extends GrowingPlantHeadBlock {
 
 	@Override
 	protected Block getBodyBlock() {
-		return ModBlocks.SCULK_VINES_PLANT.get();
+		return ModBlocks.SCULK_ARTERY_PLANT.get();
 	}
 
 	@Override

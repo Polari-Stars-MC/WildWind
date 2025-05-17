@@ -209,7 +209,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
-        doublePlantBlockStates(ModBlocks.SCULK_TENDRIL.get(), "tall_sculk_grass");
+        doublePlantBlockStates(ModBlocks.SCULK_TENDRIL.get(), "sculk_tendril");
 
         // tall_beach_grass
         doublePlantBlockStates(ModBlocks.TALL_BEACH_GRASS.get(), "tall_beach_grass");
@@ -280,7 +280,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         }
 
         // tall_sculk_grass
-        doublePlantBlockModels("tall_sculk_grass");
+        doublePlantBlockModels("sculk_tendril");
 
         // tall_beach_grass
         doublePlantBlockModels("tall_beach_grass");

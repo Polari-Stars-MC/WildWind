@@ -138,6 +138,8 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.BLUE_ICE_BRICK_SLAB, 2), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.BLUE_ICE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BLUE_ICE_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(Blocks.BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.DEEPSLATE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.DEEPSLATE_TILES), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DEEPSLATE_TILES, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_SLAB, 2), "stonecutting/");
