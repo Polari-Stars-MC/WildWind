@@ -831,6 +831,23 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> MOSSY_DEEPSLATE_BRICK_WALL = register("mossy_deepslate_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DEEPSLATE));
     @AllBrick
+    @I18n(en_us = "Mossy Deepslate Tiles", zh_cn = "苔深板岩瓦", zh_tw = "青苔深板岩磚瓦")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> MOSSY_DEEPSLATE_TILES = register("mossy_deepslate_tiles", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Tile Stairs", zh_cn = "苔深板岩瓦楼梯", zh_tw = "青苔深板岩磚瓦樓梯")
+    @VanillaTag(names = {"mineable/pickaxe", "stairs"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> MOSSY_DEEPSLATE_TILE_STAIRS = register("mossy_deepslate_tile_stairs", props -> new StairBlock(MOSSY_DEEPSLATE_TILES.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_STAIRS).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Tile Slab", zh_cn = "苔深板岩瓦台阶", zh_tw = "青苔深板岩磚瓦臺階")
+    @VanillaTag(names = {"mineable/pickaxe", "slabs"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> MOSSY_DEEPSLATE_TILE_SLAB = register("mossy_deepslate_tile_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_SLAB).mapColor(MapColor.DEEPSLATE));
+    @I18n(en_us = "Mossy Deepslate Tile Wall", zh_cn = "苔深板瓦砖墙", zh_tw = "青苔深板岩磚瓦墻")
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<WallBlock> MOSSY_DEEPSLATE_TILE_WALL = register("mossy_deepslate_tile_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.DEEPSLATE));
+    @AllBrick
     @I18n(en_us = "Mossy Tuff Bricks", zh_cn = "苔凝灰岩砖", zh_tw = "青苔凝灰岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
