@@ -180,6 +180,10 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DEEPSLATE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_TILES.get());
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_TILE_STAIRS.get());
+        this.add(ModBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DEEPSLATE_TILE_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_DEEPSLATE_TILE_WALL.get());
         this.dropSelf(ModBlocks.MOSSY_TUFF_BRICKS.get());
         this.dropSelf(ModBlocks.MOSSY_TUFF_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_TUFF_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_TUFF_BRICK_SLAB.get()));
