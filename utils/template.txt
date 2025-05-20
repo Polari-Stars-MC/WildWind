@@ -3,6 +3,11 @@
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<Block> ${NAME}_BRICKS = register("${name}_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.${COLOR}));
+    @I18n(en_us = "Cracked ${Name} Bricks", zh_cn = "裂纹${zh_cn_Name}砖", zh_tw = "裂紋${zh_tw_Name}磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_${NAME}_BRICKS = register("cracked_${name}_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.${COLOR}));
     @I18n(en_us = "${Name} Brick Stairs", zh_cn = "${zh_cn_Name}砖楼梯", zh_tw = "${zh_tw_Name}磚樓梯")
     @VanillaTag(names = {"mineable/pickaxe", "stairs"}, type = TagType.Block)
     @RegistryBlockItem
@@ -15,3 +20,8 @@
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> ${NAME}_BRICK_WALL = register("${name}_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.${COLOR}));
+    @I18n(en_us = "Chiseled ${Name} Bricks", zh_cn = "雕纹${zh_cn_Name}砖", zh_tw = "浮雕${zh_tw_Name}磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_${NAME}_BRICKS = register("chiseled_${name}_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.${COLOR}));

@@ -22,3 +22,11 @@
                             .pattern(("SSS"))
                             .define('S', ModBlocks.${NAME}_BRICKS.get());
                 }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_${NAME}_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.${NAME}_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.${NAME}_BRICK_SLAB);
+                }));
