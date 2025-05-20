@@ -175,6 +175,24 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_SNOW_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_CALCITE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DRIPSTONE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_CALCITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_DRIPSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB, 2), "stonecutting/");
     }
 
     protected void addSmeltingRecipes() {
@@ -219,6 +237,9 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(Blocks.BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(Blocks.MUD_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_MUD_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.SANDSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_SANDSTONE_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(ModBlocks.SNOW_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_SNOW_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(ModBlocks.CALCITE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_CALCITE_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(ModBlocks.DRIPSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_DRIPSTONE_BRICKS, 0.1f, 200), "smelting/");
 
         SimpleCookingRecipeBuilder smelting = smelting(Items.TERRACOTTA, RecipeCategory.BUILDING_BLOCKS, ModBlocks.GLAZED_TERRACOTTA.get(),0.35F);
         add(smelting);
@@ -791,6 +812,150 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .define('S', ModBlocks.MOSSY_SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.SNOW_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.SNOW_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.SNOW_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.SNOW_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.SNOW_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.SNOW_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_SNOW_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.SNOW_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.SNOW_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_CALCITE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.CALCITE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.CALCITE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DRIPSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DRIPSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.DRIPSTONE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.DRIPSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_DRIPSTONE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.DRIPSTONE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', ModBlocks.DRIPSTONE_BRICK_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_CALCITE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_CALCITE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_DRIPSTONE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_DRIPSTONE_BRICKS.get());
                 }));
 
         add(shaped(RecipeCategory.MISC, ModBlocks.ASH.get(), 6,

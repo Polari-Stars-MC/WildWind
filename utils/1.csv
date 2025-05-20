@@ -1,10 +1,6 @@
 name,zh_cn_Name,zh_tw_Name,COLOR
-mossy_granite,苔花岗岩,青苔花崗岩,DIRT
-mossy_diorite,苔闪长岩,青苔閃長岩,QUARTZ
-mossy_andesite,苔安山岩,青苔安山岩,STONE
-mossy_deepslate,苔深板岩,青苔深板岩,DEEPSLATE
-mossy_tuff,苔凝灰岩,青苔凝灰岩,TERRACOTTA_GRAY
-mossy,苔红,青苔紅,COLOR_RED
-mossy_mud,苔泥,青苔泥,TERRACOTTA_LIGHT_GRAY
-sandstone,砂岩,砂岩,SAND
-mossy_sandstone,苔砂岩,青苔砂岩,SAND
+snow,雪,雪,SNOW
+calcite,方解石,方解石,TERRACOTTA_WHITE
+dripstone,滴水石,鐘乳石,TERRACOTTA_BROWN
+mossy_calcite,苔方解石,青苔方解石,TERRACOTTA_WHITE
+mossy_dripstone,苔滴水石,青苔鐘乳石,TERRACOTTA_BROWN
