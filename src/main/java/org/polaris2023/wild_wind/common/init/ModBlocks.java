@@ -971,6 +971,29 @@ public class ModBlocks {
             end = "wild_wind:block/chiseled_snow_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_SNOW_BRICKS = register("chiseled_snow_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SNOW));
+
+
+    @I18n(en_us = "Polished Calcite",zh_cn = "磨制方解石",zh_tw = "磨製方解石")
+    @BasicBlock
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> POLISHED_CALCITE = register("polished_calcite", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
+    @I18n(en_us = "Polished Calcite Wall",zh_cn = "磨制方解石墙",zh_tw = "磨製方解石牆")
+    @Wall(wall = "wild_wind:block/polished_calcite")
+    @RegistryBlockItem
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> POLISHED_CALCITE_WALL = register("polished_calcite_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(POLISHED_CALCITE.get())), EMPTY);
+    @I18n(en_us = "Polished Calcite Stairs",zh_cn = "磨制方解石楼梯",zh_tw = "磨製方解石樓梯")
+    @Stairs(type = "stone", bottom = "wild_wind:block/polished_calcite", top = "wild_wind:block/polished_calcite", side = "wild_wind:block/polished_calcite")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> POLISHED_CALCITE_STAIRS = register("polished_calcite_stairs", properties -> new StairBlock(ModBlocks.POLISHED_CALCITE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
+    @I18n(en_us = "Polished Calcite Slab",zh_cn = "磨制方解石台阶",zh_tw = "磨製方解石半磚")
+    @Slab(type = "stone", bottom = "wild_wind:block/polished_calcite", side = "wild_wind:block/polished_calcite", top = "wild_wind:block/polished_calcite")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> POLISHED_CALCITE_SLAB = register("polished_calcite_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
+
     @AllBrick
     @I18n(en_us = "Calcite Bricks", zh_cn = "方解石砖", zh_tw = "方解石磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
@@ -998,6 +1021,28 @@ public class ModBlocks {
     @BasicBlock
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_CALCITE_BRICKS = register("chiseled_calcite_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_WHITE));
+
+    @I18n(en_us = "Polished Dripstone Block",zh_cn = "磨制滴水石块",zh_tw = "磨製鐘乳石方塊")
+    @BasicBlock
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> POLISHED_DRIPSTONE_BLOCK = register("polished_dripstone_block", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.STONE).strength(2.5f));
+    @I18n(en_us = "Polished Dripstone Wall",zh_cn = "磨制滴水石墙",zh_tw = "磨製鐘乳石牆")
+    @Wall(wall = "wild_wind:block/polished_dripstone_block")
+    @RegistryBlockItem
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> POLISHED_DRIPSTONE_WALL = register("polished_dripstone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_DRIPSTONE_BLOCK.get())), EMPTY);
+    @I18n(en_us = "Polished Dripstone Stairs",zh_cn = "磨制滴水石楼梯",zh_tw = "磨製鐘乳石樓梯")
+    @Stairs(type = "stone", bottom = "wild_wind:block/polished_dripstone_block", top = "wild_wind:block/polished_dripstone_block", side = "wild_wind:block/polished_dripstone_block")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> POLISHED_DRIPSTONE_STAIRS = register("polished_dripstone_stairs", properties -> new StairBlock(ModBlocks.POLISHED_DRIPSTONE_BLOCK.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS));
+    @I18n(en_us = "Polished Dripstone Slab",zh_cn = "磨制滴水石台阶",zh_tw = "磨製鐘乳石半磚")
+    @Slab(type = "stone", bottom = "wild_wind:block/polished_dripstone_block", side = "wild_wind:block/polished_dripstone_block", top = "wild_wind:block/polished_dripstone_block")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> POLISHED_DRIPSTONE_SLAB = register("polished_dripstone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB));
+
     @AllBrick
     @I18n(en_us = "Dripstone Bricks", zh_cn = "滴水石砖", zh_tw = "鐘乳石磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
