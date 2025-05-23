@@ -1259,9 +1259,21 @@ public class ModBlocks {
     @VanillaTag(names = {"mineable/pickaxe"}, type = TagType.Block)
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<PointedDripstoneBlock> POINTED_ICICLE = register(
+    public static final DeferredBlock<PointedIcicleBlock> POINTED_ICICLE = register(
             "pointed_icicle",
-            PointedDripstoneBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.POINTED_DRIPSTONE)
+            PointedIcicleBlock::new, BlockBehaviour.Properties.of()
+                    .mapColor(MapColor.ICE)
+                    .forceSolidOn()
+                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .noOcclusion()
+                    .sound(SoundType.POINTED_DRIPSTONE)
+                    .randomTicks()
+                    .strength(0.5F, 0.5F)
+                    .friction(0.98F)
+                    .dynamicShape()
+                    .offsetType(BlockBehaviour.OffsetType.XZ)
+                    .pushReaction(PushReaction.DESTROY)
+                    .isRedstoneConductor((_0, _1, _2) -> false)
     );
 
     @Cross(item = false)

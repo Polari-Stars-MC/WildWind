@@ -135,4 +135,9 @@ public class ModItems {
     public static final DeferredItem<Item> LOTUS =
             register("lotus",
                     p -> new PlaceOnWaterBlockItem(ModBlocks.LOTUS.get(), new Item.Properties()));
+
+    @BasicItem
+    @I18n(en_us = "Spoon", zh_cn = "勺子", zh_tw = "勺子")
+    public static final DeferredItem<Item> SPOON =
+            simpleItem("spoon", p -> p.stacksTo(1));
 }
