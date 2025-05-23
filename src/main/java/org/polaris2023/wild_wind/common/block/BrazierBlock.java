@@ -39,10 +39,9 @@ public class BrazierBlock extends Block {
     private static final VoxelShape INSIDE = box(2.0, 6.0, 2.0, 14.0, 16.0, 14.0);
     protected static final VoxelShape SHAPE = Shapes.join(
             Shapes.block(),
-            Shapes.or(box(0.0, 0.0, 4.0, 16.0, 3.0, 12.0), box(4.0, 0.0, 0.0, 12.0, 3.0, 16.0), box(2.0, 0.0, 2.0, 14.0, 3.0, 14.0), INSIDE),
+            Shapes.or(INSIDE),
             BooleanOp.ONLY_FIRST
     );
-
     public static final BooleanProperty LIT = BlockStateProperties.LIT;
     private final boolean spawnParticles;
     private final int fireDamage;
