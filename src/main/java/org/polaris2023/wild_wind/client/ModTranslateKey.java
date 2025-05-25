@@ -81,8 +81,21 @@ public enum ModTranslateKey implements Supplier<TranslatableContents> {
 
     @I18n(en_us = "%s suffocated in quicksand", zh_tw = "%s在流沙里窒息而亡", zh_cn = "%s在流沙里窒息而亡")
     QUICKSAND_DEATH("death", "attack", WildWindMod.MOD_ID, "quicksand_damage"),
+
     @I18n(en_us = "%s suffocated in silt", zh_tw = "%s在淤泥里窒息而亡", zh_cn = "%s在淤泥里窒息而亡")
     SILT_DEATH("death", "attack", WildWindMod.MOD_ID, "silt_damage"),
+
+    @I18n(en_us = "%1$s was impaled on a ice spikes", zh_tw = "%1$s被冰刺刺穿了", zh_cn = "%1$s被冰刺刺穿了")
+    ICE_SPIKES_DAMAGE("death", "attack", WildWindMod.MOD_ID, "ice_spikes_damage"),
+
+    @I18n(en_us = "%1$s was impaled on a ice spikes while fighting %2$s", zh_tw = "%1$s在与%2$s的战斗中被冰刺刺穿了", zh_cn = "%1$s在與%2$s的戰鬥中被冰刺刺穿了")
+    ICE_SPIKES_DAMAGE_PLAYER("death", "attack", WildWindMod.MOD_ID, "ice_spikes_damage", "player"),
+
+    @I18n(en_us = "%1$s was skewered by a falling icicle", zh_tw = "%1$s被坠落的冰凌刺穿了", zh_cn = "%1$s被坠落的冰凌刺穿了")
+    ICICLE_DAMAGE("death", "attack", WildWindMod.MOD_ID, "icicle_damage"),
+
+    @I18n(en_us = "%1$s was skewered by a falling icicle while fighting %2$s", zh_tw = "%1$s在与%2$s的战斗中被坠落的冰凌刺穿了", zh_cn = "%1$s在與%2$s的戰鬥中被墜落的冰凌刺穿了")
+    ICICLE_DAMAGE_PLAYER("death", "attack", WildWindMod.MOD_ID, "icicle_damage", "player"),
 
     @I18n(en_us = "Sneak right-click on the item frame to make it invisible", zh_tw = "潛行右鍵物品展示框使其隱形", zh_cn = "潜行右键物品展示框使其隐形")
     ASH_DUST("item", WildWindMod.MOD_ID, "ash_dust", "desc"),

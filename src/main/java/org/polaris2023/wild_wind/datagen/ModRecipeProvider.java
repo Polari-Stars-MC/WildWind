@@ -1082,6 +1082,14 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .define('S', ModBlocks.ASH_BLOCK.get());
                 }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.PACKED_ICE, 1,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POINTED_ICICLE.get());
+                    builder
+                            .pattern(("##"))
+                            .pattern(("##"))
+                            .define('#', ModBlocks.POINTED_ICICLE.get());
+                }));
     }
 
     protected void addShapelessRecipe() {
