@@ -40,6 +40,6 @@ public class ModDamageType {
         context.register(QUICKSAND_DAMAGE, new DamageType("wild_wind.quicksand_damage", 0.0F));
         context.register(SILT_DAMAGE, new DamageType("wild_wind.silt_damage", 0.0F));
         context.register(ICE_SPIKES_DAMAGE, new DamageType("wild_wind.ice_spikes_damage", 0.0F));
-        context.register(ICICLE_DAMAGE, new DamageType("wild_wind.icicle.damage", 0.0F));
+        context.register(ICICLE_DAMAGE, new DamageType("wild_wind.icicle_damage", 0.0F));
     }
 }

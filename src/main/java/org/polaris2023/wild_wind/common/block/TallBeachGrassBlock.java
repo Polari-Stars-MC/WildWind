@@ -6,7 +6,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.DoublePlantBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.common.IShearable;
-import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
+import net.neoforged.neoforge.common.Tags;
 
 public class TallBeachGrassBlock extends DoublePlantBlock implements IShearable {
 
@@ -22,6 +22,6 @@ public class TallBeachGrassBlock extends DoublePlantBlock implements IShearable 
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(ModBlockTags.CATTAILS_MAY_PLACE.get());
+        return state.is(Tags.Blocks.SANDS);
     }
 }

@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.IShearable;
-import org.polaris2023.wild_wind.common.init.tags.ModBlockTags;
+import net.neoforged.neoforge.common.Tags;
 
 public class BeachGrassBlock extends BushBlock implements IShearable {
 
@@ -33,6 +33,6 @@ public class BeachGrassBlock extends BushBlock implements IShearable {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(ModBlockTags.CATTAILS_MAY_PLACE.get());
+        return state.is(Tags.Blocks.SANDS);
     }
 }
