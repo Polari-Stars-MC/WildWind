@@ -178,7 +178,7 @@ public class ModBlocks {
             max = 3,
             def = "wild_wind:block/brittle_ice"
     ) @RegistryBlockItem
-    @VanillaTag(names = {"snow_layer_cannot_survive_on", "mineable/pickaxe"}, type = TagType.Block)
+    @VanillaTag(names = {"snow_layer_cannot_survive_on", "mineable/pickaxe", "ice"}, type = TagType.Block)
     @CTag(names = "ice_skip", type = TagType.Block)
     public static final DeferredBlock<BrittleIceBlock> BRITTLE_ICE = register("brittle_ice", BrittleIceBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.ICE)
                     .strength(0.1F).isValidSpawn(Blocks::never).pushReaction(PushReaction.DESTROY));
@@ -1264,9 +1264,9 @@ public class ModBlocks {
             PointedIcicleBlock::new, BlockBehaviour.Properties.of()
                     .mapColor(MapColor.ICE)
                     .forceSolidOn()
-                    .instrument(NoteBlockInstrument.BASEDRUM)
+                    .instrument(NoteBlockInstrument.CHIME)
                     .noOcclusion()
-                    .sound(SoundType.POINTED_DRIPSTONE)
+                    .sound(SoundType.GLASS)
                     .randomTicks()
                     .strength(0.5F, 0.5F)
                     .friction(0.98F)

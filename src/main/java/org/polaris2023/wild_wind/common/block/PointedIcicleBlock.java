@@ -38,6 +38,7 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
+import org.polaris2023.wild_wind.common.init.ModDamageType;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -133,7 +134,7 @@ public class PointedIcicleBlock extends Block implements Fallable, SimpleWaterlo
     @Override
     public void fallOn(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
         if (state.getValue(TIP_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
-            entity.causeFallDamage(fallDistance + 2.0F, 2.0F, level.damageSources().stalagmite());
+            entity.causeFallDamage(fallDistance + 2.0F, 2.0F, ModDamageType.causeIceSpikesDamage(level));
         } else {
             super.fallOn(level, state, pos, entity, fallDistance);
         }
@@ -276,7 +277,7 @@ public class PointedIcicleBlock extends Block implements Fallable, SimpleWaterlo
 
     @Override
     public DamageSource getFallDamageSource(Entity entity) {
-        return entity.damageSources().fallingStalactite(entity);
+        return ModDamageType.fallingIcicle(entity);
     }
 
     private static void spawnFallingStalactite(BlockState state, ServerLevel level, BlockPos pos) {
