@@ -1149,17 +1149,17 @@ public class ModBlocks {
     @I18n(en_us = "Sculk Cilia", zh_cn = "幽匿纤芽", zh_tw = "伏聆纖芽")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SCULK_CILIA = register(
+    public static final DeferredBlock<SculkCiliaBlock> SCULK_CILIA = register(
             "sculk_cilia",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+            SculkCiliaBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
     @I18n(en_us = "Sculk Tendril", zh_cn = "幽匿卷须", zh_tw = "伏聆卷須")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> SCULK_TENDRIL = register(
+    public static final DeferredBlock<SculkTendrilBlock> SCULK_TENDRIL = register(
             "sculk_tendril",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            SculkTendrilBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @Cross
@@ -1200,17 +1200,17 @@ public class ModBlocks {
     @I18n(en_us = "Short Beach Grass", zh_cn = "矮沙滩草", zh_tw = "矮沙灘草")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SHORT_BEACH_GRASS = register(
+    public static final DeferredBlock<BeachGrassBlock> SHORT_BEACH_GRASS = register(
             "short_beach_grass",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+            BeachGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
     @I18n(en_us = "Tall Beach Grass", zh_cn = "高沙滩草", zh_tw = "高沙灘草")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> TALL_BEACH_GRASS = register(
+    public static final DeferredBlock<TallBeachGrassBlock> TALL_BEACH_GRASS = register(
             "tall_beach_grass",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            TallBeachGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @I18n(en_us = "Tall Dead Bush", zh_cn = "枯死的高灌木", zh_tw = "枯死的高灌木")
@@ -1242,9 +1242,9 @@ public class ModBlocks {
     @I18n(en_us = "Short Aquatic Grass", zh_cn = "矮水生草", zh_tw = "矮水生草")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<SeagrassBlock> SHORT_AQUATIC_GRASS = register(
+    public static final DeferredBlock<AquaticBlock> SHORT_AQUATIC_GRASS = register(
             "short_aquatic_grass",
-            SeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
+            AquaticBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
     );
 
     @I18n(en_us = "Tall Aquatic Grass", zh_cn = "高水生草", zh_tw = "高水生草")

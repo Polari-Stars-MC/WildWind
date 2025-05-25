@@ -22,11 +22,12 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
+import net.neoforged.neoforge.common.IShearable;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 
 import javax.annotation.Nullable;
 
-public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidBlockContainer {
+public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidBlockContainer, IShearable {
 
     public static final MapCodec<AquaticDoublePlantBlock> CODEC = simpleCodec(AquaticDoublePlantBlock::new);
     public static final EnumProperty<DoubleBlockHalf> HALF = DoublePlantBlock.HALF;
@@ -62,7 +63,8 @@ public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidB
         BlockState blockstate = super.getStateForPlacement(context);
         if (blockstate != null) {
             FluidState fluidstate = context.getLevel().getFluidState(context.getClickedPos());
-            if (fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8) {
+            boolean theAreaAboveIsEmpty = context.getLevel().isEmptyBlock(context.getClickedPos().above());
+            if (fluidstate.is(FluidTags.WATER) && fluidstate.getAmount() == 8 && theAreaAboveIsEmpty) {
                 return blockstate;
             }
         }
