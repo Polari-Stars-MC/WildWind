@@ -147,6 +147,16 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_COBBLED_BLACKSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.POLISHED_BLACKSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_POLISHED_BLACKSTONE_BRICKS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_SLAB, 2), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_GRANITE_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_GRANITE_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_GRANITE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_GRANITE_BRICK_SLAB, 2), "stonecutting/");
@@ -594,6 +604,86 @@ public class ModRecipeProvider extends RecipeProvider {
                             .define('S', Blocks.DEEPSLATE_TILE_SLAB);
                 }));
 
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.COBBLED_BLACKSTONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_COBBLED_BLACKSTONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_POLISHED_BLACKSTONE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, Blocks.POLISHED_BLACKSTONE_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', Blocks.POLISHED_BLACKSTONE_SLAB);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+                }));
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_GRANITE_BRICK_SLAB.get(), 6,
                 builder -> {
                     unlockedBy(builder, ModBlocks.MOSSY_GRANITE_BRICKS.get());
