@@ -25,6 +25,10 @@ public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> PATCH_REEDS = create("patch_reeds");
 	public static final ResourceKey<BiomeModifier> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
 	public static final ResourceKey<BiomeModifier> WATERLOGGED_REEDS = create("waterlogged_reeds");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
+	public static final ResourceKey<BiomeModifier> NEAR_WATER_BEACH_GRASS = create("near_water_beach_grass");
+	public static final ResourceKey<BiomeModifier> NEAR_WATER_TALL_BEACH_GRASS = create("near_water_tall_beach_grass");
 	public static final ResourceKey<BiomeModifier> ASH = create("ash");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
@@ -73,6 +77,26 @@ public class ModBiomeModifierRegistry {
 		context.register(WATERLOGGED_REEDS, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_REEDS)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_AQUATIC, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_AQUATIC)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_TALL_AQUATIC, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_TALL_AQUATIC)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(NEAR_WATER_BEACH_GRASS, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.NEAR_WATER_BEACH_GRASS)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(NEAR_WATER_TALL_BEACH_GRASS, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.NEAR_WATER_TALL_BEACH_GRASS)),
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));
 		context.register(ASH, new BiomeModifiers.AddFeaturesBiomeModifier(

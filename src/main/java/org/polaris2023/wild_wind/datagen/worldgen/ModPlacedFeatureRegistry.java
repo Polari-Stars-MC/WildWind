@@ -31,6 +31,10 @@ public class ModPlacedFeatureRegistry {
 	//Waterlogged
 	public static final ResourceKey<PlacedFeature> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
 	public static final ResourceKey<PlacedFeature> WATERLOGGED_REEDS = create("waterlogged_reeds");
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
+	public static final ResourceKey<PlacedFeature> NEAR_WATER_BEACH_GRASS = create("near_water_beach_grass");
+	public static final ResourceKey<PlacedFeature> NEAR_WATER_TALL_BEACH_GRASS = create("near_water_tall_beach_grass");
 
 	//Quicksand
 	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
@@ -112,6 +116,34 @@ public class ModPlacedFeatureRegistry {
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				CountPlacement.of(16),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_AQUATIC, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_AQUATIC),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(16),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_TALL_AQUATIC, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_TALL_AQUATIC),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(16),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, NEAR_WATER_BEACH_GRASS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.NEAR_WATER_BEACH_GRASS),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(32),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, NEAR_WATER_TALL_BEACH_GRASS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.NEAR_WATER_TALL_BEACH_GRASS),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(32),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(

@@ -46,7 +46,10 @@ public class ModConfiguredFeatureRegistry {
 	//Waterlogged
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_REEDS = create("waterlogged_reeds");
-
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEAR_WATER_BEACH_GRASS = create("near_water_beach_grass");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> NEAR_WATER_TALL_BEACH_GRASS = create("near_water_tall_beach_grass");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
 	@SuppressWarnings("deprecation")
@@ -83,8 +86,14 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, PATCH_REEDS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
 				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get()))
 		));
-		FeatureUtils.register(context, WATERLOGGED_CATTAILS, ModFeatures.HALF_WATERLOGGED_TALL_FLOWER, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get())));
-		FeatureUtils.register(context, WATERLOGGED_REEDS, ModFeatures.HALF_WATERLOGGED_TALL_FLOWER, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get())));
+		FeatureUtils.register(context, WATERLOGGED_CATTAILS, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get())));
+		FeatureUtils.register(context, WATERLOGGED_REEDS, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get())));
+		FeatureUtils.register(context, WATERLOGGED_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_AQUATIC_GRASS.get())));
+		FeatureUtils.register(context, WATERLOGGED_TALL_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_AQUATIC_GRASS.get())));
+
+		FeatureUtils.register(context, NEAR_WATER_BEACH_GRASS, ModFeatures.NEAR_WATER_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get())));
+		FeatureUtils.register(context, NEAR_WATER_TALL_BEACH_GRASS, ModFeatures.NEAR_WATER_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get())));
+
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}
 

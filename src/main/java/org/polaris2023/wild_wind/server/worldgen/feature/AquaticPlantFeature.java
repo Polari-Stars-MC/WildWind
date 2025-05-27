@@ -15,8 +15,8 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.configurations.SimpleBlockConfiguration;
 
-public class HalfWaterloggedTallFlowerFeature extends Feature<SimpleBlockConfiguration> {
-	public HalfWaterloggedTallFlowerFeature(Codec<SimpleBlockConfiguration> props) {
+public class AquaticPlantFeature extends Feature<SimpleBlockConfiguration> {
+	public AquaticPlantFeature(Codec<SimpleBlockConfiguration> props) {
 		super(props);
 	}
 
@@ -34,11 +34,17 @@ public class HalfWaterloggedTallFlowerFeature extends Feature<SimpleBlockConfigu
 		if (level.getBlockState(current).is(Blocks.WATER)) {
 			BlockState lower = toPlace.setValue(BlockStateProperties.WATERLOGGED, true);
 			if (lower.canSurvive(level, current)) {
-				BlockState upper = toPlace.setValue(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setValue(BlockStateProperties.WATERLOGGED, false);
 				BlockPos above = current.above();
-				if (!level.getBlockState(above).is(Blocks.WATER)) {
-					level.setBlock(current, lower, Block.UPDATE_CLIENTS);
-					level.setBlock(above, upper, Block.UPDATE_CLIENTS);
+				if (toPlace.hasProperty(TallFlowerBlock.HALF)) {
+					BlockState upper = toPlace.setValue(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER).setValue(BlockStateProperties.WATERLOGGED, false);
+					if (!level.getBlockState(above).is(Blocks.WATER)) {
+						level.setBlock(current, lower, Block.UPDATE_CLIENTS);
+						level.setBlock(above, upper, Block.UPDATE_CLIENTS);
+					}
+				} else {
+					if (!level.getBlockState(above).is(Blocks.WATER)) {
+						level.setBlock(current, lower, Block.UPDATE_CLIENTS);
+					}
 				}
 
 				flag = true;

@@ -12,11 +12,16 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DoublePlantBlock;
+import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -30,7 +35,7 @@ import javax.annotation.Nullable;
 public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidBlockContainer, IShearable {
 
     public static final MapCodec<AquaticDoublePlantBlock> CODEC = simpleCodec(AquaticDoublePlantBlock::new);
-    public static final EnumProperty<DoubleBlockHalf> HALF = DoublePlantBlock.HALF;
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
 
     @Override
@@ -38,8 +43,9 @@ public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidB
         return CODEC;
     }
 
-    public AquaticDoublePlantBlock(BlockBehaviour.Properties p_154745_) {
-        super(p_154745_);
+    public AquaticDoublePlantBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -103,5 +109,10 @@ public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidB
     @Override
     public boolean placeLiquid(LevelAccessor p_154758_, BlockPos p_154759_, BlockState p_154760_, FluidState p_154761_) {
         return false;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(HALF, WATERLOGGED);
     }
 }

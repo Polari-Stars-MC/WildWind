@@ -12,6 +12,9 @@ import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.LiquidBlockContainer;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
@@ -24,6 +27,7 @@ import javax.annotation.Nullable;
 public class AquaticBlock extends BushBlock implements LiquidBlockContainer, IShearable {
 
     public static final MapCodec<AquaticBlock> CODEC = simpleCodec(AquaticBlock::new);
+    public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 12.0, 14.0);
 
     @Override
@@ -31,8 +35,9 @@ public class AquaticBlock extends BushBlock implements LiquidBlockContainer, ISh
         return CODEC;
     }
 
-    public AquaticBlock(BlockBehaviour.Properties p_154496_) {
-        super(p_154496_);
+    public AquaticBlock(BlockBehaviour.Properties properties) {
+        super(properties);
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
     }
 
     @Override
@@ -61,5 +66,10 @@ public class AquaticBlock extends BushBlock implements LiquidBlockContainer, ISh
     @Override
     public boolean placeLiquid(LevelAccessor p_154520_, BlockPos p_154521_, BlockState p_154522_, FluidState p_154523_) {
         return false;
+    }
+
+    @Override
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
+        builder.add(WATERLOGGED);
     }
 }

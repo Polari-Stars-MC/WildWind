@@ -10,20 +10,27 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.neoforged.neoforge.common.IShearable;
-import net.neoforged.neoforge.common.Tags;
 
-public class BeachGrassBlock extends BushBlock implements IShearable {
+import java.util.function.Function;
 
-    public static final MapCodec<BeachGrassBlock> CODEC = simpleCodec(BeachGrassBlock::new);
+public class SimpleGrassBlock extends BushBlock implements IShearable {
+
+    public static final MapCodec<SimpleGrassBlock> CODEC = simpleCodec(SimpleGrassBlock::new);
+    private Function<BlockState, Boolean> placeFunction = (state) -> true;
     protected static final VoxelShape SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 13.0, 14.0);
 
     @Override
-    public MapCodec<BeachGrassBlock> codec() {
+    public MapCodec<SimpleGrassBlock> codec() {
         return CODEC;
     }
 
-    public BeachGrassBlock(BlockBehaviour.Properties properties) {
+    public SimpleGrassBlock(BlockBehaviour.Properties properties) {
         super(properties);
+    }
+
+    public SimpleGrassBlock(Properties properties, Function<BlockState, Boolean> function) {
+        this(properties);
+        this.placeFunction = function;
     }
 
     @Override
@@ -33,6 +40,6 @@ public class BeachGrassBlock extends BushBlock implements IShearable {
 
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
-        return state.is(Tags.Blocks.SANDS);
+        return placeFunction.apply(state);
     }
 }
