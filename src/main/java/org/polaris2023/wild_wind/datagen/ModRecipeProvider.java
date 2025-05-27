@@ -144,6 +144,10 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(Blocks.MUD_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_MUD_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_SANDSTONE_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(Blocks.PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.SMOOTH_SANDSTONE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SMOOTH_SANDSTONE_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PACKED_MUD), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD_SLAB, 2), "stonecutting/");
@@ -545,6 +549,39 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("S"))
                             .pattern(("S"))
                             .define('S', ModBlocks.BLUE_ICE_BRICK_SLAB);
+                }));
+
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_SANDSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_SANDSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_SANDSTONE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_SANDSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_SANDSTONE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_SANDSTONE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SMOOTH_SANDSTONE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, Blocks.SMOOTH_SANDSTONE);
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', Blocks.SMOOTH_SANDSTONE);
                 }));
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PACKED_MUD.get(), 4,
