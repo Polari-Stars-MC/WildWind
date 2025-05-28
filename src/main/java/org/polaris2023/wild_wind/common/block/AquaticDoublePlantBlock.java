@@ -45,7 +45,7 @@ public class AquaticDoublePlantBlock extends DoublePlantBlock implements LiquidB
 
     public AquaticDoublePlantBlock(BlockBehaviour.Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(HALF, DoubleBlockHalf.LOWER).setValue(WATERLOGGED, false));
     }
 
     @Override

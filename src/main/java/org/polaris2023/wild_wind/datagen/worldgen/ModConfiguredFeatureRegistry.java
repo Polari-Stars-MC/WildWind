@@ -91,8 +91,10 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, WATERLOGGED_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_AQUATIC_GRASS.get())));
 		FeatureUtils.register(context, WATERLOGGED_TALL_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_AQUATIC_GRASS.get())));
 
-		FeatureUtils.register(context, NEAR_WATER_BEACH_GRASS, ModFeatures.NEAR_WATER_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get())));
-		FeatureUtils.register(context, NEAR_WATER_TALL_BEACH_GRASS, ModFeatures.NEAR_WATER_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get())));
+		FeatureUtils.register(context, NEAR_WATER_BEACH_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get()))));
+		FeatureUtils.register(context, NEAR_WATER_TALL_BEACH_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get()))));
 
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}

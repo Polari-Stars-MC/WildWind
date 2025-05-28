@@ -90,12 +90,12 @@ public class ModBiomeModifierRegistry {
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));
 		context.register(NEAR_WATER_BEACH_GRASS, new BiomeModifiers.AddFeaturesBiomeModifier(
-				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				biomesLookup.getOrThrow(Tags.Biomes.IS_BEACH),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.NEAR_WATER_BEACH_GRASS)),
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));
 		context.register(NEAR_WATER_TALL_BEACH_GRASS, new BiomeModifiers.AddFeaturesBiomeModifier(
-				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				biomesLookup.getOrThrow(Tags.Biomes.IS_BEACH),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.NEAR_WATER_TALL_BEACH_GRASS)),
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));

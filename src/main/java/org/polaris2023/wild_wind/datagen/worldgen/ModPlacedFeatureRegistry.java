@@ -136,14 +136,14 @@ public class ModPlacedFeatureRegistry {
 				context, NEAR_WATER_BEACH_GRASS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.NEAR_WATER_BEACH_GRASS),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(32),
+				CountPlacement.of(1),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, NEAR_WATER_TALL_BEACH_GRASS, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.NEAR_WATER_TALL_BEACH_GRASS),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(32),
+				CountPlacement.of(1),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
