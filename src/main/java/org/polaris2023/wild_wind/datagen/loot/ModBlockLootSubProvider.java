@@ -159,10 +159,29 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CRACKED_SANDSTONE_BRICKS.get());
         this.dropSelf(ModBlocks.CHISELED_SANDSTONE_BRICKS.get());
 
+        this.dropSelf(ModBlocks.MOSSY_SANDSTONE.get());
+        this.dropSelf(ModBlocks.MOSSY_SANDSTONE_WALL.get());
+        this.add(ModBlocks.MOSSY_SANDSTONE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_SANDSTONE_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_SANDSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.SMOOTH_SANDSTONE_WALL.get());
         this.dropSelf(ModBlocks.POLISHED_PACKED_MUD.get());
         this.dropSelf(ModBlocks.POLISHED_PACKED_MUD_WALL.get());
         this.add(ModBlocks.POLISHED_PACKED_MUD_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_PACKED_MUD_SLAB.get()));
         this.dropSelf(ModBlocks.POLISHED_PACKED_MUD_STAIRS.get());
+
+        this.dropSelf(ModBlocks.COBBLED_BLACKSTONE.get());
+        this.dropSelf(ModBlocks.COBBLED_BLACKSTONE_WALL.get());
+        this.add(ModBlocks.COBBLED_BLACKSTONE_SLAB.get(), this.createSlabItemTable(ModBlocks.COBBLED_BLACKSTONE_SLAB.get()));
+        this.dropSelf(ModBlocks.COBBLED_BLACKSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.MOSSY_COBBLED_BLACKSTONE.get());
+        this.dropSelf(ModBlocks.MOSSY_COBBLED_BLACKSTONE_WALL.get());
+        this.add(ModBlocks.MOSSY_COBBLED_BLACKSTONE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_COBBLED_BLACKSTONE_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_COBBLED_BLACKSTONE_STAIRS.get());
+        this.dropSelf(ModBlocks.CHISELED_POLISHED_BLACKSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_WALL.get());
+        this.add(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICK_STAIRS.get());
 
         this.dropSelf(ModBlocks.MOSSY_GRANITE_BRICKS.get());
         this.dropSelf(ModBlocks.MOSSY_GRANITE_BRICK_STAIRS.get());
