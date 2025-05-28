@@ -15,6 +15,7 @@ public class ModDamageType {
     public static final ResourceKey<DamageType> SILT_DAMAGE = create("silt_damage");
     public static final ResourceKey<DamageType> ICE_SPIKES_DAMAGE = create("ice_spikes_damage");
     public static final ResourceKey<DamageType> ICICLE_DAMAGE = create("icicle_damage");
+    public static final ResourceKey<DamageType> THORN_DAMAGE = create("thorn_damage");
 
     public static ResourceKey<DamageType> create(String name) {
         return ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(WildWindMod.MOD_ID, name));
@@ -36,10 +37,15 @@ public class ModDamageType {
         return entity.level().damageSources().source(ICICLE_DAMAGE, entity);
     }
 
+    public static DamageSource thornDamage(Level level) {
+        return level.damageSources().source(THORN_DAMAGE);
+    }
+
     public static void bootstrap(BootstrapContext<DamageType> context) {
         context.register(QUICKSAND_DAMAGE, new DamageType("wild_wind.quicksand_damage", 0.0F));
         context.register(SILT_DAMAGE, new DamageType("wild_wind.silt_damage", 0.0F));
         context.register(ICE_SPIKES_DAMAGE, new DamageType("wild_wind.ice_spikes_damage", 0.0F));
         context.register(ICICLE_DAMAGE, new DamageType("wild_wind.icicle_damage", 0.0F));
+        context.register(THORN_DAMAGE, new DamageType("wild_wind.thorn_damage", 0.0F));
     }
 }

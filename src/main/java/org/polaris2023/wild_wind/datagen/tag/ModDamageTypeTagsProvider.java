@@ -22,6 +22,9 @@ public class ModDamageTypeTagsProvider extends DamageTypeTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(ModDamageType.QUICKSAND_DAMAGE, DamageTypeTags.BYPASSES_ARMOR, DamageTypeTags.NO_KNOCKBACK);
         this.tag(ModDamageType.SILT_DAMAGE, DamageTypeTags.BYPASSES_ARMOR, DamageTypeTags.NO_KNOCKBACK);
+        this.tag(ModDamageType.ICICLE_DAMAGE, DamageTypeTags.DAMAGES_HELMET, DamageTypeTags.BYPASSES_SHIELD);
+        this.tag(ModDamageType.ICE_SPIKES_DAMAGE, DamageTypeTags.BYPASSES_ARMOR, DamageTypeTags.IS_FALL, DamageTypeTags.NO_KNOCKBACK);
+        this.tag(ModDamageType.THORN_DAMAGE, DamageTypeTags.NO_KNOCKBACK);
     }
 
     @SafeVarargs

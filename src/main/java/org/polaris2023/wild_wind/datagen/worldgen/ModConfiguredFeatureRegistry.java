@@ -48,8 +48,10 @@ public class ModConfiguredFeatureRegistry {
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_REEDS = create("waterlogged_reeds");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> NEAR_WATER_BEACH_GRASS = create("near_water_beach_grass");
-	public static final ResourceKey<ConfiguredFeature<?, ?>> NEAR_WATER_TALL_BEACH_GRASS = create("near_water_tall_beach_grass");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BEACH = create("patch_beach");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_TALL_BEACH = create("patch_tall_beach");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_THORN = create("patch_thorn");
+	public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LARGE_THORN = create("patch_tall_thorn");
 	public static final ResourceKey<ConfiguredFeature<?, ?>> ASH = create("ash");
 
 	@SuppressWarnings("deprecation")
@@ -91,10 +93,15 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, WATERLOGGED_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_AQUATIC_GRASS.get())));
 		FeatureUtils.register(context, WATERLOGGED_TALL_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_AQUATIC_GRASS.get())));
 
-		FeatureUtils.register(context, NEAR_WATER_BEACH_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+		FeatureUtils.register(context, PATCH_BEACH, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
 				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get()))));
-		FeatureUtils.register(context, NEAR_WATER_TALL_BEACH_GRASS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+		FeatureUtils.register(context, PATCH_TALL_BEACH, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
 				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get()))));
+
+		FeatureUtils.register(context, PATCH_THORN, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.THORN.get()))));
+		FeatureUtils.register(context, PATCH_LARGE_THORN, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
+				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.LARGE_THORN.get()))));
 
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
 	}

@@ -272,8 +272,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropWhenSilkTouch(ModBlocks.TALL_DEAD_BUSH.get());
         this.dropSelf(ModBlocks.SCULK_CILIA.get());
         this.dropSelf(ModBlocks.SCULK_TENDRIL.get());
-        this.dropSelf(ModBlocks.THORN.get());
-        this.dropSelf(ModBlocks.LARGE_THORN.get());
+        this.dropWhenSilkTouch(ModBlocks.THORN.get());
+        this.dropWhenSilkTouch(ModBlocks.LARGE_THORN.get());
         this.dropWhenSilkTouch(ModBlocks.SHORT_AQUATIC_GRASS.get());
         this.dropWhenSilkTouch(ModBlocks.TALL_AQUATIC_GRASS.get());
         this.dropSelf(ModBlocks.POINTED_ICICLE.get());

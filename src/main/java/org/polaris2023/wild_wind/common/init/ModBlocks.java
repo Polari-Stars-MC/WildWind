@@ -1318,17 +1318,17 @@ public class ModBlocks {
     @I18n(en_us = "Thorn", zh_cn = "荆棘丛", zh_tw = "荊棘叢")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> THORN = register(
+    public static final DeferredBlock<ThornBlock> THORN = register(
             "thorn",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
+            ThornBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
     );
 
     @I18n(en_us = "Large Thorn", zh_cn = "大型荆棘丛", zh_tw = "大型荊棘叢")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> LARGE_THORN = register(
+    public static final DeferredBlock<LargeThornBlock> LARGE_THORN = register(
             "large_thorn",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
+            LargeThornBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
     );
 
     @Cross(item = false)
