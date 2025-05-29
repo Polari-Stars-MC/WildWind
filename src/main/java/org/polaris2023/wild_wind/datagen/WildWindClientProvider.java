@@ -4,6 +4,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DoubleBlockHalf;
@@ -227,9 +228,10 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         doublePlantBlockStates(ModBlocks.TALL_AQUATIC_GRASS.get(), "tall_aquatic_grass");
 
         //glistering_melon
-
-
         stateProvider.simpleBlock(ModBlocks.GLISTERING_MELON.get(), blockModelProvider.getBuilder("glistering_melon"));
+
+        //sandstone
+        stateProvider.simpleBlock(ModBlocks.MOSSY_SANDSTONE.get(), blockModelProvider.getBuilder("mossy_sandstone"));
 //        List<DeferredHolder<Block, ?>> blocks = new ArrayList<>(ModInitializer.blocks());
 //        stateProvider.models().generatedModels.forEach((location, __) -> {
 //            blocks.removeIf(h -> h.getId().equals(location));
@@ -265,6 +267,12 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
                 Helpers.location("block/glistering_melon_side"),
                 Helpers.location("block/glistering_melon_side"),
                 Helpers.location("block/glistering_melon_top")
+        );
+        blockModelProvider.cubeBottomTop(
+                "mossy_sandstone",
+                Helpers.location("block/mossy_sandstone"),
+                Helpers.location("block/mossy_sandstone"),
+                ResourceLocation.withDefaultNamespace("block/sandstone_top")
         );
         blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta"));
 
