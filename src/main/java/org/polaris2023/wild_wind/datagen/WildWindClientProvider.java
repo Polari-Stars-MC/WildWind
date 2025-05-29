@@ -271,7 +271,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         blockModelProvider.cubeBottomTop(
                 "mossy_sandstone",
                 Helpers.location("block/mossy_sandstone"),
-                Helpers.location("block/mossy_sandstone"),
+                ResourceLocation.withDefaultNamespace("block/sandstone_bottom"),
                 ResourceLocation.withDefaultNamespace("block/sandstone_top")
         );
         blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta"));

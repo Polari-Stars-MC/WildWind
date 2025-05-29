@@ -731,7 +731,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CHISELED_DEEPSLATE_TILES = register("chiseled_deepslate_tiles", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
 
     @I18n(en_us = "Mossy Sandstone",zh_cn = "苔砂岩",zh_tw = "青苔砂岩")
-    @CubeBottomTop(side = "wild_wind:block/mossy_sandstone", bottom = "wild_wind:block/mossy_sandstone", top = "minecraft:block/sandstone_top")
+    @CubeBottomTop(side = "wild_wind:block/mossy_sandstone", bottom = "minecraft:block/sandstone_bottom", top = "minecraft:block/sandstone_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @BasicBlockItem
     @RegistryBlockItem
