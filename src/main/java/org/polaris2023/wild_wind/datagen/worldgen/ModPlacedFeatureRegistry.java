@@ -124,7 +124,7 @@ public class ModPlacedFeatureRegistry {
 				context, WATERLOGGED_AQUATIC, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_AQUATIC),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(16),
+				CountPlacement.of(32),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
@@ -138,14 +138,14 @@ public class ModPlacedFeatureRegistry {
 				context, PATCH_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_BEACH),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(1),
+				CountPlacement.of(8),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, PATCH_TALL_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_TALL_BEACH),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(1),
+				CountPlacement.of(8),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
