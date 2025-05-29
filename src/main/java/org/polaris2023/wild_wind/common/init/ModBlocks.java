@@ -17,6 +17,7 @@ import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 import net.neoforged.neoforge.common.NeoForgeMod;
+import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.registries.*;
 import org.jetbrains.annotations.Nullable;
 import org.polaris2023.annotation.enums.RegType;
@@ -34,6 +35,7 @@ import org.polaris2023.annotation.tag.WildWindTag;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.common.block.*;
 
+import org.polaris2023.wild_wind.common.block.SimpleDoublePlantBlock;
 import org.polaris2023.wild_wind.common.block.entity.*;
 import org.polaris2023.wild_wind.common.block.modified.*;
 
@@ -1238,17 +1240,17 @@ public class ModBlocks {
     @I18n(en_us = "Sculk Cilia", zh_cn = "幽匿纤芽", zh_tw = "伏聆纖芽")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SCULK_CILIA = register(
+    public static final DeferredBlock<SculkCiliaBlock> SCULK_CILIA = register(
             "sculk_cilia",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+            SculkCiliaBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
     @I18n(en_us = "Sculk Tendril", zh_cn = "幽匿卷须", zh_tw = "伏聆卷須")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> SCULK_TENDRIL = register(
+    public static final DeferredBlock<SculkTendrilBlock> SCULK_TENDRIL = register(
             "sculk_tendril",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            SculkTendrilBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @Cross
@@ -1289,51 +1291,54 @@ public class ModBlocks {
     @I18n(en_us = "Short Beach Grass", zh_cn = "矮沙滩草", zh_tw = "矮沙灘草")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> SHORT_BEACH_GRASS = register(
+    public static final DeferredBlock<SimpleGrassBlock> SHORT_BEACH_GRASS = register(
             "short_beach_grass",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+            properties -> new SimpleGrassBlock(properties, (state) -> state.is(Tags.Blocks.SANDS)),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
     );
 
     @I18n(en_us = "Tall Beach Grass", zh_cn = "高沙滩草", zh_tw = "高沙灘草")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> TALL_BEACH_GRASS = register(
+    public static final DeferredBlock<SimpleDoublePlantBlock> TALL_BEACH_GRASS = register(
             "tall_beach_grass",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            properties -> new SimpleDoublePlantBlock(properties, (state) -> state.is(Tags.Blocks.SANDS)),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @I18n(en_us = "Tall Dead Bush", zh_cn = "枯死的高灌木", zh_tw = "枯死的高灌木")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> TALL_DEAD_BUSH = register(
+    public static final DeferredBlock<SimpleDoublePlantBlock> TALL_DEAD_BUSH = register(
             "tall_dead_bush",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            properties -> new SimpleDoublePlantBlock(properties, (state) -> state.is(Tags.Blocks.SANDS)  || state.is(Blocks.TERRACOTTA)),
+            BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
     );
 
     @Cross(item = false)
     @I18n(en_us = "Thorn", zh_cn = "荆棘丛", zh_tw = "荊棘叢")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<TallGrassBlock> THORN = register(
+    public static final DeferredBlock<ThornBlock> THORN = register(
             "thorn",
-            TallGrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SHORT_GRASS)
+            ThornBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
     );
 
     @I18n(en_us = "Large Thorn", zh_cn = "大型荆棘丛", zh_tw = "大型荊棘叢")
     @BasicItem
     @RegistryBlockItem
-    public static final DeferredBlock<DoublePlantBlock> LARGE_THORN = register(
+    public static final DeferredBlock<LargeThornBlock> LARGE_THORN = register(
             "large_thorn",
-            DoublePlantBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.TALL_GRASS)
+            LargeThornBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.DEAD_BUSH)
     );
 
     @Cross(item = false)
     @I18n(en_us = "Short Aquatic Grass", zh_cn = "矮水生草", zh_tw = "矮水生草")
     @BasicBlockLocatedItem
     @RegistryBlockItem
-    public static final DeferredBlock<SeagrassBlock> SHORT_AQUATIC_GRASS = register(
+    public static final DeferredBlock<AquaticBlock> SHORT_AQUATIC_GRASS = register(
             "short_aquatic_grass",
-            SeagrassBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
+            AquaticBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SEAGRASS)
     );
 
     @I18n(en_us = "Tall Aquatic Grass", zh_cn = "高水生草", zh_tw = "高水生草")

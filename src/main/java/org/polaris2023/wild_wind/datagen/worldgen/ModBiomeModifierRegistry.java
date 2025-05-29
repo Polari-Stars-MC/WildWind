@@ -25,6 +25,12 @@ public class ModBiomeModifierRegistry {
 	public static final ResourceKey<BiomeModifier> PATCH_REEDS = create("patch_reeds");
 	public static final ResourceKey<BiomeModifier> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
 	public static final ResourceKey<BiomeModifier> WATERLOGGED_REEDS = create("waterlogged_reeds");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
+	public static final ResourceKey<BiomeModifier> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
+	public static final ResourceKey<BiomeModifier> PATCH_BEACH = create("patch_beach");
+	public static final ResourceKey<BiomeModifier> PATCH_TALL_BEACH = create("patch_tall_beach");
+	public static final ResourceKey<BiomeModifier> PATCH_THORN = create("patch_thorn");
+	public static final ResourceKey<BiomeModifier> PATCH_LARGE_THORN = create("patch_large_thorn");
 	public static final ResourceKey<BiomeModifier> ASH = create("ash");
 
 	public static void bootstrap(BootstrapContext<BiomeModifier> context) {
@@ -73,6 +79,36 @@ public class ModBiomeModifierRegistry {
 		context.register(WATERLOGGED_REEDS, new BiomeModifiers.AddFeaturesBiomeModifier(
 				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
 				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_REEDS)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_AQUATIC, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_AQUATIC)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(WATERLOGGED_TALL_AQUATIC, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_RIVER),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.WATERLOGGED_TALL_AQUATIC)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(PATCH_BEACH, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_BEACH),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.PATCH_BEACH)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(PATCH_TALL_BEACH, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_BEACH),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.PATCH_TALL_BEACH)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(PATCH_THORN, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.PATCH_THORN)),
+				GenerationStep.Decoration.VEGETAL_DECORATION
+		));
+		context.register(PATCH_LARGE_THORN, new BiomeModifiers.AddFeaturesBiomeModifier(
+				biomesLookup.getOrThrow(Tags.Biomes.IS_SWAMP),
+				HolderSet.direct(placedFeaturesLookup.getOrThrow(ModPlacedFeatureRegistry.PATCH_LARGE_THORN)),
 				GenerationStep.Decoration.VEGETAL_DECORATION
 		));
 		context.register(ASH, new BiomeModifiers.AddFeaturesBiomeModifier(

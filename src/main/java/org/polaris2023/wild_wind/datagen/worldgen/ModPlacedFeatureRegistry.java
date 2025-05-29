@@ -31,6 +31,12 @@ public class ModPlacedFeatureRegistry {
 	//Waterlogged
 	public static final ResourceKey<PlacedFeature> WATERLOGGED_CATTAILS = create("waterlogged_cattails");
 	public static final ResourceKey<PlacedFeature> WATERLOGGED_REEDS = create("waterlogged_reeds");
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_AQUATIC = create("waterlogged_aquatic");
+	public static final ResourceKey<PlacedFeature> WATERLOGGED_TALL_AQUATIC = create("waterlogged_tall_aquatic");
+	public static final ResourceKey<PlacedFeature> PATCH_BEACH = create("patch_beach");
+	public static final ResourceKey<PlacedFeature> PATCH_TALL_BEACH = create("patch_tall_beach");
+	public static final ResourceKey<PlacedFeature> PATCH_THORN = create("patch_thorn");
+	public static final ResourceKey<PlacedFeature> PATCH_LARGE_THORN = create("patch_large_thorn");
 
 	//Quicksand
 	public static final ResourceKey<PlacedFeature> QUICKSAND = create("quicksand");
@@ -112,6 +118,48 @@ public class ModPlacedFeatureRegistry {
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
 				CountPlacement.of(16),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_AQUATIC, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_AQUATIC),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(32),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, WATERLOGGED_TALL_AQUATIC, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.WATERLOGGED_TALL_AQUATIC),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(16),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, PATCH_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_BEACH),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(8),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context, PATCH_TALL_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_TALL_BEACH),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(8),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context,PATCH_THORN , configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_THORN),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(1),
+				BiomeFilter.biome()
+		);
+		PlacementUtils.register(
+				context,PATCH_LARGE_THORN , configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_LARGE_THORN),
+				InSquarePlacement.spread(),
+				PlacementUtils.HEIGHTMAP_TOP_SOLID,
+				CountPlacement.of(1),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
