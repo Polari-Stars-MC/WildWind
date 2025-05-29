@@ -138,14 +138,14 @@ public class ModPlacedFeatureRegistry {
 				context, PATCH_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_BEACH),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(8),
+				CountPlacement.of(1),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
 				context, PATCH_TALL_BEACH, configuredFeaturesLookup.getOrThrow(ModConfiguredFeatureRegistry.PATCH_TALL_BEACH),
 				InSquarePlacement.spread(),
 				PlacementUtils.HEIGHTMAP_TOP_SOLID,
-				CountPlacement.of(8),
+				CountPlacement.of(1),
 				BiomeFilter.biome()
 		);
 		PlacementUtils.register(
