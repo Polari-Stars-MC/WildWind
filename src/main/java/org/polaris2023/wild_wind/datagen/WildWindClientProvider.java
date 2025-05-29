@@ -232,6 +232,7 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
 
         //sandstone
         stateProvider.simpleBlock(ModBlocks.MOSSY_SANDSTONE.get(), blockModelProvider.getBuilder("mossy_sandstone"));
+        stateProvider.simpleBlock(ModBlocks.MOSSY_RED_SANDSTONE.get(), blockModelProvider.getBuilder("mossy_red_sandstone"));
 //        List<DeferredHolder<Block, ?>> blocks = new ArrayList<>(ModInitializer.blocks());
 //        stateProvider.models().generatedModels.forEach((location, __) -> {
 //            blocks.removeIf(h -> h.getId().equals(location));
@@ -271,8 +272,14 @@ public class WildWindClientProvider implements DatagenClient, DataProvider, IBlo
         blockModelProvider.cubeBottomTop(
                 "mossy_sandstone",
                 Helpers.location("block/mossy_sandstone"),
-                Helpers.location("block/mossy_sandstone"),
+                ResourceLocation.withDefaultNamespace("block/sandstone_bottom"),
                 ResourceLocation.withDefaultNamespace("block/sandstone_top")
+        );
+        blockModelProvider.cubeBottomTop(
+                "mossy_red_sandstone",
+                Helpers.location("block/mossy_red_sandstone"),
+                ResourceLocation.withDefaultNamespace("block/red_sandstone_bottom"),
+                ResourceLocation.withDefaultNamespace("block/red_sandstone_top")
         );
         blockModelProvider.cubeAll("glazed_terracotta", Helpers.location("block/glazed_terracotta"));
 

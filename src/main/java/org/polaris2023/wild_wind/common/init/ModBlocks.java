@@ -733,7 +733,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CHISELED_DEEPSLATE_TILES = register("chiseled_deepslate_tiles", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DEEPSLATE));
 
     @I18n(en_us = "Mossy Sandstone",zh_cn = "苔砂岩",zh_tw = "青苔砂岩")
-    @CubeBottomTop(side = "wild_wind:block/mossy_sandstone", bottom = "wild_wind:block/mossy_sandstone", top = "minecraft:block/sandstone_top")
+    @CubeBottomTop(side = "wild_wind:block/mossy_sandstone", bottom = "minecraft:block/sandstone_bottom", top = "minecraft:block/sandstone_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @BasicBlockItem
     @RegistryBlockItem
@@ -744,12 +744,12 @@ public class ModBlocks {
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> MOSSY_SANDSTONE_WALL = register("mossy_sandstone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.MOSSY_SANDSTONE.get())), EMPTY);
     @I18n(en_us = "Mossy Sandstone Stairs",zh_cn = "苔砂岩楼梯",zh_tw = "青苔砂岩樓梯")
-    @Stairs(type = "stone", bottom = "wild_wind:block/mossy_sandstone", top = "minecraft:block/sandstone_top", side = "wild_wind:block/mossy_sandstone")
+    @Stairs(type = "stone", bottom = "minecraft:block/sandstone_bottom", top = "minecraft:block/sandstone_top", side = "wild_wind:block/mossy_sandstone")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<StairBlock> MOSSY_SANDSTONE_STAIRS = register("mossy_sandstone_stairs", properties -> new StairBlock(ModBlocks.MOSSY_SANDSTONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS).mapColor(MapColor.SAND).strength(1.5F, 3.0F));
     @I18n(en_us = "Mossy Sandstone Slab",zh_cn = "苔砂岩台阶",zh_tw = "青苔砂岩半磚")
-    @Slab(type = "stone", bottom = "wild_wind:block/mossy_sandstone", side = "wild_wind:block/mossy_sandstone", top = "minecraft:block/sandstone_top")
+    @Slab(type = "stone", bottom = "minecraft:block/sandstone_bottom", side = "wild_wind:block/mossy_sandstone", top = "minecraft:block/sandstone_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> MOSSY_SANDSTONE_SLAB = register("mossy_sandstone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB).mapColor(MapColor.SAND).strength(1.5F, 3.0F));
@@ -758,6 +758,33 @@ public class ModBlocks {
     @RegistryBlockItem
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     public static final DeferredBlock<WallBlock> SMOOTH_SANDSTONE_WALL = register("smooth_sandstone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_SANDSTONE)), EMPTY);
+
+    @I18n(en_us = "Mossy Red Sandstone",zh_cn = "苔砂岩",zh_tw = "青苔砂岩")
+    @CubeBottomTop(side = "wild_wind:block/mossy_red_sandstone", bottom = "minecraft:block/red_sandstone_bottom", top = "minecraft:block/red_sandstone_top")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlockItem
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> MOSSY_RED_SANDSTONE = register("mossy_red_sandstone", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_ORANGE).strength(1.5F, 3.0F));
+    @I18n(en_us = "Mossy Red Sandstone Wall",zh_cn = "苔砂岩墙",zh_tw = "青苔砂岩牆")
+    @Wall(wall = "wild_wind:block/mossy_red_sandstone")
+    @RegistryBlockItem
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> MOSSY_RED_SANDSTONE_WALL = register("mossy_red_sandstone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.MOSSY_RED_SANDSTONE.get())), EMPTY);
+    @I18n(en_us = "Mossy Red Sandstone Stairs",zh_cn = "苔砂岩楼梯",zh_tw = "青苔砂岩樓梯")
+    @Stairs(type = "stone", bottom = "minecraft:block/red_sandstone_bottom", top = "minecraft:block/red_sandstone_top", side = "wild_wind:block/mossy_red_sandstone")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> MOSSY_RED_SANDSTONE_STAIRS = register("mossy_red_sandstone_stairs", properties -> new StairBlock(ModBlocks.MOSSY_RED_SANDSTONE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS).mapColor(MapColor.COLOR_ORANGE).strength(1.5F, 3.0F));
+    @I18n(en_us = "Mossy Red Sandstone Slab",zh_cn = "苔砂岩台阶",zh_tw = "青苔砂岩半磚")
+    @Slab(type = "stone", bottom = "minecraft:block/red_sandstone_bottom", side = "wild_wind:block/mossy_red_sandstone", top = "minecraft:block/sandstone_top")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> MOSSY_RED_SANDSTONE_SLAB = register("mossy_red_sandstone_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB).mapColor(MapColor.COLOR_ORANGE).strength(1.5F, 3.0F));
+    @I18n(en_us = "Smooth Red Sandstone Wall",zh_cn = "平滑砂岩墙",zh_tw = "平滑砂岩牆")
+    @Wall(wall = "minecraft:block/red_sandstone_top")
+    @RegistryBlockItem
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> SMOOTH_RED_SANDSTONE_WALL = register("smooth_red_sandstone_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.SMOOTH_RED_SANDSTONE)), EMPTY);
 
     @I18n(en_us = "Polished Packed Mud",zh_cn = "磨制泥坯",zh_tw = "磨製泥坯")
     @BasicBlock
