@@ -3,6 +3,7 @@ package org.polaris2023.wild_wind.datagen.worldgen;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.valueproviders.UniformInt;
@@ -88,22 +89,34 @@ public class ModConfiguredFeatureRegistry {
 		FeatureUtils.register(context, PATCH_REEDS, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
 				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get()))
 		));
-		FeatureUtils.register(context, WATERLOGGED_CATTAILS, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get())));
-		FeatureUtils.register(context, WATERLOGGED_REEDS, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get())));
-		FeatureUtils.register(context, WATERLOGGED_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_AQUATIC_GRASS.get())));
-		FeatureUtils.register(context, WATERLOGGED_TALL_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_AQUATIC_GRASS.get())));
+		FeatureUtils.register(context, WATERLOGGED_CATTAILS, ModFeatures.AQUATIC_PLANT_FEATURE,
+				new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.CATTAILS.get())));
+		FeatureUtils.register(context, WATERLOGGED_REEDS, ModFeatures.AQUATIC_PLANT_FEATURE,
+				new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.REEDS.get())));
+		FeatureUtils.register(context, WATERLOGGED_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE,
+				new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_AQUATIC_GRASS.get())));
+		FeatureUtils.register(context, WATERLOGGED_TALL_AQUATIC, ModFeatures.AQUATIC_PLANT_FEATURE,
+				new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_AQUATIC_GRASS.get())));
 
-		FeatureUtils.register(context, PATCH_BEACH, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
-				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get()))));
-		FeatureUtils.register(context, PATCH_TALL_BEACH, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
-				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get()))));
+		FeatureUtils.register(context, PATCH_BEACH, Feature.RANDOM_PATCH,
+				grassPatch(BlockStateProvider.simple(ModBlocks.SHORT_BEACH_GRASS.get()), 8));
+		FeatureUtils.register(context, PATCH_TALL_BEACH, Feature.RANDOM_PATCH,
+				grassPatch(BlockStateProvider.simple(ModBlocks.TALL_BEACH_GRASS.get()), 8));
 
-		FeatureUtils.register(context, PATCH_THORN, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
-				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.THORN.get()))));
-		FeatureUtils.register(context, PATCH_LARGE_THORN, Feature.RANDOM_PATCH, FeatureUtils.simplePatchConfiguration(
-				Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(BlockStateProvider.simple(ModBlocks.LARGE_THORN.get()))));
+		FeatureUtils.register(context, PATCH_THORN, Feature.RANDOM_PATCH,
+				grassPatch(BlockStateProvider.simple(ModBlocks.THORN.get()), 48)
+		);
+		FeatureUtils.register(context, PATCH_LARGE_THORN, Feature.RANDOM_PATCH,
+				grassPatch(BlockStateProvider.simple(ModBlocks.LARGE_THORN.get()), 48)
+		);
 
 		FeatureUtils.register(context, ASH, ModFeatures.ASH, NoneFeatureConfiguration.NONE);
+	}
+
+	public static RandomPatchConfiguration grassPatch(BlockStateProvider stateProvider, int tries) {
+		return FeatureUtils.simpleRandomPatchConfiguration(
+				tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(stateProvider))
+		);
 	}
 
 	private static ResourceKey<ConfiguredFeature<?, ?>> create(String name) {
