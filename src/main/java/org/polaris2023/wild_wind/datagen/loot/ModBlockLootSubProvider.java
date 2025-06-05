@@ -158,6 +158,8 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.CHISELED_MUD_BRICKS.get());
         this.dropSelf(ModBlocks.CRACKED_SANDSTONE_BRICKS.get());
         this.dropSelf(ModBlocks.CHISELED_SANDSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_RED_SANDSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_RED_SANDSTONE_BRICKS.get());
 
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE.get());
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_WALL.get());
@@ -232,6 +234,10 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.RED_SANDSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.RED_SANDSTONE_BRICK_STAIRS.get());
+        this.add(ModBlocks.RED_SANDSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.RED_SANDSTONE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.RED_SANDSTONE_BRICK_WALL.get());
         this.dropSelf(ModBlocks.SNOW_BRICKS.get());
         this.dropSelf(ModBlocks.SNOW_BRICK_STAIRS.get());
         this.add(ModBlocks.SNOW_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.SNOW_BRICK_SLAB.get()));
