@@ -234,6 +234,14 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_SANDSTONE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_RED_SANDSTONE_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_RED_SANDSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_RED_SANDSTONE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_RED_SANDSTONE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE.get());
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE_STAIRS.get());
+        this.add(ModBlocks.MOSSY_PRISMARINE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_PRISMARINE_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE_WALL.get());
         this.dropSelf(ModBlocks.RED_SANDSTONE_BRICKS.get());
         this.dropSelf(ModBlocks.RED_SANDSTONE_BRICK_STAIRS.get());
         this.add(ModBlocks.RED_SANDSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.RED_SANDSTONE_BRICK_SLAB.get()));
