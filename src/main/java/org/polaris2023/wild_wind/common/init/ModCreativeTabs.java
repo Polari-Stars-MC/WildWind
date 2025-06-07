@@ -313,9 +313,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
                 output.accept(ModBaseFoods.CALAMARI);
                 output.accept(ModBaseFoods.GLOWING_CALAMARI);
                 output.accept(ModBaseFoods.COOKED_CALAMARI);
-                output.accept(ModBaseFoods.RAW_TROUT);
+                output.accept(ModBaseFoods.TROUT);
                 output.accept(ModBaseFoods.COOKED_TROUT);
-                output.accept(ModBaseFoods.RAW_PIRANHA);
+                output.accept(ModBaseFoods.PIRANHA);
                 output.accept(ModBaseFoods.COOKED_PIRANHA);
                 output.accept(ModBaseFoods.DOUGH);
                 output.accept(ModBaseItems.CANDY);

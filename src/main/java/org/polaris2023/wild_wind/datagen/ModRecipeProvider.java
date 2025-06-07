@@ -231,7 +231,7 @@ public class ModRecipeProvider extends RecipeProvider {
     }
 
     protected void addSmeltingRecipes() {
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.TROUT.get(), RecipeCategory.FOOD, ModBaseFoods.COOKED_TROUT.get(), 0.35F);
         smeltingSmokingAndCampfire(ModItems.LIVING_TUBER, RecipeCategory.FOOD, ModBaseFoods.BAKED_LIVING_TUBER.get(), 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.DOUGH.get(), RecipeCategory.FOOD, Items.BREAD, 0.35F);// input category result exp
         smeltingSmokingAndCampfire(Items.CARROT, RecipeCategory.FOOD, ModBaseFoods.BAKED_CARROT.get(), 0.35F);
@@ -246,7 +246,7 @@ public class ModRecipeProvider extends RecipeProvider {
         smeltingSmokingAndCampfire(Ingredient.of(Blocks.BROWN_MUSHROOM, Blocks.RED_MUSHROOM, Blocks.CRIMSON_FUNGUS, Blocks.WARPED_FUNGUS),
                 RecipeCategory.FOOD, ModBaseFoods.BAKED_MUSHROOM, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.FROG_LEG, RecipeCategory.FOOD, ModBaseFoods.COOKED_FROG_LEG, 0.35F);
-        smeltingSmokingAndCampfire(ModBaseFoods.RAW_PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
+        smeltingSmokingAndCampfire(ModBaseFoods.PIRANHA, RecipeCategory.FOOD, ModBaseFoods.COOKED_PIRANHA, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.BAT_WING, RecipeCategory.FOOD, ModBaseFoods.COOKED_BAT_WING, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F);
         smeltingSmokingAndCampfire(ModBaseFoods.GLOWING_CALAMARI, RecipeCategory.FOOD, ModBaseFoods.COOKED_CALAMARI, 0.35F, "_from_glowing_calamari");
@@ -1294,12 +1294,12 @@ public class ModRecipeProvider extends RecipeProvider {
 
     protected void addShapelessRecipe() {
         add(shapeless(RecipeCategory.FOOD, ModBaseFoods.FISH_CHOWDER.get(), 1, fish_chowder -> {
-            unlockedBy(fish_chowder, ModBaseFoods.RAW_TROUT.get(), Items.COD, Items.SALMON);
+            unlockedBy(fish_chowder, ModBaseFoods.TROUT.get(), Items.COD, Items.SALMON);
             unlockedBy(fish_chowder, Items.BROWN_MUSHROOM, Items.RED_MUSHROOM);
             unlockedBy(fish_chowder, Items.KELP);
             unlockedBy(fish_chowder, Items.BOWL);
             fish_chowder
-                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModBaseFoods.RAW_TROUT.get()))
+                    .requires(Ingredient.of(Items.COD, Items.SALMON, ModBaseFoods.TROUT.get()))
                     .requires(Items.KELP)
                     .requires(Ingredient.of(Items.BROWN_MUSHROOM, Items.RED_MUSHROOM))
                     .requires(Items.BOWL);
