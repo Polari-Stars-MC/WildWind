@@ -202,6 +202,12 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_SANDSTONE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_SLAB, 2), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB, 2), "stonecutting/");
@@ -1065,6 +1071,54 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .define('S', ModBlocks.MOSSY_SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_RED_SANDSTONE_BRICKS.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_PRISMARINE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_PRISMARINE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_PRISMARINE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.MOSSY_PRISMARINE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.MOSSY_PRISMARINE.get());
                 }));
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB.get(), 6,
                 builder -> {
