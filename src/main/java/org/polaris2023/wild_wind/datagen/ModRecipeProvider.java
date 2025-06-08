@@ -1347,11 +1347,11 @@ public class ModRecipeProvider extends RecipeProvider {
                     .requires(ModBaseFoods.FLOUR, 3)
                     .requires(Items.WATER_BUCKET);
         }));
-        add(shapeless(RecipeCategory.FOOD, ModBaseItems.CANDY.get(), 1, candy -> {
-            unlockedBy(candy, Items.SUGAR);
-            unlockedBy(candy, Items.HONEY_BOTTLE);
-            unlockedBy(candy, Items.GLOW_BERRIES, Items.APPLE, Items.SWEET_BERRIES);
-            candy
+        add(shapeless(RecipeCategory.FOOD, ModBaseItems.TOFFEE.get(), 1, toffee -> {
+            unlockedBy(toffee, Items.SUGAR);
+            unlockedBy(toffee, Items.HONEY_BOTTLE);
+            unlockedBy(toffee, Items.GLOW_BERRIES, Items.APPLE, Items.SWEET_BERRIES);
+            toffee
                     .requires(Items.HONEY_BOTTLE)
                     .requires(Items.SUGAR)
                     .requires(Ingredient
