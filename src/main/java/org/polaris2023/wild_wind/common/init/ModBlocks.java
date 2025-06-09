@@ -1148,6 +1148,38 @@ public class ModBlocks {
     @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> MOSSY_PRISMARINE_WALL = register("mossy_prismarine_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.COLOR_CYAN));
+    @I18n(en_us = "Polished Prismarine",zh_cn = "磨制海晶石",zh_tw = "磨製海磷石")
+    @BasicBlock
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> POLISHED_PRISMARINE = register("polished_prismarine", Block::new, BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_CYAN).strength(2.5f));
+    @I18n(en_us = "Polished Prismarine Wall",zh_cn = "磨制海晶石墙",zh_tw = "磨製海磷石牆")
+    @Wall(wall = "wild_wind:block/polished_prismarine")
+    @RegistryBlockItem
+    @VanillaTag(names = {"mineable/pickaxe", "walls"}, type = TagType.Block)
+    public static final DeferredBlock<WallBlock> POLISHED_PRISMARINE_WALL = register("polished_prismarine_wall", properties -> new WallBlock(BlockBehaviour.Properties.ofFullCopy(ModBlocks.POLISHED_PRISMARINE.get())), EMPTY);
+    @I18n(en_us = "Polished Prismarine Stairs",zh_cn = "磨制海晶石楼梯",zh_tw = "磨製海磷石樓梯")
+    @Stairs(type = "stone", bottom = "wild_wind:block/polished_prismarine", top = "wild_wind:block/polished_prismarine", side = "wild_wind:block/polished_prismarine")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<StairBlock> POLISHED_PRISMARINE_STAIRS = register("polished_prismarine_stairs", properties -> new StairBlock(ModBlocks.POLISHED_PRISMARINE.get().defaultBlockState(), properties), BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_STAIRS).mapColor(MapColor.COLOR_CYAN));
+    @I18n(en_us = "Polished Prismarine Slab",zh_cn = "磨制海晶石台阶",zh_tw = "磨製海磷石半磚")
+    @Slab(type = "stone", bottom = "wild_wind:block/polished_prismarine", side = "wild_wind:block/polished_prismarine", top = "wild_wind:block/polished_prismarine")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @RegistryBlockItem
+    public static final DeferredBlock<SlabBlock> POLISHED_PRISMARINE_SLAB = register("polished_prismarine_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_SLAB).mapColor(MapColor.COLOR_CYAN));
+    @I18n(en_us = "Cracked Prismarine Bricks", zh_cn = "裂纹海晶石砖", zh_tw = "裂紋海磷石磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @BasicBlock
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CRACKED_PRISMARINE_BRICKS = register("cracked_prismarine_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_CYAN));
+    @I18n(en_us = "Chiseled Prismarine Bricks", zh_cn = "雕纹海晶石砖", zh_tw = "浮雕海磷石磚")
+    @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
+    @CubeColumn(side = "wild_wind:block/chiseled_prismarine_bricks_side",
+            end = "wild_wind:block/chiseled_prismarine_bricks_top")
+    @RegistryBlockItem
+    public static final DeferredBlock<Block> CHISELED_PRISMARINE_BRICKS = register("chiseled_prismarine_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_CYAN));
+
     @AllBrick
     @I18n(en_us = "Snow Bricks", zh_cn = "雪砖", zh_tw = "雪磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)

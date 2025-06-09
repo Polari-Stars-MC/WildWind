@@ -208,6 +208,11 @@ public class ModRecipeProvider extends RecipeProvider {
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.MOSSY_RED_SANDSTONE_BRICK_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_WALL, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_STAIRS, 1), "stonecutting/");
+        add(stonecutting(Ingredient.of(ModBlocks.POLISHED_PRISMARINE), RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_SLAB, 2), "stonecutting/");
+        add(stonecutting(Ingredient.of(Blocks.PRISMARINE_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_PRISMARINE_BRICKS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_WALL, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_STAIRS, 1), "stonecutting/");
         add(stonecutting(Ingredient.of(ModBlocks.SNOW_BRICKS), RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB, 2), "stonecutting/");
@@ -279,6 +284,7 @@ public class ModRecipeProvider extends RecipeProvider {
         add(smelting(Blocks.MUD_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_MUD_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.SANDSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_SANDSTONE_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.RED_SANDSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_RED_SANDSTONE_BRICKS, 0.1f, 200), "smelting/");
+        add(smelting(Blocks.PRISMARINE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_PRISMARINE_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.SNOW_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_SNOW_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.CALCITE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_CALCITE_BRICKS, 0.1f, 200), "smelting/");
         add(smelting(ModBlocks.DRIPSTONE_BRICKS, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CRACKED_DRIPSTONE_BRICKS, 0.1f, 200), "smelting/");
@@ -1119,6 +1125,46 @@ public class ModRecipeProvider extends RecipeProvider {
                             .pattern(("SSS"))
                             .pattern(("SSS"))
                             .define('S', ModBlocks.MOSSY_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE.get(), 4,
+                builder -> {
+                    unlockedBy(builder, Blocks.PRISMARINE);
+                    builder
+                            .pattern(("SS"))
+                            .pattern(("SS"))
+                            .define('S', Blocks.PRISMARINE);
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_SLAB.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_PRISMARINE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_STAIRS.get(), 4,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_PRISMARINE.get());
+                    builder
+                            .pattern(("S  "))
+                            .pattern(("SS "))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_PRISMARINE_WALL.get(), 6,
+                builder -> {
+                    unlockedBy(builder, ModBlocks.POLISHED_PRISMARINE.get());
+                    builder
+                            .pattern(("SSS"))
+                            .pattern(("SSS"))
+                            .define('S', ModBlocks.POLISHED_PRISMARINE.get());
+                }));
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_PRISMARINE_BRICKS.get(), 1,
+                builder -> {
+                    unlockedBy(builder, Blocks.PRISMARINE_BRICK_SLAB);
+                    builder
+                            .pattern(("S"))
+                            .pattern(("S"))
+                            .define('S', Blocks.PRISMARINE_BRICK_SLAB);
                 }));
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICK_SLAB.get(), 6,
                 builder -> {
