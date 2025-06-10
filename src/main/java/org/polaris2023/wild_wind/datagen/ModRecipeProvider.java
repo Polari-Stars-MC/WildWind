@@ -1219,8 +1219,11 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_PRISMARINE_BRICK_WALL);
 
         add(shaped(RecipeCategory.DECORATIONS, ModBlocks.OCEAN_LANTERN.get(), 1,
-                builder -> builder.pattern(" D ").pattern("DLD").pattern(" D ")
-                        .define('D', Blocks.DARK_PRISMARINE).define('L', Items.GLOWSTONE_DUST)));
+                builder -> {
+                    unlockedBy(builder, Blocks.DARK_PRISMARINE, Items.GLOWSTONE_DUST);
+                    builder.pattern(" D ").pattern("DLD").pattern(" D ")
+                            .define('D', Blocks.DARK_PRISMARINE).define('L', Items.GLOWSTONE_DUST);
+                }));
 
         addPolished(ModBlocks.POLISHED_DARK_PRISMARINE, () -> Blocks.DARK_PRISMARINE);
 
@@ -1262,8 +1265,11 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_NETHER_BRICK_WALL);
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RED_NETHER_BRICK_FENCE.get(), 6,
-                builder -> builder.pattern("SBS").pattern("SBS")
-                        .define('S', Items.STICK).define('B', Blocks.RED_NETHER_BRICKS)));
+                builder -> {
+                    unlockedBy(builder, Items.STICK, Blocks.RED_NETHER_BRICKS);
+                    builder.pattern("SBS").pattern("SBS")
+                            .define('S', Items.STICK).define('B', Blocks.RED_NETHER_BRICKS);
+                }));
 
         addBlockDerivatives(ModBlocks.MOSSY_RED_NETHER_BRICKS,
                 ModBlocks.MOSSY_RED_NETHER_BRICK_STAIRS,
@@ -1688,7 +1694,6 @@ public class ModRecipeProvider extends RecipeProvider {
 
 
     //---[有序合成配方辅助]---
-
 
 
     private void addBlockDerivatives(Supplier<Block> baseBlock,
