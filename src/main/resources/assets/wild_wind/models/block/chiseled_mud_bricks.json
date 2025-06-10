@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "wild_wind:block/chiseled_mud_bricks_top",
+    "side": "wild_wind:block/chiseled_mud_bricks"
+  }
+}
