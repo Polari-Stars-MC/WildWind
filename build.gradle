@@ -20,6 +20,10 @@ tasks.register("testBatTask", Exec.class) {
     commandLine 'cmd',"/c","gradlew build"
 }
 
+tasks.processResources{
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
 def down = file("build.done")

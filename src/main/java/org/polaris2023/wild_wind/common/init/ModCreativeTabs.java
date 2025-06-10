@@ -226,6 +226,69 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.MOSSY_QUARTZ_BRICK_WALL);
         output.accept(ModBlocks.SMOOTH_QUARTZ_WALL);
 
+        // 海晶石系列
+        output.accept(ModBlocks.MOSSY_PRISMARINE_BRICKS);
+        output.accept(ModBlocks.MOSSY_PRISMARINE_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_PRISMARINE_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_PRISMARINE_BRICK_WALL);
+        output.accept(ModBlocks.OCEAN_LANTERN);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_STAIRS);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_SLAB);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_WALL);
+        output.accept(ModBlocks.POLISHED_DARK_PRISMARINE);
+        output.accept(ModBlocks.POLISHED_DARK_PRISMARINE_STAIRS);
+        output.accept(ModBlocks.POLISHED_DARK_PRISMARINE_SLAB);
+        output.accept(ModBlocks.POLISHED_DARK_PRISMARINE_WALL);
+        output.accept(ModBlocks.DARK_PRISMARINE_BRICKS);
+        output.accept(ModBlocks.CRACKED_DARK_PRISMARINE_BRICKS);
+        output.accept(ModBlocks.DARK_PRISMARINE_BRICK_STAIRS);
+        output.accept(ModBlocks.DARK_PRISMARINE_BRICK_SLAB);
+        output.accept(ModBlocks.DARK_PRISMARINE_BRICK_WALL);
+        output.accept(ModBlocks.CHISELED_DARK_PRISMARINE_BRICKS);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_BRICKS);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_WALL);
+
+        // 下界岩系列
+        output.accept(ModBlocks.POLISHED_NETHERRACK);
+        output.accept(ModBlocks.POLISHED_NETHERRACK_STAIRS);
+        output.accept(ModBlocks.POLISHED_NETHERRACK_SLAB);
+        output.accept(ModBlocks.POLISHED_NETHERRACK_WALL);
+        output.accept(ModBlocks.MOSSY_NETHER_BRICKS);
+        output.accept(ModBlocks.MOSSY_NETHER_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_NETHER_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_NETHER_BRICK_WALL);
+        output.accept(ModBlocks.RED_NETHER_BRICK_FENCE);
+        output.accept(ModBlocks.CRACKED_RED_NETHER_BRICKS);
+        output.accept(ModBlocks.MOSSY_RED_NETHER_BRICKS);
+        output.accept(ModBlocks.MOSSY_RED_NETHER_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_RED_NETHER_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_RED_NETHER_BRICK_WALL);
+        output.accept(ModBlocks.CHISELED_RED_NETHER_BRICKS);
+
+        // 玄武岩系列
+        output.accept(ModBlocks.BASALT_STAIRS);
+        output.accept(ModBlocks.BASALT_SLAB);
+        output.accept(ModBlocks.BASALT_WALL);
+        output.accept(ModBlocks.SMOOTH_BASALT_STAIRS);
+        output.accept(ModBlocks.SMOOTH_BASALT_SLAB);
+        output.accept(ModBlocks.SMOOTH_BASALT_WALL);
+        output.accept(ModBlocks.POLISHED_BASALT_STAIRS);
+        output.accept(ModBlocks.POLISHED_BASALT_SLAB);
+        output.accept(ModBlocks.POLISHED_BASALT_WALL);
+        output.accept(ModBlocks.BASALT_BRICKS);
+        output.accept(ModBlocks.CRACKED_BASALT_BRICKS);
+        output.accept(ModBlocks.BASALT_BRICK_STAIRS);
+        output.accept(ModBlocks.BASALT_BRICK_SLAB);
+        output.accept(ModBlocks.BASALT_BRICK_WALL);
+        output.accept(ModBlocks.CHISELED_BASALT_BRICKS);
+        output.accept(ModBlocks.MOSSY_BASALT_BRICKS);
+        output.accept(ModBlocks.MOSSY_BASALT_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_BASALT_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_BASALT_BRICK_WALL);
+
         output.accept(ModBlocks.SALT_BLOCK);
         output.accept(ModBlocks.WOOL);
         output.accept(ModBlocks.CARPET);
