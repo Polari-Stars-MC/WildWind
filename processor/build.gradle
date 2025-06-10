@@ -10,6 +10,8 @@ repositories {
     }
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 dependencies {
     implementation(project(":annotation"))
     compileOnly 'org.projectlombok:lombok:1.18.36'

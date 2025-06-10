@@ -50,7 +50,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
 
     @Override
     protected Iterable<Block> getKnownBlocks() {
-        return BlockRegistry.entry().stream().map(holder -> (Block)holder.get()).toList();
+        return BlockRegistry.entry().stream().map(holder -> (Block) holder.get()).toList();
     }
 
     @Override
@@ -287,6 +287,100 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_DRIPSTONE_BRICK_WALL.get());
 
+        // 末地石系列掉落物
+        this.dropSelf(ModBlocks.END_STONE_STAIRS.get());
+        this.add(ModBlocks.END_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.END_STONE_SLAB.get()));
+        this.dropSelf(ModBlocks.END_STONE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_END_STONE.get());
+        this.dropSelf(ModBlocks.POLISHED_END_STONE_STAIRS.get());
+        this.add(ModBlocks.POLISHED_END_STONE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_END_STONE_SLAB.get()));
+        this.dropSelf(ModBlocks.POLISHED_END_STONE_WALL.get());
+        this.dropSelf(ModBlocks.CRACKED_END_STONE_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_END_STONE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_END_STONE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_END_STONE_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_END_STONE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_END_STONE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_END_STONE_BRICK_WALL.get());
+
+        // 石英系列掉落物
+        this.dropSelf(ModBlocks.PURPUR_WALL.get());
+        this.dropSelf(ModBlocks.QUARTZ_BLOCK_WALL.get());
+        this.dropSelf(ModBlocks.CRACKED_QUARTZ_BRICKS.get());
+        this.dropSelf(ModBlocks.QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.QUARTZ_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.QUARTZ_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.QUARTZ_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_QUARTZ_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_QUARTZ_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_QUARTZ_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_QUARTZ_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_QUARTZ_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_QUARTZ_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.SMOOTH_QUARTZ_WALL.get());
+
+        // 海晶石系列掉落物
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_PRISMARINE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_PRISMARINE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_PRISMARINE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.OCEAN_LANTERN.get());
+
+        // 暗海晶石系列掉落物
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE.get());
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE_STAIRS.get());
+        this.add(ModBlocks.MOSSY_DARK_PRISMARINE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DARK_PRISMARINE_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_DARK_PRISMARINE.get());
+        this.dropSelf(ModBlocks.POLISHED_DARK_PRISMARINE_STAIRS.get());
+        this.add(ModBlocks.POLISHED_DARK_PRISMARINE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_DARK_PRISMARINE_SLAB.get()));
+        this.dropSelf(ModBlocks.POLISHED_DARK_PRISMARINE_WALL.get());
+        this.dropSelf(ModBlocks.DARK_PRISMARINE_BRICKS.get());
+        this.dropSelf(ModBlocks.DARK_PRISMARINE_BRICK_STAIRS.get());
+        this.add(ModBlocks.DARK_PRISMARINE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.DARK_PRISMARINE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.DARK_PRISMARINE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CRACKED_DARK_PRISMARINE_BRICKS.get());
+        this.dropSelf(ModBlocks.CHISELED_DARK_PRISMARINE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_WALL.get());
+
+        // 下界岩系列掉落物
+        this.dropSelf(ModBlocks.POLISHED_NETHERRACK.get());
+        this.dropSelf(ModBlocks.POLISHED_NETHERRACK_STAIRS.get());
+        this.add(ModBlocks.POLISHED_NETHERRACK_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_NETHERRACK_SLAB.get()));
+        this.dropSelf(ModBlocks.POLISHED_NETHERRACK_WALL.get());
+        this.dropSelf(ModBlocks.MOSSY_NETHER_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_NETHER_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_NETHER_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_NETHER_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_NETHER_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.RED_NETHER_BRICK_FENCE.get());
+        this.dropSelf(ModBlocks.CRACKED_RED_NETHER_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_RED_NETHER_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_RED_NETHER_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_RED_NETHER_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_RED_NETHER_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_RED_NETHER_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_RED_NETHER_BRICKS.get());
+
+        // 玄武岩系列掉落物
+        this.dropSelf(ModBlocks.BASALT_STAIRS.get());
+        this.add(ModBlocks.BASALT_SLAB.get(), this.createSlabItemTable(ModBlocks.BASALT_SLAB.get()));
+        this.dropSelf(ModBlocks.BASALT_WALL.get());
+        this.dropSelf(ModBlocks.SMOOTH_BASALT_STAIRS.get());
+        this.add(ModBlocks.SMOOTH_BASALT_SLAB.get(), this.createSlabItemTable(ModBlocks.SMOOTH_BASALT_SLAB.get()));
+        this.dropSelf(ModBlocks.SMOOTH_BASALT_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_BASALT_STAIRS.get());
+        this.add(ModBlocks.POLISHED_BASALT_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_BASALT_SLAB.get()));
+        this.dropSelf(ModBlocks.POLISHED_BASALT_WALL.get());
+        this.dropSelf(ModBlocks.BASALT_BRICKS.get());
+        this.dropSelf(ModBlocks.CRACKED_BASALT_BRICKS.get());
+        this.dropSelf(ModBlocks.BASALT_BRICK_STAIRS.get());
+        this.add(ModBlocks.BASALT_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.BASALT_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.BASALT_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_BASALT_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_BASALT_BRICKS.get());
+        this.dropSelf(ModBlocks.MOSSY_BASALT_BRICK_STAIRS.get());
+        this.add(ModBlocks.MOSSY_BASALT_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_BASALT_BRICK_SLAB.get()));
+        this.dropSelf(ModBlocks.MOSSY_BASALT_BRICK_WALL.get());
+
         this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.get());
         this.addNetherVinesDropTable(ModBlocks.SCULK_ARTERY.get(), ModBlocks.SCULK_ARTERY_PLANT.get());
         this.dropSelf(ModBlocks.FLUFFY_DANDELION.get());
@@ -320,7 +414,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
                                         )
                                 )
                                 .when(ExplosionCondition.survivesExplosion())
-        );
+                );
     }
 
     protected LootTable.Builder createBannerDrops(Block block) {

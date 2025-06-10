@@ -20,6 +20,8 @@ tasks.register("testBatTask", Exec.class) {
     commandLine 'cmd',"/c","gradlew build"
 }
 
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
 def down = file("build.done")
 
 if (!System.getenv("git_act").equals("true")) {

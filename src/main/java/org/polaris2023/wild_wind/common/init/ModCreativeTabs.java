@@ -197,6 +197,35 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB);
         output.accept(ModBlocks.MOSSY_DRIPSTONE_BRICK_WALL);
 
+        // 末地石系列
+        output.accept(ModBlocks.END_STONE_STAIRS);
+        output.accept(ModBlocks.END_STONE_SLAB);
+        output.accept(ModBlocks.END_STONE_WALL);
+        output.accept(ModBlocks.POLISHED_END_STONE);
+        output.accept(ModBlocks.POLISHED_END_STONE_STAIRS);
+        output.accept(ModBlocks.POLISHED_END_STONE_SLAB);
+        output.accept(ModBlocks.POLISHED_END_STONE_WALL);
+        output.accept(ModBlocks.CRACKED_END_STONE_BRICKS);
+        output.accept(ModBlocks.CHISELED_END_STONE_BRICKS);
+        output.accept(ModBlocks.MOSSY_END_STONE_BRICKS);
+        output.accept(ModBlocks.MOSSY_END_STONE_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_END_STONE_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_END_STONE_BRICK_WALL);
+
+        // 石英系列
+        output.accept(ModBlocks.PURPUR_WALL);
+        output.accept(ModBlocks.QUARTZ_BLOCK_WALL);
+        output.accept(ModBlocks.CRACKED_QUARTZ_BRICKS);
+        output.accept(ModBlocks.QUARTZ_BRICK_STAIRS);
+        output.accept(ModBlocks.QUARTZ_BRICK_SLAB);
+        output.accept(ModBlocks.QUARTZ_BRICK_WALL);
+        output.accept(ModBlocks.CHISELED_QUARTZ_BRICKS);
+        output.accept(ModBlocks.MOSSY_QUARTZ_BRICKS);
+        output.accept(ModBlocks.MOSSY_QUARTZ_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_QUARTZ_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_QUARTZ_BRICK_WALL);
+        output.accept(ModBlocks.SMOOTH_QUARTZ_WALL);
+
         output.accept(ModBlocks.SALT_BLOCK);
         output.accept(ModBlocks.WOOL);
         output.accept(ModBlocks.CARPET);

@@ -39,8 +39,8 @@ public final class RegistryUtil {
         return switch (supplier) {
             case Item item ->
                     BuiltInRegistries.ITEM.getKey(item);
-            case Block item ->
-                    BuiltInRegistries.BLOCK.getKey(item);
+            case Block block ->
+                    BuiltInRegistries.BLOCK.getKey(block);
             case EntityType<?> type ->
                     BuiltInRegistries.ENTITY_TYPE.getKey(type);
             case Fluid fluid ->
