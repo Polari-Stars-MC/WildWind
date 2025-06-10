@@ -700,7 +700,7 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> BLUE_ICE_BRICK_WALL = register("blue_ice_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.ICE));
     @I18n(en_us = "Chiseled Blue Ice Bricks", zh_cn = "雕纹蓝冰砖", zh_tw = "浮雕藍冰磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_blue_ice_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_blue_ice_bricks",
             end = "wild_wind:block/chiseled_blue_ice_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_BLUE_ICE_BRICKS = register("chiseled_blue_ice_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.ICE));
@@ -813,7 +813,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CRACKED_MUD_BRICKS = register("cracked_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
     @I18n(en_us = "Chiseled Mud Bricks", zh_cn = "雕纹泥砖", zh_tw = "浮雕泥磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_mud_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_mud_bricks",
             end = "wild_wind:block/chiseled_mud_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_MUD_BRICKS = register("chiseled_mud_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.DIRT));
@@ -1062,7 +1062,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CRACKED_SANDSTONE_BRICKS = register("cracked_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SAND));
     @I18n(en_us = "Chiseled Sandstone Bricks", zh_cn = "雕纹砂岩砖", zh_tw = "浮雕砂岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_sandstone_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_sandstone_bricks",
             end = "wild_wind:block/chiseled_sandstone_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_SANDSTONE_BRICKS = register("chiseled_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SAND));
@@ -1090,7 +1090,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CRACKED_RED_SANDSTONE_BRICKS = register("cracked_red_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_ORANGE));
     @I18n(en_us = "Chiseled Sandstone Bricks", zh_cn = "雕纹砂岩砖", zh_tw = "浮雕砂岩磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_red_sandstone_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_red_sandstone_bricks",
             end = "wild_wind:block/chiseled_red_sandstone_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_RED_SANDSTONE_BRICKS = register("chiseled_red_sandstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_ORANGE));
@@ -1175,7 +1175,7 @@ public class ModBlocks {
     public static final DeferredBlock<Block> CRACKED_PRISMARINE_BRICKS = register("cracked_prismarine_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_CYAN));
     @I18n(en_us = "Chiseled Prismarine Bricks", zh_cn = "雕纹海晶石砖", zh_tw = "浮雕海磷石磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_prismarine_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_prismarine_bricks",
             end = "wild_wind:block/chiseled_prismarine_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_PRISMARINE_BRICKS = register("chiseled_prismarine_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.COLOR_CYAN));
@@ -1204,7 +1204,7 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> SNOW_BRICK_WALL = register("snow_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.SNOW));
     @I18n(en_us = "Chiseled Snow Bricks", zh_cn = "雕纹雪砖", zh_tw = "浮雕雪磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_snow_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_snow_bricks",
             end = "wild_wind:block/chiseled_snow_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_SNOW_BRICKS = register("chiseled_snow_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.SNOW));
@@ -1303,7 +1303,7 @@ public class ModBlocks {
     public static final DeferredBlock<WallBlock> DRIPSTONE_BRICK_WALL = register("dripstone_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICK_WALL).mapColor(MapColor.TERRACOTTA_BROWN));
     @I18n(en_us = "Chiseled Dripstone Bricks", zh_cn = "雕纹滴水石砖", zh_tw = "浮雕鐘乳石磚")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
-    @CubeColumn(side = "wild_wind:block/chiseled_dripstone_bricks_side",
+    @CubeColumn(side = "wild_wind:block/chiseled_dripstone_bricks",
             end = "wild_wind:block/chiseled_dripstone_bricks_top")
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_DRIPSTONE_BRICKS = register("chiseled_dripstone_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.STONE_BRICKS).mapColor(MapColor.TERRACOTTA_BROWN));
