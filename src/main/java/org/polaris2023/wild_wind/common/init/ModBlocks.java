@@ -1473,7 +1473,7 @@ public class ModBlocks {
             WallBlock::new,
             BlockBehaviour.Properties.ofFullCopy(Blocks.QUARTZ_BRICKS).mapColor(MapColor.QUARTZ));
     @I18n(en_us = "Chiseled Quartz Bricks", zh_cn = "雕纹石英砖", zh_tw = "浮雕石英磚")
-    @BasicBlock
+    @CubeColumn(side = "wild_wind:block/chiseled_quartz_bricks", end = "wild_wind:block/chiseled_quartz_bricks_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_QUARTZ_BRICKS = register("chiseled_quartz_bricks",
@@ -1607,7 +1607,7 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> DARK_PRISMARINE_BRICK_WALL = register("dark_prismarine_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.PRISMARINE_WALL).mapColor(MapColor.COLOR_CYAN));
     @I18n(en_us = "Chiseled Dark Prismarine Bricks", zh_cn = "雕纹暗海晶石砖", zh_tw = "浮雕暗海磷石磚")
-    @BasicBlock
+    @CubeColumn(side = "wild_wind:block/chiseled_dark_prismarine_bricks", end = "wild_wind:block/chiseled_dark_prismarine_bricks_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_DARK_PRISMARINE_BRICKS = register("chiseled_dark_prismarine_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.DARK_PRISMARINE).mapColor(MapColor.COLOR_CYAN));
@@ -1781,7 +1781,7 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> BASALT_BRICK_WALL = register("basalt_brick_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLACKSTONE_WALL).mapColor(MapColor.COLOR_BLACK));
     @I18n(en_us = "Chiseled Basalt Bricks", zh_cn = "雕纹玄武岩砖", zh_tw = "浮雕玄武岩磚")
-    @BasicBlock
+    @CubeColumn(side = "wild_wind:block/chiseled_basalt_bricks", end = "wild_wind:block/chiseled_basalt_bricks_top")
     @VanillaTag(names = "mineable/pickaxe", type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<Block> CHISELED_BASALT_BRICKS = register("chiseled_basalt_bricks", BlockBehaviour.Properties.ofFullCopy(Blocks.BASALT).mapColor(MapColor.COLOR_BLACK));

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "bottom": "wild_wind:block/mossy_sandstone_bottom",
+    "side": "wild_wind:block/mossy_sandstone",
+    "top": "minecraft:block/sandstone_top"
+  }
+}
