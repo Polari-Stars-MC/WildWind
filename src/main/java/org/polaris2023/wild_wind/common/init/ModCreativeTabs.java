@@ -308,6 +308,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.SALT_ORE);
         output.accept(ModBlocks.DEEPSLATE_SALT_ORE);
         output.accept(ModBlocks.PYROCLAST);
+        output.accept(ModBlocks.SCORCH_PYROCLAST);
 
         output.accept(ModBlocks.AZALEA_LOG);
         output.accept(ModBlocks.PALM_LOG);

@@ -2,12 +2,15 @@ package org.polaris2023.wild_wind.common.init;
 
 
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.PlaceOnWaterBlockItem;
 import net.minecraft.world.level.block.entity.BannerPatternLayers;
 
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
 import org.polaris2023.annotation.enums.RegType;
 import org.polaris2023.annotation.enums.TagType;
 import org.polaris2023.annotation.language.I18n;
@@ -140,4 +143,11 @@ public class ModItems {
     @I18n(en_us = "Spoon", zh_cn = "勺子", zh_tw = "勺子")
     public static final DeferredItem<Item> SPOON =
             simpleItem("spoon", p -> p.stacksTo(1));
+
+    //TODO craftRemainder部分，物品暂时未被加载，返回为air  需调整顺序
+    //我干 我的itemlike哪去了
+    @ParentItem(parent = "wild_wind:block/scorch_pyroclast")
+    public static final DeferredItem<Item> SCORCH_PYROCLAST = register("scorch_pyroclast", () -> new BlockItem(ModBlocks.SCORCH_PYROCLAST.get(),
+            new Item.Properties().craftRemainder(BuiltInRegistries.ITEM.get(ModBlocks.PYROCLAST.getId()))
+    ));
 }
