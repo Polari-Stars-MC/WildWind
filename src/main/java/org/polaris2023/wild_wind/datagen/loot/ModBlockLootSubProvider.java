@@ -66,6 +66,7 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.COOKING_POT.get());
         this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
         this.dropWhenSilkTouch(ModBlocks.PYROCLAST.get());
+        this.dropWhenSilkTouch(ModBlocks.SCORCH_PYROCLAST.get());
         this.dropWhenSilkTouch(ModBlocks.ASH_BLOCK.get());
         this.dropWhenSilkTouch(ModBlocks.QUICKSAND.get());
         this.dropWhenSilkTouch(ModBlocks.RED_QUICKSAND.get());
