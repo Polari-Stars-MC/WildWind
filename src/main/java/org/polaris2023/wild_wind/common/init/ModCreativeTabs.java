@@ -2,6 +2,7 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -289,6 +290,16 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.MOSSY_BASALT_BRICK_SLAB);
         output.accept(ModBlocks.MOSSY_BASALT_BRICK_WALL);
 
+        output.accept(ModBlocks.POLISHED_BLUE_ICE);
+        output.accept(ModBlocks.POLISHED_BLUE_ICE_STAIRS);
+        output.accept(ModBlocks.POLISHED_BLUE_ICE_SLAB);
+        output.accept(ModBlocks.POLISHED_BLUE_ICE_WALL);
+
+        output.accept(ModBlocks.PACKED_SNOW);
+        output.accept(ModBlocks.PACKED_SNOW_STAIRS);
+        output.accept(ModBlocks.PACKED_SNOW_SLAB);
+        output.accept(ModBlocks.PACKED_SNOW_WALL);
+
         output.accept(ModBlocks.SALT_BLOCK);
         output.accept(ModBlocks.WOOL);
         output.accept(ModBlocks.CARPET);
@@ -492,6 +503,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
     }
 
     private final DeferredHolder<CreativeModeTab, CreativeModeTab> tabs;
+
     ModCreativeTabs(Supplier<ItemStack> icon,
                     Supplier<CreativeModeTab.DisplayItemsGenerator> parameters,
                     ModCreativeTabs tab) {

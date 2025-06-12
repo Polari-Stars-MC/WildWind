@@ -381,6 +381,15 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.dropSelf(ModBlocks.MOSSY_BASALT_BRICK_STAIRS.get());
         this.add(ModBlocks.MOSSY_BASALT_BRICK_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_BASALT_BRICK_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_BASALT_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.POLISHED_BLUE_ICE.get());
+        this.dropSelf(ModBlocks.POLISHED_BLUE_ICE_STAIRS.get());
+        this.add(ModBlocks.POLISHED_BLUE_ICE_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_BLUE_ICE_SLAB.get()));
+        this.dropSelf(ModBlocks.POLISHED_BLUE_ICE_WALL.get());
+        this.dropSelf(ModBlocks.PACKED_SNOW.get());
+        this.dropSelf(ModBlocks.PACKED_SNOW_STAIRS.get());
+        this.add(ModBlocks.PACKED_SNOW_SLAB.get(), this.createSlabItemTable(ModBlocks.PACKED_SNOW_SLAB.get()));
+        this.dropSelf(ModBlocks.PACKED_SNOW_WALL.get());
+
 
         this.dropSelf(ModBlocks.SOUL_JACK_O_LANTERN.get());
         this.addNetherVinesDropTable(ModBlocks.SCULK_ARTERY.get(), ModBlocks.SCULK_ARTERY_PLANT.get());

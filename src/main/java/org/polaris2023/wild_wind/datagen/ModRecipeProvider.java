@@ -1349,6 +1349,22 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_QUARTZ_BRICK_STAIRS,
                 ModBlocks.MOSSY_QUARTZ_BRICK_SLAB,
                 ModBlocks.MOSSY_QUARTZ_BRICK_WALL);
+
+        // === 磨制蓝冰系列 === (5)
+        addPolished(ModBlocks.POLISHED_BLUE_ICE, () -> Blocks.BLUE_ICE);
+
+        addBlockDerivatives(ModBlocks.POLISHED_BLUE_ICE,
+                ModBlocks.POLISHED_BLUE_ICE_STAIRS,
+                ModBlocks.POLISHED_BLUE_ICE_SLAB,
+                ModBlocks.POLISHED_BLUE_ICE_WALL);
+
+        // === 夯实雪系列 === (5)
+        addPolished(ModBlocks.PACKED_SNOW, () -> Blocks.SNOW_BLOCK);
+
+        addBlockDerivatives(ModBlocks.PACKED_SNOW,
+                ModBlocks.PACKED_SNOW_STAIRS,
+                ModBlocks.PACKED_SNOW_SLAB,
+                ModBlocks.PACKED_SNOW_WALL);
     }
 
     protected void addShapelessRecipe() {

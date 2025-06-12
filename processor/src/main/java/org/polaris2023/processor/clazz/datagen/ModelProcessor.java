@@ -217,7 +217,7 @@ public class ModelProcessor extends ClassProcessor {
         else if (slab != null) {
             String all = slab.all();
             checkAppend(typeElement, variableElement, "slabBlock",
-                    all.isEmpty() ? slab.bottom() : all,
+                    all.isEmpty() ? (slab.bottom().isEmpty() ? slab.top() : slab.bottom()) : all,
                     all.isEmpty() ? slab.side() : all,
                     all.isEmpty() ? slab.top() : all,
                     slab.item(),
