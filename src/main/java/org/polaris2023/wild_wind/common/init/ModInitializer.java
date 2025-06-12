@@ -31,6 +31,7 @@ import org.polaris2023.wild_wind.util.interfaces.registry.BlockRegistry;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 import static org.polaris2023.wild_wind.WildWindMod.MOD_ID;
 
@@ -79,6 +80,7 @@ public interface ModInitializer extends BlockRegistry {
         init(bus, ModEffects.class, EFFECTS);
         init(bus, ModPotions.class, POTIONS);
         init(bus, new Class[]{ModItems.class, ModBaseItems.class, ModBaseFoods.class, ModSpawnEggs.class, ModMobBuckets.class, ModMobBuckets.class}, ModItems.REGISTER);
+        init(bus, ModParticleTypes.class, ModParticleTypes.REGISTER);
         init(bus, ModRecipes.class, RECIPES);
         init(bus, ModRecipeSerializes.class, RECIPES_SERIALIZERS);
         init(bus, ModCreativeTabs.class, TABS);
@@ -110,6 +112,13 @@ public interface ModInitializer extends BlockRegistry {
 
     static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> register(String name, EntityType.EntityFactory<E> factory, MobCategory category) {
         return ENTITIES.register(name, resourceLocation -> EntityType.Builder.of(factory, category).build(name));
+    }
+    static <E extends Entity> DeferredHolder<EntityType<?>, EntityType<E>> register(String name, EntityType.EntityFactory<E> factory, Consumer<EntityType.Builder<E>> consumer, MobCategory category) {
+        return ENTITIES.register(name, resourceLocation -> {
+            EntityType.Builder<E> builder = EntityType.Builder.of(factory, category);
+            consumer.accept(builder);
+            return builder.build(name);
+        });
     }
 
     static Collection<DeferredHolder<EntityType<?>, ? extends EntityType<?>>> entities() {
