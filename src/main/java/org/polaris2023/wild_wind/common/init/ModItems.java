@@ -144,9 +144,6 @@ public class ModItems {
     public static final DeferredItem<Item> SPOON =
             simpleItem("spoon", p -> p.stacksTo(1));
 
-    //TODO craftRemainder部分，物品暂时未被加载，返回为air  需调整顺序
-    //我干 我的itemlike哪去了
-    @ParentItem(parent = "wild_wind:block/scorch_pyroclast")
     public static final DeferredItem<Item> SCORCH_PYROCLAST = register("scorch_pyroclast", () -> new BlockItem(ModBlocks.SCORCH_PYROCLAST.get(),
             new Item.Properties().craftRemainder(BuiltInRegistries.ITEM.get(ModBlocks.PYROCLAST.getId()))
     ));
