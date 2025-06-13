@@ -1917,8 +1917,7 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<FlowerBlock> FLUFFY_DANDELION = register(
             "fluffy_dandelion",
-            properties -> new FlowerBlock(MobEffects.SATURATION,
-                    0.35F, properties), BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
+            properties -> new FluffyDandelionBlock(), BlockBehaviour.Properties.ofFullCopy(Blocks.DANDELION)
     );
 
     @I18n(en_us = "Wither Rose Bush", zh_cn = "凋零玫瑰丛", zh_tw = "凋零玫瑰叢")

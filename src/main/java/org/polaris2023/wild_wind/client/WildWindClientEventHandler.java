@@ -1,13 +1,18 @@
 package org.polaris2023.wild_wind.client;
 
+import glitchcore.event.client.RegisterParticleSpritesEvent;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.client.entity.abstracts.ModMobRenderer;
 import org.polaris2023.wild_wind.client.entity.firefly.FireflyModel;
@@ -18,6 +23,8 @@ import org.polaris2023.wild_wind.common.entity.layer.ModModelLayers;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
 import org.polaris2023.wild_wind.common.init.ModEntities;
+import org.polaris2023.wild_wind.common.init.ModParticles;
+import org.polaris2023.wild_wind.common.particles.FluffyDandelionParticle;
 
 @EventBusSubscriber(modid = WildWindMod.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class WildWindClientEventHandler {
@@ -58,4 +65,8 @@ public class WildWindClientEventHandler {
         event.registerLayerDefinition(ModModelLayers.BANNER, ModBannerRenderer::createBodyLayer);
     }
 
+    @SubscribeEvent
+    public static void registerParticles(RegisterParticleProvidersEvent event) {
+        event.registerSpriteSet(ModParticles.FLUFFY_DANDELION.get(), FluffyDandelionParticle.Provider::new);
+    }
 }

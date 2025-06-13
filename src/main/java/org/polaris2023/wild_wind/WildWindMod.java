@@ -37,6 +37,7 @@ public class WildWindMod {
         ModPotions.register(modEventBus);
         ModVanillaCompat.register(NeoForge.EVENT_BUS);
         ModAttachmentTypes.REGISTER.register(modEventBus);
+        ModParticles.REGISTER.register(modEventBus);
 
 
         for (IConfig iConfig : ServiceLoader.load(IConfig.class)) {
