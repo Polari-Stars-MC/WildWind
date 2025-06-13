@@ -21,7 +21,7 @@ public enum ModFoods implements Supplier<FoodProperties> {
     BAKED_CARROT(7, 0.6F),
     BAKED_APPLE(5, 0.3F),
     BAKED_MELON_SLICE(4, 0.3F),
-    RAW_TROUT(2, 0.1F,
+    TROUT(2, 0.1F,
             of(() -> new MobEffectInstance(MobEffects.HUNGER, 600, 0), 0.3F)),
     COOKED_TROUT(6, 0.8F),
     BROWN_MUSHROOM(1, 0.6F,

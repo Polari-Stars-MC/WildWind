@@ -35,11 +35,11 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
                     .component(ModComponents.VEGETABLE_VALUE, 1F)
                     .component(ModComponents.MEAT_VALUE, 1F)
                     .component(ModComponents.MONSTER_VALUE, 1F)),
-    @I18n(en_us = "Raw Trout", zh_cn = "生鳟鱼", zh_tw = "生鱒魚")
+    @I18n(en_us = "Trout", zh_cn = "鳟鱼", zh_tw = "鱒魚")
     @BasicItem
     @CTag(names = "fish_food",type = TagType.Item)
     @VanillaTag(names = "wolf_food", type = TagType.Item)
-    RAW_TROUT(p ->
+    TROUT(p ->
             p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F)),
@@ -51,14 +51,14 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
             p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F)),
-    @I18n(en_us = "Raw Piranha", zh_cn = "生食人鱼", zh_tw = "生食人魚")
+    @I18n(en_us = "Piranha", zh_cn = "食人鱼", zh_tw = "食人魚")
     @BasicItem
     @VanillaTag(names = {"wolf_food", "cat_food", "ocelot_food", "fishes"}, type = TagType.Item)
-    RAW_PIRANHA(
+    PIRANHA(
             p -> p
                     .component(ModComponents.MEAT_VALUE, 0.5F)
                     .component(ModComponents.FISH_VALUE, 1F),
-            ModFoods.RAW_TROUT),
+            ModFoods.TROUT),
     @I18n(en_us = "Cooked Piranha", zh_cn = "熟食人鱼", zh_tw = "熟食人魚")
     @BasicItem
     @VanillaTag(names = {"wolf_food", "fishes"}, type = TagType.Item)
@@ -116,7 +116,7 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     @BasicItem
     @CTag(names = "fruit_food",type = TagType.Item)
     BAKED_BERRIES(p -> p.component(ModComponents.FRUIT_VALUE, 0.5F)),
-    @I18n(en_us = "Frog Leg", zh_cn = "生蛙腿", zh_tw = "生蛙腿")
+    @I18n(en_us = "Frog Leg", zh_cn = "蛙腿", zh_tw = "蛙腿")
     @BasicItem
     @VanillaTag(names = "wolf_food", type = TagType.Item)
     FROG_LEG(p -> p
@@ -165,12 +165,12 @@ public enum ModBaseFoods implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Berry Pie", zh_cn = "浆果派", zh_tw = "莓果派")
     @BasicItem
     BERRY_PIE,
-    @I18n(en_us = "Bat Wing", zh_cn = "生蝙蝠翅膀", zh_tw = "生蝙蝠翅膀")
+    @I18n(en_us = "Bat Wing", zh_cn = "蝙蝠翼", zh_tw = "蝙蝠翼")
     @BasicItem
     BAT_WING(p -> p
             .component(ModComponents.MEAT_VALUE, 0.5F)
             .component(ModComponents.MONSTER_VALUE, 1F)),
-    @I18n(en_us = "Cooked Bat Wing", zh_cn = "熟蝙蝠翅膀", zh_tw = "熟蝙蝠翅膀")
+    @I18n(en_us = "Cooked Bat Wing", zh_cn = "熟蝙蝠翼", zh_tw = "熟蝙蝠翼")
     @BasicItem
     COOKED_BAT_WING(p -> p
             .component(ModComponents.MEAT_VALUE, 0.5F)

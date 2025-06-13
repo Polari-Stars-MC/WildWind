@@ -1,8 +1,5 @@
 package org.polaris2023.wild_wind.client;
 
-import glitchcore.event.client.RegisterParticleSpritesEvent;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.util.FastColor;
 import net.minecraft.world.item.Items;
 import net.neoforged.api.distmarker.Dist;
@@ -55,6 +52,12 @@ public class WildWindClientEventHandler {
                 new ModMobRenderer<>("trout", context, TroutModel::new, TroutModel.LAYER_LOCATION, 1));
         event.registerEntityRenderer(ModEntities.PIRANHA.get(), context ->
                 new ModMobRenderer<>("piranha", context, PiranhaModel::new, PiranhaModel.LAYER_LOCATION, 1));
+        event.registerEntityRenderer(ModEntities.SPLASH_MILK_BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.LINGERING_MILK_BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPLASH_HONEY_BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.LINGERING_HONEY_BOTTLE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModEntities.MILK_AREA_EFFECT_CLOUD.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.HONEY_AREA_EFFECT_CLOUD.get(), NoopRenderer::new);
     }
 
     @SubscribeEvent
