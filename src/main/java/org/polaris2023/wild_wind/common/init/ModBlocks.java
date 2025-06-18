@@ -61,6 +61,7 @@ public class ModBlocks {
 
     @I18n(en_us = "Firefly Jar", zh_cn = "萤火虫瓶", zh_tw = "螢火蟲瓶")
     @RegistryBlockItem
+    @BasicItem
     public static final DeferredBlock<Block> FIREFLY_JAR = register("firefly_jar", BlockBehaviour.Properties.of().noLootTable());
 
     @CTag(names = "milk", type = TagType.Block)
