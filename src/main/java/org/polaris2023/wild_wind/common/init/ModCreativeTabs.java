@@ -113,10 +113,6 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.MOSSY_BRICK_STAIRS);
         output.accept(ModBlocks.MOSSY_BRICK_SLAB);
         output.accept(ModBlocks.MOSSY_BRICK_WALL);
-        output.accept(ModBlocks.POLISHED_PACKED_MUD);
-        output.accept(ModBlocks.POLISHED_PACKED_MUD_STAIRS);
-        output.accept(ModBlocks.POLISHED_PACKED_MUD_SLAB);
-        output.accept(ModBlocks.POLISHED_PACKED_MUD_WALL);
         output.accept(ModBlocks.CRACKED_MUD_BRICKS);
         output.accept(ModBlocks.CHISELED_MUD_BRICKS);
         output.accept(ModBlocks.MOSSY_MUD_BRICKS);
@@ -356,8 +352,9 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.SCULK_ARTERY);
         output.accept(ModBlocks.COBWEB_COVER);
         output.accept(ModBaseItems.COBWEB_MUCOSA);
-        output.accept(ModBaseItems.SPIDER_EGG);
         output.accept(ModBlocks.REMAINS);
+
+        output.accept(ModBlocks.SILK_COCOON);
     }, BUILDING_BLOCK),
     @I18n(en_us = "Wild wind: Spawn Eggs", zh_cn = "原野之风：刷怪蛋", zh_tw = "原野之風：生怪蛋")
     SPAWN_EGGS(ModSpawnEggs.FIREFLY_SPAWN_EGG.entry::toStack, () -> (__, output) -> {
