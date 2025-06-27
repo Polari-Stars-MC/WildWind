@@ -264,6 +264,10 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.CALCITE_BRICK_SLAB);
         output.accept(ModBlocks.CALCITE_BRICK_WALL);
         output.accept(ModBlocks.CHISELED_CALCITE_BRICKS);
+        output.accept(ModBlocks.MOSSY_CALCITE_BRICKS);
+        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_STAIRS);
+        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_SLAB);
+        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_WALL);
         output.accept(ModBlocks.POLISHED_DRIPSTONE_BLOCK);
         output.accept(ModBlocks.POLISHED_DRIPSTONE_STAIRS);
         output.accept(ModBlocks.POLISHED_DRIPSTONE_SLAB);
@@ -274,10 +278,6 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.DRIPSTONE_BRICK_SLAB);
         output.accept(ModBlocks.DRIPSTONE_BRICK_WALL);
         output.accept(ModBlocks.CHISELED_DRIPSTONE_BRICKS);
-        output.accept(ModBlocks.MOSSY_CALCITE_BRICKS);
-        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_STAIRS);
-        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_SLAB);
-        output.accept(ModBlocks.MOSSY_CALCITE_BRICK_WALL);
         output.accept(ModBlocks.MOSSY_DRIPSTONE_BRICKS);
         output.accept(ModBlocks.MOSSY_DRIPSTONE_BRICK_STAIRS);
         output.accept(ModBlocks.MOSSY_DRIPSTONE_BRICK_SLAB);
