@@ -172,10 +172,6 @@ public class ModBlockLootSubProvider extends BlockLootSubProvider {
         this.add(ModBlocks.MOSSY_RED_SANDSTONE_SLAB.get(), this.createSlabItemTable(ModBlocks.MOSSY_RED_SANDSTONE_SLAB.get()));
         this.dropSelf(ModBlocks.MOSSY_RED_SANDSTONE_STAIRS.get());
         this.dropSelf(ModBlocks.SMOOTH_RED_SANDSTONE_WALL.get());
-        this.dropSelf(ModBlocks.POLISHED_PACKED_MUD.get());
-        this.dropSelf(ModBlocks.POLISHED_PACKED_MUD_WALL.get());
-        this.add(ModBlocks.POLISHED_PACKED_MUD_SLAB.get(), this.createSlabItemTable(ModBlocks.POLISHED_PACKED_MUD_SLAB.get()));
-        this.dropSelf(ModBlocks.POLISHED_PACKED_MUD_STAIRS.get());
 
         this.dropSelf(ModBlocks.COBBLED_BLACKSTONE.get());
         this.dropSelf(ModBlocks.COBBLED_BLACKSTONE_WALL.get());

@@ -30,9 +30,6 @@ public enum ModBaseItems implements Supplier<Item>, ItemLike {
     @I18n(en_us = "Cheese Pumpkin soup", zh_cn = "奶酪南瓜汤", zh_tw = "起司南瓜湯")
     CHEESE_PUMPKIN_SOUP(STACK_TO_1),
     @BasicItem
-    @I18n(en_us = "Spider Egg", zh_cn = "蜘蛛卵", zh_tw = "蜘蛛卵")
-    SPIDER_EGG(STACK_TO_1),
-    @BasicItem
     @I18n(en_us = "Cobweb Mucosa", zh_cn = "蛛丝壁膜", zh_tw = "蛛絲壁膜")
     COBWEB_MUCOSA,
     @BasicItem
