@@ -2,7 +2,6 @@ package org.polaris2023.wild_wind.common.init;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Blocks;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -244,7 +243,7 @@ public enum ModCreativeTabs implements Supplier<CreativeModeTab> {
         output.accept(ModBlocks.BLUE_ICE_BRICK_SLAB);
         output.accept(ModBlocks.BLUE_ICE_BRICK_WALL);
         output.accept(ModBlocks.CHISELED_BLUE_ICE_BRICKS);
-        output.accept(ModBlocks.PACKED_SNOW);
+        output.accept(ModBlocks.PACKED_SNOW_BLOCK);
         output.accept(ModBlocks.PACKED_SNOW_STAIRS);
         output.accept(ModBlocks.PACKED_SNOW_SLAB);
         output.accept(ModBlocks.PACKED_SNOW_WALL);
