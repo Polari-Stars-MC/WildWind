@@ -1819,24 +1819,28 @@ public class ModBlocks {
     @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> POLISHED_BLUE_ICE_SLAB = register("polished_blue_ice_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.BLUE_ICE));
 
-    //  夯实雪系列
-    @I18n(en_us = "Packed Snow", zh_cn = "夯实雪", zh_tw = "夯實雪")
-    @BasicBlock
-    @VanillaTag(names = {"mineable/shovel", "walls"}, type = TagType.Block)
-    @RegistryBlockItem
-    public static final DeferredBlock<Block> PACKED_SNOW = register("packed_snow", BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
-    @I18n(en_us = "Packed Snow Wall", zh_cn = "夯实雪墙", zh_tw = "夯實雪墻")
-    @Wall(wall = "wild_wind:block/packed_snow")
+    //压实雪系列
+    @I18n(en_us = "Packed Snow", zh_cn = "压实雪块", zh_tw = "壓實雪塊")//datagen -> lang 这里的数据代表数据生成后语言文件的对应内容
+    @BasicBlock//datagen -> blockstate and model
+    @VanillaTag(names = {"mineable/shovel", "walls"}, type = TagType.Block)//datagen -> tag
+    @RegistryBlockItem//自动注册对应的物品
+    //这里是方块注册的代码
+    //public static final DeferredBlock<Block> 全大写下划线的代码名字 = register(游戏内方块id, 方块属性(不是方块状态))
+    //修改代码名字使用shift + f6 可以快捷修改有关的所有引用 这样就不会产生别的报错
+    //datagen有关的，对于方块名字的使用直接调用游戏内id 不用额外的处理配置
+    public static final DeferredBlock<Block> PACKED_SNOW_BLOCK = register("packed_snow_block", BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
+    @I18n(en_us = "Packed Snow Wall", zh_cn = "压实雪墙", zh_tw = "壓實雪墻")
+    @Wall(wall = "wild_wind:block/packed_snow_block")
     @VanillaTag(names = {"mineable/shovel", "walls"}, type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<WallBlock> PACKED_SNOW_WALL = register("packed_snow_wall", WallBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
-    @I18n(en_us = "Packed Snow Stairs", zh_cn = "夯实雪楼梯", zh_tw = "夯實雪樓梯")
-    @Stairs(all = "wild_wind:block/packed_snow")
+    @I18n(en_us = "Packed Snow Stairs", zh_cn = "压实雪楼梯", zh_tw = "壓實雪樓梯")
+    @Stairs(all = "wild_wind:block/packed_snow_block")
     @VanillaTag(names = {"mineable/shovel", "stairs"}, type = TagType.Block)
     @RegistryBlockItem
-    public static final DeferredBlock<StairBlock> PACKED_SNOW_STAIRS = register("packed_snow_stairs", props -> new StairBlock(PACKED_SNOW.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
-    @I18n(en_us = "Packed Snow Slab", zh_cn = "夯实雪台阶", zh_tw = "夯實雪臺階")
-    @Slab(type = "stone", all = "wild_wind:block/packed_snow")
+    public static final DeferredBlock<StairBlock> PACKED_SNOW_STAIRS = register("packed_snow_stairs", props -> new StairBlock(PACKED_SNOW_BLOCK.get().defaultBlockState(), props), BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));
+    @I18n(en_us = "Packed Snow Slab", zh_cn = "压实雪台阶", zh_tw = "壓實雪臺階")
+    @Slab(type = "stone", all = "wild_wind:block/packed_snow_block")
     @VanillaTag(names = {"mineable/shovel", "slabs"}, type = TagType.Block)
     @RegistryBlockItem
     public static final DeferredBlock<SlabBlock> PACKED_SNOW_SLAB = register("packed_snow_slab", SlabBlock::new, BlockBehaviour.Properties.ofFullCopy(Blocks.SNOW_BLOCK));

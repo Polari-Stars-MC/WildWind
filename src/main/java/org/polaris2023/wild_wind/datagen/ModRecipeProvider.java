@@ -1323,9 +1323,9 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.POLISHED_BLUE_ICE_WALL);
 
         // === 夯实雪系列 === (5)
-        addPolished(ModBlocks.PACKED_SNOW, () -> Blocks.SNOW_BLOCK);
+        addPolished(ModBlocks.PACKED_SNOW_BLOCK, () -> Blocks.SNOW_BLOCK);
 
-        addBlockDerivatives(ModBlocks.PACKED_SNOW,
+        addBlockDerivatives(ModBlocks.PACKED_SNOW_BLOCK,
                 ModBlocks.PACKED_SNOW_STAIRS,
                 ModBlocks.PACKED_SNOW_SLAB,
                 ModBlocks.PACKED_SNOW_WALL);
