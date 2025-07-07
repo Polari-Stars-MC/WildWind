@@ -1,9 +1,21 @@
 package org.polaris2023.wild_wind.datagen;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.*;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.data.recipes.RecipeProvider;
+import net.minecraft.data.recipes.ShapelessRecipeBuilder;
+import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.SingleItemRecipeBuilder;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
@@ -11,7 +23,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.SlabBlock;
+import net.minecraft.world.level.block.StairBlock;
+import net.minecraft.world.level.block.WallBlock;
 import net.neoforged.neoforge.fluids.FluidStack;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import org.polaris2023.wild_wind.WildWindMod;
@@ -23,12 +39,12 @@ import org.polaris2023.wild_wind.datagen.custom.recipe.CookingPotRecipeBuilder;
 import org.polaris2023.wild_wind.util.Helpers;
 import org.polaris2023.wild_wind.util.data.ModBlockFamilies;
 
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import static org.polaris2023.wild_wind.datagen.ModDyedArray.*;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.CARPET_BLOCK;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.CONCRETE_BLOCK;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.CONCRETE_POWDER_BLOCK;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.DYE;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.GLAZED_TERRACOTTA_BLOCK;
+import static org.polaris2023.wild_wind.datagen.ModDyedArray.WOOL_BLOCK;
 import static org.polaris2023.wild_wind.util.data.RecipeUtil.shaped;
 import static org.polaris2023.wild_wind.util.data.RecipeUtil.unlockedBy;
 
@@ -1300,6 +1316,7 @@ public class ModRecipeProvider extends RecipeProvider {
         // === 石英系列 === (9)
         addWall(ModBlocks.QUARTZ_BLOCK_WALL, () -> Blocks.QUARTZ_BLOCK);
         addWall(ModBlocks.SMOOTH_QUARTZ_WALL, () -> Blocks.SMOOTH_QUARTZ);
+        addPolished(ModBlocks.ANDESITE_BRICKS, () -> Blocks.POLISHED_ANDESITE);
 
         addBlockDerivatives(() -> Blocks.QUARTZ_BRICKS,
                 ModBlocks.QUARTZ_BRICK_STAIRS,
@@ -1314,13 +1331,15 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_QUARTZ_BRICK_SLAB,
                 ModBlocks.MOSSY_QUARTZ_BRICK_WALL);
 
-        // === 磨制蓝冰系列 === (5)
+        // === 蓝冰系列 === (5)
         addPolished(ModBlocks.POLISHED_BLUE_ICE, () -> Blocks.BLUE_ICE);
 
         addBlockDerivatives(ModBlocks.POLISHED_BLUE_ICE,
                 ModBlocks.POLISHED_BLUE_ICE_STAIRS,
                 ModBlocks.POLISHED_BLUE_ICE_SLAB,
                 ModBlocks.POLISHED_BLUE_ICE_WALL);
+
+        addPolished(ModBlocks.BLUE_ICE_BRICKS, ModBlocks.POLISHED_BLUE_ICE);
 
         // === 夯实雪系列 === (5)
         addPolished(ModBlocks.PACKED_SNOW_BLOCK, () -> Blocks.SNOW_BLOCK);
@@ -1476,6 +1495,34 @@ public class ModRecipeProvider extends RecipeProvider {
             unlockedBy(bone_meal, ModBaseItems.FISH_BONE);
             bone_meal.requires(ModBaseItems.FISH_BONE);
         }), "", "_from_fish_bone");
+
+        //苔系列方块
+        addMossBlock(ModBlocks.MOSSY_COBBLED_DEEPSLATE, ()-> Blocks.COBBLED_DEEPSLATE);
+        addMossBlock(ModBlocks.MOSSY_DEEPSLATE_BRICKS, ()-> Blocks.DEEPSLATE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_DEEPSLATE_TILES, ()-> Blocks.DEEPSLATE_TILES);
+        addMossBlock(ModBlocks.MOSSY_COBBLED_BLACKSTONE, ModBlocks.COBBLED_BLACKSTONE);
+        addMossBlock(ModBlocks.MOSSY_POLISHED_BLACKSTONE_BRICKS,()-> Blocks.POLISHED_BLACKSTONE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_ANDESITE_BRICKS, ModBlocks.ANDESITE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_DIORITE_BRICKS, ModBlocks.DIORITE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_GRANITE_BRICKS, ModBlocks.GRANITE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_CALCITE_BRICKS, ModBlocks.CALCITE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_DRIPSTONE_BRICKS, ModBlocks.DRIPSTONE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_BASALT_BRICKS, ModBlocks.BASALT_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_TUFF_BRICKS, ()-> Blocks.TUFF_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_MUD_BRICKS, ()-> Blocks.MUD_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_SANDSTONE, ()-> Blocks.SANDSTONE);
+        addMossBlock(ModBlocks.MOSSY_SANDSTONE_BRICKS, ()-> Blocks.SANDSTONE_STAIRS);
+        addMossBlock(ModBlocks.MOSSY_BRICKS, ()-> Blocks.BRICKS);
+        addMossBlock(ModBlocks.MOSSY_RED_SANDSTONE, ()-> Blocks.RED_SANDSTONE);
+        addMossBlock(ModBlocks.MOSSY_RED_SANDSTONE_BRICKS, ()-> Blocks.RED_SANDSTONE_STAIRS);
+        addMossBlock(ModBlocks.MOSSY_QUARTZ_BRICKS, ()-> Blocks.QUARTZ_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_NETHER_BRICKS, ()-> Blocks.NETHER_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_END_STONE_BRICKS, ()-> Blocks.END_STONE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_PRISMARINE, ()-> Blocks.PRISMARINE);
+        addMossBlock(ModBlocks.MOSSY_PRISMARINE_BRICKS, ()-> Blocks.PRISMARINE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_DARK_PRISMARINE, ()-> Blocks.DARK_PRISMARINE);
+        addMossBlock(ModBlocks.MOSSY_DARK_PRISMARINE_BRICKS, ModBlocks.DARK_PRISMARINE_BRICKS);
+        addMossBlock(ModBlocks.MOSSY_RED_NETHER_BRICKS, () -> Blocks.RED_NETHER_BRICKS);
     }
 
 
@@ -1726,5 +1773,25 @@ public class ModRecipeProvider extends RecipeProvider {
                     builder.pattern("SSS")
                             .define('S', baseBlock.get());
                 }));
+    }
+
+    private void addMossBlock(DeferredBlock<Block> mossBlock, Supplier<Block> baseBlockSupplier){
+        final Block baseBlock = baseBlockSupplier.get();
+        add(shapeless(RecipeCategory.BUILDING_BLOCKS, mossBlock.get(), 1,
+            builder -> {
+                unlockedBy(builder, baseBlock);
+                unlockedBy(builder, Blocks.MOSS_BLOCK);
+                builder
+                    .requires(baseBlock)
+                    .requires(Blocks.MOSS_BLOCK);
+            }), "","_from_moss");
+        add(shapeless(RecipeCategory.BUILDING_BLOCKS, mossBlock.get(), 1,
+            builder -> {
+                unlockedBy(builder, baseBlock);
+                unlockedBy(builder, Blocks.VINE);
+                builder
+                    .requires(baseBlock)
+                    .requires(Blocks.VINE);
+            }), "","_from_vine");
     }
 }
