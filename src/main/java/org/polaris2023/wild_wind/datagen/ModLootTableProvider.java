@@ -1,5 +1,10 @@
 package org.polaris2023.wild_wind.datagen;
 
+import java.util.List;
+import java.util.Set;
+import java.util.concurrent.CompletableFuture;
+import java.util.function.Function;
+
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.WritableRegistry;
 import net.minecraft.data.PackOutput;
@@ -11,13 +16,9 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSet;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import org.polaris2023.wild_wind.datagen.loot.ModBlockLootSubProvider;
-import org.polaris2023.wild_wind.datagen.loot.ModEntityLootSubProvider;
 import org.polaris2023.wild_wind.datagen.loot.ModEntityExtraLootSubProvider;
-
-import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
+import org.polaris2023.wild_wind.datagen.loot.ModEntityLootSubProvider;
+import org.polaris2023.wild_wind.datagen.loot.VanillaLootTableProvider;
 
 public class ModLootTableProvider extends LootTableProvider {
     public ModLootTableProvider(PackOutput output,
@@ -25,6 +26,7 @@ public class ModLootTableProvider extends LootTableProvider {
         super(output, Set.of(), List.of(
                 gen(ModEntityLootSubProvider::new, LootContextParamSets.ENTITY),
                 gen(ModBlockLootSubProvider::new, LootContextParamSets.BLOCK),
+                gen(VanillaLootTableProvider::new, LootContextParamSets.BLOCK),
                 gen(ModEntityExtraLootSubProvider::new, LootContextParamSets.ENTITY)
         ), registries);
     }
