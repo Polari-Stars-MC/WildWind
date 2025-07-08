@@ -531,7 +531,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_SANDSTONE_BRICK_WALL);
 
         //黑石相关
-        addPolished(ModBlocks.COBBLED_BLACKSTONE, () -> Blocks.POLISHED_BLACKSTONE);
+        addMultiRecipeBrick(Blocks.POLISHED_BLACKSTONE , ModBlocks.COBBLED_BLACKSTONE.get());
         addBlockDerivatives(ModBlocks.COBBLED_BLACKSTONE,
             ModBlocks.COBBLED_BLACKSTONE_STAIRS,
             ModBlocks.COBBLED_BLACKSTONE_SLAB,
