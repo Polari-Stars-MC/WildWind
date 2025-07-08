@@ -506,7 +506,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_GRANITE_BRICK_WALL);
 
         //砂岩相关
-        addPolished(ModBlocks.SANDSTONE_BRICKS, () -> Blocks.SMOOTH_SANDSTONE);
+        addMultiRecipeBrick(ModBlocks.SANDSTONE_BRICKS.get(), Blocks.CUT_SANDSTONE);
         addWall(ModBlocks.SMOOTH_SANDSTONE_WALL, () -> Blocks.SMOOTH_SANDSTONE);
         addWall(ModBlocks.SMOOTH_RED_SANDSTONE_WALL, () -> Blocks.SMOOTH_RED_SANDSTONE);
         addBlockDerivatives(ModBlocks.SANDSTONE_BRICKS,
@@ -696,9 +696,9 @@ public class ModRecipeProvider extends RecipeProvider {
 
         add(shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.RED_NETHER_BRICK_FENCE.get(), 6,
                 builder -> {
-                    unlockedBy(builder, Items.STICK, Blocks.RED_NETHER_BRICKS);
+                    unlockedBy(builder, Items.NETHER_BRICK, Blocks.RED_NETHER_BRICKS);
                     builder.pattern("SBS").pattern("SBS")
-                            .define('S', Blocks.RED_NETHER_BRICKS).define('B', Blocks.NETHER_BRICKS);
+                            .define('S', Blocks.RED_NETHER_BRICKS).define('B', Items.NETHER_BRICK);
                 }));
 
         addBlockDerivatives(ModBlocks.MOSSY_RED_NETHER_BRICKS,
@@ -754,7 +754,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.POLISHED_END_STONE_SLAB,
                 ModBlocks.POLISHED_END_STONE_WALL);
 
-       addChiseled(ModBlocks.CHISELED_END_STONE_BRICKS, ModBlocks.POLISHED_END_STONE_SLAB::get);
+        addChiseled(ModBlocks.CHISELED_END_STONE_BRICKS, () -> Blocks.END_STONE_BRICK_SLAB);
 
         addBlockDerivatives(ModBlocks.MOSSY_END_STONE_BRICKS,
                 ModBlocks.MOSSY_END_STONE_BRICK_STAIRS,
