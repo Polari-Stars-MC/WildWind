@@ -492,7 +492,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_PRISMARINE_WALL);
 
         addPolished(ModBlocks.POLISHED_PRISMARINE.get(), Blocks.PRISMARINE);
-        addMultiRecipeBrick(Blocks.PRISMARINE_BRICKS, ModBlocks.POLISHED_PRISMARINE.get());
+        addPolished(Blocks.PRISMARINE_BRICKS, ModBlocks.POLISHED_PRISMARINE.get());
 
         addBlockDerivatives(ModBlocks.POLISHED_PRISMARINE,
                 ModBlocks.POLISHED_PRISMARINE_STAIRS,
@@ -507,12 +507,34 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_PRISMARINE_BRICK_SLAB,
                 ModBlocks.MOSSY_PRISMARINE_BRICK_WALL);
 
-        add(shaped(RecipeCategory.DECORATIONS, ModBlocks.OCEAN_LANTERN.get(), 1,
-                builder -> {
-                    unlockedBy(builder, Blocks.DARK_PRISMARINE, Items.GLOWSTONE_DUST);
-                    builder.pattern(" D ").pattern("DLD").pattern(" D ")
-                            .define('D', Blocks.DARK_PRISMARINE).define('L', Items.GLOWSTONE_DUST);
-                }));
+        add(shaped(RecipeCategory.DECORATIONS, ModBlocks.OCEAN_LANTERN.get(), 1, builder -> {
+            unlockedBy(builder, Blocks.DARK_PRISMARINE, Items.GLOWSTONE_DUST);
+            builder.pattern("PBP")
+                .pattern("CSC")
+                .pattern("PPP")
+                .define('P', Items.PRISMARINE_SHARD)
+                .define('C', Items.PRISMARINE_CRYSTALS)
+                .define('B', Items.BLACK_DYE)
+                .define('S', Blocks.SOUL_SOIL);
+        }), "", "from_soul_soil");
+
+        add(shaped(RecipeCategory.DECORATIONS, ModBlocks.OCEAN_LANTERN.get(), 1, builder -> {
+            unlockedBy(builder, Blocks.DARK_PRISMARINE, Items.GLOWSTONE_DUST);
+            builder.pattern("PBP")
+                .pattern("CSC")
+                .pattern("PPP")
+                .define('P', Items.PRISMARINE_SHARD)
+                .define('C', Items.PRISMARINE_CRYSTALS)
+                .define('B', Items.BLACK_DYE)
+                .define('S', Blocks.SOUL_SAND);
+        }), "", "from_soul_sand");
+
+        add(shaped(RecipeCategory.BUILDING_BLOCKS, Blocks.DARK_PRISMARINE, 1,
+            builder -> {
+                unlockedBy(builder, Items.PRISMARINE_CRYSTALS, Items.BLACK_DYE);
+                builder.pattern(" P ").pattern("PBP").pattern(" P ")
+                    .define('P', Items.PRISMARINE_SHARD).define('B', Items.BLACK_DYE);
+            }));
 
         addPolished(ModBlocks.POLISHED_DARK_PRISMARINE.get(), Blocks.DARK_PRISMARINE);
 
@@ -526,7 +548,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_DARK_PRISMARINE_SLAB,
                 ModBlocks.MOSSY_DARK_PRISMARINE_WALL);
 
-//        addPolished(ModBlocks.DARK_PRISMARINE_BRICKS, () -> Blocks.DARK_PRISMARINE);
+       addPolished(ModBlocks.DARK_PRISMARINE_BRICKS.get(), ModBlocks.POLISHED_DARK_PRISMARINE.get());
 
         addBlockDerivatives(ModBlocks.DARK_PRISMARINE_BRICKS,
                 ModBlocks.DARK_PRISMARINE_BRICK_STAIRS,
