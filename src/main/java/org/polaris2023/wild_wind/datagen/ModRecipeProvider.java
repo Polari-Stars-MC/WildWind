@@ -283,7 +283,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 }));
 
         //石头相关
-        addPolished(ModBlocks.POLISHED_STONE, () -> Blocks.COBBLESTONE);
+        addPolished(ModBlocks.POLISHED_STONE.get(), Blocks.COBBLESTONE);
         addMultiRecipeBrick(Blocks.STONE_BRICKS, ModBlocks.POLISHED_STONE.get());
         addBlockDerivatives(ModBlocks.POLISHED_STONE,
             ModBlocks.POLISHED_STONE_STAIRS,
@@ -321,7 +321,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_MUD_BRICK_WALL);
 
         //安山岩系列
-        addPolished(ModBlocks.ANDESITE_BRICKS, () -> Blocks.POLISHED_ANDESITE);
+        addPolished(ModBlocks.ANDESITE_BRICKS.get(), Blocks.POLISHED_ANDESITE);
         addWallWithStoneCuttingRecipe(ModBlocks.POLISHED_ANDESITE_WALL.get(), Blocks.POLISHED_ANDESITE);
         addBlockDerivatives(ModBlocks.ANDESITE_BRICKS,
             ModBlocks.ANDESITE_BRICK_STAIRS,
@@ -335,7 +335,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_ANDESITE_BRICK_WALL);
 
         //闪长岩系列
-        addPolished(ModBlocks.DIORITE_BRICKS, () -> Blocks.POLISHED_DIORITE);
+        addPolished(ModBlocks.DIORITE_BRICKS.get(), Blocks.POLISHED_DIORITE);
         addBlockDerivatives(ModBlocks.DIORITE_BRICKS,
             ModBlocks.DIORITE_BRICK_STAIRS,
             ModBlocks.DIORITE_BRICK_SLAB,
@@ -349,7 +349,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_DIORITE_BRICK_WALL);
 
         //花岗岩系列
-        addPolished(ModBlocks.GRANITE_BRICKS, () -> Blocks.POLISHED_GRANITE);
+        addPolished(ModBlocks.GRANITE_BRICKS.get(), Blocks.POLISHED_GRANITE);
         addBlockDerivatives(ModBlocks.GRANITE_BRICKS,
             ModBlocks.GRANITE_BRICK_STAIRS,
             ModBlocks.GRANITE_BRICK_SLAB,
@@ -376,7 +376,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.MOSSY_SANDSTONE_SLAB,
             ModBlocks.MOSSY_SANDSTONE_WALL);
 
-        addPolished(ModBlocks.RED_SANDSTONE_BRICKS, () -> Blocks.CUT_RED_SANDSTONE);
+        addPolished(ModBlocks.RED_SANDSTONE_BRICKS.get(), Blocks.CUT_RED_SANDSTONE);
         addBlockDerivatives(ModBlocks.MOSSY_RED_SANDSTONE,
             ModBlocks.MOSSY_RED_SANDSTONE_STAIRS,
             ModBlocks.MOSSY_RED_SANDSTONE_SLAB,
@@ -433,7 +433,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_RED_SANDSTONE_BRICK_WALL);
 
         // === 雪砖系列 === (4)
-        addPolished(ModBlocks.SNOW_BRICKS, ModBlocks.PACKED_SNOW_BLOCK);
+        addPolished(ModBlocks.SNOW_BRICKS.get(), ModBlocks.PACKED_SNOW_BLOCK.get());
 
         addBlockDerivatives(ModBlocks.SNOW_BRICKS,
                 ModBlocks.SNOW_BRICK_STAIRS,
@@ -443,8 +443,8 @@ public class ModRecipeProvider extends RecipeProvider {
         addChiseledWithStoneCuttingRecipe(ModBlocks.CHISELED_SNOW_BRICKS.get(), ModBlocks.SNOW_BRICK_SLAB.get(), ModBlocks.SNOW_BRICKS.get());
 
         // === 方解石系列 === (11)
-        addPolished(ModBlocks.POLISHED_CALCITE, () -> Blocks.CALCITE);
-        addPolished(ModBlocks.CALCITE_BRICKS, ModBlocks.POLISHED_CALCITE);
+        addPolished(ModBlocks.POLISHED_CALCITE.get(), Blocks.CALCITE);
+        addPolished(ModBlocks.CALCITE_BRICKS.get(), ModBlocks.POLISHED_CALCITE.get());
 
         addBlockDerivatives(ModBlocks.POLISHED_CALCITE,
                 ModBlocks.POLISHED_CALCITE_STAIRS,
@@ -465,8 +465,8 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_CALCITE_BRICK_WALL);
 
         // === 滴水石系列 === (11)
-        addPolished(ModBlocks.POLISHED_DRIPSTONE_BLOCK, () -> Blocks.DRIPSTONE_BLOCK);
-        addPolished(ModBlocks.DRIPSTONE_BRICKS, ModBlocks.POLISHED_DRIPSTONE_BLOCK);
+        addPolished(ModBlocks.POLISHED_DRIPSTONE_BLOCK.get(), Blocks.DRIPSTONE_BLOCK);
+        addPolished(ModBlocks.DRIPSTONE_BRICKS.get(), ModBlocks.POLISHED_DRIPSTONE_BLOCK.get());
         addBlockDerivatives(ModBlocks.POLISHED_DRIPSTONE_BLOCK,
                 ModBlocks.POLISHED_DRIPSTONE_STAIRS,
                 ModBlocks.POLISHED_DRIPSTONE_SLAB,
@@ -491,7 +491,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_PRISMARINE_SLAB,
                 ModBlocks.MOSSY_PRISMARINE_WALL);
 
-        addPolished(ModBlocks.POLISHED_PRISMARINE, () -> Blocks.PRISMARINE);
+        addPolished(ModBlocks.POLISHED_PRISMARINE.get(), Blocks.PRISMARINE);
         addMultiRecipeBrick(Blocks.PRISMARINE_BRICKS, ModBlocks.POLISHED_PRISMARINE.get());
 
         addBlockDerivatives(ModBlocks.POLISHED_PRISMARINE,
@@ -514,7 +514,7 @@ public class ModRecipeProvider extends RecipeProvider {
                             .define('D', Blocks.DARK_PRISMARINE).define('L', Items.GLOWSTONE_DUST);
                 }));
 
-        addPolished(ModBlocks.POLISHED_DARK_PRISMARINE, () -> Blocks.DARK_PRISMARINE);
+        addPolished(ModBlocks.POLISHED_DARK_PRISMARINE.get(), Blocks.DARK_PRISMARINE);
 
         addBlockDerivatives(ModBlocks.POLISHED_DARK_PRISMARINE,
                 ModBlocks.POLISHED_DARK_PRISMARINE_STAIRS,
@@ -542,7 +542,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_DARK_PRISMARINE_BRICK_WALL);
 
         // === 下界岩系列 === (12)
-        addPolished(ModBlocks.POLISHED_NETHERRACK, () -> Blocks.NETHERRACK);
+        addPolished(ModBlocks.POLISHED_NETHERRACK.get(), Blocks.NETHERRACK);
         addBlockDerivatives(ModBlocks.POLISHED_NETHERRACK,
                 ModBlocks.POLISHED_NETHERRACK_STAIRS,
                 ModBlocks.POLISHED_NETHERRACK_SLAB,
@@ -569,7 +569,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 Blocks.RED_NETHER_BRICK_SLAB, Blocks.RED_NETHER_BRICKS);
 
         // === 玄武岩系列 === (17)
-        addPolished(ModBlocks.BASALT_BRICKS, () -> Blocks.POLISHED_BASALT);
+        addPolished(ModBlocks.BASALT_BRICKS.get(), Blocks.POLISHED_BASALT);
 
         addBlockDerivatives(() -> Blocks.BASALT,
                 ModBlocks.BASALT_STAIRS,
@@ -605,7 +605,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.END_STONE_SLAB,
                 ModBlocks.END_STONE_WALL);
 
-        addPolished(ModBlocks.POLISHED_END_STONE, () -> Blocks.END_STONE);
+        addPolished(ModBlocks.POLISHED_END_STONE.get(), Blocks.END_STONE);
         addPolished(Blocks.END_STONE_BRICKS, ModBlocks.POLISHED_END_STONE.get());
 
         addBlockDerivatives(ModBlocks.POLISHED_END_STONE,
@@ -641,7 +641,7 @@ public class ModRecipeProvider extends RecipeProvider {
                 ModBlocks.MOSSY_QUARTZ_BRICK_WALL);
 
         // === 蓝冰系列 === (5)
-        addPolished(ModBlocks.POLISHED_BLUE_ICE, () -> Blocks.BLUE_ICE);
+        addPolished(ModBlocks.POLISHED_BLUE_ICE.get(), Blocks.BLUE_ICE);
         addMultiRecipeBrick(ModBlocks.BLUE_ICE_BRICKS.get(), ModBlocks.POLISHED_BLUE_ICE.get());
 
         addBlockDerivatives(ModBlocks.POLISHED_BLUE_ICE,
@@ -657,7 +657,7 @@ public class ModRecipeProvider extends RecipeProvider {
             ModBlocks.BLUE_ICE_BRICK_SLAB.get(), ModBlocks.BLUE_ICE_BRICKS.get());
 
         // === 夯实雪系列 === (5)
-        addPolished(ModBlocks.PACKED_SNOW_BLOCK, () -> Blocks.SNOW_BLOCK);
+        addPolished(ModBlocks.PACKED_SNOW_BLOCK.get(), Blocks.SNOW_BLOCK);
         addBlockDerivatives(ModBlocks.PACKED_SNOW_BLOCK,
                 ModBlocks.PACKED_SNOW_STAIRS,
                 ModBlocks.PACKED_SNOW_SLAB,
@@ -1045,14 +1045,6 @@ public class ModRecipeProvider extends RecipeProvider {
         addStairsWithStoneCuttingRecipe(stairs.get(), block);
         addSlabWithStoneCuttingRecipe(slab.get(), block);
         addWallWithStoneCuttingRecipe(wall.get(), block);
-    }
-
-    private void addPolished(DeferredBlock<Block> polishedBlock, Supplier<Block> baseBlock) {
-        add(shaped(RecipeCategory.BUILDING_BLOCKS, polishedBlock.get(), 4,
-                builder -> {
-                    unlockedBy(builder, baseBlock.get());
-                    builder.pattern("SS").pattern("SS").define('S', baseBlock.get());
-                }));
     }
 
     private void addPolished(Block polishedBlock, Block baseBlock) {
