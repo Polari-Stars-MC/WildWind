@@ -1,5 +1,8 @@
 package org.polaris2023.wild_wind.common.event.game;
 
+import java.util.List;
+import java.util.Map;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.component.DataComponents;
@@ -8,19 +11,21 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.level.ExplosionEvent;
 import net.neoforged.neoforge.event.level.block.CropGrowEvent;
 import org.polaris2023.wild_wind.WildWindMod;
 import org.polaris2023.wild_wind.client.ModTranslateKey;
 import org.polaris2023.wild_wind.common.init.ModBlocks;
 import org.polaris2023.wild_wind.common.init.ModComponents;
-
-import java.util.List;
 
 import static org.polaris2023.wild_wind.util.EventsHandler.componentAdd;
 
@@ -82,5 +87,27 @@ public class BlockEvents {
         componentAdd(stack, toolTip, ModTranslateKey.MONSTER_VALUE, ModComponents.MONSTER_VALUE, 0F);
         componentAdd(stack, toolTip, ModTranslateKey.SWEET_VALUE, ModComponents.SWEET_VALUE, 0F);
 
+    }
+
+    @SubscribeEvent
+    public static void registerExplosion(ExplosionEvent.Detonate event) {
+        final Map<Block, Block> replacementMap = Map.of(
+            ModBlocks.BLUE_ICE_BRICKS.get(), ModBlocks.CRACKED_BLUE_ICE_BRICKS.get(),
+            ModBlocks.SNOW_BRICKS.get(), ModBlocks.CRACKED_SNOW_BRICKS.get()
+        );
+
+        Level level = event.getLevel();
+        if (level.isClientSide) return;
+
+        event.getAffectedBlocks().removeIf(pos -> {
+            BlockState oldState = level.getBlockState(pos);
+            if (replacementMap.containsKey(oldState.getBlock())) {
+                Block newBlock = replacementMap.get(oldState.getBlock());
+                BlockState newState = newBlock.defaultBlockState();
+                level.setBlock(pos, newState, Block.UPDATE_ALL);
+                return true;
+            }
+            return false;
+        });
     }
 }
