@@ -1,17 +1,19 @@
 package org.polaris2023.utils;
 
-import org.polaris2023.processor.InitProcessor;
+import java.io.IOException;
+import java.io.Writer;
 
 import javax.annotation.processing.Filer;
 import javax.tools.JavaFileObject;
-import java.io.IOException;
-import java.io.Writer;
+
+import org.polaris2023.processor.InitProcessor;
 
 public enum Codes {
     ModelProvider(
             """
             package %%package%%;
             
+            import com.google.common.base.Strings;
             import com.google.gson.Gson;
             import com.google.gson.GsonBuilder;
             import com.google.gson.JsonElement;
@@ -441,29 +443,31 @@ public enum Codes {
                         basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
-                private <T extends Block> %%classname%% fenceGateBlock(Supplier<T> block, String textures, boolean isItem) {
+                private <T extends Block> %%classname%% fenceGateBlock(Supplier<T> block, String texture, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation itemKey = key.withPrefix("item/");
                     ResourceLocation open = blockKey.withSuffix("_open");
-                    ResourceLocation planks = planks(blockKey, "fence_gate");
                     ResourceLocation wall = blockKey.withSuffix("_wall");
                     ResourceLocation wall_open = blockKey.withSuffix("_wall_open");
+                    if(Strings.isNullOrEmpty(texture)){
+                        texture = planks(blockKey, "fence_gate").toString();
+                    }
                     MODELS.put(blockKey, Map.of(
                         "parent", "minecraft:block/template_fence_gate",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     MODELS.put(open, Map.of(
                         "parent", "minecraft:block/template_fence_gate_open",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     MODELS.put(wall, Map.of(
                         "parent", "minecraft:block/template_fence_gate_wall",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     MODELS.put(wall_open, Map.of(
                         "parent", "minecraft:block/template_fence_gate_wall_open",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     Map tMap = new HashMap();
                     tMap.put("facing=east,in_wall=false,open=false", model(blockKey, null, 270, null, true));
@@ -487,21 +491,23 @@ public enum Codes {
                         basicBlockItem((Supplier<? extends BlockItem>) () -> (BlockItem) block.get().asItem());
                     return this;
                 }
-                private <T extends Block> %%classname%% fenceBlock(Supplier<T> block, String textures, boolean isItem) {
+                private <T extends Block> %%classname%% fenceBlock(Supplier<T> block, String texture, boolean isItem) {
                     ResourceLocation key = BuiltInRegistries.BLOCK.getKey(block.get());
                     ResourceLocation blockKey = key.withPrefix("block/");
                     ResourceLocation itemKey = key.withPrefix("item/");
                     ResourceLocation post = blockKey.withSuffix("_post");
                     ResourceLocation side = blockKey.withSuffix("_side");
                     ResourceLocation inventory = blockKey.withSuffix("_inventory");
-                    ResourceLocation planks = planks(blockKey);
+                    if(Strings.isNullOrEmpty(texture)){
+                        texture = planks(blockKey).toString();
+                    }
                     MODELS.put(post, Map.of(
                         "parent", "minecraft:block/fence_post",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     MODELS.put(side, Map.of(
                         "parent", "minecraft:block/fence_side",
-                        "textures", Map.of("texture", planks.toString())
+                        "textures", Map.of("texture", texture)
                     ));
                     BLOCKSTATES.put(key, Map.of(
                         "multipart", List.of(
@@ -515,7 +521,7 @@ public enum Codes {
                     if(isItem) {
                         MODELS.put(inventory, Map.of(
                             "parent", "minecraft:block/fence_inventory",
-                            "textures", Map.of("texture", planks.toString())
+                            "textures", Map.of("texture", texture)
                         ));
                         MODELS.put(itemKey, Map.of("parent", inventory.toString()));
                     }
