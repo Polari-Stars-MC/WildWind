@@ -1,4 +1,4 @@
-package org.polaris2023.wild_wind.datagen.structure;
+package org.polaris2023.wild_wind.common.structure;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;

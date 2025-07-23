@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.neoforged.neoforge.common.Tags.Biomes;
-import org.polaris2023.wild_wind.datagen.structure.RuinedChapelStructure;
+import org.polaris2023.wild_wind.common.structure.RuinedChapelStructure;
 import org.polaris2023.wild_wind.util.Helpers;
 
 /**
