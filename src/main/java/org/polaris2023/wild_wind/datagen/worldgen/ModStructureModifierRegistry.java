@@ -37,7 +37,7 @@ public class ModStructureModifierRegistry {
 
         context.register(
             RUINED_CHAPEL_SET,
-            new StructureSet(holdergetter.getOrThrow(RUINED_CHAPEL), new RandomSpreadStructurePlacement(32, 8,
+            new StructureSet(holdergetter.getOrThrow(RUINED_CHAPEL), new RandomSpreadStructurePlacement(34, 12,
                 RandomSpreadType.LINEAR, 812731892))
         );
     }
