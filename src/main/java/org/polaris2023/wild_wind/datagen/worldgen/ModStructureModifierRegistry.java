@@ -7,6 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
+import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
 import net.neoforged.neoforge.common.Tags.Biomes;
@@ -27,7 +28,8 @@ public class ModStructureModifierRegistry {
         context.register(
             RUINED_CHAPEL,
             new RuinedChapelStructure(
-                new Structure.StructureSettings.Builder(holdergetter.getOrThrow(Biomes.IS_SWAMP)).build()
+                new Structure.StructureSettings.Builder(holdergetter.getOrThrow(Biomes.IS_SWAMP))
+                    .terrainAdapation(TerrainAdjustment.BEARD_BOX).build()
             )
         );
     }
