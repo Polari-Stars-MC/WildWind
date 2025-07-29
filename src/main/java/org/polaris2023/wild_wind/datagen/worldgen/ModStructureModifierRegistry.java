@@ -4,13 +4,13 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadType;
-import net.neoforged.neoforge.common.Tags.Biomes;
 import org.polaris2023.wild_wind.common.structure.RuinedChapelStructure;
 import org.polaris2023.wild_wind.util.Helpers;
 
@@ -28,7 +28,7 @@ public class ModStructureModifierRegistry {
         context.register(
             RUINED_CHAPEL,
             new RuinedChapelStructure(
-                new Structure.StructureSettings.Builder(holdergetter.getOrThrow(Biomes.IS_SWAMP))
+                new Structure.StructureSettings.Builder(holdergetter.getOrThrow(BiomeTags.HAS_SWAMP_HUT))
                     .terrainAdapation(TerrainAdjustment.BEARD_BOX).build()
             )
         );
